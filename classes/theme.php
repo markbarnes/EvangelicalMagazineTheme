@@ -20,18 +20,32 @@ class evangelical_magazine_theme {
         unregister_sidebar( 'header-right' ); // Remove the right header widget area
         //All singular pages
         if (is_singular()) {
-            add_action ('genesis_entry_header', array (get_called_class(), 'add_wrap_inside_entry_header'), 6);       // Add more markup after the <header>
-            add_action ('genesis_entry_header', array (get_called_class(), 'close_wrap_inside_entry_header'), 14);    // Close the markup just before the </header>
+            remove_action ('genesis_entry_header', 'genesis_post_info', 12);                                          // We'll move this to outside the entry-header
             add_filter( 'genesis_post_meta', '__return_false' );
         }
         // Single articles
         if (is_singular('em_article')) {
+            add_action ('genesis_entry_header', array (__CLASS__, 'add_wrap_inside_entry_header'), 6);       // Add more markup after the <header>
+            add_action ('genesis_entry_header', array (get_called_class(), 'close_wrap_inside_entry_header'), 14);    // Close the markup just before the </header>
             add_action ('genesis_entry_header', 'genesis_post_info', 16);                                             // This is AFTER the closing </header> tag
-            remove_action ('genesis_entry_header', 'genesis_post_info', 12);                                          // We'll move this to outside the entry-header
             add_action ('genesis_meta', array (get_called_class(), 'add_image_to_pages'), 11);                        // Uses styles in the HTML HEAD
             add_filter ('genesis_post_info', array (get_called_class(), 'filter_post_info'));
             add_filter ('genesis_post_title_output', array (get_called_class(), 'filter_post_title'));
             add_action ('genesis_entry_content', array (get_called_class(), 'add_to_end_of_article'), 11);
+        // Single author pages
+        } elseif (is_singular('em_author')) {
+            add_action ('genesis_meta', array (get_called_class(), 'add_image_to_pages'), 11); // Specify the title image using styles in the <HEAD>
+            // For author pages, we want the entry header to be moved inside entry content.
+            remove_action ('genesis_entry_header', 'genesis_do_post_format_image', 4);
+            remove_action ('genesis_entry_header', 'genesis_entry_header_markup_open', 5);
+            remove_action ('genesis_entry_header', 'genesis_entry_header_markup_close', 15);
+            remove_action ('genesis_entry_header', 'genesis_do_post_title');
+            remove_action ('genesis_entry_header', 'genesis_post_info', 12);
+            add_action ('genesis_entry_content', 'genesis_do_post_format_image', 4);
+            add_action ('genesis_entry_content', 'genesis_entry_header_markup_open', 5);
+            add_action ('genesis_entry_content', 'genesis_entry_header_markup_close', 7);
+            add_action ('genesis_entry_content', 'genesis_do_post_title', 8);
+            add_action ('genesis_entry_content', array (__CLASS__, 'add_to_end_of_author_page'));
         // Single pages that aren't articles
         } elseif (is_singular()) {
             add_filter ('genesis_post_info', '__return_false');
@@ -70,26 +84,22 @@ class evangelical_magazine_theme {
     }
 
     /**
-    * Adds the featured image to the top of the appropriate pages
+    * Adds the featured image to the top of the appropriate pages, by adding <style> to the HTML head.
     * 
+    * Called by the genesis_meta action, but only on single pages.
     */
     public static function add_image_to_pages() {
-        global $post;
-        if ($post && $post->post_type == 'em_article') {
-            $image_id = get_post_thumbnail_id ($post->ID);
-            if ($image_id) {
-                $image = wp_get_attachment_image_src($image_id, 'width_800');
-                if ($image) {
-                    $image[2] = ($image[2] > 400) ? 400 : $image[2]; //height
-                    echo "<style type=\"text/css\">.entry-header { height: {$image[2]}px; background-image: url('{$image[0]}'); background-size:cover; background-position: center center}</style>";
-                    return;
-                }
-            } else {
-                echo "<style type=\"text/css\">
-                    .content .entry-header { margin-top: 75px; margin-top: 7.5rem }
-                    .content .entry-content { padding-top: 25px; padding-top: 2.5rem; }
-                </style>";
+        $image_id = get_post_thumbnail_id ();
+        if ($image_id) {
+            $image = wp_get_attachment_image_src($image_id, is_singular('em_author') ? 'width_300' : 'width_800');
+            if ($image) {
+                echo "<style type=\"text/css\">.entry-header { background-image: url('{$image[0]}')}</style>";
             }
+        } else {
+            echo "<style type=\"text/css\">
+                .content .entry-header { margin-top: 75px; margin-top: 7.5rem }
+                .content .entry-content { padding-top: 25px; padding-top: 2.5rem; }
+            </style>";
         }
     }
     
@@ -265,4 +275,14 @@ class evangelical_magazine_theme {
         $menu = str_replace(array('<ul class="sub-menu">', '</ul>'), array('<ul class="sub-menu"><div class="wrap">', '</div></ul>'), $menu);
         return $menu;
     }
+    
+    public static function add_to_end_of_author_page() {
+        $author_id = get_the_ID();
+        $author = new evangelical_magazine_author($author_id);
+        $articles = $author->get_articles();
+        echo "<h3 class=\"articles_by\">Articles by {$author->get_name()}</h3>";
+        foreach ($articles as $article) {
+            echo $article->get_small_box_html(true, $article->get_issue_name(true));
+        }
+   }
 }

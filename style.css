@@ -1256,27 +1256,6 @@ img.alignright,
 .entry {
 }
 
-body.single-em_article .entry-title {
-    position:absolute;
-}
-
-body.single-em_article .entry-title-wrap .entry-title-series {
-    padding: 10px 40px 0 40px;
-    padding: 1rem 4rem 0 4rem;
-    width: 840px;
-    color: #FECA00;
-    text-shadow: 0.75px 0.75px 1px rgba(0,0,0,0.85);
-    font-size: 30px;
-    font-size: 3rem;
-    margin: 0 -20px 0 -20px;
-    margin: 0 -2rem 0 -2rem;
-    text-align: right;
-}
-
-body.single-em_article .entry-title-wrap .entry-title-series a {
-    color: #FECA00;
-}
-
 .entry-title {
     padding: 0 20px 20px 20px;
     padding: 0 2rem 2rem 2rem;
@@ -1291,6 +1270,8 @@ body.single-em_article .entry-title-wrap .entry-title-series a {
     position:relative;
     overflow: hidden;
     box-shadow: inset 0 0 100px 75px rgba(0,0,0,0.5);
+    background-size:cover;
+    background-position: center center
 }
 
 .content .entry {
@@ -1468,6 +1449,51 @@ p.entry-meta {
 
 .small-article-box.current .article-title a {
     color: #086788;
+}
+
+/* ## Single article pages
+--------------------------------------------- */
+
+body.single-em_article .entry-title {
+    position:absolute;
+}
+
+body.single-em_article .entry-title-wrap .entry-title-series {
+    padding: 10px 40px 0 40px;
+    padding: 1rem 4rem 0 4rem;
+    width: 840px;
+    color: #FECA00;
+    text-shadow: 0.75px 0.75px 1px rgba(0,0,0,0.85);
+    font-size: 30px;
+    font-size: 3rem;
+    margin: 0 -20px 0 -20px;
+    margin: 0 -2rem 0 -2rem;
+    text-align: right;
+}
+
+body.single-em_article .entry-title-wrap .entry-title-series a {
+    color: #FECA00;
+}
+
+body.single-em_article .entry-header {
+    height: 400px;
+}
+
+/* ## Single author pages
+--------------------------------------------- */
+
+body.single-em_author .entry-header {
+    height: 400px;
+    width: 300px;
+    float: left;
+    margin-right: 20px;
+    box-shadow: none;
+}
+
+body.single-em_author h3.articles_by {
+    clear: both;
+    border-bottom: 1px solid;
+    padding-top: 20px
 }
 
 /* ## Pagination
