@@ -280,9 +280,16 @@ class evangelical_magazine_theme {
         $author_id = get_the_ID();
         $author = new evangelical_magazine_author($author_id);
         $articles = $author->get_articles();
-        echo "<h3 class=\"articles_by\">Articles by {$author->get_name()}</h3>";
-        foreach ($articles as $article) {
-            echo $article->get_small_box_html(true, $article->get_issue_name(true));
+        if ($articles) {
+            echo "<h3 class=\"articles_by\">Articles by {$author->get_name()}</h3>";
+            $chunks = array_chunk ($articles, 3);
+            foreach ($chunks as $chunk) {
+                echo "<div class=\"article-box-row-wrap\">";
+                foreach ($chunk as $article) {
+                    echo $article->get_small_box_html(true, $article->get_issue_name(true));
+                }
+                echo '</div>';
+            }
         }
    }
 }

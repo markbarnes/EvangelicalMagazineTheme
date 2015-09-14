@@ -1407,6 +1407,12 @@ p.entry-meta {
 /* # Article boxes
 ------------------ */
 
+.article-box-row-wrap {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
 .small-article-box {
     width: 210px;
     float: left;
