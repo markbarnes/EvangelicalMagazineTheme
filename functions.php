@@ -13,7 +13,6 @@ define( 'CHILD_THEME_VERSION', '0.1' );
 add_theme_support( 'html5', array('search-form', 'comment-form', 'comment-list', 'gallery', 'caption')); //* Add HTML5 markup structure
 add_theme_support( 'genesis-accessibility', array( 'headings', 'drop-down-menu',  'search-form', 'skip-links', 'rems' ) ); //* Add Accessibility support
 add_theme_support( 'genesis-responsive-viewport' ); //* Add viewport meta tag for mobile browsers
-add_theme_support( 'custom-background' ); //* Add support for custom background
 //add_theme_support( 'genesis-footer-widgets', 3 ); //* Add support for 3-column footer widgets
 
 /**
@@ -38,8 +37,3 @@ add_image_size ('width_300', 300, 3000);
 add_image_size ('width_210', 210, 3000);
 add_image_size ('width_150', 150, 3000);
 add_image_size ('thumbnail_75', 75, 75, true);
-
-/**
-* Widget areas
-*/
-unregister_sidebar( 'header-right' ); // Remove the right header widget area

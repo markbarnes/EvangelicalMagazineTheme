@@ -1,6 +1,10 @@
 <?php
 class evangelical_magazine_home_page {
     
+    /**
+    * Outputs the 'recent articles' module on the home page
+    * 
+    */
     function do_most_recent_articles() {
         $latest_issues = evangelical_magazine_issue::get_all_issues(20);
         if ($latest_issues) {
@@ -40,6 +44,12 @@ class evangelical_magazine_home_page {
         }
     }
     
+    /**
+    * Outputs the 'sections' module on the home page
+    * 
+    * @param integer $max_per_section - maximum number of articles per section
+    * @param integer[] $exclude_article_ids - array of article ids to exclude from this process
+    */
     function do_sections($max_per_section = 5, $exclude_article_ids = array()) {
         $args = array ('orderby' => 'name', 'order' => 'ASC', 'hide_empty' => true);
         $sections = evangelical_magazine_section::get_all_sections($args);
@@ -69,4 +79,3 @@ class evangelical_magazine_home_page {
     }
     
 }
-?>

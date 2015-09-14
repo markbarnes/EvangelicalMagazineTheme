@@ -1,6 +1,6 @@
 <?php
 /**
- * This file adds the Home Page to the Bethel Church Theme.
+ * This file adds the Home Page to the Evangelical Magazine Theme.
  *
  * @author Mark Barnes
  * @package Generate

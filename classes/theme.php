@@ -13,6 +13,7 @@ class evangelical_magazine_theme {
         remove_action ('genesis_after_header', 'genesis_do_nav');
         add_filter( 'genesis_post_meta', '__return_false' );
         add_action ('genesis_footer', array ('evangelical_magazine_theme', 'do_footer_bottom')); // Add our own footer below the three widgets
+        unregister_sidebar( 'header-right' ); // Remove the right header widget area
         // Articles
         if (is_singular('em_article')) {
             add_action ('genesis_entry_header', array (get_called_class(), 'add_wrap_inside_entry_header'), 6);       // Add more markup after the <header>
