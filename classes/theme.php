@@ -360,11 +360,6 @@ class evangelical_magazine_theme {
    
    public static function output_author_archive_page ($content) {
        echo "<h1>Authors</h1>";
-       $authors = evangelical_magazine_author::get_all_authors_weighted_by_recent();
-       if ($authors) {
-           foreach ($authors as $author) {
-               echo "<a href=\"{$author->get_link()}\"><div class=\"author-grid\" style=\"background-image:url('{$author->get_image_url('width_150')}')\"><div class=\"author-description\">{$author->get_filtered_description()}</div></div></a>";
-           }
-       }
+       echo evangelical_magazine_author::get_author_grid_html();
    }
 }

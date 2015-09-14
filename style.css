@@ -1816,7 +1816,13 @@ body.home #recent-articles, body.home #sections {
     padding: 40px 0;
     padding: 4rem 0;
     overflow: hidden;
+    clear:both;
 }
+
+body.home #author-grid {
+    padding: 0;
+    overflow: hidden;
+    clear:both;}
 
 body.home #latest-cover {
     float:left;
@@ -1919,17 +1925,15 @@ body.home .article:hover .article-title {
     text-decoration: underline;
 }
 
-body.home #sections-left, #sections-center, #sections-right {
-    width: 380px;
-}
-
-body.home #sections-left, body.home #sections-center {
+body.home #sections .column {
+    width: 282px;
     float: left;
-    margin-right: 30px;
+    margin-right: 24px;
 }
 
-body.home #sections-right {
+body.home #sections-right.column {
     float: right;
+    margin-right: 0;
 }
 
 body.home .site-inner {
@@ -1938,7 +1942,7 @@ body.home .site-inner {
 
 .section-info-box {
     font-family: Lato, sans-serif;
-    margin-bottom: 40px;
+    margin-bottom: 24px;
     background-color: white;    
 }
 
@@ -1954,7 +1958,7 @@ body.home .site-inner {
     overflow: hidden;
     padding: 10px;
     border-bottom: 1px solid #086788;
-    line-height: 22px;
+    line-height: 18px;
 }
 
 .section-info-box li:first-child {
@@ -1993,13 +1997,13 @@ a:hover .section-info-box-image {
 }
 
 .section-info-box-image.first {
-    width: 380px;
-    height: 253px;
+    width: 282px;
+    height: 188px;
     margin-bottom: 10px;
 }
 
 .section-info-box-title {
-    font-size: 20px;
+    font-size: 14px;
     font-weight: 700;
 } 
 
@@ -2025,12 +2029,22 @@ a:hover .section-info-box-image {
 }
 
 .section-info-box-author {
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .section-info-box-issue {
     font-size: 14px;
     font-weight: 300;
+}
+
+body.home .author-grid {
+    width: 133.333px;
+    height: 133px;
+    border-bottom: none;
+}
+
+body.home a:hover .author-grid .author-description {
+    height: 132px;
 }
 
 /* # Media Queries
