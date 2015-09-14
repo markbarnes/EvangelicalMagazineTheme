@@ -8,7 +8,6 @@ class evangelical_magazine_home_page {
     */
     public static function do_home_page() {
         $recent_article_ids = self::do_most_recent_articles();
-        echo evangelical_magazine_author::get_author_grid_html(9);
         self::do_sections(1, $recent_article_ids);
     }
 
@@ -67,7 +66,7 @@ class evangelical_magazine_home_page {
         if ($sections) {
             shuffle($sections);
             echo '<aside id="sections">';
-                $possible_sides = array ('left', 'center-left', 'center-right', 'right');
+                $possible_sides = array ('left', 'center', 'right');
                 $side_index = 0;
                 foreach ($possible_sides as $s) {
                     $outputs [$s] = '';
@@ -75,14 +74,14 @@ class evangelical_magazine_home_page {
                 foreach ($sections as $section) {
                     $info_box = $section->get_info_box($max_per_section, $exclude_article_ids);
                     if ($info_box['output']) {
-                        $outputs[$possible_sides[($side_index % 4)]] .= $info_box['output'];
+                        $outputs[$possible_sides[($side_index % 3)]] .= $info_box['output'];
                         $exclude_article_ids = array_merge ($exclude_article_ids, $info_box['ids']);
                         $side_index ++;
                     }
                 }
                 foreach ($outputs as $side => $output) {
                     if ($output) {
-                        echo "<aside id=\"sections-{$side}\" class=\"column\">{$output}</aside>";
+                        echo "<aside id=\"sections-{$side}\">{$output}</aside>";
                     }
                 }
             echo '</aside>';
