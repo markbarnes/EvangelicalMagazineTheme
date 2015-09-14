@@ -26,15 +26,20 @@ class evangelical_magazine_theme {
         // Single articles
         if (is_singular('em_article')) {
             add_action ('genesis_entry_header', array (__CLASS__, 'add_wrap_inside_entry_header'), 6);       // Add more markup after the <header>
-            add_action ('genesis_entry_header', array (get_called_class(), 'close_wrap_inside_entry_header'), 14);    // Close the markup just before the </header>
-            add_action ('genesis_entry_header', 'genesis_post_info', 16);                                             // This is AFTER the closing </header> tag
-            add_action ('genesis_meta', array (get_called_class(), 'add_image_to_pages'), 11);                        // Uses styles in the HTML HEAD
-            add_filter ('genesis_post_info', array (get_called_class(), 'filter_post_info'));
-            add_filter ('genesis_post_title_output', array (get_called_class(), 'filter_post_title'));
-            add_action ('genesis_entry_content', array (get_called_class(), 'add_to_end_of_article'), 11);
+            add_action ('genesis_entry_header', array (__CLASS__, 'close_wrap_inside_entry_header'), 14);    // Close the markup just before the </header>
+            add_action ('genesis_entry_header', 'genesis_post_info', 16);                                    // This is AFTER the closing </header> tag
+            add_action ('genesis_meta', array (__CLASS__, 'add_image_to_pages'), 11);                        // Uses styles in the HTML HEAD
+            add_filter ('genesis_post_info', array (__CLASS__, 'filter_post_info'));
+            add_filter ('genesis_post_title_output', array (__CLASS__, 'filter_post_title'));
+            add_action ('genesis_entry_content', array (__CLASS__, 'add_to_end_of_article'), 11);
+        // Single and archive pages that aren't articles
+        } elseif (is_singular() || is_archive()) {
+            add_filter ('genesis_post_info', '__return_false');
+            remove_action( 'genesis_entry_footer', 'genesis_post_meta' );
+        }
         // Single author pages
-        } elseif (is_singular('em_author')) {
-            add_action ('genesis_meta', array (get_called_class(), 'add_image_to_pages'), 11); // Specify the title image using styles in the <HEAD>
+        if (is_singular('em_author')) {
+            add_action ('genesis_meta', array (__CLASS__, 'add_image_to_pages'), 11); // Specify the title image using styles in the <HEAD>
             // For author pages, we want the entry header to be moved inside entry content.
             remove_action ('genesis_entry_header', 'genesis_do_post_format_image', 4);
             remove_action ('genesis_entry_header', 'genesis_entry_header_markup_open', 5);
@@ -46,9 +51,18 @@ class evangelical_magazine_theme {
             add_action ('genesis_entry_content', 'genesis_entry_header_markup_close', 7);
             add_action ('genesis_entry_content', 'genesis_do_post_title', 8);
             add_action ('genesis_entry_content', array (__CLASS__, 'add_to_end_of_author_page'));
-        // Single pages that aren't articles
-        } elseif (is_singular()) {
-            add_filter ('genesis_post_info', '__return_false');
+        }
+        // Author archive page
+        if (is_post_type_archive('em_author')) {
+            // Remove all the standard entry headers/content
+            remove_action( 'genesis_entry_header', 'genesis_do_post_title' );
+            remove_action( 'genesis_entry_header', 'genesis_do_post_format_image', 4 );
+            remove_action( 'genesis_entry_content', 'genesis_do_post_image', 8 );
+            remove_action( 'genesis_entry_content', 'genesis_do_post_content' );
+            remove_action( 'genesis_entry_content', 'genesis_do_post_content_nav', 12 );
+            remove_action( 'genesis_entry_content', 'genesis_do_post_permalink', 14 );
+            // And replace it with our own
+            add_action ('genesis_entry_content', array(__CLASS__, 'output_author_archive_page'));
         }
     }
     
@@ -300,5 +314,57 @@ class evangelical_magazine_theme {
                 echo '</div>';
             }
         }
+   }
+   
+   /**
+   * Custom version of the genesis() and genesis_standard_loop() functions.
+   * 
+   * Used for generating custom archive pages.
+   */
+   public static function my_genesis() {
+        get_header();
+        do_action ('genesis_before_content_sidebar_wrap');
+        genesis_markup( array(
+            'html5'   => '<div %s>',
+            'xhtml'   => '<div id="content-sidebar-wrap">',
+            'context' => 'content-sidebar-wrap',
+        ) );
+        do_action( 'genesis_before_content' );
+        genesis_markup( array(
+            'html5'   => '<main %s>',
+            'xhtml'   => '<div id="content" class="hfeed">',
+            'context' => 'content',
+        ) );
+        do_action( 'genesis_before_loop' );
+        do_action( 'genesis_before_entry' );
+        printf( '<article %s>', genesis_attr( 'entry' ) );
+        do_action( 'genesis_entry_header' );
+        do_action( 'genesis_before_entry_content' );
+        printf( '<div %s>', genesis_attr( 'entry-content' ) );
+        do_action( 'genesis_entry_content' );
+        echo '</div>';
+        do_action( 'genesis_after_entry_content' );
+        do_action( 'genesis_entry_footer' );
+        echo '</article>';
+        do_action( 'genesis_after_entry' );
+        do_action( 'genesis_after_loop' );
+        genesis_markup( array(
+            'html5' => '</main>', //* end .content
+            'xhtml' => '</div>', //* end #content
+        ) );
+        do_action( 'genesis_after_content' );
+        echo '</div>'; //* end .content-sidebar-wrap or #content-sidebar-wrap
+        do_action( 'genesis_after_content_sidebar_wrap' );
+        get_footer();       
+   }
+   
+   public static function output_author_archive_page ($content) {
+       echo "<h1>Authors</h1>";
+       $authors = evangelical_magazine_author::get_all_authors_weighted_by_recent();
+       if ($authors) {
+           foreach ($authors as $author) {
+               echo "<a href=\"{$author->get_link()}\"><div class=\"author-grid\" style=\"background-image:url('{$author->get_image_url('width_150')}')\"><div class=\"author-description\">{$author->get_filtered_description()}</div></div></a>";
+           }
+       }
    }
 }
