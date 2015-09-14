@@ -16,30 +16,50 @@ class evangelical_magazine_theme {
         remove_action( 'genesis_header', 'genesis_header_markup_close', 15 );
         remove_action ('genesis_footer', 'genesis_do_footer');
         remove_action ('genesis_after_header', 'genesis_do_nav');
-        add_action ('genesis_footer', array ('evangelical_magazine_theme', 'do_footer_bottom')); // Add our own footer below the three widgets
-        unregister_sidebar( 'header-right' ); // Remove the right header widget area
-        //All singular pages
+        remove_action( 'genesis_entry_footer', 'genesis_post_meta' );
+         // Add our own footer below the three widgets
+        add_action ('genesis_footer', array ('evangelical_magazine_theme', 'do_footer_bottom'));
+        unregister_sidebar( 'header-right' );
+
+        // All singular pages
         if (is_singular()) {
-            remove_action ('genesis_entry_header', 'genesis_post_info', 12);                                          // We'll move this to outside the entry-header
+            remove_action ('genesis_entry_header', 'genesis_post_info', 12);
             add_filter( 'genesis_post_meta', '__return_false' );
+        // All archive pages
+        } elseif (is_archive()) {
+            // Remove all the standard entry headers/content
+            remove_action( 'genesis_entry_header', 'genesis_do_post_title' );
+            remove_action( 'genesis_entry_header', 'genesis_do_post_format_image', 4 );
+            remove_action( 'genesis_entry_content', 'genesis_do_post_image', 8 );
+            remove_action( 'genesis_entry_content', 'genesis_do_post_content' );
+            remove_action( 'genesis_entry_content', 'genesis_do_post_content_nav', 12 );
+            remove_action( 'genesis_entry_content', 'genesis_do_post_permalink', 14 );
         }
+
         // Single articles
         if (is_singular('em_article')) {
-            add_action ('genesis_entry_header', array (__CLASS__, 'add_wrap_inside_entry_header'), 6);       // Add more markup after the <header>
-            add_action ('genesis_entry_header', array (__CLASS__, 'close_wrap_inside_entry_header'), 14);    // Close the markup just before the </header>
-            add_action ('genesis_entry_header', 'genesis_post_info', 16);                                    // This is AFTER the closing </header> tag
-            add_action ('genesis_meta', array (__CLASS__, 'add_image_to_pages'), 11);                        // Uses styles in the HTML HEAD
+            // Add more markup after the <header>
+            add_action ('genesis_entry_header', array (__CLASS__, 'add_wrap_inside_entry_header'), 6);
+            // Close the markup just before the </header>
+            add_action ('genesis_entry_header', array (__CLASS__, 'close_wrap_inside_entry_header'), 14);
+            // Move the post_info to AFTER the closing </header> tag
+            add_action ('genesis_entry_header', 'genesis_post_info', 16);
+            // Add the image using styles in the HTML HEAD
+            add_action ('genesis_meta', array (__CLASS__, 'add_image_to_pages'), 11);
+            // Filter the post_info
             add_filter ('genesis_post_info', array (__CLASS__, 'filter_post_info'));
+            // Filter the title
             add_filter ('genesis_post_title_output', array (__CLASS__, 'filter_post_title'));
+            // Add the author/'see also' detail at the end of the article
             add_action ('genesis_entry_content', array (__CLASS__, 'add_to_end_of_article'), 11);
         // Single and archive pages that aren't articles
         } elseif (is_singular() || is_archive()) {
             add_filter ('genesis_post_info', '__return_false');
-            remove_action( 'genesis_entry_footer', 'genesis_post_meta' );
         }
         // Single author pages
         if (is_singular('em_author')) {
-            add_action ('genesis_meta', array (__CLASS__, 'add_image_to_pages'), 11); // Specify the title image using styles in the <HEAD>
+             // Specify the title image using styles in the <HEAD>
+            add_action ('genesis_meta', array (__CLASS__, 'add_image_to_pages'), 11);
             // For author pages, we want the entry header to be moved inside entry content.
             remove_action ('genesis_entry_header', 'genesis_do_post_format_image', 4);
             remove_action ('genesis_entry_header', 'genesis_entry_header_markup_open', 5);
@@ -52,16 +72,10 @@ class evangelical_magazine_theme {
             add_action ('genesis_entry_content', 'genesis_do_post_title', 8);
             add_action ('genesis_entry_content', array (__CLASS__, 'add_to_end_of_author_page'));
         }
+
         // Author archive page
         if (is_post_type_archive('em_author')) {
-            // Remove all the standard entry headers/content
-            remove_action( 'genesis_entry_header', 'genesis_do_post_title' );
-            remove_action( 'genesis_entry_header', 'genesis_do_post_format_image', 4 );
-            remove_action( 'genesis_entry_content', 'genesis_do_post_image', 8 );
-            remove_action( 'genesis_entry_content', 'genesis_do_post_content' );
-            remove_action( 'genesis_entry_content', 'genesis_do_post_content_nav', 12 );
-            remove_action( 'genesis_entry_content', 'genesis_do_post_permalink', 14 );
-            // And replace it with our own
+            // And the entry content with our own
             add_action ('genesis_entry_content', array(__CLASS__, 'output_author_archive_page'));
         }
     }
