@@ -21,6 +21,7 @@ add_theme_support( 'genesis-responsive-viewport' ); //* Add viewport meta tag fo
 add_action ('wp', array ('evangelical_magazine_theme', 'rearrange_layout'));
 add_action ('wp_enqueue_scripts', array ('evangelical_magazine_theme', 'enqueue_fonts'));
 add_action ('wp_enqueue_scripts', array ('evangelical_magazine_theme', 'disable_superfish'));
+  
 
 /**
 * Add filters

@@ -279,6 +279,12 @@ class evangelical_magazine_theme {
         return $menu;
     }
     
+    /**
+    * Adds article info to the end of author pages.
+    * 
+    * Called by genesis_entry_content
+    * 
+    */
     public static function add_to_end_of_author_page() {
         $author_id = get_the_ID();
         $author = new evangelical_magazine_author($author_id);
