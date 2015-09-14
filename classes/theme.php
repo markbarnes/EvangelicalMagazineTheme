@@ -134,14 +134,20 @@ class evangelical_magazine_theme {
         global $post;
         $article = new evangelical_magazine_article($post);
         $authors = $article->get_authors();
+        if ($article->has_series()) {
+            $also_in = $article->get_articles_in_same_series();
+        } else {
+            $also_in = array();
+        }
+
         if ($authors) {
             $is_single_author = count($authors) == 1;
             echo "<div class =\"author-meta\"><h2>About the author".($is_single_author ? '' : 's')."</h2>";
             foreach ($authors as $author) {
                 echo $author->get_author_info_html();
             }
-            if (!$article->has_series()) {
-                $also_by = $article->get_articles_by_same_authors();
+            if (count($also_in) < 2) {
+                $also_by = $article->get_articles_by_same_authors(3);
                 if ($also_by) {
                     if ($is_single_author) {
                         $author = current ($authors);
@@ -157,22 +163,19 @@ class evangelical_magazine_theme {
             echo '</div>';
         }
         $excluded_articles = array();
-        if ($article->has_series()) {
-            $also_in = $article->get_articles_in_same_series();
-            if (count($also_in) > 1) {
-                echo "<div class =\"series-meta\"><h2>Also in the {$article->get_series_name(true)} series</h2>";
-                $also_articles_array = array(); // We're going to split it into rows of three
-                foreach ($also_in as $also_article) {
-                    $class = $also_article->get_id() == $article->get_id() ? 'current' : '';
-                    $also_articles_array[] = $also_article->get_small_box_html(!(bool)$class, "Part {$also_article->get_series_order()}", $class);
-                    $excluded_articles[] = $also_article->get_id();
-                }
-                $chunked_also_articles_array = array_chunk ($also_articles_array, 3);
-                foreach ($chunked_also_articles_array as $chunk) {
-                    echo '<div class="row-wrap">'.implode('', $chunk).'</div>';
-                }
-                echo '</div>';
+        if ($article->has_series() && count($also_in) > 1) {
+            echo "<div class =\"series-meta\"><h2>Also in the {$article->get_series_name(true)} series</h2>";
+            $also_articles_array = array(); // We're going to split it into rows of three
+            foreach ($also_in as $also_article) {
+                $class = $also_article->get_id() == $article->get_id() ? 'current' : '';
+                $also_articles_array[] = $also_article->get_small_box_html(!(bool)$class, "Part {$also_article->get_series_order()}", $class);
+                $excluded_articles[] = $also_article->get_id();
             }
+            $chunked_also_articles_array = array_chunk ($also_articles_array, 3);
+            foreach ($chunked_also_articles_array as $chunk) {
+                echo '<div class="row-wrap">'.implode('', $chunk).'</div>';
+            }
+            echo '</div>';
         }
         $excluded_articles[] = $article->get_id();
         if ($article->has_sections()) {
