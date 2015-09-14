@@ -2,7 +2,12 @@
 
 class evangelical_magazine_theme {
     
-    static function rearrange_layout() {
+    /**
+    * Actions and filters to rearrange the layout as required for the various post types.
+    * 
+    * Called on the 'wp' action.
+    */
+    public static function rearrange_layout() {
         // All post types
         add_action ('genesis_before_header', 'genesis_do_nav');
         add_filter ('genesis_structural_wrap-menu-primary', array ('evangelical_magazine_theme', 'add_logo_to_nav_bar'));
@@ -11,21 +16,24 @@ class evangelical_magazine_theme {
         remove_action( 'genesis_header', 'genesis_header_markup_close', 15 );
         remove_action ('genesis_footer', 'genesis_do_footer');
         remove_action ('genesis_after_header', 'genesis_do_nav');
-        add_filter( 'genesis_post_meta', '__return_false' );
         add_action ('genesis_footer', array ('evangelical_magazine_theme', 'do_footer_bottom')); // Add our own footer below the three widgets
         unregister_sidebar( 'header-right' ); // Remove the right header widget area
-        // Articles
-        if (is_singular('em_article')) {
+        //All singular pages
+        if (is_singular()) {
             add_action ('genesis_entry_header', array (get_called_class(), 'add_wrap_inside_entry_header'), 6);       // Add more markup after the <header>
             add_action ('genesis_entry_header', array (get_called_class(), 'close_wrap_inside_entry_header'), 14);    // Close the markup just before the </header>
+            add_filter( 'genesis_post_meta', '__return_false' );
+        }
+        // Single articles
+        if (is_singular('em_article')) {
             add_action ('genesis_entry_header', 'genesis_post_info', 16);                                             // This is AFTER the closing </header> tag
             remove_action ('genesis_entry_header', 'genesis_post_info', 12);                                          // We'll move this to outside the entry-header
             add_action ('genesis_meta', array (get_called_class(), 'add_image_to_pages'), 11);                        // Uses styles in the HTML HEAD
             add_filter ('genesis_post_info', array (get_called_class(), 'filter_post_info'));
             add_filter ('genesis_post_title_output', array (get_called_class(), 'filter_post_title'));
             add_action ('genesis_entry_content', array (get_called_class(), 'add_to_end_of_article'), 11);
-        // Not articles
-        } else {
+        // Single pages that aren't articles
+        } elseif (is_singular()) {
             add_filter ('genesis_post_info', '__return_false');
         }
     }
@@ -51,12 +59,20 @@ class evangelical_magazine_theme {
         }
     }
     
+    /**
+    * Dequeues the superfish javascript
+    * 
+    */
     public static function disable_superfish() {
         wp_dequeue_script('superfish');
         wp_dequeue_script('superfish-args');
         wp_dequeue_script('superfish-compat');
     }
 
+    /**
+    * Adds the featured image to the top of the appropriate pages
+    * 
+    */
     public static function add_image_to_pages() {
         global $post;
         if ($post && $post->post_type == 'em_article') {
@@ -77,7 +93,13 @@ class evangelical_magazine_theme {
         }
     }
     
-    static function filter_post_info($post_info) {
+    /**
+    * Filters the post info for articles
+    * 
+    * @param string $post_info
+    * @return string
+    */
+    public static function filter_post_info($post_info) {
         global $post;
         if ($post && $post->post_type == 'em_article') {
             $article = new evangelical_magazine_article($post);
@@ -92,7 +114,13 @@ class evangelical_magazine_theme {
         }
     }
     
-    static function add_to_end_of_article () {
+    /**
+    * Outputs Author/Series/Section information at the end of articles
+    * 
+    * Called by the genesis_entry_content action.
+    * 
+    */
+    public static function add_to_end_of_article () {
         global $post;
         $article = new evangelical_magazine_article($post);
         $authors = $article->get_authors();
@@ -155,7 +183,15 @@ class evangelical_magazine_theme {
         }
     }
     
-    static function filter_post_title ($title) {
+    /**
+    * Adds series information into the header
+    * 
+    * Filters 'genesis_post_title_output', but only for articles
+    * 
+    * @param string $title
+    * @return string
+    */
+    public static function filter_post_title ($title) {
         global $post;
         $article = new evangelical_magazine_article($post);
         if ($article->has_series()) {
@@ -165,21 +201,47 @@ class evangelical_magazine_theme {
         }
     }
     
-    static function add_wrap_inside_entry_header() {
+    /**
+    * Outputs an additional div into the entry header of single pages
+    * 
+    * Called by the 'genesis-entry-header' action
+    * 
+    */
+    public static function add_wrap_inside_entry_header() {
         echo '<div class="entry-title-wrap">';
     }
 
-    static function close_wrap_inside_entry_header() {
+    /**
+    * Outputs to close the additional div in the entry header of single pages
+    * 
+    * Called by the 'genesis-entry-header' action
+    * 
+    */
+    public static function close_wrap_inside_entry_header() {
         echo '</div>';
     }
 
-    static function do_footer_bottom() {
+    /**
+    * Outputs the footer on all pages
+    * 
+    * Called by the 'genesis_foooter' action
+    * 
+    */
+    public static function do_footer_bottom() {
         echo "<a class=\"logo\" href=\"".get_site_url()."\"></a>";
         echo '<span class="emw">The Evangelical Magazine is published by the <a href="https://www.emw.org.uk/">Evangelical Movement of Wales</a></span><br/>';
         echo '<span class="address">Waterton Cross Business Park, South Road, Bridgend CF31 3UL</span><br/>';
         echo '<span class="registration">Registered charity number 222407</span>';
     }
     
+    /**
+    * Modifies the main nav menu html to add the 'recent issues' sub-menu
+    * 
+    * Filters wp_nav_menu_items
+    * 
+    * @param string $menu
+    * @return string
+    */
     public static function modify_menu ($menu) {
         $text_to_look_for = '<span itemprop="name">Recent Issues</span></a>';
         if (strpos($menu, $text_to_look_for) !== FALSE) {
@@ -202,11 +264,5 @@ class evangelical_magazine_theme {
         }
         $menu = str_replace(array('<ul class="sub-menu">', '</ul>'), array('<ul class="sub-menu"><div class="wrap">', '</div></ul>'), $menu);
         return $menu;
-    }
-    
-    public static function do_home_page() {
-        $home = new evangelical_magazine_home_page();
-        $recent_article_ids = $home->do_most_recent_articles();
-        $home->do_sections(1, $recent_article_ids);
     }
 }

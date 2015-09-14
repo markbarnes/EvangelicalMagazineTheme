@@ -2,10 +2,20 @@
 class evangelical_magazine_home_page {
     
     /**
+    * Outputs the home page
+    * 
+    * Called by the 'genesis_loop' action, added by front-page.php
+    */
+    public static function do_home_page() {
+        $recent_article_ids = self::do_most_recent_articles();
+        self::do_sections(1, $recent_article_ids);
+    }
+
+    /**
     * Outputs the 'recent articles' module on the home page
     * 
     */
-    function do_most_recent_articles() {
+    public static function do_most_recent_articles() {
         $latest_issues = evangelical_magazine_issue::get_all_issues(20);
         if ($latest_issues) {
             //Output the cover of the most recent issue
@@ -50,7 +60,7 @@ class evangelical_magazine_home_page {
     * @param integer $max_per_section - maximum number of articles per section
     * @param integer[] $exclude_article_ids - array of article ids to exclude from this process
     */
-    function do_sections($max_per_section = 5, $exclude_article_ids = array()) {
+    public static function do_sections($max_per_section = 5, $exclude_article_ids = array()) {
         $args = array ('orderby' => 'name', 'order' => 'ASC', 'hide_empty' => true);
         $sections = evangelical_magazine_section::get_all_sections($args);
         if ($sections) {
