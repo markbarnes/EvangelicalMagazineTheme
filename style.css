@@ -1404,7 +1404,6 @@ p.entry-meta {
     margin-bottom: 0;
 }
 
-
 /* # Article boxes
 ------------------ */
 
@@ -1499,8 +1498,6 @@ a:hover .author-grid .author-description {
     transition:         all 0.4s ease-in-out;
 }
 
-
-
 /* ## Single article pages
 --------------------------------------------- */
 
@@ -1544,6 +1541,69 @@ body.single-em_author h3.articles_by {
     clear: both;
     border-bottom: 1px solid;
     padding-top: 20px
+}
+
+/* ## Issue archive page
+--------------------------------------------- */
+
+body.post-type-archive-em_issue .issue-list {
+    margin-left: 0;
+    margin-bottom: 0;
+}
+
+body.post-type-archive-em_issue ul.issue-list > li.issue {
+    list-style-type: none;
+    clear: both;
+    overflow: hidden;
+    margin: 40px 0;
+}
+
+body.post-type-archive-em_issue ul.issue-list > li.issue:first-child {
+    margin-top: 0;
+}
+
+body.post-type-archive-em_issue ul.issue-list > li.issue:last-child {
+    margin-bottom: 0;
+}
+
+body.post-type-archive-em_issue .magazine-cover {
+    width: 210px;
+    height: 297px;
+    float: left;
+    margin-right: 20px;
+    background-position: center center;
+    background-size: cover;
+    box-shadow: inset 0 0 40px 10px rgba(0,0,0,0.5);
+    -webkit-transition: box-shadow 0.4s ease-in-out;
+    -moz-transition:    box-shadow 0.4s ease-in-out;
+    -ms-transition:     box-shadow 0.4s ease-in-out;
+    -o-transition:      box-shadow 0.4s ease-in-out;
+    transition:         box-shadow 0.4s ease-in-out;
+}
+
+body.post-type-archive-em_issue a:hover .magazine-cover {
+    box-shadow: none;
+    -webkit-transition: box-shadow 0.4s ease-in-out;
+    -moz-transition:    box-shadow 0.4s ease-in-out;
+    -ms-transition:     box-shadow 0.4s ease-in-out;
+    -o-transition:      box-shadow 0.4s ease-in-out;
+    transition:         box-shadow 0.4s ease-in-out;
+}
+
+body.post-type-archive-em_issue .issue-contents {
+    font-size: 16px;
+    line-height: 18px;
+    font-family: Lato;
+    float: left;
+    width: 450px;
+}
+
+body.post-type-archive-em_issue .issue-contents .article-title {
+    font-weight: 700;
+}
+
+body.post-type-archive-em_issue .issue-contents .article-authors {
+    font-weight: 300;
 }
 
 /* ## Pagination

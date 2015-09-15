@@ -50,7 +50,7 @@ class evangelical_magazine_theme {
             add_filter ('genesis_post_info', array (__CLASS__, 'filter_post_info'));
             // Filter the title
             add_filter ('genesis_post_title_output', array (__CLASS__, 'filter_post_title'));
-            // Add the author/'see also' detail at the end of the article
+            // Add the author/'see also' detail at the end of the article (also increases the view count)
             add_action ('genesis_entry_content', array (__CLASS__, 'add_to_end_of_article'), 11);
         // Single and archive pages that aren't articles
         } elseif (is_singular() || is_archive()) {
@@ -75,8 +75,12 @@ class evangelical_magazine_theme {
 
         // Author archive page
         if (is_post_type_archive('em_author')) {
-            // And the entry content with our own
+            // Add our own entry content
             add_action ('genesis_entry_content', array(__CLASS__, 'output_author_archive_page'));
+        // Issues archive page
+        } elseif (is_post_type_archive('em_issue')) {
+            // Add our own entry content
+            add_action ('genesis_entry_content', array(__CLASS__, 'output_issue_archive_page'));
         }
     }
     
@@ -154,6 +158,7 @@ class evangelical_magazine_theme {
     
     /**
     * Outputs Author/Series/Section information at the end of articles
+    * Also updates the view count, as it's only called for singular article views.
     * 
     * Called by the genesis_entry_content action.
     * 
@@ -161,6 +166,7 @@ class evangelical_magazine_theme {
     public static function add_to_end_of_article () {
         global $post;
         $article = new evangelical_magazine_article($post);
+        $article->record_view_count();
         $authors = $article->get_authors();
         if ($article->has_series()) {
             $also_in = $article->get_articles_in_same_series();
@@ -379,6 +385,37 @@ class evangelical_magazine_theme {
            foreach ($authors as $author) {
                echo "<a href=\"{$author->get_link()}\"><div class=\"author-grid\" style=\"background-image:url('{$author->get_image_url('width_150')}')\"><div class=\"author-description\">{$author->get_filtered_description()}</div></div></a>";
            }
+       }
+   }
+
+   public static function output_issue_archive_page ($content) {
+       $max_articles_displayed = 4;
+       echo "<h1>Issues</h1>";
+       $issues = evangelical_magazine_issue::get_all_issues();
+       if ($issues) {
+           echo "<ul class=\"issue-list\">";
+           foreach ($issues as $issue) {
+               echo "<li class=\"issue\"><a href=\"{$issue->get_link()}\"><div class=\"magazine-cover\" style=\"background-image:url('{$issue->get_image_url('width_210')}')\"></div></a>";
+               echo "<div class=\"issue-contents\"><h4>{$issue->get_name(true)}</h4>";
+               $articles = $issue->get_top_articles($max_articles_displayed);
+               if ($articles) {
+                   echo "<ul class=\"top-articles\">";
+                   foreach ($articles as $article) {
+                       echo "<li><span class=\"article-title\">{$article->get_title(true)}</span><br/><span class=\"article-authors\">by {$article->get_author_names(true)}</span></li>";
+                   }
+                   $remaining_articles = $issue->get_article_count() - $max_articles_displayed;
+                   if ($remaining_articles > 0) {
+                       echo "</ul><p>&hellip;and <a href=\"{$issue->get_link()}\">{$remaining_articles} more</a></p>";
+                   } else {
+                       echo "</ul>";
+                   }
+               }
+               else {
+                   echo "<p>Coming soon&hellip;</p>";
+               }
+               echo "</div></li>";
+           }
+           echo "</ul>";
        }
    }
 }
