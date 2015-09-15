@@ -135,22 +135,12 @@ input[type="search"]{
 /* ## Typographical Elements
 --------------------------------------------- */
 
-html {
-    font-size: 62.5%; /* 10px browser default */
-}
-
-/* Chrome fix */
-body > div {
-    font-size: 1.8rem;
-}
-
 body {
 	background-color: #f0f0f0;
     background-image: url('images/background.jpg');
 	color: #333;
 	font-family: Aleo, serif;
 	font-size: 18px;
-	font-size: 1.8rem;
 	font-weight: 400;
 	line-height: 1.625;
 	margin: 0;
@@ -250,32 +240,26 @@ h6 {
 
 h1 {
 	font-size: 48px;
-	font-size: 4.8rem;
 }
 
 h2 {
 	font-size: 36px;
-	font-size: 3.6rem;
 }
 
 h3 {
 	font-size: 30px;
-	font-size: 3.0rem;
 }
 
 h4 {
 	font-size: 24px;
-	font-size: 2.4rem;
 }
 
 h5 {
 	font-size: 20px;
-	font-size: 2.0rem;
 }
 
 h6 {
 	font-size: 18px;
-	font-size: 1.8rem;
 }
 
 /* ## Objects
@@ -365,7 +349,6 @@ textarea {
 	border: 1px solid #ddd;
 	color: #333;
 	font-size: 18px;
-	font-size: 1.8rem;
 	font-weight: 300;
 	padding: 16px;
 	width: 100%;
@@ -404,7 +387,6 @@ input[type="submit"],
 	color: #fff;
 	cursor: pointer;
 	font-size: 16px;
-	font-size: 1.6rem;
 	font-weight: 300;
 	padding: 16px 24px;
 	text-transform: uppercase;
@@ -679,14 +661,12 @@ th {
 .author-box {
 	background-color: #fff;
 	font-size: 16px;
-	font-size: 1.6rem;
 	margin-bottom: 40px;
 	padding: 40px;
 }
 
 .author-box-title {
 	font-size: 16px;
-	font-size: 1.6rem;
 	margin-bottom: 4px;
 }
 
@@ -728,13 +708,11 @@ th {
 
 .archive-title {
 	font-size: 20px;
-	font-size: 2rem;
 }
 
 .entry-title {
     font-family: 'League Gothic';
 	font-size: 55px;
-	font-size: 5.5rem;
 }
 
 .entry-title a,
@@ -749,7 +727,6 @@ th {
 
 .widget-title {
 	font-size: 18px;
-	font-size: 1.8rem;
 	margin-bottom: 20px;
 }
 
@@ -806,7 +783,6 @@ img.alignright,
 
 .wp-caption-text {
 	font-size: 14px;
-	font-size: 1.4rem;
 	font-weight: 700;
 	text-align: center;
 }
@@ -865,7 +841,6 @@ img.alignright,
 
 .featured-content .entry-title {
 	font-size: 20px;
-	font-size: 2rem;
 }
 
 
@@ -891,7 +866,6 @@ img.alignright,
 
 .enews-widget input {
 	font-size: 16px;
-	font-size: 1.6rem;
 	margin-bottom: 16px;
 }
 
@@ -966,7 +940,6 @@ img.alignright,
 
 .site-title {
 	font-size: 32px;
-	font-size: 3.2rem;
 	font-weight: 400;
 	line-height: 1.2;
 }
@@ -986,7 +959,6 @@ img.alignright,
 
 .site-description {
 	font-size: 16px;
-	font-size: 1.6rem;
 	font-weight: 300;
 	line-height: 1.5;
 }
@@ -1019,7 +991,6 @@ img.alignright,
 	clear: both;
     font-family: 'League Gothic';
 	font-size: 30px;
-	font-size: 3rem;
 	line-height: 1;
 	float:right;
 }
@@ -1064,7 +1035,6 @@ img.alignright,
 .genesis-nav-menu .sub-menu a {
     font-family: Lato, sans-serif;
 	font-size: 14px;
-	font-size: 1.4rem;
 	padding: 20px;
 	position: relative;
 	font-weight: 700;
@@ -1133,8 +1103,7 @@ img.alignright,
 
 .genesis-nav-menu .menu-item-type-issue {
     width: 186px;
-    padding: 20px 13px;
-    padding: 2rem 1.8rem;
+    padding: 20px 18px;
     text-align: center;
 }
 
@@ -1171,7 +1140,6 @@ img.alignright,
 
 .genesis-nav-menu .menu-item-more-issues a {
     font-size: 18px;
-    font-size: 1.8rem;
 }
 
 /* ## Site Header Navigation
@@ -1259,7 +1227,6 @@ img.alignright,
 
 .entry-title {
     padding: 0 20px 20px 20px;
-    padding: 0 2rem 2rem 2rem;
     bottom:0;
     width: 100%;
     margin-bottom: 0;
@@ -1295,13 +1262,11 @@ img.alignright,
 .entry-content ol > li {
 	list-style-type: decimal;
     margin: 10px 0;
-    margin: 1rem 0;
 }
 
 .entry-content ul > li {
 	list-style-type: disc;
     margin: 10px 0;
-    margin: 1rem 0;
 }
 
 .entry-content ol ol,
@@ -1319,10 +1284,8 @@ img.alignright,
 
 p.entry-meta {
 	font-size: 16px;
-	font-size: 1.6rem;
 	margin-bottom: 0;
     padding: 10px 20px;
-    padding: 1rem 2rem;
     background-color: #086788;
     color: white;
     font-family: Lato;
@@ -1374,7 +1337,6 @@ p.entry-meta {
     clear: both;
     overflow: hidden;
     margin-bottom: 10px;
-    margin-bottom: 1rem;
 }
 
 .author-meta .author-info .author-image {
@@ -1386,7 +1348,6 @@ p.entry-meta {
 .series-meta h2, .sections-meta h2 {
     border-bottom: 1px solid;
     margin-top: 30px;
-    margin-top: 3rem;
     clear:both;
 }
 
@@ -1396,7 +1357,6 @@ p.entry-meta {
 
 .series-meta div.row-wrap {
     margin-bottom: 20px;
-    margin-bottom: 2rem;
     overflow: hidden;
 }
 
@@ -1433,13 +1393,11 @@ p.entry-meta {
     padding: 3px 5px;
     color: #086788;
     font-size: 15px;
-    font-size: 1.5rem;
 }
 
 .small-article-box .article-title {
     background-color: #086788;
     padding: 5px 10px;
-    padding: 0.5rem 1rem; 
 }
 
 .small-article-box .article-title a {
@@ -1507,14 +1465,11 @@ body.single-em_article .entry-title {
 
 body.single-em_article .entry-title-wrap .entry-title-series {
     padding: 10px 40px 0 40px;
-    padding: 1rem 4rem 0 4rem;
     width: 840px;
     color: #FECA00;
     text-shadow: 0.75px 0.75px 1px rgba(0,0,0,0.85);
     font-size: 30px;
-    font-size: 3rem;
     margin: 0 -20px 0 -20px;
-    margin: 0 -2rem 0 -2rem;
     text-align: right;
 }
 
@@ -1628,7 +1583,6 @@ body.post-type-archive-em_issue .issue-contents .article-authors {
 	cursor: pointer;
 	display: inline-block;
 	font-size: 16px;
-	font-size: 1.6rem;
 	padding: 8px 12px;
 	text-decoration: none;
 }
@@ -1661,7 +1615,6 @@ body.post-type-archive-em_issue .issue-contents .article-authors {
 
 .comment-header {
 	font-size: 16px;
-	font-size: 1.6rem;
 }
 
 li.comment {
@@ -1709,7 +1662,6 @@ li.comment {
 .form-allowed-tags {
 	background-color: #f5f5f5;
 	font-size: 16px;
-	font-size: 1.6rem;
 	padding: 24px;
 }
 
@@ -1719,7 +1671,6 @@ li.comment {
 
 .sidebar {
 	font-size: 16px;
-	font-size: 1.6rem;
 }
 
 .sidebar li {
@@ -1749,23 +1700,19 @@ Footer Widgets
     color: #999;
     clear: both;
     padding: 40px 0 0;
-    padding: 4rem 0 0;
 }
 
 .footer-widgets-1,
 .footer-widgets-3 {
     width: 360px;
-    width: 36rem;
 }
 
 .footer-widgets-2 {
     width: 360px;
-    width: 36rem;
 }
 
 .footer-widgets-1 {
     margin-right: 40px;
-    margin-right: 4rem;
 }
 
 .footer-widgets-1,
@@ -1787,7 +1734,6 @@ Footer Widgets
 
 .footer-widgets .widget {
     margin-bottom: 24px;
-    margin-bottom: 2.4rem;
 }
 
 .footer-widgets .widget-title {
@@ -1798,7 +1744,6 @@ Footer Widgets
 .footer-widgets li {
     list-style-type: none;
     margin-bottom: 6px;
-    margin-bottom: 0.6rem;
     word-wrap: break-word;
 }
 
@@ -1814,10 +1759,8 @@ Footer Widgets
     background-color: #043444;
     color: #ccc;
 	font-size: 14px;
-	font-size: 1.4rem;
 	line-height: 1.3;
 	padding: 25px 0;
-    padding: 2.5rem 0;
 }
 
 .site-footer p {
@@ -1848,7 +1791,6 @@ Footer Widgets
 .site-footer .logo {
     float:left;
     margin: 3px 20px 0 -181px;
-    margin: 0.3rem 2rem 0 -181px;
     width: 181px;
     height: 50px;
     background-image: url('images/logo-sprite.png');
@@ -1874,7 +1816,6 @@ body.home .site-inner {
 
 body.home #recent-articles, body.home #sections {
     padding: 40px 0;
-    padding: 4rem 0;
     overflow: hidden;
 }
 
@@ -1960,7 +1901,6 @@ body.home .article-title {
     position: absolute;
     font-family: 'League Gothic';
     font-size: 28px;
-    font-size: 2.8rem;
     line-height: 25px;
     padding: 0 20px 10px 20px;
     text-shadow: 1.25px 1.25px 1px rgba(0,0,0,.85);
@@ -2191,7 +2131,6 @@ a:hover .section-info-box-image {
 	body {
 		background-color: #fff;
 		font-size: 16px;
-		font-size: 1.6rem;
 	}
 
 	.site-inner,
