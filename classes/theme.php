@@ -1,5 +1,8 @@
 <?php
 
+/**
+* Wrapper class to make sure there are no collisions
+*/
 class evangelical_magazine_theme {
     
     /**
@@ -10,7 +13,7 @@ class evangelical_magazine_theme {
     public static function rearrange_layout() {
         // All post types
         add_action ('genesis_before_header', 'genesis_do_nav');
-        add_filter ('genesis_structural_wrap-menu-primary', array ('evangelical_magazine_theme', 'add_logo_to_nav_bar'));
+        add_filter ('genesis_structural_wrap-menu-primary', array (__CLASS__, 'add_logo_to_nav_bar'));
         remove_action( 'genesis_header', 'genesis_header_markup_open', 5 );
         remove_action( 'genesis_header', 'genesis_do_header' );
         remove_action( 'genesis_header', 'genesis_header_markup_close', 15 );
@@ -18,7 +21,7 @@ class evangelical_magazine_theme {
         remove_action ('genesis_after_header', 'genesis_do_nav');
         remove_action( 'genesis_entry_footer', 'genesis_post_meta' );
          // Add our own footer below the three widgets
-        add_action ('genesis_footer', array ('evangelical_magazine_theme', 'do_footer_bottom'));
+        add_action ('genesis_footer', array (__CLASS__, 'do_footer_bottom'));
         unregister_sidebar( 'header-right' );
 
         // All singular pages
@@ -147,7 +150,7 @@ class evangelical_magazine_theme {
             $article = new evangelical_magazine_article($post);
             $output = 'By '.$article->get_author_names(true); 
             $output .= "<span style=\"float:right\">{$article->get_issue_name(true)}";
-            if ($page_num = $article->get_issue_page_num()) {
+            if ($page_num = $article->get_page_num()) {
                 $output .= ", page {$page_num}";
             }
             return "{$output}</span>";
@@ -378,16 +381,30 @@ class evangelical_magazine_theme {
         get_footer();       
    }
    
+   /**
+   * Outputs the author archive page
+   * 
+   * Called on the 'genesis_entry_content' action
+   * 
+   * @param string $content
+   */
    public static function output_author_archive_page ($content) {
        echo "<h1>Authors</h1>";
        $authors = evangelical_magazine_author::get_all_authors_weighted_by_recent();
        if ($authors) {
            foreach ($authors as $author) {
-               echo "<a href=\"{$author->get_link()}\"><div class=\"author-grid\" style=\"background-image:url('{$author->get_image_url('width_150')}')\"><div class=\"author-description\">{$author->get_filtered_description()}</div></div></a>";
+               echo "<a href=\"{$author->get_link()}\"><div class=\"author-grid\" style=\"background-image:url('{$author->get_image_url('width_150')}')\"><div class=\"author-description\">{$author->get_filtered_content()}</div></div></a>";
            }
        }
    }
 
+   /**
+   * Outputs the issue archive page
+   * 
+   * Called on the 'genesis_entry_content' action
+   * 
+   * @param string $content
+   */
    public static function output_issue_archive_page ($content) {
        $max_articles_displayed = 4;
        echo "<h1>Issues</h1>";
@@ -422,7 +439,8 @@ class evangelical_magazine_theme {
    /**
    * Move the entry-header inside entry-content
    * 
-   * Useful when the header image can't be shown in landscape.
+   * Useful for header image that don't display well in landscape modes.
+   * Used for author and issue single pages.
    */
    public static function move_entry_header_inside_entry_content() {
         remove_action ('genesis_entry_header', 'genesis_do_post_format_image', 4);

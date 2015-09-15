@@ -72,7 +72,7 @@ class evangelical_magazine_home_page {
                     $outputs [$s] = '';
                 }
                 foreach ($sections as $section) {
-                    $info_box = $section->get_info_box($max_per_section, $exclude_article_ids);
+                    $info_box = $section->article_list_box($max_per_section, $exclude_article_ids);
                     if ($info_box['output']) {
                         $outputs[$possible_sides[($side_index % 3)]] .= $info_box['output'];
                         $exclude_article_ids = array_merge ($exclude_article_ids, $info_box['ids']);
@@ -87,5 +87,4 @@ class evangelical_magazine_home_page {
             echo '</aside>';
         }
     }
-    
 }
