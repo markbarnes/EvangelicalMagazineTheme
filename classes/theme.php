@@ -35,13 +35,13 @@ class evangelical_magazine_theme {
             remove_action( 'genesis_entry_content', 'genesis_do_post_content_nav', 12 );
             remove_action( 'genesis_entry_content', 'genesis_do_post_permalink', 14 );
         }
+        // Everything apart from articles
+        if (!is_singular('em_article')) {
+            add_filter ('genesis_post_info', '__return_false');
+        }
 
         // Single articles
         if (is_singular('em_article')) {
-            // Add more markup after the <header>
-            add_action ('genesis_entry_header', array (__CLASS__, 'add_wrap_inside_entry_header'), 6);
-            // Close the markup just before the </header>
-            add_action ('genesis_entry_header', array (__CLASS__, 'close_wrap_inside_entry_header'), 14);
             // Move the post_info to AFTER the closing </header> tag
             add_action ('genesis_entry_header', 'genesis_post_info', 16);
             // Add the image using styles in the HTML HEAD
@@ -52,29 +52,29 @@ class evangelical_magazine_theme {
             add_filter ('genesis_post_title_output', array (__CLASS__, 'filter_post_title'));
             // Add the author/'see also' detail at the end of the article (also increases the view count)
             add_action ('genesis_entry_content', array (__CLASS__, 'add_to_end_of_article'), 11);
-        // Single and archive pages that aren't articles
-        } elseif (is_singular() || is_archive()) {
-            add_filter ('genesis_post_info', '__return_false');
         }
         // Single author pages
-        if (is_singular('em_author')) {
+        elseif (is_singular('em_author')) {
              // Specify the title image using styles in the <HEAD>
             add_action ('genesis_meta', array (__CLASS__, 'add_image_to_pages'), 11);
-            // For author pages, we want the entry header to be moved inside entry content.
-            remove_action ('genesis_entry_header', 'genesis_do_post_format_image', 4);
-            remove_action ('genesis_entry_header', 'genesis_entry_header_markup_open', 5);
-            remove_action ('genesis_entry_header', 'genesis_entry_header_markup_close', 15);
-            remove_action ('genesis_entry_header', 'genesis_do_post_title');
-            remove_action ('genesis_entry_header', 'genesis_post_info', 12);
-            add_action ('genesis_entry_content', 'genesis_do_post_format_image', 4);
-            add_action ('genesis_entry_content', 'genesis_entry_header_markup_open', 5);
-            add_action ('genesis_entry_content', 'genesis_entry_header_markup_close', 7);
-            add_action ('genesis_entry_content', 'genesis_do_post_title', 8);
             add_action ('genesis_entry_content', array (__CLASS__, 'add_to_end_of_author_page'));
+            self::move_entry_header_inside_entry_content();
+            remove_action ('genesis_entry_header', 'genesis_do_post_title');
+            add_action ('genesis_entry_content', 'genesis_do_post_title', 9);
+        }
+        // Single issue pages
+        elseif (is_singular('em_issue')) {
+            add_action ('genesis_meta', array (__CLASS__, 'add_image_to_pages'), 11);
+            self::move_entry_header_inside_entry_content();
+            remove_action ('genesis_entry_header', 'genesis_do_post_title');
+            add_action ('genesis_entry_content', 'genesis_do_post_title', 4);
+            add_action ('genesis_entry_content', array (__CLASS__, 'open_div'), 4);
+            add_action ('genesis_entry_content', array (__CLASS__, 'close_div'), 11);
+            add_action ('genesis_entry_content', array (__CLASS__, 'add_to_end_of_issue_page'), 12);
         }
 
         // Author archive page
-        if (is_post_type_archive('em_author')) {
+        elseif (is_post_type_archive('em_author')) {
             // Add our own entry content
             add_action ('genesis_entry_content', array(__CLASS__, 'output_author_archive_page'));
         // Issues archive page
@@ -216,7 +216,7 @@ class evangelical_magazine_theme {
             $sections = $article->get_sections();
             if ($sections) {
                 foreach ($sections as $section) {
-                    $also_in = $section->get_articles_in_this_section(3, $excluded_articles);
+                    $also_in = $section->get_articles(3, $excluded_articles);
                     if ($also_in) {
                         echo "<div class =\"sections-meta\"><h2>Also in the {$section->get_name(true)} section</h2>";
                         foreach ($also_in as $also_article) {
@@ -249,22 +249,22 @@ class evangelical_magazine_theme {
     }
     
     /**
-    * Outputs an additional div into the entry header of single pages
+    * Outputs an opening div
     * 
-    * Called by the 'genesis-entry-header' action
+    * Called by various actions
     * 
     */
-    public static function add_wrap_inside_entry_header() {
-        echo '<div class="entry-title-wrap">';
+    public static function open_div() {
+        echo '<div>';
     }
 
     /**
-    * Outputs to close the additional div in the entry header of single pages
+    * Outputs a closing div
     * 
-    * Called by the 'genesis-entry-header' action
+    * Called by various actions
     * 
     */
-    public static function close_wrap_inside_entry_header() {
+    public static function close_div() {
         echo '</div>';
     }
 
@@ -417,5 +417,32 @@ class evangelical_magazine_theme {
            }
            echo "</ul>";
        }
+   }
+   
+   /**
+   * Move the entry-header inside entry-content
+   * 
+   * Useful when the header image can't be shown in landscape.
+   */
+   public static function move_entry_header_inside_entry_content() {
+        remove_action ('genesis_entry_header', 'genesis_do_post_format_image', 4);
+        remove_action ('genesis_entry_header', 'genesis_entry_header_markup_open', 5);
+        remove_action ('genesis_entry_header', 'genesis_entry_header_markup_close', 15);
+        remove_action ('genesis_entry_header', 'genesis_post_info', 12);
+        add_action ('genesis_entry_content', 'genesis_do_post_format_image', 3);
+        add_action ('genesis_entry_content', 'genesis_entry_header_markup_open', 5);
+        add_action ('genesis_entry_content', 'genesis_entry_header_markup_close', 7);
+   }
+   
+    /**
+    * Adds issue info to the end of issue pages.
+    * 
+    * Called by genesis_entry_content
+    * 
+    */
+    public static function add_to_end_of_issue_page($content) {
+        $issue_id = get_the_ID();
+        $issue = new evangelical_magazine_issue($issue_id);
+        echo $issue->get_html_article_list();
    }
 }

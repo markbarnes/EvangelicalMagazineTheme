@@ -1463,7 +1463,7 @@ body.single-em_article .entry-title {
     position:absolute;
 }
 
-body.single-em_article .entry-title-wrap .entry-title-series {
+body.single-em_article .entry-title-series {
     padding: 10px 40px 0 40px;
     width: 840px;
     color: #FECA00;
@@ -1473,7 +1473,7 @@ body.single-em_article .entry-title-wrap .entry-title-series {
     text-align: right;
 }
 
-body.single-em_article .entry-title-wrap .entry-title-series a {
+body.single-em_article .entry-title-series a {
     color: #FECA00;
 }
 
@@ -1496,6 +1496,29 @@ body.single-em_author h3.articles_by {
     clear: both;
     border-bottom: 1px solid;
     padding-top: 20px
+}
+
+/* ## Single issue pages
+--------------------------------------------- */
+
+body.single-em_issue .entry-header {
+    height: 367px;
+    width: 260px;
+    float: left;
+    box-shadow: none;
+    margin-bottom: 20px;
+}
+
+body.single-em_issue .entry-title {
+    text-shadow: none;
+    padding-left: 0;
+    padding-right: 0;
+    color: #086788;
+}
+
+body.single-em_issue .entry-content > div:first-of-type {
+    float:left;
+    width: 260px;
 }
 
 /* ## Issue archive page
@@ -1936,39 +1959,42 @@ body.home .site-inner {
     padding-top: 0;
 }
 
-.section-info-box {
+/* # Article List Box (list of articles in a section or issue)
+---------------------------------------------------------------------------------------------------- */
+
+.article-list-box {
     font-family: Lato, sans-serif;
     margin-bottom: 40px;
     background-color: white;    
 }
 
-.section-info-box:last-child {
+.article-list-box:last-child {
     margin-bottom: 0;
 }
 
-.section-info-box ol {
+.article-list-box ol {
     padding: 0;
 }
 
-.section-info-box li {
+.article-list-box li {
     overflow: hidden;
     padding: 10px;
     border-bottom: 1px solid #086788;
     line-height: 22px;
 }
 
-.section-info-box li:first-child {
+.article-list-box li:first-child {
     padding-top: 0;
 }
-.section-info-box li:last-child {
+.article-list-box li:last-child {
     border-bottom: none;
 }
 
-.section-info-box-image.first {
+.article-list-box-image.first {
     margin-left: -10px;
 }
 
-.section-info-box-image {
+.article-list-box-image {
     height: 75px;
     width: 113px;
     float:left;
@@ -1983,7 +2009,7 @@ body.home .site-inner {
     transition:         box-shadow 0.4s ease-in-out;
 }
 
-a:hover .section-info-box-image {
+a:hover .article-list-box-image {
     -webkit-transition: box-shadow 0.4s ease-in-out;
     -moz-transition:    box-shadow 0.4s ease-in-out;
     -ms-transition:     box-shadow 0.4s ease-in-out;
@@ -1992,26 +2018,26 @@ a:hover .section-info-box-image {
     box-shadow: none;
 }
 
-.section-info-box-image.first {
+.article-list-box-image.first {
     width: 380px;
     height: 253px;
     margin-bottom: 10px;
 }
 
-.section-info-box-title {
+.article-list-box-title {
     font-size: 20px;
     font-weight: 700;
 } 
 
-.section-info-box a {
+.article-list-box a {
     color: #043444;
 }
 
-.section-info-box .section-info-box-author a {
+.article-list-box .article-list-box-author a {
     color: #086788;
 }
 
-.section-info-box h3 {
+.article-list-box h3 {
     padding: 0 10px;
     margin-bottom: 0;
     height: 0;
@@ -2020,17 +2046,32 @@ a:hover .section-info-box-image {
     text-shadow: 0.75px 0.75px 1px rgba(0,0,0,0.85);
 }
 
-.section-info-box h3 a {
+.article-list-box h3 a {
     color: #feca00;
 }
 
-.section-info-box-author {
+.article-list-box-author {
     font-size: 16px;
 }
 
-.section-info-box-issue {
+.article-list-box-coming-soon {
+    font-size: 16px;
+}
+
+.article-list-box-issue {
     font-size: 14px;
     font-weight: 300;
+}
+
+.entry-content .article-list-box ol > li {
+    list-style-type: none;
+    padding: 0 0 15px 0; 
+    margin-top: 15px;
+}
+
+.entry-content .article-list-box {
+    float:right;
+    width: 400px;
 }
 
 /* # Media Queries
