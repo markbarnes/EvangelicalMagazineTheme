@@ -1492,6 +1492,11 @@ body.single-em_author .entry-header {
     box-shadow: none;
 }
 
+body.single-em_author .entry-title {
+    color: #086788;
+    text-shadow: none;
+}
+
 body.single-em_author h3.articles_by {
     clear: both;
     border-bottom: 1px solid;
