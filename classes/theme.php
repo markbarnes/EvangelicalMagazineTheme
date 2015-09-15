@@ -337,14 +337,14 @@ class evangelical_magazine_theme {
                 echo '</div>';
             }
         }
-   }
+    }
    
-   /**
-   * Custom version of the genesis() and genesis_standard_loop() functions.
-   * 
-   * Used for generating custom archive pages.
-   */
-   public static function my_genesis() {
+    /**
+    * Custom version of the genesis() and genesis_standard_loop() functions.
+    * 
+    * Used for generating custom archive pages.
+    */
+    public static function my_genesis() {
         get_header();
         do_action ('genesis_before_content_sidebar_wrap');
         genesis_markup( array(
@@ -379,16 +379,16 @@ class evangelical_magazine_theme {
         echo '</div>'; //* end .content-sidebar-wrap or #content-sidebar-wrap
         do_action( 'genesis_after_content_sidebar_wrap' );
         get_footer();       
-   }
+    }
    
-   /**
-   * Outputs the author archive page
-   * 
-   * Called on the 'genesis_entry_content' action
-   * 
-   * @param string $content
-   */
-   public static function output_author_archive_page ($content) {
+    /**
+    * Outputs the author archive page
+    * 
+    * Called on the 'genesis_entry_content' action
+    * 
+    * @param string $content
+    */
+    public static function output_author_archive_page ($content) {
        echo "<h1>Authors</h1>";
        $authors = evangelical_magazine_author::get_all_authors_weighted_by_recent();
        if ($authors) {
@@ -396,16 +396,16 @@ class evangelical_magazine_theme {
                echo "<a href=\"{$author->get_link()}\"><div class=\"author-grid\" style=\"background-image:url('{$author->get_image_url('width_150')}')\"><div class=\"author-description\">{$author->get_filtered_content()}</div></div></a>";
            }
        }
-   }
+    }
 
-   /**
-   * Outputs the issue archive page
-   * 
-   * Called on the 'genesis_entry_content' action
-   * 
-   * @param string $content
-   */
-   public static function output_issue_archive_page ($content) {
+    /**
+    * Outputs the issue archive page
+    * 
+    * Called on the 'genesis_entry_content' action
+    * 
+    * @param string $content
+    */
+    public static function output_issue_archive_page ($content) {
        $max_articles_displayed = 4;
        echo "<h1>Issues</h1>";
        $issues = evangelical_magazine_issue::get_all_issues();
@@ -434,15 +434,15 @@ class evangelical_magazine_theme {
            }
            echo "</ul>";
        }
-   }
-   
-   /**
-   * Move the entry-header inside entry-content
-   * 
-   * Useful for header image that don't display well in landscape modes.
-   * Used for author and issue single pages.
-   */
-   public static function move_entry_header_inside_entry_content() {
+    }
+
+    /**
+    * Move the entry-header inside entry-content
+    * 
+    * Useful for header image that don't display well in landscape modes.
+    * Used for author and issue single pages.
+    */
+    public static function move_entry_header_inside_entry_content() {
         remove_action ('genesis_entry_header', 'genesis_do_post_format_image', 4);
         remove_action ('genesis_entry_header', 'genesis_entry_header_markup_open', 5);
         remove_action ('genesis_entry_header', 'genesis_entry_header_markup_close', 15);
@@ -450,8 +450,8 @@ class evangelical_magazine_theme {
         add_action ('genesis_entry_content', 'genesis_do_post_format_image', 3);
         add_action ('genesis_entry_content', 'genesis_entry_header_markup_open', 5);
         add_action ('genesis_entry_content', 'genesis_entry_header_markup_close', 7);
-   }
-   
+    }
+
     /**
     * Adds issue info to the end of issue pages.
     * 
@@ -462,5 +462,49 @@ class evangelical_magazine_theme {
         $issue_id = get_the_ID();
         $issue = new evangelical_magazine_issue($issue_id);
         echo $issue->get_html_article_list();
-   }
+    }
+
+    /**
+    * Creates black and white image for the width_150_bw size.
+    * 
+    * Filters 'wp_generate_attachment_metadata'
+    * 
+    * @param array $meta
+    * @return array
+    */
+    public static function bw_images_filter ($meta) {
+        $file = wp_upload_dir();
+        $file = trailingslashit($file['path']).$meta['sizes']['width_150_bw']['file'];
+        list($orig_w, $orig_h, $orig_type) = @getimagesize($file);
+        @ini_set( 'memory_limit', apply_filters( 'image_memory_limit', WP_MAX_MEMORY_LIMIT ) );
+        $image = imagecreatefromstring (file_get_contents($file));
+        imagefilter($image, IMG_FILTER_GRAYSCALE);
+        //imagefilter($image, IMG_FILTER_GAUSSIAN_BLUR);
+        switch ($orig_type) {
+        case IMAGETYPE_GIF:
+           $file = str_replace(".gif", "-bw.gif", $file);
+           imagegif( $image, $file );
+           break;
+        case IMAGETYPE_PNG:
+           $file = str_replace(".png", "-bw.png", $file);
+           imagepng( $image, $file );
+           break;
+        case IMAGETYPE_JPEG:
+           $file = str_replace(".jpg", "-bw.jpg", $file);
+           imagejpeg( $image, $file );
+           break;
+       }
+       return $meta;       
+    }
+
+    public static function bw_correct_filename ($data) {
+        if (isset($data['sizes']['width_150_bw']['file'])) {
+            $file = &$data['sizes']['width_150_bw']['file'];
+            $ext_pos = strrpos ($file, '.');
+            if (substr($file, $ext_pos-3, 3) != '-bw') {
+                $file = substr($file, 0, $ext_pos).'-bw'.substr($file, $ext_pos);
+            }
+        }
+       return $data;
+    }
 }

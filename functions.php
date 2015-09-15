@@ -27,6 +27,8 @@ add_action ('wp_enqueue_scripts', array ('evangelical_magazine_theme', 'disable_
 */
 add_filter ('genesis_superfish_enabled', '__return_false'); // Doesn't seem to work
 add_filter ('wp_nav_menu_items', array ('evangelical_magazine_theme', 'modify_menu'));
+add_filter ('wp_generate_attachment_metadata',array ('evangelical_magazine_theme', 'bw_images_filter'));
+add_filter ('wp_update_attachment_metadata', array ('evangelical_magazine_theme', 'bw_correct_filename'));
 
 /** 
 * Add image sizes
@@ -36,4 +38,5 @@ add_image_size ('width_400', 400, 3000);
 add_image_size ('width_300', 300, 3000);
 add_image_size ('width_210', 210, 3000);
 add_image_size ('width_150', 150, 3000);
+add_image_size ('width_150_bw', 150, 3000);
 add_image_size ('thumbnail_75', 75, 75, true);
