@@ -1398,6 +1398,7 @@ p.entry-meta {
 .small-article-box .article-title {
     background-color: #086788;
     padding: 5px 10px;
+    color: white;
 }
 
 .small-article-box .article-title a {
@@ -1413,6 +1414,10 @@ p.entry-meta {
 
 .small-article-box.current .article-title a {
     color: #086788;
+}
+
+.small-article-box.future .article-title {
+    background-color: #5f5f5f;
 }
 
 /* ## Author grid

@@ -325,14 +325,15 @@ class evangelical_magazine_theme {
     public static function add_to_end_of_author_page() {
         $author_id = get_the_ID();
         $author = new evangelical_magazine_author($author_id);
-        $articles = $author->get_articles();
+        $articles = $author->get_articles($author::_future_posts_args());
         if ($articles) {
             echo "<h3 class=\"articles_by\">Articles by {$author->get_name()}</h3>";
             $chunks = array_chunk ($articles, 3);
             foreach ($chunks as $chunk) {
                 echo "<div class=\"article-box-row-wrap\">";
                 foreach ($chunk as $article) {
-                    echo $article->get_small_box_html(true, $article->get_issue_name(true));
+                    $sub_title = $article->is_future() ? "Coming {$article->get_coming_date()}" : $article->get_issue_name(true);
+                    echo $article->get_small_box_html(true, $sub_title);
                 }
                 echo '</div>';
             }
@@ -461,7 +462,8 @@ class evangelical_magazine_theme {
     public static function add_to_end_of_issue_page($content) {
         $issue_id = get_the_ID();
         $issue = new evangelical_magazine_issue($issue_id);
-        echo $issue->get_html_article_list();
+        $html = $issue->get_html_article_list();
+        echo ($html) ? $html : '<div class="article-list-box"><p>Coming soon.</p></div>';
     }
 
     /**
@@ -473,38 +475,33 @@ class evangelical_magazine_theme {
     * @return array
     */
     public static function bw_images_filter ($meta) {
-        $file = wp_upload_dir();
-        $file = trailingslashit($file['path']).$meta['sizes']['width_150_bw']['file'];
-        list($orig_w, $orig_h, $orig_type) = @getimagesize($file);
-        @ini_set( 'memory_limit', apply_filters( 'image_memory_limit', WP_MAX_MEMORY_LIMIT ) );
-        $image = imagecreatefromstring (file_get_contents($file));
-        imagefilter($image, IMG_FILTER_GRAYSCALE);
-        //imagefilter($image, IMG_FILTER_GAUSSIAN_BLUR);
-        switch ($orig_type) {
-        case IMAGETYPE_GIF:
-           $file = str_replace(".gif", "-bw.gif", $file);
-           imagegif( $image, $file );
-           break;
-        case IMAGETYPE_PNG:
-           $file = str_replace(".png", "-bw.png", $file);
-           imagepng( $image, $file );
-           break;
-        case IMAGETYPE_JPEG:
-           $file = str_replace(".jpg", "-bw.jpg", $file);
-           imagejpeg( $image, $file );
-           break;
-       }
-       return $meta;       
-    }
-
-    public static function bw_correct_filename ($data) {
-        if (isset($data['sizes']['width_150_bw']['file'])) {
-            $file = &$data['sizes']['width_150_bw']['file'];
-            $ext_pos = strrpos ($file, '.');
-            if (substr($file, $ext_pos-3, 3) != '-bw') {
-                $file = substr($file, 0, $ext_pos).'-bw'.substr($file, $ext_pos);
+        $dir = wp_upload_dir();
+        foreach ($meta['sizes'] as $size => &$details) {
+            if (substr($size, -3) == '_bw') {
+                $file = trailingslashit($dir['path']).$details['file'];
+                list($orig_w, $orig_h, $orig_type) = @getimagesize($file);
+                @ini_set( 'memory_limit', apply_filters( 'image_memory_limit', WP_MAX_MEMORY_LIMIT ) );
+                $image = imagecreatefromstring (file_get_contents($file));
+                imagefilter($image, IMG_FILTER_GRAYSCALE);
+                switch ($orig_type) {
+                case IMAGETYPE_GIF:
+                   $file = str_replace(".gif", "-bw.gif", $file);
+                   $details['file'] = str_replace(".gif", "-bw.gif", $details['file']);
+                   imagegif( $image, $file );
+                   break;
+                case IMAGETYPE_PNG:
+                   $file = str_replace(".png", "-bw.png", $file);
+                   $details['file'] = str_replace(".png", "-bw.png", $details['file']);
+                   imagepng( $image, $file );
+                   break;
+                case IMAGETYPE_JPEG:
+                   $file = str_replace(".jpg", "-bw.jpg", $file);
+                   $details['file'] = str_replace(".jpg", "-bw.jpg", $details['file']);
+                   imagejpeg( $image, $file );
+                   break;
+                }
             }
         }
-       return $data;
+        return $meta;       
     }
 }
