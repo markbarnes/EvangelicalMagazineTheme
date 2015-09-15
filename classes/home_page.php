@@ -32,6 +32,10 @@ class evangelical_magazine_home_page {
                     }
                 }
             }
+            $next = evangelical_magazine_article::get_next_future_article();
+            if ($next) {
+                $articles = array_merge (array($next), $articles);
+            }
             $articles = array_slice ($articles, 0, 7);
             // Output these articles
             $article_ids = array();
@@ -43,7 +47,11 @@ class evangelical_magazine_home_page {
                     if ($count == 4) {
                         echo '</div><div class="second-row">';
                     }
-                    echo "<a href=\"{$article->get_link()}\"><div class=\"article article-{$size}\" style=\"background-image: url('{$article->get_image_url("width_{$size}")}')\"><div class=\"article-title\">{$article->get_title()}</div></div></a>";
+                    if ($article->is_future()) {
+                        echo "<div class=\"article article-{$size} future\" style=\"background-image: url('{$article->get_image_url("width_{$size}")}')\"><div class=\"coming-soon\">Coming {$article->get_coming_date()}</div><div class=\"article-title\">{$article->get_title()}</div></div>";
+                    } else {
+                        echo "<a href=\"{$article->get_link()}\"><div class=\"article article-{$size} current\" style=\"background-image: url('{$article->get_image_url("width_{$size}")}')\"><div class=\"article-title\">{$article->get_title()}</div></div></a>";
+                    }
                     $article_ids[] = $article->get_id();
                     $count++;
                 }

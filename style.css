@@ -1948,9 +1948,24 @@ body.home .article-300 .article-title {
     width: 231px;
 }
 
-body.home .article:hover .article-title {
+body.home .current.article:hover .article-title {
     text-decoration: underline;
 }
+
+body.home .future.article .article-title {
+    color: white;
+}
+
+body.home #latest-articles .coming-soon {
+    color: #086788;
+    background-color: #FECA00;
+    text-align: right;
+    padding: 0 5px;
+    font-family: Lato, sans-serif;
+    float: right;
+}
+
+
 
 body.home #sections-left, #sections-center, #sections-right {
     width: 380px;

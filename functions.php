@@ -34,7 +34,9 @@ add_filter ('wp_generate_attachment_metadata',array ('evangelical_magazine_theme
 */
 add_image_size ('width_800', 800, 3000);
 add_image_size ('width_400', 400, 3000);
+add_image_size ('width_400_bw', 400, 3000);
 add_image_size ('width_300', 300, 3000);
+add_image_size ('width_300_bw', 300, 3000);
 add_image_size ('width_210', 210, 3000);
 add_image_size ('width_210_bw', 210, 3000);
 add_image_size ('width_150', 150, 3000);
