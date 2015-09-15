@@ -24,7 +24,7 @@ class evangelical_magazine_home_page {
             //Get the seven most recent articles from these issues
             $articles = array();
             foreach ($latest_issues as $issue) {
-                $these_articles = $issue->get_all_articles();
+                $these_articles = $issue->get_articles();
                 if ($these_articles) {
                     $articles = array_merge ($articles, $these_articles);
                     if (count($articles) >= 7) {
