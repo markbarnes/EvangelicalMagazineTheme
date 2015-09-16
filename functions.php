@@ -3,6 +3,7 @@
 include_once( get_template_directory() . '/lib/init.php' );
 require ('classes/theme.php');
 require ('classes/home_page.php');
+require ('classes/widgets.php');
 
 //* Child theme (do not remove)
 define( 'CHILD_THEME_NAME', 'Evangelical Magazine Theme' );
@@ -20,7 +21,8 @@ add_theme_support( 'genesis-responsive-viewport' ); //* Add viewport meta tag fo
 */
 add_action ('wp', array ('evangelical_magazine_theme', 'rearrange_layout'));
 add_action ('wp_enqueue_scripts', array ('evangelical_magazine_theme', 'enqueue_fonts'));
-add_action ('wp_enqueue_scripts', array ('evangelical_magazine_theme', 'disable_superfish'));  
+add_action ('wp_enqueue_scripts', array ('evangelical_magazine_theme', 'disable_superfish'));
+add_action ('widgets_init', array ('evangelical_magazine_widgets', 'register_widgets'));
 
 /**
 * Add filters

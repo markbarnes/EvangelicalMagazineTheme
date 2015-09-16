@@ -830,6 +830,12 @@ img.alignright,
 	text-align: center;
 }
 
+.sidebar .widget.widget_evangelical_magazine_subscribe {
+    padding: 0;
+    margin-top: -16px;
+    background-color: transparent;
+}
+
 /* ## Featured Content
 --------------------------------------------- */
 
@@ -1164,12 +1170,20 @@ img.alignright,
     font-weight: 400;
 }
 
-.genesis-nav-menu .menu-item:hover > .sub-menu-sections {
-    -webkit-transition: max-height .1s ease-in-out;
-    -moz-transition:    max-height .1s ease-in-out;
-    -ms-transition:     max-height .1s ease-in-out;
-    -o-transition:      max-height .1s ease-in-out;
-    transition:         max-height .1s ease-in-out;
+.genesis-nav-menu .menu-item:hover > .sub-menu-sections { /* With the hover is equivalent to mousein */
+    -webkit-transition: max-height .7s ease-in-out;
+    -moz-transition:    max-height .7s ease-in-out;
+    -ms-transition:     max-height .7s ease-in-out;
+    -o-transition:      max-height .7s ease-in-out;
+    transition:         max-height .7s ease-in-out;
+}
+
+.genesis-nav-menu .menu-item > .sub-menu-authors {       /* Without the hover is equivalent to mouseout */
+    -webkit-transition: max-height .25s ease-in-out;
+    -moz-transition:    max-height .25s ease-in-out;
+    -ms-transition:     max-height .25s ease-in-out;
+    -o-transition:      max-height .25s ease-in-out;
+    transition:         max-height .25s ease-in-out;
 }
 
 /* ## Site Header Navigation
@@ -1224,7 +1238,7 @@ img.alignright,
 
 .nav-primary .genesis-nav-menu a:hover,
 .nav-primary .genesis-nav-menu a:focus,
-.nav-primary .genesis-nav-menu .current-menu-item > a {
+.nav-primary .genesis-nav-menu .current-menu-item .sub-menu > a {
 	color: white;
 }
 
