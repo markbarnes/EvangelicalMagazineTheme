@@ -69,7 +69,7 @@ class evangelical_magazine_home_page {
     * @param integer[] $exclude_article_ids - array of article ids to exclude from this process
     */
     public static function do_sections($max_per_section = 5, $exclude_article_ids = array()) {
-        $args = array ('orderby' => 'name', 'order' => 'ASC', 'hide_empty' => true);
+        $args = array ('orderby' => 'name', 'order' => 'ASC');
         $sections = evangelical_magazine_section::get_all_sections($args);
         if ($sections) {
             shuffle($sections);

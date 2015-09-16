@@ -310,7 +310,7 @@ class evangelical_magazine_theme {
             $menu = str_replace ('<a href="#" itemprop="url"><span itemprop="name">Recent Issues</span></a>', '<a href="'.get_post_type_archive_link ('em_issue').'" itemprop="url"><span itemprop="name">Recent Issues</span></a>', $menu);
             $issues = evangelical_magazine_issue::get_all_issues(6);
             if ($issues) {
-                $issue_menu = '<ul class="sub-menu">';
+                $issue_menu = '<ul class="sub-menu sub-menu-issues"><div class="wrap">';
                 foreach ($issues as $issue) {
                     $issue_name = str_replace('/','/<wbr>',$issue->get_name());
                     if (strpos($issue_name, '<wbr>') !== FALSE) {
@@ -320,27 +320,42 @@ class evangelical_magazine_theme {
                     $issue_menu .= "<a href=\"{$issue->get_link()}\" itemprop=\"url\">{$issue->get_image_html ('width_150')}<span itemprop=\"name\">{$issue_name}</span></a></li>";
                 }
                 $issue_menu .= "<li id=\"menu-item-more-issues\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-more-issues\"><a href=\"".get_post_type_archive_link ('em_issue')."\" itemprop=\"url\"><span itemprop=\"name\">More&hellip;</span></a></li>";
-                $issue_menu .= '</ul>';
+                $issue_menu .= '</ul>'; // The closing div will be added by the str_replace at the end of the function
                 $menu = str_replace ($text_to_look_for, $text_to_look_for.$issue_menu, $menu);
             }
         }
-        $menu = str_replace(array('<ul class="sub-menu">', '</ul>'), array('<ul class="sub-menu"><div class="wrap">', '</div></ul>'), $menu);
         //Recent authors
         $text_to_look_for = '<span itemprop="name">Authors</span></a>';
         if (strpos($menu, $text_to_look_for) !== FALSE) {
             $menu = str_replace ('<a href="#" itemprop="url"><span itemprop="name">Authors</span></a>', '<a href="'.get_post_type_archive_link ('em_author').'" itemprop="url"><span itemprop="name">Authors</span></a>', $menu);
             $authors = evangelical_magazine_author::get_all_authors_weighted_by_recent(10);
             if ($authors) {
-                $author_menu = '<ul class="sub-menu">';
+                $author_menu = '<ul class="sub-menu sub-menu-authors"><div class="wrap">';
                 foreach ($authors as $author) {
                     $author_menu .= "<li id=\"menu-item-author-{$author->get_id()}\" class=\"menu-item menu-item-type-author menu-item-author-{$author->get_id()}\">";
                     $author_menu .= "<a href=\"{$author->get_link()}\" itemprop=\"url\">{$author->get_image_html ('thumbnail_75')}<span itemprop=\"name\">{$author->get_name()}</span></a></li>";
                 }
                 $author_menu .= "<li id=\"menu-item-more-authors\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-more-authors\"><a href=\"".get_post_type_archive_link ('em_author')."\" itemprop=\"url\"><span itemprop=\"name\">More&hellip;</span></a></li>";
-                $author_menu .= '</ul>';
+                $author_menu .= '</ul>';  // The closing div will be added by the str_replace at the end of the function
                 $menu = str_replace ($text_to_look_for, $text_to_look_for.$author_menu, $menu);
             }
         }
+        //Sections
+        $text_to_look_for = '<span itemprop="name">Sections</span></a>';
+        if (strpos($menu, $text_to_look_for) !== FALSE) {
+            $menu = str_replace ('<a href="#" itemprop="url"><span itemprop="name">Sections</span></a>', '<a href="'.get_post_type_archive_link ('em_sections').'" itemprop="url"><span itemprop="name">Sections</span></a>', $menu);
+            $sections = evangelical_magazine_section::get_all_sections();
+            if ($sections) {
+                $section_menu = '<ul class="sub-menu sub-menu-section"><div class="wrap">';
+                foreach ($sections as $section) {
+                    $section_menu .= "<li id=\"menu-item-section-{$section->get_id()}\" class=\"menu-item menu-item-type-section menu-item-section-{$section->get_id()}\">";
+                    $section_menu .= "<a href=\"{$section->get_link()}\" itemprop=\"url\"><span itemprop=\"name\">{$section->get_name()}</span></a></li>";
+                }
+                $section_menu .= '</ul>'; // The closing div will be added by the str_replace at the end of the function
+                $menu = str_replace ($text_to_look_for, $text_to_look_for.$section_menu, $menu);
+            }
+        }
+        //Add wrap to Wordpress menus
         $menu = str_replace(array('<ul class="sub-menu">', '</ul>'), array('<ul class="sub-menu"><div class="wrap">', '</div></ul>'), $menu);
         return $menu;
     }

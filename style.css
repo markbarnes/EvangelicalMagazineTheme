@@ -1126,15 +1126,10 @@ img.alignright,
     padding: 0;
 }
 
-.nav-primary .genesis-nav-menu .sub-menu .menu-item-type-issue a:hover, .nav-primary .genesis-nav-menu .sub-menu .menu-item-type-author a:hover {
-    color: white;
+.nav-primary .genesis-nav-menu .sub-menu .menu-item a:hover {
+    color: #FECA00;
     text-decoration: none;
 }
-
-.nav-primary .genesis-nav-menu .sub-menu .menu-item-more-issues a:hover, .nav-primary .genesis-nav-menu .sub-menu .menu-item-more-authors a:hover {
-    color: white;
-}
-
 .genesis-nav-menu .menu-item-more-issues {
     padding-top: 100px;
 }
@@ -1161,6 +1156,20 @@ img.alignright,
 
 .genesis-nav-menu .menu-item-more-authors {
     padding-top: 45px;
+}
+
+.genesis-nav-menu .sub-menu .menu-item-type-section a {
+    font-size: 36px;
+    font-family: "League Gothic", serif;
+    font-weight: 400;
+}
+
+.genesis-nav-menu .menu-item:hover > .sub-menu-sections {
+    -webkit-transition: max-height .1s ease-in-out;
+    -moz-transition:    max-height .1s ease-in-out;
+    -ms-transition:     max-height .1s ease-in-out;
+    -o-transition:      max-height .1s ease-in-out;
+    transition:         max-height .1s ease-in-out;
 }
 
 /* ## Site Header Navigation
