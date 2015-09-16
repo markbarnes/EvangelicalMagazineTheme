@@ -1020,16 +1020,16 @@ img.alignright,
 
 .genesis-nav-menu .sub-menu {
     left: 0;
-    max-height: 0;
     width: 100%;
+    max-height: 0;
 	position: absolute;
     overflow:hidden;
-    z-index: 99;
-    -webkit-transition: max-height .7s ease-in-out;
-    -moz-transition:    max-height .7s ease-in-out;
-    -ms-transition:     max-height .7s ease-in-out;
-    -o-transition:      max-height .7s ease-in-out;
-    transition:         max-height .7s ease-in-out;
+    z-index: 50;
+    -webkit-transition: all .4s ease-out;
+    -moz-transition:    all .4s ease-out;
+    -ms-transition:     all .4s ease-out;
+    -o-transition:      all .4s ease-out;
+    transition:         all .4s ease-out;
 }
 
 .genesis-nav-menu .sub-menu a {
@@ -1062,6 +1062,7 @@ img.alignright,
 	left: 0;
 	max-height: 1000px;
     width: 100%;
+    z-index: 99;
     -webkit-transition: max-height .7s ease-in-out;
     -moz-transition:    max-height .7s ease-in-out;
     -ms-transition:     max-height .7s ease-in-out;
@@ -1117,20 +1118,20 @@ img.alignright,
     padding-right: 0;
 }
 
-.genesis-nav-menu .menu-item-type-issue img {
+.genesis-nav-menu .menu-item-type-issue img, .genesis-nav-menu .menu-item-type-author img {
     margin-bottom: 10px;
 }
 
-.genesis-nav-menu .menu-item-type-issue a {
+.genesis-nav-menu .menu-item-type-issue a, .genesis-nav-menu .menu-item-type-author a {
     padding: 0;
 }
 
-.nav-primary .genesis-nav-menu .sub-menu .menu-item-type-issue a:hover {
+.nav-primary .genesis-nav-menu .sub-menu .menu-item-type-issue a:hover, .nav-primary .genesis-nav-menu .sub-menu .menu-item-type-author a:hover {
     color: white;
     text-decoration: none;
 }
 
-.nav-primary .genesis-nav-menu .sub-menu .menu-item-more-issues a:hover {
+.nav-primary .genesis-nav-menu .sub-menu .menu-item-more-issues a:hover, .nav-primary .genesis-nav-menu .sub-menu .menu-item-more-authors a:hover {
     color: white;
 }
 
@@ -1138,8 +1139,28 @@ img.alignright,
     padding-top: 100px;
 }
 
-.genesis-nav-menu .menu-item-more-issues a {
+.genesis-nav-menu .menu-item-more-issues a, .genesis-nav-menu .menu-item-more-authors a {
     font-size: 18px;
+}
+
+.genesis-nav-menu .menu-item-type-author {
+    width: 111px;
+    padding: 20px 18px;
+    text-align: center;
+}
+
+.genesis-nav-menu .menu-item-type-author:first-child {
+    width: 88px;
+    padding-left: 0;
+}
+
+.genesis-nav-menu .menu-item-type-author:last-child {
+    width: 88px;
+    padding-right: 0;
+}
+
+.genesis-nav-menu .menu-item-more-authors {
+    padding-top: 45px;
 }
 
 /* ## Site Header Navigation

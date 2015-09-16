@@ -285,7 +285,7 @@ class evangelical_magazine_theme {
     }
     
     /**
-    * Modifies the main nav menu html to add the 'recent issues' sub-menu
+    * Modifies the main nav menu html to add the 'recent issues' and 'recent authors' sub-menu
     * 
     * Filters wp_nav_menu_items
     * 
@@ -293,6 +293,7 @@ class evangelical_magazine_theme {
     * @return string
     */
     public static function modify_menu ($menu) {
+        //Recent issues
         $text_to_look_for = '<span itemprop="name">Recent Issues</span></a>';
         if (strpos($menu, $text_to_look_for) !== FALSE) {
             $menu = str_replace ('<a href="#" itemprop="url"><span itemprop="name">Recent Issues</span></a>', '<a href="'.get_post_type_archive_link ('em_issue').'" itemprop="url"><span itemprop="name">Recent Issues</span></a>', $menu);
@@ -310,6 +311,23 @@ class evangelical_magazine_theme {
                 $issue_menu .= "<li id=\"menu-item-more-issues\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-more-issues\"><a href=\"".get_post_type_archive_link ('em_issue')."\" itemprop=\"url\"><span itemprop=\"name\">More&hellip;</span></a></li>";
                 $issue_menu .= '</ul>';
                 $menu = str_replace ($text_to_look_for, $text_to_look_for.$issue_menu, $menu);
+            }
+        }
+        $menu = str_replace(array('<ul class="sub-menu">', '</ul>'), array('<ul class="sub-menu"><div class="wrap">', '</div></ul>'), $menu);
+        //Recent authors
+        $text_to_look_for = '<span itemprop="name">Authors</span></a>';
+        if (strpos($menu, $text_to_look_for) !== FALSE) {
+            $menu = str_replace ('<a href="#" itemprop="url"><span itemprop="name">Authors</span></a>', '<a href="'.get_post_type_archive_link ('em_author').'" itemprop="url"><span itemprop="name">Authors</span></a>', $menu);
+            $authors = evangelical_magazine_author::get_all_authors_weighted_by_recent(10);
+            if ($authors) {
+                $author_menu = '<ul class="sub-menu">';
+                foreach ($authors as $author) {
+                    $author_menu .= "<li id=\"menu-item-author-{$author->get_id()}\" class=\"menu-item menu-item-type-author menu-item-author-{$author->get_id()}\">";
+                    $author_menu .= "<a href=\"{$author->get_link()}\" itemprop=\"url\">{$author->get_image_html ('thumbnail_75')}<span itemprop=\"name\">{$author->get_name()}</span></a></li>";
+                }
+                $author_menu .= "<li id=\"menu-item-more-authors\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-more-authors\"><a href=\"".get_post_type_archive_link ('em_author')."\" itemprop=\"url\"><span itemprop=\"name\">More&hellip;</span></a></li>";
+                $author_menu .= '</ul>';
+                $menu = str_replace ($text_to_look_for, $text_to_look_for.$author_menu, $menu);
             }
         }
         $menu = str_replace(array('<ul class="sub-menu">', '</ul>'), array('<ul class="sub-menu"><div class="wrap">', '</div></ul>'), $menu);
@@ -467,7 +485,7 @@ class evangelical_magazine_theme {
     }
 
     /**
-    * Creates black and white image for the width_150_bw size.
+    * Creates black and white image for the *_bw sizes.
     * 
     * Filters 'wp_generate_attachment_metadata'
     * 
