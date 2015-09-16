@@ -75,6 +75,14 @@ class evangelical_magazine_theme {
             add_action ('genesis_entry_content', array (__CLASS__, 'close_div'), 11);
             add_action ('genesis_entry_content', array (__CLASS__, 'add_to_end_of_issue_page'), 12);
         }
+        // Single section pages
+        elseif (is_singular('em_section')) {
+            self::move_entry_header_inside_entry_content();
+            remove_action ('genesis_entry_header', 'genesis_do_post_title');
+            add_action ('genesis_entry_content', 'genesis_do_post_title', 4);
+            add_action ('genesis_entry_content', array (__CLASS__, 'add_to_end_of_section_page'), 12);
+        }
+
 
         // Author archive page
         elseif (is_post_type_archive('em_author')) {
@@ -529,8 +537,42 @@ class evangelical_magazine_theme {
     public static function add_to_end_of_issue_page($content) {
         $issue_id = get_the_ID();
         $issue = new evangelical_magazine_issue($issue_id);
-        $html = $issue->get_html_article_list();
+        $args = evangelical_magazine_article::_future_posts_args();
+        $args['order'] = 'ASC';
+        $articles = $issue->_get_articles ($args);
+        $html = $issue->get_html_article_list($articles);
         echo ($html) ? $html : '<div class="article-list-box"><p>Coming soon.</p></div>';
+    }
+
+    /**
+    * Adds section info to the end of section pages.
+    * 
+    * Called by genesis_entry_content
+    * 
+    */
+    public static function add_to_end_of_section_page($content) {
+        $section_id = get_the_ID();
+        $section = new evangelical_magazine_section($section_id);
+        $args = evangelical_magazine_article::_future_posts_args();
+        $args['order'] = 'ASC';
+        $articles = $section->_get_articles ($args);
+        if ($articles) {
+            $column_index = array ('left', 'right');
+            $count = 0;
+            foreach ($articles as $article) {
+                if ($count == 2 || ($count%2) == 1) {
+                    $col = 1;
+                } else {
+                    $col = 0;
+                }
+                $column [$column_index[$col]][] = $article;
+                $count++;
+            }
+            echo "<div class=\"section-page section-left\">{$section->get_html_article_list($column['left'])}</div>";
+            echo "<div class=\"section-page section-right\">{$section->get_html_article_list($column['right'], false)}</div>";
+        } else {
+            echo '<div class="article-list-box"><p>Coming soon.</p></div>';
+        }
     }
 
     /**

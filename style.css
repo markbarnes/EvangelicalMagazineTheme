@@ -1615,6 +1615,41 @@ body.post-type-archive-em_issue .issue-contents .article-authors {
     font-weight: 300;
 }
 
+/* ## Single section page
+--------------------------------------------- */
+
+body.single-em_section .entry-title {
+    padding-left: 0;
+    text-shadow: none;
+    color: #086788;
+}
+
+.entry-content .section-page .article-list-box {
+    float: none;
+    width: 325px;
+}
+
+.section-page .article-list-box ol {
+    margin-left: 0;
+}
+
+.section-page .article-list-box li:first-child {
+    padding-top: 0;
+}
+
+.section-page.section-left {
+    float:left;
+}
+
+.section-page.section-right {
+    float:right;
+}
+
+.section-page .article-list-box-image.first {
+    width: 325px;
+    height: 217px;
+}
+
 /* ## Section archive page
 --------------------------------------------- */
 
