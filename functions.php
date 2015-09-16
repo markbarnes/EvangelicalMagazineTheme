@@ -36,6 +36,7 @@ add_image_size ('width_800', 800, 3000);
 add_image_size ('width_400', 400, 3000);
 add_image_size ('width_400_bw', 400, 3000);
 add_image_size ('width_300', 300, 3000);
+add_image_size ('post-thumbnail', 300, 3000);
 add_image_size ('width_300_bw', 300, 3000);
 add_image_size ('width_210', 210, 3000);
 add_image_size ('width_210_bw', 210, 3000);

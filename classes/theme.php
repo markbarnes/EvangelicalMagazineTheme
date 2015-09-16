@@ -78,12 +78,15 @@ class evangelical_magazine_theme {
 
         // Author archive page
         elseif (is_post_type_archive('em_author')) {
-            // Add our own entry content
             add_action ('genesis_entry_content', array(__CLASS__, 'output_author_archive_page'));
+        }
         // Issues archive page
-        } elseif (is_post_type_archive('em_issue')) {
-            // Add our own entry content
+        elseif (is_post_type_archive('em_issue')) {
             add_action ('genesis_entry_content', array(__CLASS__, 'output_issue_archive_page'));
+        }
+        // Sections archive page
+        elseif (is_post_type_archive('em_section')) {
+            add_action ('genesis_entry_content', array(__CLASS__, 'output_section_archive_page'));
         }
     }
     
@@ -442,6 +445,52 @@ class evangelical_magazine_theme {
                    $remaining_articles = $issue->get_article_count() - $max_articles_displayed;
                    if ($remaining_articles > 0) {
                        echo "</ul><p>&hellip;and <a href=\"{$issue->get_link()}\">{$remaining_articles} more</a></p>";
+                   } else {
+                       echo "</ul>";
+                   }
+               }
+               else {
+                   echo "<p>Coming soon&hellip;</p>";
+               }
+               echo "</div></li>";
+           }
+           echo "</ul>";
+       }
+    }
+
+    /**
+    * Outputs the section archive page
+    * 
+    * Called on the 'genesis_entry_content' action
+    * 
+    * @param string $content
+    */
+    public static function output_section_archive_page ($content) {
+       $max_articles_displayed = 3;
+       echo "<h1>Sections</h1>";
+       $sections = evangelical_magazine_section::get_all_sections();
+       if ($sections) {
+           echo "<ul class=\"section-list\">";
+           $exclude_ids = array();
+           foreach ($sections as $section) {
+               echo "<li class=\"issue\"><a href=\"{$section->get_link()}\"></a>";
+               echo "<div class=\"issue-contents\"><h4>{$section->get_name(true)}</h4>";
+               $articles = $section->get_top_articles($max_articles_displayed, $exclude_ids);
+               if ($articles) {
+                   echo "<ul class=\"top-articles\">";
+                   foreach ($articles as $article) {
+                       echo "<li><a href=\"{$article->get_link()}\"><div class=\"article-image\" style=\"background-image:url('{$article->get_image_url('width_210')}')\"></div></a><span class=\"article-title\">{$article->get_title(true)}</span><br/><span class=\"article-authors\">by {$article->get_author_names(true)}</span></li>";
+                       $exclude_ids[] = $article->get_id();
+                   }
+                   $remaining_articles = $section->get_article_count() - $max_articles_displayed;
+                   if ($remaining_articles > 0) {
+                       if (class_exists('NumberFormatter')) {
+                           $r = new NumberFormatter("en", NumberFormatter::SPELLOUT);
+                           $r = $r->format($remaining_articles);
+                       } else {
+                           $r = $remaining_articles;
+                       }
+                       echo "</ul><p>&hellip;and <a href=\"{$section->get_link()}\">{$r} more</a></p>";
                    } else {
                        echo "</ul>";
                    }
