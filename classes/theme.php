@@ -212,7 +212,7 @@ class evangelical_magazine_theme {
         }
         $excluded_articles = array();
         if ($article->has_series() && count($also_in) > 1) {
-            echo "<div class =\"series-meta\"><h2>Also in the {$article->get_series_name(true)} series</h2>";
+            echo "<div class =\"series-meta\"><h2>Also in the {$article->get_series_name()} series</h2>";
             $also_articles_array = array(); // We're going to split it into rows of three
             foreach ($also_in as $also_article) {
                 $class = $also_article->get_id() == $article->get_id() ? 'current' : '';
@@ -256,7 +256,7 @@ class evangelical_magazine_theme {
         global $post;
         $article = new evangelical_magazine_article($post);
         if ($article->has_series()) {
-            return "{$title}<h2 class=\"entry-title-series\">Part {$article->get_series_order()} of the {$article->get_series_name(true)} series</h2>";
+            return "{$title}<h2 class=\"entry-title-series\">Part {$article->get_series_order()} of the {$article->get_series_name()} series</h2>";
         } else {
             return $title;
         }
