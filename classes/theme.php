@@ -48,14 +48,13 @@ class evangelical_magazine_theme {
         if (is_singular('em_article')) {
             // Move the post_info to AFTER the closing </header> tag
             add_action ('genesis_entry_header', 'genesis_post_info', 16);
-            // Add the image using styles in the HTML HEAD
-            add_action ('genesis_meta', array (__CLASS__, 'add_image_to_pages'), 11);
             // Filter the post_info
             add_filter ('genesis_post_info', array (__CLASS__, 'filter_post_info'));
             // Filter the title
             add_filter ('genesis_post_title_output', array (__CLASS__, 'filter_post_title'));
             // Add the author/'see also' detail at the end of the article (also increases the view count)
             add_action ('genesis_entry_content', array (__CLASS__, 'add_to_end_of_article'), 11);
+            self::add_full_size_header_image();
         }
         // Single author pages
         elseif (is_singular('em_author')) {
@@ -63,6 +62,7 @@ class evangelical_magazine_theme {
             add_action ('genesis_meta', array (__CLASS__, 'add_image_to_pages'), 11);
             add_action ('genesis_entry_content', array (__CLASS__, 'add_to_end_of_author_page'));
             self::move_entry_header_inside_entry_content();
+            add_filter ('body_class', function($classes) {$classes[]="half-size-header-image";return $classes;});
             remove_action ('genesis_entry_header', 'genesis_do_post_title');
             add_action ('genesis_entry_content', 'genesis_do_post_title', 9);
         }
@@ -82,6 +82,10 @@ class evangelical_magazine_theme {
             remove_action ('genesis_entry_header', 'genesis_do_post_title');
             add_action ('genesis_entry_content', 'genesis_do_post_title', 4);
             add_action ('genesis_entry_content', array (__CLASS__, 'add_to_end_of_section_page'), 12);
+        }
+        // Single pages
+        elseif (is_singular('page')) {
+            self::add_full_size_header_image();
         }
 
 
@@ -144,8 +148,8 @@ class evangelical_magazine_theme {
             }
         } else {
             echo "<style type=\"text/css\">
-                .content .entry-header { margin-top: 75px; margin-top: 7.5rem }
-                .content .entry-content { padding-top: 25px; padding-top: 2.5rem; }
+                .content .entry-title { position: initial; bottom:initial;text-shadow:none;color:#086788}
+                .content .entry-header {background-color: white;padding:20px 40px}
             </style>";
         }
     }
@@ -634,5 +638,13 @@ class evangelical_magazine_theme {
     
     public static function add_viewport() {
         echo '<meta name="viewport" content="width=1300, initial-scale=1" />' . "\n";
+    }
+    
+    public static function add_full_size_header_image() {
+        global $post;
+        add_action ('genesis_meta', array (__CLASS__, 'add_image_to_pages'), 11);
+        if (has_post_thumbnail()) {
+            add_filter ('body_class', function($classes) {$classes[]="full-size-header-image";return $classes;});
+        }
     }
 }

@@ -82,9 +82,9 @@ class evangelical_magazine_current_issue extends WP_Widget {
     }
     
     public function widget ($args, $instance) {
-        if (!((is_singular('em_issue') && get_the_ID() == $issues[0]->get_id()) || is_post_type_archive('em_issue'))) {
-            $issues = evangelical_magazine_issue::get_all_issues(1);
-            if ($issues) {
+        $issues = evangelical_magazine_issue::get_all_issues(1);
+        if ($issues) {
+            if (!((is_singular('em_issue') && get_the_ID() == $issues[0]->get_id()) || is_post_type_archive('em_issue'))) {
                 echo $args['before_widget'];
                 echo "{$args['before_title']}Latest issue{$args['after_title']}";
                 foreach ($issues as $issue) {
