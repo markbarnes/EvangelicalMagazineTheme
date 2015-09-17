@@ -830,20 +830,29 @@ img.alignright,
 	text-align: center;
 }
 
-.sidebar .widget.widget_evangelical_magazine_subscribe_print {
+.sidebar .widget_evangelical_magazine_subscribe_print,
+.sidebar .widget.widget_evangelical_magazine_subscribe_print:first-of-type {
     padding: 0;
     margin-top: -17px;
     background-color: transparent;
 }
 
-.sidebar .widget.widget_evangelical_magazine_most_popular,
-.sidebar .widget.widget_evangelical_magazine_subscribe_online {
+.sidebar .widget {
     padding: 0;
     font-family: Lato, sans-serif;
+    background-color: white;
+    margin: 40px 0;
 }
 
-.widget.widget_evangelical_magazine_most_popular .widget-title,
-.widget.widget_evangelical_magazine_subscribe_online .widget-title {
+.sidebar .widget:first-of-type {
+    margin-top: 0;
+}
+
+.sidebar .widget:last-of-type {
+    margin-bottom: 0;
+}
+
+.sidebar .widget-title {
     padding: 10px 20px;
     color: #FECA00;
     background-color: #086788;
@@ -851,7 +860,9 @@ img.alignright,
     margin-bottom: 0;
 }
 
-.widget.widget_evangelical_magazine_most_popular .popular-article-cover {
+/* Popular Articles Widget */
+
+.widget_evangelical_magazine_most_popular .popular-article-cover {
     background-position: center center;
     background-size: cover;
     width: 75px;
@@ -860,78 +871,81 @@ img.alignright,
     float: left;
 }
 
-.widget.widget_evangelical_magazine_most_popular .popular_article:first-child {
+.widget_evangelical_magazine_most_popular .popular_article:first-child {
     background-color: #086788;
     color: white;
     padding-bottom: 0;
 }
 
-.widget.widget_evangelical_magazine_most_popular .popular_article:first-child a {
+.widget_evangelical_magazine_most_popular .popular_article:first-child a {
     color: white;
 }
 
-.widget.widget_evangelical_magazine_most_popular .popular_article:first-child .popular-article-cover {
+.widget_evangelical_magazine_most_popular .popular_article:first-child .popular-article-cover {
     width: 360px;
     height: 240px;
     margin: 0;
 }
 
-.widget.widget_evangelical_magazine_most_popular .article-info {
+.widget_evangelical_magazine_most_popular .article-info {
     padding: 10px 20px 10px 0;
     overflow: hidden;
 }
 
-.widget.widget_evangelical_magazine_most_popular .popular_article:first-child .article-info {
+.widget_evangelical_magazine_most_popular .popular_article:first-child .article-info {
     padding: 10px 20px 10px 20px;
 }
 
-.widget.widget_evangelical_magazine_subscribe_online {
+/* Subscription widget */
+
+.widget_evangelical_magazine_subscribe_online {
     border: 2px solid #086788;
 }
 
-.widget.widget_evangelical_magazine_subscribe_online .widget-contents {
+.widget_evangelical_magazine_subscribe_online .widget-contents {
     padding: 10px 20px;
 }
 
-.widget.widget_evangelical_magazine_subscribe_online .description,
-.widget.widget_evangelical_magazine_subscribe_online .gform_confirmation_message {
+.widget_evangelical_magazine_subscribe_online .description,
+.widget_evangelical_magazine_subscribe_online .gform_confirmation_message {
     font-size: 13px;
     margin-bottom: 13px;
 }
 
-.widget.widget_evangelical_magazine_subscribe_online label {
+.widget_evangelical_magazine_subscribe_online label {
     display: none;
 }
 
-.widget.widget_evangelical_magazine_subscribe_online li {
+.widget_evangelical_magazine_subscribe_online li {
     border: none;
 }
 
-.widget.widget_evangelical_magazine_subscribe_online input {
+.widget_evangelical_magazine_subscribe_online input {
     font-size: 14px;
     font-weight: 400;
     padding: 10px;
     border-color: #a4bcc4;
 }
 
+.widget.widget_evangelical_magazine_subscribe_online input::placeholder,
 .widget.widget_evangelical_magazine_subscribe_online input::-webkit-input-placeholder,
 .widget.widget_evangelical_magazine_subscribe_online input:-ms-input-placeholder,
 .widget.widget_evangelical_magazine_subscribe_online input::-ms-input-placeholder {
     color: #002636;
 }
 
-.widget.widget_evangelical_magazine_subscribe_online .name_last input {
+.widget_evangelical_magazine_subscribe_online .name_last input {
     margin-top: 5px;
 }
 
-.widget.widget_evangelical_magazine_subscribe_online input[type="submit"] {
+.widget_evangelical_magazine_subscribe_online input[type="submit"] {
     background-color: #086788;
     color: #FECA00;
     font-weight: 700;
     text-transform:none;
 }
 
-.widget.widget_evangelical_magazine_subscribe_online input:hover[type="submit"] {
+.widget_evangelical_magazine_subscribe_online input:hover[type="submit"] {
     color: white;
 }
 
@@ -1973,13 +1987,6 @@ li.comment {
 	margin-bottom: 0;
 }
 
-.sidebar .widget {
-	background-color: #fff;
-	margin-bottom: 40px;
-	padding: 40px;
-}
-
-
 /*
 Footer Widgets
 ---------------------------------------------------------------------------------------------------- */
@@ -2246,13 +2253,11 @@ body.home .site-inner {
     font-family: Lato, sans-serif;
 }
 
-#subscription-form p {
+#subscription-form p,
+#subscription-form .gform_confirmation_message {
     margin: 0 10px 0 0;
     float: left;
     padding: 7px 0;
-}
-
-
 }
 
 #subscription-form form {
