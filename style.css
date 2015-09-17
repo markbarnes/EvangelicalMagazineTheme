@@ -137,6 +137,14 @@ input[type="search"]{
     background-size: cover;
 }
 
+.box-shadow-transition {
+    -webkit-transition: box-shadow 0.4s ease-in-out;
+    -moz-transition:    box-shadow 0.4s ease-in-out;
+    -ms-transition:     box-shadow 0.4s ease-in-out;
+    -o-transition:      box-shadow 0.4s ease-in-out;
+    transition:         box-shadow 0.4s ease-in-out;
+}
+
 /* ## Typographical Elements
 --------------------------------------------- */
 
@@ -868,8 +876,6 @@ img.alignright,
 /* Popular Articles Widget */
 
 .widget_evangelical_magazine_most_popular .popular-article-cover {
-    background-position: center center;
-    background-size: cover;
     width: 75px;
     height: 75px;
     margin: 0 10px 0 20px;
@@ -1604,8 +1610,6 @@ p.entry-meta {
     border-left: 1px solid white;
     border-bottom:1px solid white;
     height:135px;
-    background-size:cover;
-    background-position: center center;
     float:left;
     box-shadow: inset 0 0 50px 5px rgba(0,0,0,0.65);
 }
@@ -1735,23 +1739,11 @@ body.post-type-archive-em_issue .magazine-cover {
     height: 297px;
     float: left;
     margin-right: 20px;
-    background-position: center center;
-    background-size: cover;
     box-shadow: inset 0 0 40px 10px rgba(0,0,0,0.5);
-    -webkit-transition: box-shadow 0.4s ease-in-out;
-    -moz-transition:    box-shadow 0.4s ease-in-out;
-    -ms-transition:     box-shadow 0.4s ease-in-out;
-    -o-transition:      box-shadow 0.4s ease-in-out;
-    transition:         box-shadow 0.4s ease-in-out;
 }
 
 body.post-type-archive-em_issue a:hover .magazine-cover {
     box-shadow: none;
-    -webkit-transition: box-shadow 0.4s ease-in-out;
-    -moz-transition:    box-shadow 0.4s ease-in-out;
-    -ms-transition:     box-shadow 0.4s ease-in-out;
-    -o-transition:      box-shadow 0.4s ease-in-out;
-    transition:         box-shadow 0.4s ease-in-out;
 }
 
 body.post-type-archive-em_issue .issue-contents {
@@ -1848,20 +1840,10 @@ body.single-em_section .entry-title {
     float:left;
     margin-right: 20px;
     box-shadow: inset 0 0 60px rgba(0,0,0,0.8);
-    -webkit-transition: box-shadow 0.4s ease-in-out;
-    -moz-transition:    box-shadow 0.4s ease-in-out;
-    -ms-transition:     box-shadow 0.4s ease-in-out;
-    -o-transition:      box-shadow 0.4s ease-in-out;
-    transition:         box-shadow 0.4s ease-in-out;
 }
 
 .section-list a:hover .article-image {
     box-shadow: none;
-    -webkit-transition: box-shadow 0.4s ease-in-out;
-    -moz-transition:    box-shadow 0.4s ease-in-out;
-    -ms-transition:     box-shadow 0.4s ease-in-out;
-    -o-transition:      box-shadow 0.4s ease-in-out;
-    transition:         box-shadow 0.4s ease-in-out;
 }
 
 
@@ -2133,19 +2115,9 @@ body.home #latest-cover {
     width: 250px;
     background-size: cover;
     box-shadow: inset 0 0 65px 0 rgba(0,0,0,0.5);
-    -webkit-transition: box-shadow 0.4s ease-in-out;
-    -moz-transition:    box-shadow 0.4s ease-in-out;
-    -ms-transition:     box-shadow 0.4s ease-in-out;
-    -o-transition:      box-shadow 0.4s ease-in-out;
-    transition:         box-shadow 0.4s ease-in-out;
 }
 
 body.home a:hover #latest-cover {
-    -webkit-transition: box-shadow 0.4s ease-in-out;
-    -moz-transition:    box-shadow 0.4s ease-in-out;
-    -ms-transition:     box-shadow 0.4s ease-in-out;
-    -o-transition:      box-shadow 0.4s ease-in-out;
-    transition:         box-shadow 0.4s ease-in-out;
     box-shadow: none;
 }
 
@@ -2160,11 +2132,6 @@ body.home .article {
     position: relative;
     overflow:hidden;
     box-shadow: inset 0 0 65px 10px rgba(0,0,0,0.5);
-    -webkit-transition: box-shadow 0.4s ease-in-out;
-    -moz-transition:    box-shadow 0.4s ease-in-out;
-    -ms-transition:     box-shadow 0.4s ease-in-out;
-    -o-transition:      box-shadow 0.4s ease-in-out;
-    transition:         box-shadow 0.4s ease-in-out;
 }
 
 body.home #latest-articles .first-row .article {
@@ -2186,11 +2153,6 @@ body.home #latest-articles .second-row a:last-child .article {
 
 body.home a:hover .article {
     box-shadow: none;
-    -webkit-transition: box-shadow 0.4s ease-in-out;
-    -moz-transition:    box-shadow 0.4s ease-in-out;
-    -ms-transition:     box-shadow 0.4s ease-in-out;
-    -o-transition:      box-shadow 0.4s ease-in-out;
-    transition:         box-shadow 0.4s ease-in-out;
 }
 
 body.home .article-400 {
@@ -2357,19 +2319,9 @@ body.home .site-inner {
     background-size: cover;
     background-position: center;
     box-shadow: inset 0 0 100px rgba(0,0,0,0.8);
-    -webkit-transition: box-shadow 0.4s ease-in-out;
-    -moz-transition:    box-shadow 0.4s ease-in-out;
-    -ms-transition:     box-shadow 0.4s ease-in-out;
-    -o-transition:      box-shadow 0.4s ease-in-out;
-    transition:         box-shadow 0.4s ease-in-out;
 }
 
 a:hover .article-list-box-image {
-    -webkit-transition: box-shadow 0.4s ease-in-out;
-    -moz-transition:    box-shadow 0.4s ease-in-out;
-    -ms-transition:     box-shadow 0.4s ease-in-out;
-    -o-transition:      box-shadow 0.4s ease-in-out;
-    transition:         box-shadow 0.4s ease-in-out;
     box-shadow: none;
 }
 

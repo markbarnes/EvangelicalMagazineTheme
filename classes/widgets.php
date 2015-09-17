@@ -65,7 +65,7 @@ class evangelical_magazine_most_popular extends WP_Widget {
             $size = 'width_400';
             foreach ($articles as $article) {
                 echo "<li class=\"popular_article\">";
-                echo "<a href=\"{$article->get_link()}\"><div class=\"popular-article-cover\" style=\"background-image:url('{$article->get_image_url($size)}')\"></div></a>";
+                echo "<a href=\"{$article->get_link()}\"><div class=\"popular-article-cover image-fit\" style=\"background-image:url('{$article->get_image_url($size)}')\"></div></a>";
                 echo "<div class=\"article-info\">{$article->get_name(true)} by {$article->get_author_names(true)}</div></li>";
                 $size = 'thumbnail_75';
             }

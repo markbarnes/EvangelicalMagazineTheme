@@ -439,7 +439,7 @@ class evangelical_magazine_theme {
        $authors = evangelical_magazine_author::get_all_authors_weighted_by_recent();
        if ($authors) {
            foreach ($authors as $author) {
-               echo "<a href=\"{$author->get_link()}\"><div class=\"author-grid\" style=\"background-image:url('{$author->get_image_url('width_150')}')\"><div class=\"author-description\">{$author->get_filtered_content()}</div></div></a>";
+               echo "<a href=\"{$author->get_link()}\"><div class=\"author-grid image-fit\" style=\"background-image:url('{$author->get_image_url('width_150')}')\"><div class=\"author-description\">{$author->get_filtered_content()}</div></div></a>";
            }
        }
     }
@@ -458,7 +458,7 @@ class evangelical_magazine_theme {
        if ($issues) {
            echo "<ul class=\"issue-list\">";
            foreach ($issues as $issue) {
-               echo "<li class=\"issue\"><a href=\"{$issue->get_link()}\"><div class=\"magazine-cover\" style=\"background-image:url('{$issue->get_image_url('width_210')}')\"></div></a>";
+               echo "<li class=\"issue\"><a href=\"{$issue->get_link()}\"><div class=\"magazine-cover image-fit box-shadow-transition\" style=\"background-image:url('{$issue->get_image_url('width_210')}')\"></div></a>";
                echo "<div class=\"issue-contents\"><h4>{$issue->get_name(true)}</h4>";
                $articles = $issue->get_top_articles($max_articles_displayed);
                if ($articles) {
