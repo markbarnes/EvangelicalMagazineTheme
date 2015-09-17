@@ -8,6 +8,7 @@ class evangelical_magazine_home_page {
     */
     public static function do_home_page() {
         $recent_article_ids = self::do_most_recent_articles();
+        self::do_subscription_form();
         self::do_sections(1, $recent_article_ids);
     }
 
@@ -60,6 +61,19 @@ class evangelical_magazine_home_page {
             echo '</aside>';
             return $article_ids;
         }
+    }
+    
+    /**
+    * Outputs the subscription form on the home page
+    * 
+    */
+    public static function do_subscription_form() {
+        if (function_exists ('gravity_form')) {
+                echo "<aside id=\"subscription-form\"><p>Get a new article every week:</p>";
+                gravity_form (1, false);
+                echo "</aside>";
+        }
+        
     }
     
     /**

@@ -2221,8 +2221,6 @@ body.home #latest-articles .coming-soon {
     float: right;
 }
 
-
-
 body.home #sections-left, #sections-center, #sections-right {
     width: 380px;
 }
@@ -2238,6 +2236,65 @@ body.home #sections-right {
 
 body.home .site-inner {
     padding-top: 0;
+}
+
+#subscription-form {
+    background-color: #086788;
+    color: #FECA00; 
+    overflow: hidden;
+    padding: 10px 20px;
+    font-family: Lato, sans-serif;
+}
+
+#subscription-form p {
+    margin: 0 10px 0 0;
+    float: left;
+    padding: 7px 0;
+}
+
+
+}
+
+#subscription-form form {
+    overflow: hidden;
+}
+
+#subscription-form label {
+    display: none;
+}
+
+#subscription-form form,
+#subscription-form .gform_body,
+#subscription-form .gform_footer {
+    float: left;
+}
+
+#subscription-form .gfield {
+    float:left;
+    font-size: 14px;
+}
+
+#subscription-form input {
+    width: auto;
+    padding: 10px 20px;
+    margin-right: 10px;
+    font-weight: 400;
+}
+
+#subscription-form input::placeholder {
+    font-weight: 300;
+}
+
+#subscription-form input[type=email] {
+    width: 300px;
+}
+
+#subscription-form input[type=submit] {
+    background-color: #FECA00;
+    color: #086788;
+    text-transform: none;
+    font-weight: 700;
+    padding: 12px 20px;
 }
 
 /* # Article List Box (list of articles in a section or issue)

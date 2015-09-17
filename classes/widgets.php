@@ -38,7 +38,7 @@ class evangelical_magazine_subscribe extends WP_Widget {
                 echo "{$args['before_title']}Get the latest articles by email{$args['after_title']}";
                 echo "<div class=\"widget-contents\">";
                 echo "<p class=\"description\">Get the latest articles for free, every Thursday evening.</p>";
-                gravity_form (1, false, false, false, false, true);
+                gravity_form (1, false);
                 echo "</div>";
                 echo $args['after_widget'];
             }
