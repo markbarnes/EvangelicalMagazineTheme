@@ -11,7 +11,7 @@ class evangelical_magazine_widgets {
 class evangelical_magazine_subscribe extends WP_Widget {
     
     function __construct() {
-        parent::__construct('evangelical_magazine_subscribe', 'Subscribe', array ('description' => 'Outputs a subscription advert.'));
+        parent::__construct('evangelical_magazine_subscribe', 'Subscribe', array ('description' => 'Rotates between an advert to subscribe to the print edition, and a form to receive the email edition.'));
     }
     
     private function get_subscription_url() {
@@ -22,15 +22,24 @@ class evangelical_magazine_subscribe extends WP_Widget {
     }
     
     public function widget ($args, $instance) {
-        if (($a = rand(1,3)) == 1) {
+        if (rand(1,2) == 1) {
+            $args['before_widget'] = str_replace ('widget_evangelical_magazine_subscribe', 'widget_evangelical_magazine_subscribe_print', $args['before_widget']);
             $link_url = $this->get_subscription_url();
             if ($link_url) {
                 $image_url = get_stylesheet_directory_uri().'/images/subscribe.png';
                 echo $args['before_widget'];
-                if (!empty($instance['title'])) {
-                    echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $args['after_title'];
-                }
                 echo "<a href=\"{$link_url}\"><div style=\"background-image:url('{$image_url}');width:386px;height:350px\"></div></a>";
+                echo $args['after_widget'];
+            }
+        } else {
+            if (function_exists('gravity_form')) {
+                $args['before_widget'] = str_replace ('widget_evangelical_magazine_subscribe', 'widget_evangelical_magazine_subscribe_online', $args['before_widget']);
+                echo $args['before_widget'];
+                echo "{$args['before_title']}Get the latest articles by email{$args['after_title']}";
+                echo "<div class=\"widget-contents\">";
+                echo "<p class=\"description\">Get the latest articles for free, every Thursday evening.</p>";
+                gravity_form (1, false, false, false, false, true);
+                echo "</div>";
                 echo $args['after_widget'];
             }
         }
