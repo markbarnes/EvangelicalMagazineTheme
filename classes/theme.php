@@ -12,6 +12,7 @@ class evangelical_magazine_theme {
     */
     public static function rearrange_layout() {
         // All post types
+        add_action ('genesis_meta', array (__CLASS__, 'add_viewport'));
         add_action ('genesis_before_header', 'genesis_do_nav');
         add_filter ('genesis_structural_wrap-menu-primary', array (__CLASS__, 'add_logo_to_nav_bar'));
         remove_action( 'genesis_header', 'genesis_header_markup_open', 5 );
@@ -627,5 +628,9 @@ class evangelical_magazine_theme {
             }
         }
         return $meta;       
+    }
+    
+    public static function add_viewport() {
+        echo '<meta name="viewport" content="width=1300, initial-scale=1" />' . "\n";
     }
 }
