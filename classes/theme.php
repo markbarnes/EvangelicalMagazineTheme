@@ -585,7 +585,9 @@ class evangelical_magazine_theme {
                 $count++;
             }
             echo "<div class=\"section-page section-left\">{$section->get_html_article_list($column['left'])}</div>";
-            echo "<div class=\"section-page section-right\">{$section->get_html_article_list($column['right'], false)}</div>";
+            if (isset($column['right'])) {
+                echo "<div class=\"section-page section-right\">{$section->get_html_article_list($column['right'], false)}</div>";
+            }
         } else {
             echo '<div class="article-list-box"><p>Coming soon.</p></div>';
         }
