@@ -4,6 +4,7 @@ class evangelical_magazine_widgets {
     static function register_widgets() {
         register_widget('evangelical_magazine_subscribe');
         register_widget('evangelical_magazine_most_popular');
+        register_widget('evangelical_magazine_current_issue');
     }    
 
 }
@@ -70,6 +71,27 @@ class evangelical_magazine_most_popular extends WP_Widget {
             }
             echo "</ul>";
             echo $args['after_widget'];
+        }
+    }
+}
+
+class evangelical_magazine_current_issue extends WP_Widget {
+    
+    function __construct() {
+        parent::__construct('evangelical_magazine_current_issue', 'Current issue', array ('description' => 'Provides a link to the current issue of the magazine.'));
+    }
+    
+    public function widget ($args, $instance) {
+        if (!((is_singular('em_issue') && get_the_ID() == $issues[0]->get_id()) || is_post_type_archive('em_issue'))) {
+            $issues = evangelical_magazine_issue::get_all_issues(1);
+            if ($issues) {
+                echo $args['before_widget'];
+                echo "{$args['before_title']}Latest issue{$args['after_title']}";
+                foreach ($issues as $issue) {
+                    echo $issue->get_link_html("<div class=\"cover-image image-fit\" style=\"background-image:url('{$issue->get_image_url('width_400')}');\"></div>");
+                }
+                echo $args['after_widget'];
+            }
         }
     }
 }

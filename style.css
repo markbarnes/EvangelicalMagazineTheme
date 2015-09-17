@@ -129,8 +129,13 @@ input[type="search"]{
 }
 
 
-/* # Defaults
+/* # Standard classes
 ---------------------------------------------------------------------------------------------------- */
+
+.image-fit {
+    background-position: center center;
+    background-size: cover;
+}
 
 /* ## Typographical Elements
 --------------------------------------------- */
@@ -947,6 +952,13 @@ img.alignright,
 
 .widget_evangelical_magazine_subscribe_online input:hover[type="submit"] {
     color: white;
+}
+
+/* Latest issue widget */
+
+.widget_evangelical_magazine_current_issue .cover-image {
+    width: 360px;
+    height: 509px;
 }
 
 /* ## Gravity Forms
