@@ -15,13 +15,15 @@ class evangelical_magazine_theme {
         add_action ('genesis_meta', array (__CLASS__, 'add_viewport'));
         add_action ('genesis_before_header', 'genesis_do_nav');
         add_filter ('genesis_structural_wrap-menu-primary', array (__CLASS__, 'add_logo_to_nav_bar'));
+        add_filter ('wp_nav_menu_items', array (__CLASS__, 'add_search_button_to_nav_bar'), 10, 2);
+        add_filter ('get_search_form', array (__CLASS__, 'add_autofocus_to_search_form'));
         remove_action( 'genesis_header', 'genesis_header_markup_open', 5 );
         remove_action( 'genesis_header', 'genesis_do_header' );
         remove_action( 'genesis_header', 'genesis_header_markup_close', 15 );
         remove_action ('genesis_footer', 'genesis_do_footer');
         remove_action ('genesis_after_header', 'genesis_do_nav');
         remove_action( 'genesis_entry_footer', 'genesis_post_meta' );
-         // Add our own footer below the three widgets
+         // Add our own footer
         add_action ('genesis_footer', array (__CLASS__, 'do_footer_bottom'));
         unregister_sidebar( 'header-right' );
 
@@ -696,5 +698,19 @@ class evangelical_magazine_theme {
         if ($object && $object->is_article()) {
             echo "<p class=\"article-meta\">by {$object->get_author_names(true)} ({$object->get_issue_name(true)})</p>";
         }
+    }
+    
+    public static function add_search_button_to_nav_bar ($menu, $args) {
+        if ($args->theme_location === 'primary') {
+            $output = $menu."<li class=\"menu-item search\"><a href=\"#\"><span class=\"dashicons dashicons-search\"></span></a>";
+            $output .="<ul class=\"sub-menu sub-menu-search\"><div class=\"wrap\"><li id=\"\" class=\"menu-item\">".get_search_form(false)."</li></div></ul></li>";
+            return $output;
+        } else {
+            return $menu;
+        }
+    }
+    
+    public static function add_autofocus_to_search_form ($form) {
+        return str_replace ('type="search" name="s"', 'type="search" name="s" autofocus', $form);
     }
 }

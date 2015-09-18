@@ -1236,10 +1236,6 @@ img.alignright,
 	margin-left: 48px;
 }
 
-.genesis-nav-menu > .search {
-	padding: 10px 0 0;
-}
-
 .genesis-nav-menu .menu-item-type-issue {
     width: 186px;
     padding: 20px 18px;
@@ -1383,6 +1379,48 @@ img.alignright,
 .nav-primary .genesis-nav-menu .sub-menu .current-menu-item > a {
 	color: #c3251d;
 	text-decoration: underline;
+}
+
+.nav-primary .search a {
+    padding: 15px 15px 20px 15px;
+}
+
+.nav-primary .search .dashicons-search {
+    font-size: 35px;
+    height: 35px;
+    width: 35px;
+}
+
+.nav-primary .search .sub-menu .menu-item {
+    float: right;
+    
+}
+
+.nav-primary input[type="search"] {
+    width: 400px;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: white;
+    font-family: Lato, sans-serif;
+    text-align: right;
+    color: black;
+    border-color: #a4bcc4;
+}
+
+.nav-primary ::placeholder {
+    color: #a4bcc4;
+}
+
+.nav-primary ::-webkit-input-placeholder {
+    color: #a4bcc4;
+}
+
+.nav-primary :-ms-input-placeholder {
+    color: #a4bcc4;
+}
+
+.nav-primary ::-ms-input-placeholder {
+    color: #a4bcc4;
 }
 
 /* ## Secondary Navigation
@@ -1940,6 +1978,7 @@ body.search-results article.em_author .entry-title {
 
 body.search-results article.em_author .entry-content {
     padding: 20px 0;
+    background-color: aliceblue;
 }
 
 body.search-results article.em_author .entry-content a {
@@ -1953,6 +1992,10 @@ body.search-results article.em_author .entry-content div {
 body.search-results article.em_author .entry-content p {
     font-size: 15px;
     width: 605px;
+}
+
+body.search-no-results .entry {
+    padding: 40px;
 }
 
 /* ## Pagination
