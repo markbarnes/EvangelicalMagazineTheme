@@ -912,6 +912,11 @@ img.alignright,
 
 /* Popular Articles Widget */
 
+.widget_evangelical_magazine_most_popular .popular_article {
+    overflow:hidden;
+    clear: both;
+}
+
 .widget_evangelical_magazine_most_popular .popular-article-cover {
     width: 75px;
     height: 75px;
@@ -936,7 +941,7 @@ img.alignright,
 }
 
 .widget_evangelical_magazine_most_popular .article-info {
-    padding: 10px 20px 10px 0;
+    padding: 0 20px 10px 0;
     overflow: hidden;
 }
 
