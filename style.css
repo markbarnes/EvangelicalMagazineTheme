@@ -576,6 +576,8 @@ th {
 .content {
 	float: right;
 	width: 800px;
+    background-color: white;
+    margin-bottom: 40px
 }
 
 .content-sidebar .content,
@@ -1434,7 +1436,6 @@ body.full-size-header-image .entry-header {
 
 .entry-content {
     background-color: white;
-    margin-bottom: 40px;
     padding: 50px 60px;
     overflow: hidden;
 }
@@ -1806,6 +1807,7 @@ body.single-em_section .entry-title {
 
 .entry-content .section-list {
     margin-left: 0;
+    margin-bottom: 0;
 }
 
 .section-list > .issue {
@@ -1862,12 +1864,104 @@ body.single-em_section .entry-title {
     font-weight: 300;
 }
 
+/* ## Search results
+--------------------------------------------- */
+
+.archive-description {
+    margin-bottom: 0;
+    padding-bottom: 20px;
+}
+
+.archive-title {
+    font-size: 48px;
+    margin-bottom: 0;
+}
+
+body.search-results .entry {
+    border-top: 1px solid #086788;
+    margin: 0 40px;
+}
+
+body.search-results .entry:last-of-type {
+    border-bottom: 1px solid #086788;
+}
+
+body.search-results .entry .entry-content {
+    padding: 30px 0;
+}
+
+body.search-results .entry-content .search-thumbnail {
+    float: left;
+}
+
+body.search-results .entry-content div {
+    float: left;
+    width: 470px;
+    margin-left: 40px;
+}
+
+body.search-results .entry-title {
+    text-shadow: none;
+    padding: 0 0 15px 0;
+    font-size: 30px;
+}
+
+body.search-results .entry-title a {
+    color: #086788;
+}
+
+body.search-results .entry-content p.article-meta {
+    font-family: Lato, sans-serif;
+    margin: -15px 0 7px 0;
+    font-size: 14px;
+}
+
+body.search-results .entry-content p {
+    margin-bottom: 0;
+}
+
+.relevanssi-query-term {
+    background-color: #fce99d;
+    font-weight: 700;
+}
+
+.entry-title .relevanssi-query-term {
+    font-weight: 400;
+}
+
+body.search-results .pagination {
+    margin: 40px;
+}
+
+body.search-results article.em_author .entry-title {
+    font-size: 24px;
+    padding-bottom: 4px;
+}
+
+body.search-results article.em_author .entry-content {
+    padding: 20px 0;
+}
+
+body.search-results article.em_author .entry-content a {
+    max-height: 75px;
+}
+
+body.search-results article.em_author .entry-content div {
+    margin-left: 30px; 
+}
+
+body.search-results article.em_author .entry-content p {
+    font-size: 15px;
+    width: 605px;
+}
+
 /* ## Pagination
 --------------------------------------------- */
 
 .pagination {
 	clear: both;
 	margin: 40px 0;
+    font-family: Lato, sans-serif;
 }
 
 .adjacent-entry-pagination {
@@ -1879,7 +1973,7 @@ body.single-em_section .entry-title {
 }
 
 .archive-pagination li a {
-	background-color: #333;
+	background-color: #002636;
 	color: #fff;
 	cursor: pointer;
 	display: inline-block;
@@ -1891,8 +1985,7 @@ body.single-em_section .entry-title {
 .archive-pagination li a:hover,
 .archive-pagination li a:focus,
 .archive-pagination .active a {
-	background-color: #c3251d;
-	text-decoration: underline;
+	background-color: #086788;
 }
 
 /* ## Comments

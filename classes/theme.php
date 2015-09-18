@@ -87,8 +87,6 @@ class evangelical_magazine_theme {
         elseif (is_singular('page')) {
             self::add_full_size_header_image();
         }
-
-
         // Author archive page
         elseif (is_post_type_archive('em_author')) {
             add_action ('genesis_entry_content', array(__CLASS__, 'output_author_archive_page'));
@@ -100,6 +98,16 @@ class evangelical_magazine_theme {
         // Sections archive page
         elseif (is_post_type_archive('em_section')) {
             add_action ('genesis_entry_content', array(__CLASS__, 'output_section_archive_page'));
+        }
+        // Search results
+        elseif (is_search()) {
+            remove_action ('genesis_entry_content', 'genesis_do_post_image', 8);
+            add_action ('genesis_entry_content', array(__CLASS__, 'do_post_image_for_search'), 6);
+            add_action ('genesis_entry_content', array (__CLASS__, 'open_div'), 6);
+            add_action ('genesis_entry_content', 'genesis_do_post_title', 8);
+            add_action ('genesis_entry_content', array (__CLASS__, 'do_article_meta_for_search'), 9);
+            add_action ('genesis_entry_content', array (__CLASS__, 'close_div'), 13);
+            add_filter ('genesis_post_title_output', array(__CLASS__, 'filter_post_title_for_search_terms'));
         }
     }
     
@@ -638,15 +646,55 @@ class evangelical_magazine_theme {
         return $meta;       
     }
     
+    /**
+    * Adds the viewport in the meta tag (at the moment, to disable mobile resizing)
+    * 
+    */
     public static function add_viewport() {
         echo '<meta name="viewport" content="width=1300, initial-scale=1" />' . "\n";
     }
     
+    /**
+    * Adds the full size header image to the page
+    * 
+    */
     public static function add_full_size_header_image() {
         global $post;
         add_action ('genesis_meta', array (__CLASS__, 'add_image_to_pages'), 11);
         if (has_post_thumbnail()) {
             add_filter ('body_class', function($classes) {$classes[]="full-size-header-image";return $classes;});
+        }
+    }
+    
+    /**
+    * Outputs the post thumbnail on the search page
+    */
+    public static function do_post_image_for_search () {
+        $object = evangelical_magazine::get_object_from_id(get_the_ID());
+        if ($object) {
+            $size = $object->is_author() ? 'thumbnail_75' : 'width_210';
+            echo $object->get_image_html($size, true, 'search-thumbnail');
+        }
+    }
+    
+    /**
+    * Highlights search terms in the post title, if Relevanssi plugin is installed
+    * 
+    * @param mixed $title
+    * @return string;
+    */
+    public static function filter_post_title_for_search_terms ($title) {
+        if (function_exists('relevanssi_highlight_terms')) {
+            return relevanssi_highlight_terms($title, get_search_query(false));
+        } else {
+            return $title;
+        }
+    }
+    
+    public static function do_article_meta_for_search() {
+        $object = evangelical_magazine::get_object_from_id(get_the_ID());
+        if ($object && $object->is_article()) {
+            echo "<p class=\"article-meta\">by {$object->get_author_names(true)} ({$object->get_issue_name(true)})</p>";
         }
     }
 }
