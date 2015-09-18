@@ -1998,6 +1998,10 @@ body.search-no-results .entry {
     padding: 40px;
 }
 
+body.search-no-results input[type="submit"] {
+    margin-top: 20px;
+}
+
 /* ## Pagination
 --------------------------------------------- */
 

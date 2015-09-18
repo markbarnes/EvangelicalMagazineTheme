@@ -713,4 +713,9 @@ class evangelical_magazine_theme {
     public static function add_autofocus_to_search_form ($form) {
         return str_replace ('type="search" name="s"', 'type="search" name="s" autofocus', $form);
     }
+    
+    public static function filter_noposts_text ($text) {
+        ;
+        return 'Sorry, we couldn&#0146;t find &#0145'.get_search_query().'&#0146;. Please try again.'.get_search_form(false);
+    }
 }
