@@ -86,7 +86,10 @@ class evangelical_magazine_home_page {
         $args = array ('orderby' => 'name', 'order' => 'ASC');
         $sections = evangelical_magazine_section::get_all_sections($args);
         if ($sections) {
-            shuffle($sections);
+            //shuffle($sections);
+            mt_srand(strtotime(date('DMY')));
+            $order = array_map(create_function('$val', 'return mt_rand();'), range(1, count($sections)));
+            array_multisort($order, $sections);
             echo '<aside id="sections">';
                 $possible_sides = array ('left', 'center', 'right');
                 $side_index = 0;
