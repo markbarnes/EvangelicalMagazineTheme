@@ -185,7 +185,9 @@ class evangelical_magazine_theme {
     public static function add_to_end_of_article () {
         global $post;
         $article = new evangelical_magazine_article($post);
-        $article->record_view_count();
+        if (!is_user_logged_in()) {
+            $article->record_view_count();
+        }
         $authors = $article->get_authors();
         if ($article->has_series()) {
             $also_in = $article->get_articles_in_same_series();
@@ -333,7 +335,7 @@ class evangelical_magazine_theme {
         $text_to_look_for = '<span itemprop="name">Authors</span></a>';
         if (strpos($menu, $text_to_look_for) !== FALSE) {
             $menu = str_replace ('<a href="#" itemprop="url"><span itemprop="name">Authors</span></a>', '<a href="'.get_post_type_archive_link ('em_author').'" itemprop="url"><span itemprop="name">Authors</span></a>', $menu);
-            $authors = evangelical_magazine_author::get_all_authors_weighted_by_recent(10);
+            $authors = evangelical_magazine_author::get_top_authors(10);
             if ($authors) {
                 $author_menu = '<ul class="sub-menu sub-menu-authors"><div class="wrap">';
                 foreach ($authors as $author) {
@@ -440,7 +442,7 @@ class evangelical_magazine_theme {
     */
     public static function output_author_archive_page ($content) {
        echo "<h1>Authors</h1>";
-       $authors = evangelical_magazine_author::get_all_authors_weighted_by_recent();
+       $authors = evangelical_magazine_author::get_top_authors();
        if ($authors) {
            foreach ($authors as $author) {
                echo "<a href=\"{$author->get_link()}\"><div class=\"author-grid image-fit\" style=\"background-image:url('{$author->get_image_url('width_150')}')\"><div class=\"author-description\">{$author->get_filtered_content()}</div></div></a>";
