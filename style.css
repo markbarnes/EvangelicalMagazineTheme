@@ -2197,6 +2197,11 @@ Footer Widgets
 /* # Home Page
 ---------------------------------------------------------------------------------------------------- */
 
+body.home .content {
+    background-color: transparent;
+    margin-bottom: 0;
+}
+
 body.home .site-inner {
     margin: 0 auto;
 }
