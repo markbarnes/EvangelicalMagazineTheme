@@ -186,7 +186,7 @@ a:focus {
 }
 
 p {
-	margin: 0 0 28px;
+	margin: 0 0 20px;
 	padding: 0;
 }
 
@@ -221,7 +221,7 @@ i {
 }
 
 blockquote {
-	margin: 40px;
+	margin: 20px 40px;
 }
 
 blockquote::before {
@@ -1670,7 +1670,7 @@ body.single-em_article .entry-title-series a {
 --------------------------------------------- */
 
 body.single-em_author .entry-header {
-    height: 400px;
+    height: 300px;
     width: 300px;
     float: left;
     margin-right: 20px;
@@ -1709,6 +1709,10 @@ body.single-em_issue .entry-title {
 body.single-em_issue .entry-content > div:first-of-type {
     float:left;
     width: 260px;
+}
+
+body.single-em_issue .article-list-box li:first-child {
+    padding-top: 0;
 }
 
 /* ## Issue archive page
