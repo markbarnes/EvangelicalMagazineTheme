@@ -21,7 +21,6 @@ class evangelical_magazine_theme {
         add_filter ('wp_nav_menu_items', array (__CLASS__, 'modify_menu'));
         add_filter ('genesis_structural_wrap-menu-primary', array (__CLASS__, 'add_logo_to_nav_bar'));
         add_filter ('wp_nav_menu_items', array (__CLASS__, 'add_search_button_to_nav_bar'), 10, 2);
-        add_filter ('get_search_form', array (__CLASS__, 'add_autofocus_to_search_form'));
         remove_action ('genesis_after_header', 'genesis_do_nav');
         add_action    ('genesis_before_header', 'genesis_do_nav');
         // Remove the standard header and footer
@@ -758,18 +757,6 @@ class evangelical_magazine_theme {
         } else {
             return $menu;
         }
-    }
-    
-    /**
-    * Adds autofocus to the search form
-    * 
-    * Filters get_search_form
-    * 
-    * @param string $form
-    * @return string
-    */
-    public static function add_autofocus_to_search_form ($form) {
-        return str_replace ('type="search" name="s"', 'type="search" name="s" autofocus', $form);
     }
     
     /**
