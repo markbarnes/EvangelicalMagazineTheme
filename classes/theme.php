@@ -113,7 +113,6 @@ class evangelical_magazine_theme {
             add_action ('genesis_entry_content', array (__CLASS__, 'close_div'), 13);
             add_filter ('genesis_post_title_output', array(__CLASS__, 'filter_post_title_for_search_terms'));
             add_action ('genesis_after_loop', array (__CLASS__, 'add_to_end_of_search_page'), 12);
-
         }
     }
     
@@ -125,7 +124,9 @@ class evangelical_magazine_theme {
     public static function enqueue_fonts() {
         wp_enqueue_style ('magazine-font-league-gothic', get_stylesheet_directory_uri().'/fonts/league-gothic.css', array(), CHILD_THEME_VERSION);
         wp_enqueue_style ('magazine-font-aleo', get_stylesheet_directory_uri().'/fonts/aleo.css', array(), CHILD_THEME_VERSION);
-        wp_enqueue_style ('magazine-font-lato', get_stylesheet_directory_uri().'/fonts/lato.css', array(), CHILD_THEME_VERSION);    }
+        wp_enqueue_style ('magazine-font-lato', get_stylesheet_directory_uri().'/fonts/lato.css', array(), CHILD_THEME_VERSION);
+        wp_enqueue_style ('dashicons');
+    }
     
     /**
     * Filters the primary menu markup to add the logo
