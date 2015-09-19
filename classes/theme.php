@@ -591,7 +591,6 @@ class evangelical_magazine_theme {
         $section_id = get_the_ID();
         $section = new evangelical_magazine_section($section_id);
         $args = evangelical_magazine_article::_future_posts_args();
-        $args['order'] = 'ASC';
         $articles = $section->_get_articles ($args);
         if ($articles) {
             $column_index = array ('left', 'right');
