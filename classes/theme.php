@@ -390,7 +390,7 @@ class evangelical_magazine_theme {
     public static function add_to_end_of_author_page() {
         $author_id = get_the_ID();
         $author = new evangelical_magazine_author($author_id);
-        $articles = $author->get_articles($author::_future_posts_args());
+        $articles = $author->_get_articles($author::_future_posts_args());
         if ($articles) {
             echo "<h3 class=\"articles_by\">Articles by {$author->get_name()}</h3>";
             $chunks = array_chunk ($articles, 3);
