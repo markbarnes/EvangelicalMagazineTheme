@@ -202,13 +202,14 @@ class evangelical_magazine_theme {
         if (!is_user_logged_in()) {
             $article->record_view_count();
         }
+        // Show authors
         $authors = $article->get_authors();
         if ($article->has_series()) {
             $also_in = $article->get_articles_in_same_series();
         } else {
             $also_in = array();
         }
-
+        $excluded_articles = array();
         if ($authors) {
             $is_single_author = count($authors) == 1;
             echo "<div class =\"author-meta\"><h2>About the author".($is_single_author ? '' : 's')."</h2>";
@@ -226,12 +227,12 @@ class evangelical_magazine_theme {
                     }
                     foreach ($also_by as $also_article) {
                         echo $also_article->get_small_box_html(true, $also_article->get_issue_name(true));
+                        $excluded_articles[] = $also_article->get_id();
                     }
                 }
             }
             echo '</div>';
         }
-        $excluded_articles = array();
         if ($article->has_series() && count($also_in) > 1) {
             echo "<div class =\"series-meta\"><h2>Also in the {$article->get_series_name()} series</h2>";
             $also_articles_array = array(); // We're going to split it into rows of three
