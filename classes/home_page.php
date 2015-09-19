@@ -97,7 +97,8 @@ class evangelical_magazine_home_page {
                     $outputs [$s] = '';
                 }
                 foreach ($sections as $section) {
-                    $info_box = $section->article_list_box($max_per_section, $exclude_article_ids);
+                    $articles = $section->get_articles(1, $exclude_article_ids);
+                    $info_box = evangelical_magazine_theme::get_article_list_box($articles, $section->get_name(true));
                     if ($info_box['output']) {
                         $outputs[$possible_sides[($side_index % 3)]] .= $info_box['output'];
                         $exclude_article_ids = array_merge ($exclude_article_ids, $info_box['ids']);
