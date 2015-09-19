@@ -703,6 +703,11 @@ class evangelical_magazine_theme {
         }
     }
     
+    /**
+    * Outputs the author names and issue.
+    * 
+    * Used in search results
+    */
     public static function do_article_meta_for_search() {
         $object = evangelical_magazine::get_object_from_id(get_the_ID());
         if ($object && $object->is_article()) {
@@ -710,6 +715,15 @@ class evangelical_magazine_theme {
         }
     }
     
+    /**
+    * Adds the search button to the nav_bar
+    * 
+    * Filters wp_nav_menu_items
+    * 
+    * @param string $menu
+    * @param object $args
+    * @return string
+    */
     public static function add_search_button_to_nav_bar ($menu, $args) {
         if ($args->theme_location === 'primary') {
             $output = $menu."<li class=\"menu-item search\"><a href=\"#\"><span class=\"dashicons dashicons-search\"></span></a>";
@@ -720,10 +734,28 @@ class evangelical_magazine_theme {
         }
     }
     
+    /**
+    * Adds autofocus to the search form
+    * 
+    * Filters get_search_form
+    * 
+    * @param string $form
+    * @return string
+    */
     public static function add_autofocus_to_search_form ($form) {
         return str_replace ('type="search" name="s"', 'type="search" name="s" autofocus', $form);
     }
     
+    /**
+    * put your comment there...
+    * 
+    * Filters the search query to add terms from the URL to the search boxes.
+    * 
+    * Added to the get_search_query_filter on 404 pages
+    * 
+    * @param string $query
+    * @return string
+    */
     public static function filter_search_query_on_404 ($query) {
         $uri = $_SERVER['REQUEST_URI'];
         $wordpress_url = parse_url(home_url());
@@ -732,6 +764,11 @@ class evangelical_magazine_theme {
         return $keywords;
     }
     
+    /**
+    * Outputs pagination at the end of search pages
+    * 
+    * Called by the genesis_after_loop action
+    */
     public static function add_to_end_of_search_page() {
         echo "<div class=\"search-after-pagination\">".get_search_form(false)."</div>";
     }
@@ -797,5 +834,4 @@ class evangelical_magazine_theme {
             return array ('output' => null, 'ids' => array());
         }
     }
-
 }
