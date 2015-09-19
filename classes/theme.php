@@ -680,6 +680,12 @@ class evangelical_magazine_theme {
         if ($object) {
             $size = $object->is_author() ? 'thumbnail_75' : 'width_210';
             echo $object->get_image_html($size, true, 'search-thumbnail');
+        } else {
+            if (has_post_thumbnail()) {
+                $src = wp_get_attachment_image_src (get_post_thumbnail_id(), 'width_210');
+                echo "<a class=\"search-thumbnails\" href=\"".get_permalink()."\"><img src=\"{$src[0]}\" width=\"{$src[1]}\" height=\"{$src[2]}\"/></a>";
+                
+            }
         }
     }
     
