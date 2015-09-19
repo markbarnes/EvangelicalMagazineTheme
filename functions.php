@@ -29,7 +29,6 @@ add_action ('widgets_init', array ('evangelical_magazine_widgets', 'register_wid
 add_filter ('genesis_superfish_enabled', '__return_false'); // Doesn't seem to work
 add_filter ('wp_nav_menu_items', array ('evangelical_magazine_theme', 'modify_menu'));
 add_filter ('wp_generate_attachment_metadata',array ('evangelical_magazine_theme', 'bw_images_filter'));
-add_filter ('genesis_noposts_text',array ('evangelical_magazine_theme', 'filter_noposts_text'));
 
 /** 
 * Add image sizes

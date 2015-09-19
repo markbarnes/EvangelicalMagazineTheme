@@ -1444,7 +1444,7 @@ img.alignright,
 .entry {
 }
 
-.entry-title {
+.full-size-header-image .entry-title {
     padding: 0 20px 20px 20px;
     position: absolute;
     bottom:0;
@@ -1907,6 +1907,17 @@ body.single-em_section .entry-title {
     font-weight: 300;
 }
 
+/* ## 404 error
+--------------------------------------------- */
+
+body.error404 .entry-title {
+    padding: 40px 60px 0 60px;
+}
+
+body.error404 .entry-content {
+    padding-top: 20px;
+}
+
 /* ## Search results
 --------------------------------------------- */
 
@@ -1927,6 +1938,7 @@ body.search-results .entry {
 
 body.search-results .entry:last-of-type {
     border-bottom: 1px solid #086788;
+    margin-bottom: 40px;
 }
 
 body.search-results .entry .entry-content {
@@ -1945,7 +1957,7 @@ body.search-results .entry-content div {
 
 body.search-results .entry-title {
     text-shadow: none;
-    padding: 0 0 15px 0;
+    padding: 0 0 5px 0;
     font-size: 30px;
 }
 
@@ -2003,8 +2015,17 @@ body.search-no-results .entry {
     padding: 40px;
 }
 
-body.search-no-results input[type="submit"] {
+body.search-no-results input[type="submit"],
+.search-after-pagination  input[type="submit"] {
     margin-top: 20px;
+}
+
+.search-after-pagination {
+    padding: 0 40px 40px 40px;
+}
+
+body.search-results .archive-description + .archive-pagination {
+    margin-top: 0;
 }
 
 /* ## Pagination

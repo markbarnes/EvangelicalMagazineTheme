@@ -103,6 +103,7 @@ class evangelical_magazine_theme {
         }
         // Search results
         elseif (is_search()) {
+            remove_action( 'genesis_entry_header', 'genesis_do_post_title' );
             remove_action ('genesis_entry_content', 'genesis_do_post_image', 8);
             add_action ('genesis_entry_content', array(__CLASS__, 'do_post_image_for_search'), 6);
             add_action ('genesis_entry_content', array (__CLASS__, 'open_div'), 6);
@@ -110,6 +111,9 @@ class evangelical_magazine_theme {
             add_action ('genesis_entry_content', array (__CLASS__, 'do_article_meta_for_search'), 9);
             add_action ('genesis_entry_content', array (__CLASS__, 'close_div'), 13);
             add_filter ('genesis_post_title_output', array(__CLASS__, 'filter_post_title_for_search_terms'));
+            add_action ('genesis_after_loop', array (__CLASS__, 'add_to_end_of_search_page'), 12);
+            add_action ('genesis_loop', 'genesis_posts_nav', 3);
+
         }
     }
     
@@ -714,8 +718,15 @@ class evangelical_magazine_theme {
         return str_replace ('type="search" name="s"', 'type="search" name="s" autofocus', $form);
     }
     
-    public static function filter_noposts_text ($text) {
-        ;
-        return 'Sorry, we couldn&#0146;t find &#0145'.get_search_query().'&#0146;. Please try again.'.get_search_form(false);
+    public static function filter_search_query_on_404 ($query) {
+        $uri = $_SERVER['REQUEST_URI'];
+        $wordpress_url = parse_url(home_url());
+        $wordpress_path = $wordpress_url['path'];
+        $keywords = urldecode(str_replace (array($wordpress_path,'/','-'), array('', ' ',' '), $uri));
+        return $keywords;
+    }
+    
+    public static function add_to_end_of_search_page() {
+        echo "<div class=\"search-after-pagination\">".get_search_form(false)."</div>";
     }
 }
