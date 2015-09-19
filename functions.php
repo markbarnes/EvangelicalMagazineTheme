@@ -10,4 +10,4 @@ define( 'CHILD_THEME_NAME', 'Evangelical Magazine Theme' );
 define( 'CHILD_THEME_URL', 'http://www.evangelicalmagazine.com/' );
 define( 'CHILD_THEME_VERSION', '0.1' );
 
-evangelical_magazine_theme:set_everything_up();
+evangelical_magazine_theme::set_everything_up();
