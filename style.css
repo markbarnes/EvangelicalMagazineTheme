@@ -2390,6 +2390,10 @@ body.home #sections-right {
     float: right;
 }
 
+body.home .title-author-wrapper {
+    padding: 0 10px 10px 10px;
+}
+
 body.home .site-inner {
     padding-top: 0;
 }
@@ -2518,7 +2522,6 @@ body.home .site-inner {
 
 .article-list-box li {
     overflow: hidden;
-    padding: 10px;
     border-bottom: 1px solid #086788;
     line-height: 22px;
 }
@@ -2526,8 +2529,13 @@ body.home .site-inner {
 .article-list-box li:first-child {
     padding-top: 0;
 }
+
 .article-list-box li:last-child {
     border-bottom: none;
+}
+
+.article-list-box a.article-image {
+    float:left;
 }
 
 .article-list-box-image.first {
@@ -2548,7 +2556,7 @@ a:hover .article-list-box-image {
     box-shadow: none;
 }
 
-.article-list-box-image.first {
+.large-image .article-list-box-image {
     width: 380px;
     height: 253px;
     margin-bottom: 10px;
@@ -2561,6 +2569,15 @@ a:hover .article-list-box-image {
 
 .article-list-box a {
     color: #002636;
+}
+
+.article-list-box .title-author-wrapper {
+    float:left;
+    width: 200px;
+}
+
+.article-list-box .large-image .title-author-wrapper {
+    width: auto;
 }
 
 .article-list-box .article-list-box-author a {

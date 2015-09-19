@@ -105,6 +105,7 @@ class evangelical_magazine_theme {
         elseif (is_search()) {
             remove_action( 'genesis_entry_header', 'genesis_do_post_title' );
             remove_action ('genesis_entry_content', 'genesis_do_post_image', 8);
+            add_action ('genesis_loop', 'genesis_posts_nav', 3);
             add_action ('genesis_entry_content', array(__CLASS__, 'do_post_image_for_search'), 6);
             add_action ('genesis_entry_content', array (__CLASS__, 'open_div'), 6);
             add_action ('genesis_entry_content', 'genesis_do_post_title', 8);
@@ -112,7 +113,6 @@ class evangelical_magazine_theme {
             add_action ('genesis_entry_content', array (__CLASS__, 'close_div'), 13);
             add_filter ('genesis_post_title_output', array(__CLASS__, 'filter_post_title_for_search_terms'));
             add_action ('genesis_after_loop', array (__CLASS__, 'add_to_end_of_search_page'), 12);
-            add_action ('genesis_loop', 'genesis_posts_nav', 3);
 
         }
     }
@@ -576,7 +576,7 @@ class evangelical_magazine_theme {
         $args = evangelical_magazine_article::_future_posts_args();
         $args['order'] = 'ASC';
         $articles = $issue->_get_articles ($args);
-        $html = self::get_html_article_list($articles);
+        $html = self::get_article_list_box($articles);
         echo ($html) ? $html : '<div class="article-list-box"><p>Coming soon.</p></div>';
     }
 
@@ -604,9 +604,9 @@ class evangelical_magazine_theme {
                 $column [$column_index[$col]][] = $article;
                 $count++;
             }
-            echo "<div class=\"section-page section-left\">".self::get_html_article_list($column['left'])."</div>";
+            echo "<div class=\"section-page section-left\">".self::get_article_list_box($column['left'])."</div>";
             if (isset($column['right'])) {
-                echo "<div class=\"section-page section-right\">".self::get_html_article_list($column['right'], false)."</div>";
+                echo "<div class=\"section-page section-right\">".self::get_article_list_box($column['right'], false)."</div>";
             }
         } else {
             echo '<div class="article-list-box"><p>Coming soon.</p></div>';
@@ -778,60 +778,35 @@ class evangelical_magazine_theme {
     * 
     * @param array $articles
     */
-    public static function get_html_article_list($articles, $add_class_to_first = true) {
+    public static function get_article_list_box($articles, $make_first_image_bigger = true, $heading = '', $shrink_text_if_long = false) {
         if ($articles) {
             $output = "<div class=\"article-list-box\">";
+            $output .= $heading ? "<h3>{$heading}</h3>" : '';
             $output .= "<ol>";
-            $class = ($add_class_to_first ? ' first' : '');
+            $make_image_bigger = $make_first_image_bigger;
             foreach ($articles as $article) {
-                $url = ($class == '') ? $article->get_image_url('width_150') : $article->get_image_url('width_400');
+                $url = $make_image_bigger ? $article->get_image_url('width_400') : $article->get_image_url('width_150');
+                $class = $make_image_bigger ? 'large-image' : '';
+                $image_html = "<div class=\"box-shadow-transition article-list-box-image\" style=\"background-image: url('{$url}')\"></div>";
                 if ($article->is_future()) {
-                    $output .= "<li class=\"future\"><div class=\"box-shadow-transition article-list-box-image{$class}\" style=\"background-image: url('{$url}')\"></div>";
+                    $class = trim ($class.' future');
                 } else {
-                    $output .= "<li>{$article->get_link_html("<div class=\"box-shadow-transition article-list-box-image{$class}\" style=\"background-image: url('{$url}')\"></div>")}";
+                    $image_html = $article->get_link_html($image_html, 'article-image');
                 }
+                $class = $class ? " class=\"{$class}\"" : '';
+                $output .= "<li{$class}>{$image_html}";
                 $title = $article->get_title();
-                $style = ($class & strlen($title) > 40) ? ' style="font-size:'.round(40/strlen($title)*1,2).'em"' : '';
-                $output .= "<span class=\"article-list-box-title\"><span{$style}>{$article->get_title(true)}</span></span><br/><span class=\"article-list-box-author\">by {$article->get_author_names(!$article->is_future())}</span>";
+                $style = ($shrink_text_if_long && strlen($title) > 35) ? ' style="font-size:'.round(35/strlen($title)*1,2).'em"' : '';
+                $output .= "<div class=\"title-author-wrapper\"><span class=\"article-list-box-title\"><span{$style}>{$article->get_title(true)}</span></span><br/><span class=\"article-list-box-author\">by {$article->get_author_names(!$article->is_future())}</span>";
                 if ($article->is_future()) {
                     $output .= "<br/><span class=\"article-list-box-coming-soon\">Coming {$article->get_coming_date()}</span>";
                 }
-                "</li>";
-                $class='';
+                $output .= "</div></li>";
+                $make_image_bigger = false;
             }
             $output .= "</ol>";
             $output .= '</div>';
             return $output;
-        }
-    }
-
-    /**
-    * Returns the HTML of a list of articles in this section
-    * 
-    * @param evangelical_magazine_articles[] 
-    * @return array
-    */
-    public static function get_article_list_box ($articles, $heading = '') {
-        if ($articles) {
-            $ids = array();
-            $output = "<div class=\"article-list-box\">";
-            $output .= $heading ? "<h3>{$heading}</h3>" : '';
-            $output .= "<ol>";
-            $class=' first';
-            foreach ($articles as $article) {
-                $url = $class == '' ? $article->get_image_url('width_150') : $article->get_image_url('width_400');
-                $output .= "<li>{$article->get_link_html("<div class=\"article-list-box-image{$class} box-shadow-transition\" style=\"background-image: url('{$url}')\"></div>")}";
-                $title = $article->get_title();
-                $style = strlen($title) > 35 ? ' style="font-size:'.round(35/strlen($title)*1,2).'em"' : '';
-                $output .= "<span class=\"article-list-box-title\"><span{$style}>{$article->get_title(true)}</span></span><br/><span class=\"article-list-box-author\">by {$article->get_author_names(true)}</span></li>";
-                $ids[] = $article->get_id();
-                $class='';
-            }
-            $output .= "</ol>";
-            $output .= '</div>';
-            return array ('output' => $output, 'ids' => $ids);
-        } else {
-            return array ('output' => null, 'ids' => array());
         }
     }
 }
