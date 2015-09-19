@@ -2243,7 +2243,6 @@ Footer Widgets
 .site-footer .wrap {
     display:table;
     white-space: nowrap;
-    padding-left: 181px;
 }
 
 .site-footer .emw {
@@ -2255,7 +2254,7 @@ Footer Widgets
 
 .site-footer .logo {
     float:left;
-    margin: 3px 20px 0 -181px;
+    margin: 3px 20px 0 0;
     width: 181px;
     height: 50px;
     background-image: url('images/logo-sprite.png');
@@ -2270,7 +2269,22 @@ Footer Widgets
 
 .site-footer .logo:hover {
     background-position: bottom;
-} 
+}
+
+.site-footer .social-icons {
+    margin: 10px 0 0 193px;
+    color: #999999;
+}
+.site-footer .social-icons .dashicons {
+    font-size: 36px;
+    width: 36px;
+    height: 36px;
+    margin: 6px;
+}
+
+.site-footer a:hover {
+    text-decoration: none;
+}
 
 /* # Home Page
 ---------------------------------------------------------------------------------------------------- */

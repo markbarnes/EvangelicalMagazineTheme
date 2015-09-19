@@ -11,12 +11,13 @@ class evangelical_magazine_theme {
     * Called on the 'wp' action.
     */
     public static function set_everything_up() {
-        // Scripts and CSS
+        // HTML HEAD
         add_action ('wp_enqueue_scripts', array (__CLASS__, 'enqueue_fonts'));
         add_action ('wp_enqueue_scripts', array (__CLASS__, 'disable_superfish'));
         add_filter ('genesis_superfish_enabled', '__return_false'); // Doesn't seem to work
-        // Widgets
-        add_action ('widgets_init', array ('evangelical_magazine_widgets', 'register_widgets'));
+        remove_action ('wp_head', 'feed_links_extra', 3);
+        remove_action ('wp_head', 'feed_links', 2 );
+        add_action ('wp_head', array (__CLASS__, 'add_rss_feeds'));
         // Menu
         add_filter ('wp_nav_menu_items', array (__CLASS__, 'modify_menu'));
         add_filter ('genesis_structural_wrap-menu-primary', array (__CLASS__, 'add_logo_to_nav_bar'));
@@ -336,10 +337,12 @@ class evangelical_magazine_theme {
     * 
     */
     public static function do_footer_bottom() {
-        echo "<a class=\"logo\" href=\"".get_site_url()."\"></a>";
+        echo "<p><a class=\"logo\" href=\"".get_site_url()."\"></a>";
         echo '<span class="emw">The Evangelical Magazine is published by the <a href="https://www.emw.org.uk/">Evangelical Movement of Wales</a></span><br/>';
         echo '<span class="address">Waterton Cross Business Park, South Road, Bridgend CF31 3UL</span><br/>';
-        echo '<span class="registration">Registered charity number 222407</span>';
+        echo '<span class="registration">Registered charity number 222407</span></p>';
+        $rss_feed = get_post_type_archive_feed_link('em_article');
+        echo '<p class="social-icons"><a href="https://www.facebook.com/evangelicalmagazine"><span class="dashicons dashicons-facebook"></span></a><a href="https://twitter.com/EvangelicalMag"><span class="dashicons dashicons-twitter"></span></a><a href="mailto:admin@evangelicalmagazine.com"><span class="dashicons dashicons-email"></span><a href="'.$rss_feed.'"><span class="dashicons dashicons-rss"></span></a></p>';
     }
     
     /**
@@ -821,5 +824,10 @@ class evangelical_magazine_theme {
             $output .= '</div>';
             return $output;
         }
+    }
+    
+    public static function add_rss_feeds() {
+        echo "<link rel=\"alternate\" type=\"application/rss+xml\" title=\"Evangelical Magazine Articles\" href=\"".get_post_type_archive_feed_link('em_article')."\" />\r\n";
+        echo "<link rel=\"alternate\" type=\"application/rss+xml\" title=\"Evangelical Magazine Issues\" href=\"".get_post_type_archive_feed_link('em_issue')."\" />\r\n";
     }
 }
