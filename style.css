@@ -1386,7 +1386,7 @@ img.alignright,
 	text-decoration: underline;
 }
 
-nav.primary .dashicons {
+.nav-primary .dashicons {
     display: inline-block;
     font-family: dashicons;
 }

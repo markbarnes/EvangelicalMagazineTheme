@@ -6,27 +6,52 @@
 class evangelical_magazine_theme {
     
     /**
-    * Actions and filters to rearrange the layout as required for the various post types.
+    * All the actions and filters to rearrange the layout as required for the various post types.
     * 
     * Called on the 'wp' action.
     */
-    public static function rearrange_layout() {
-        // All post types
-        add_action ('genesis_meta', array (__CLASS__, 'add_viewport'));
-        add_action ('genesis_before_header', 'genesis_do_nav');
+    public static function set_everything_up() {
+        // Scripts and CSS
+        add_action ('wp_enqueue_scripts', array (__CLASS__, 'enqueue_fonts'));
+        add_action ('wp_enqueue_scripts', array (__CLASS__, 'disable_superfish'));
+        add_filter ('genesis_superfish_enabled', '__return_false'); // Doesn't seem to work
+        // Widgets
+        add_action ('widgets_init', array ('evangelical_magazine_widgets', 'register_widgets'));
+        // Menu
+        add_filter ('wp_nav_menu_items', array (__CLASS__, 'modify_menu'));
         add_filter ('genesis_structural_wrap-menu-primary', array (__CLASS__, 'add_logo_to_nav_bar'));
         add_filter ('wp_nav_menu_items', array (__CLASS__, 'add_search_button_to_nav_bar'), 10, 2);
         add_filter ('get_search_form', array (__CLASS__, 'add_autofocus_to_search_form'));
-        remove_action( 'genesis_header', 'genesis_header_markup_open', 5 );
-        remove_action( 'genesis_header', 'genesis_do_header' );
-        remove_action( 'genesis_header', 'genesis_header_markup_close', 15 );
-        remove_action ('genesis_footer', 'genesis_do_footer');
         remove_action ('genesis_after_header', 'genesis_do_nav');
-        remove_action( 'genesis_entry_footer', 'genesis_post_meta' );
+        add_action    ('genesis_before_header', 'genesis_do_nav');
+        // Remove the standard header and footer
+        remove_action ('genesis_header', 'genesis_header_markup_open', 5 );
+        remove_action ('genesis_header', 'genesis_do_header' );
+        remove_action ('genesis_header', 'genesis_header_markup_close', 15 );
+        remove_action ('genesis_footer', 'genesis_do_footer');
          // Add our own footer
         add_action ('genesis_footer', array (__CLASS__, 'do_footer_bottom'));
+        // Other bits and pieces
+        add_action ('genesis_meta', array (__CLASS__, 'add_viewport'));
+        remove_action ('genesis_entry_footer', 'genesis_post_meta' );
+        add_filter ('wp_generate_attachment_metadata',array (__CLASS__, 'bw_images_filter'));
         unregister_sidebar( 'header-right' );
-
+        //* Theme support
+        add_theme_support( 'html5', array('search-form', 'comment-form', 'comment-list', 'gallery', 'caption')); //* Add HTML5 markup structure
+        add_theme_support( 'genesis-accessibility', array( 'headings', 'drop-down-menu',  'search-form', 'skip-links', 'rems' ) ); //* Add Accessibility support
+        //add_theme_support( 'genesis-responsive-viewport' ); //* Add viewport meta tag for mobile browsers
+        // Add image sizes
+        add_image_size ('width_800', 800, 3000);
+        add_image_size ('width_400', 400, 3000);
+        add_image_size ('width_400_bw', 400, 3000);
+        add_image_size ('width_300', 300, 3000);
+        add_image_size ('post-thumbnail', 300, 3000);
+        add_image_size ('width_300_bw', 300, 3000);
+        add_image_size ('width_210', 210, 3000);
+        add_image_size ('width_210_bw', 210, 3000);
+        add_image_size ('width_150', 150, 3000);
+        add_image_size ('width_150_bw', 150, 3000);
+        add_image_size ('thumbnail_75', 75, 75, true);
         // All singular pages
         if (is_singular()) {
             remove_action ('genesis_entry_header', 'genesis_post_info', 12);
