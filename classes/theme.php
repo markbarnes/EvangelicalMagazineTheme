@@ -40,18 +40,6 @@ class evangelical_magazine_theme {
         add_theme_support( 'html5', array('search-form', 'comment-form', 'comment-list', 'gallery', 'caption')); //* Add HTML5 markup structure
         add_theme_support( 'genesis-accessibility', array( 'headings', 'drop-down-menu',  'search-form', 'skip-links', 'rems' ) ); //* Add Accessibility support
         //add_theme_support( 'genesis-responsive-viewport' ); //* Add viewport meta tag for mobile browsers
-        // Add image sizes
-        add_image_size ('width_800', 800, 3000);
-        add_image_size ('width_400', 400, 3000);
-        add_image_size ('width_400_bw', 400, 3000);
-        add_image_size ('width_300', 300, 3000);
-        add_image_size ('post-thumbnail', 300, 3000);
-        add_image_size ('width_300_bw', 300, 3000);
-        add_image_size ('width_210', 210, 3000);
-        add_image_size ('width_210_bw', 210, 3000);
-        add_image_size ('width_150', 150, 3000);
-        add_image_size ('width_150_bw', 150, 3000);
-        add_image_size ('thumbnail_75', 75, 75, true);
         // All singular pages
         if (is_singular()) {
             remove_action ('genesis_entry_header', 'genesis_post_info', 12);

@@ -1578,6 +1578,10 @@ p.entry-meta {
     float:left;
     margin-right: 10px;
     margin-right: 1em;
+    max-height: 75px;
+    max-width: 75px;
+    height: auto;
+    width: auto;
 }
 
 .series-meta h2, .sections-meta h2 {
