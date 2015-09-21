@@ -34,7 +34,6 @@ class evangelical_magazine_theme {
         // Other bits and pieces
         add_action ('genesis_meta', array (__CLASS__, 'add_viewport'));
         remove_action ('genesis_entry_footer', 'genesis_post_meta' );
-        add_filter ('wp_generate_attachment_metadata',array (__CLASS__, 'bw_images_filter'));
         unregister_sidebar( 'header-right' );
         //* Theme support
         add_theme_support( 'html5', array('search-form', 'comment-form', 'comment-list', 'gallery', 'caption')); //* Add HTML5 markup structure
