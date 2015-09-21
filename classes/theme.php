@@ -637,32 +637,51 @@ class evangelical_magazine_theme {
     * @param array $meta
     * @return array
     */
-    public static function bw_images_filter ($meta) {
+    public static function enhance_media_images ($meta) {
         $dir = wp_upload_dir();
         foreach ($meta['sizes'] as $size => &$details) {
+            $file = trailingslashit($dir['path']).$details['file'];
+            list($orig_w, $orig_h, $orig_type) = @getimagesize($file);
+            @ini_set( 'memory_limit', apply_filters( 'image_memory_limit', WP_MAX_MEMORY_LIMIT ) );
+            $image = imagecreatefromstring (file_get_contents($file));
+            //Sharpen
+            $matrix = array(
+                array(apply_filters('sharpen_resized_corner',-1.2), apply_filters('sharpen_resized_side',-1), apply_filters('sharpen_resized_corner',-1.2)),
+                array(apply_filters('sharpen_resized_side',-1), apply_filters('sharpen_resized_center',20), apply_filters('sharpen_resized_side',-1)),
+                array(apply_filters('sharpen_resized_corner',-1.2), apply_filters('sharpen_resized_side',-1), apply_filters('sharpen_resized_corner',-1.2)),
+            );
+            $divisor = array_sum(array_map('array_sum', $matrix));
+            $offset = 0; 
+            imageconvolution($image, $matrix, $divisor, $offset);
+            // Convert to black and white if required
             if (substr($size, -3) == '_bw') {
-                $file = trailingslashit($dir['path']).$details['file'];
-                list($orig_w, $orig_h, $orig_type) = @getimagesize($file);
-                @ini_set( 'memory_limit', apply_filters( 'image_memory_limit', WP_MAX_MEMORY_LIMIT ) );
-                $image = imagecreatefromstring (file_get_contents($file));
                 imagefilter($image, IMG_FILTER_GRAYSCALE);
                 switch ($orig_type) {
+                    case IMAGETYPE_GIF:
+                       $file = str_replace(".gif", "-bw.gif", $file);
+                       $details['file'] = str_replace(".gif", "-bw.gif", $details['file']);
+                       break;
+                    case IMAGETYPE_PNG:
+                       $file = str_replace(".png", "-bw.png", $file);
+                       $details['file'] = str_replace(".png", "-bw.png", $details['file']);
+                       break;
+                    case IMAGETYPE_JPEG:
+                       $file = str_replace(".jpg", "-bw.jpg", $file);
+                       $details['file'] = str_replace(".jpg", "-bw.jpg", $details['file']);
+                       break;
+                }
+            }
+            // Save
+            switch ($orig_type) {
                 case IMAGETYPE_GIF:
-                   $file = str_replace(".gif", "-bw.gif", $file);
-                   $details['file'] = str_replace(".gif", "-bw.gif", $details['file']);
                    imagegif( $image, $file );
                    break;
                 case IMAGETYPE_PNG:
-                   $file = str_replace(".png", "-bw.png", $file);
-                   $details['file'] = str_replace(".png", "-bw.png", $details['file']);
                    imagepng( $image, $file );
                    break;
                 case IMAGETYPE_JPEG:
-                   $file = str_replace(".jpg", "-bw.jpg", $file);
-                   $details['file'] = str_replace(".jpg", "-bw.jpg", $details['file']);
                    imagejpeg( $image, $file );
                    break;
-                }
             }
         }
         return $meta;       

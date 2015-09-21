@@ -13,7 +13,7 @@ define( 'CHILD_THEME_VERSION', '0.1' );
 add_action ('wp', array ('evangelical_magazine_theme', 'set_everything_up'));
 add_action ('widgets_init', array ('evangelical_magazine_widgets', 'register_widgets'));
 add_filter ('intermediate_image_sizes_advanced', array ('evangelical_magazine_theme', 'remove_default_image_sizes'));
-add_filter ('wp_generate_attachment_metadata',array ('evangelical_magazine_theme', 'bw_images_filter'));
+add_filter ('wp_generate_attachment_metadata',array ('evangelical_magazine_theme', 'enhance_media_images'));
 
         
 // Add image sizes
