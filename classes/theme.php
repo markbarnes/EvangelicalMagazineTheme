@@ -18,6 +18,7 @@ class evangelical_magazine_theme {
         remove_action ('wp_head', 'feed_links_extra', 3);
         remove_action ('wp_head', 'feed_links', 2 );
         add_action ('wp_head', array (__CLASS__, 'add_rss_feeds'));
+        add_action ('wp_head', array (__CLASS__, 'configure_reftagger'));
         // Menu
         add_filter ('wp_nav_menu_items', array (__CLASS__, 'modify_menu'));
         add_filter ('genesis_structural_wrap-menu-primary', array (__CLASS__, 'add_logo_to_nav_bar'));
@@ -822,5 +823,16 @@ class evangelical_magazine_theme {
         unset( $sizes['medium']);
         unset( $sizes['large']);
         return $sizes;
+    }
+    
+    public static function configure_reftagger() {
+    echo "<script>var refTagger = {settings: {bibleVersion: \"NIV\",libronixBibleVersion: \"DEFAULT\",addLogosLink: false,appendIconToLibLinks: false,libronixLinkIcon: \"dark\",noSearchClassNames: [],useTooltip: true,noSearchTagNames: [\"h1\"],linksOpenNewWindow: true,convertHyperlinks: false,caseInsensitive: false,tagChapters: true}};
+    (function(d, t) {
+        var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
+        g.src = '".get_stylesheet_directory_uri()."/js/reftagger.js';
+        s.parentNode.insertBefore(g, s);
+    }(document, 'script'));
+</script>";
+        
     }
 }
