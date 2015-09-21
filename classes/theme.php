@@ -644,18 +644,10 @@ class evangelical_magazine_theme {
             list($orig_w, $orig_h, $orig_type) = @getimagesize($file);
             @ini_set( 'memory_limit', apply_filters( 'image_memory_limit', WP_MAX_MEMORY_LIMIT ) );
             $image = imagecreatefromstring (file_get_contents($file));
-            //Sharpen
-            $matrix = array(
-                array(apply_filters('sharpen_resized_corner',-1.2), apply_filters('sharpen_resized_side',-1), apply_filters('sharpen_resized_corner',-1.2)),
-                array(apply_filters('sharpen_resized_side',-1), apply_filters('sharpen_resized_center',20), apply_filters('sharpen_resized_side',-1)),
-                array(apply_filters('sharpen_resized_corner',-1.2), apply_filters('sharpen_resized_side',-1), apply_filters('sharpen_resized_corner',-1.2)),
-            );
-            $divisor = array_sum(array_map('array_sum', $matrix));
-            $offset = 0; 
-            imageconvolution($image, $matrix, $divisor, $offset);
-            // Convert to black and white if required
             if (substr($size, -3) == '_bw') {
+                // Blur and confert to black and white
                 imagefilter($image, IMG_FILTER_GRAYSCALE);
+                $matrix = array(array(1, 1, 1), array(1, 1, 1), array(1, 1, 1));
                 switch ($orig_type) {
                     case IMAGETYPE_GIF:
                        $file = str_replace(".gif", "-bw.gif", $file);
@@ -670,17 +662,23 @@ class evangelical_magazine_theme {
                        $details['file'] = str_replace(".jpg", "-bw.jpg", $details['file']);
                        break;
                 }
+            } else {
+                //Sharpen
+                $matrix = array(array(-1, -1, -1), array(-1, 50, -1), array(-1, -1, -1));
             }
+            $divisor = array_sum(array_map('array_sum', $matrix));
+            $offset = 0; 
+            imageconvolution($image, $matrix, $divisor, $offset);
             // Save
             switch ($orig_type) {
                 case IMAGETYPE_GIF:
-                   imagegif( $image, $file );
+                   imagegif ($image, $file);
                    break;
                 case IMAGETYPE_PNG:
-                   imagepng( $image, $file );
+                   imagepng ($image, $file);
                    break;
                 case IMAGETYPE_JPEG:
-                   imagejpeg( $image, $file );
+                   imagejpeg ($image, $file, 90);
                    break;
             }
         }
@@ -833,17 +831,30 @@ class evangelical_magazine_theme {
         }
     }
     
+    /**
+    * Adds the RSS feeds to the HTML HEAD
+    * 
+    */
     public static function add_rss_feeds() {
         echo "<link rel=\"alternate\" type=\"application/rss+xml\" title=\"Evangelical Magazine Articles\" href=\"".get_post_type_archive_feed_link('em_article')."\" />\r\n";
         echo "<link rel=\"alternate\" type=\"application/rss+xml\" title=\"Evangelical Magazine Issues\" href=\"".get_post_type_archive_feed_link('em_issue')."\" />\r\n";
     }
     
+    /**
+    * Removes the default 'medium' and 'large' image sizes, so they're not unnecessarily created.
+    * 
+    * @param mixed $sizes
+    */
     public static function remove_default_image_sizes($sizes) {
         unset( $sizes['medium']);
         unset( $sizes['large']);
         return $sizes;
     }
     
+    /**
+    * Adds the Reftagger code to the HTML HEAD
+    * 
+    */
     public static function configure_reftagger() {
     echo "<script>var refTagger = {settings: {bibleVersion: \"NIV\",libronixBibleVersion: \"DEFAULT\",addLogosLink: false,appendIconToLibLinks: false,libronixLinkIcon: \"dark\",noSearchClassNames: [],useTooltip: true,noSearchTagNames: [\"h1\"],linksOpenNewWindow: true,convertHyperlinks: false,caseInsensitive: false,tagChapters: true}};
     (function(d, t) {
