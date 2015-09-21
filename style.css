@@ -278,15 +278,6 @@ h6 {
 /* ## Objects
 --------------------------------------------- */
 
-embed,
-iframe,
-img,
-object,
-video,
-.wp-caption {
-	max-width: 100%;
-}
-
 img {
 	height: auto;
 }
@@ -1745,8 +1736,8 @@ body.single-em_author h3.articles_by {
 --------------------------------------------- */
 
 body.single-em_issue .entry-header {
-    height: 367px;
-    width: 260px;
+    height: 359px;
+    width: 250px;
     float: left;
     box-shadow: none;
     margin-bottom: 20px;
@@ -2353,12 +2344,12 @@ body.home a:hover .article {
     box-shadow: none;
 }
 
-body.home .article-400 {
+body.home .article_medium {
     width: 308px;
     height: 205px;
 }
 
-body.home .article-300 {
+body.home .article_small {
     float:left;
     width: 231px;
     height: 154px;

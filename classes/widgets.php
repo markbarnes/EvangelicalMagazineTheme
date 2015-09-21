@@ -62,12 +62,12 @@ class evangelical_magazine_most_popular extends WP_Widget {
             echo $args['before_widget'];
             echo "{$args['before_title']}Other popular articles{$args['after_title']}";
             echo "<ul>";
-            $size = 'width_400';
+            $size = 'article_sidebar';
             foreach ($articles as $article) {
                 echo "<li class=\"popular_article\">";
                 echo "<a href=\"{$article->get_link()}\"><div class=\"popular-article-cover image-fit\" style=\"background-image:url('{$article->get_image_url($size)}')\"></div></a>";
                 echo "<div class=\"article-info\">{$article->get_name(true)} by {$article->get_author_names(true)}</div></li>";
-                $size = 'thumbnail_75';
+                $size = 'square_thumbnail_tiny';
             }
             echo "</ul>";
             echo $args['after_widget'];
@@ -88,7 +88,7 @@ class evangelical_magazine_current_issue extends WP_Widget {
                 echo $args['before_widget'];
                 echo "{$args['before_title']}Latest issue{$args['after_title']}";
                 foreach ($issues as $issue) {
-                    echo $issue->get_link_html("<div class=\"cover-image image-fit\" style=\"background-image:url('{$issue->get_image_url('width_400')}');\"></div>");
+                    echo $issue->get_link_html("<div class=\"cover-image image-fit\" style=\"background-image:url('{$issue->get_image_url('issue_large')}');\"></div>");
                 }
                 echo $args['after_widget'];
             }

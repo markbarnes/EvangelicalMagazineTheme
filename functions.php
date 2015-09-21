@@ -12,16 +12,24 @@ define( 'CHILD_THEME_VERSION', '0.1' );
 
 add_action ('wp', array ('evangelical_magazine_theme', 'set_everything_up'));
 add_action ('widgets_init', array ('evangelical_magazine_widgets', 'register_widgets'));
+add_filter ('intermediate_image_sizes_advanced', array ('evangelical_magazine_theme', 'remove_default_image_sizes'));
 
 // Add image sizes
-add_image_size ('width_800', 800, 3000);
-add_image_size ('width_400', 400, 3000);
-add_image_size ('width_400_bw', 400, 3000);
-add_image_size ('width_300', 300, 3000);
-add_image_size ('post-thumbnail', 300, 3000);
-add_image_size ('width_300_bw', 300, 3000);
-add_image_size ('width_210', 210, 3000);
-add_image_size ('width_210_bw', 210, 3000);
-add_image_size ('width_150', 150, 3000);
-add_image_size ('width_150_bw', 150, 3000);
-add_image_size ('thumbnail_75', 75, 75, true);
+add_image_size ('article_header', 800, 400, true);
+add_image_size ('article_large', 380, 253, true);
+add_image_size ('article_large_bw', 382, 253, true);
+add_image_size ('article_sidebar', 360, 240, true);
+add_image_size ('issue_large', 360, 508, true);
+add_image_size ('article_medium', 307, 204, true);
+add_image_size ('article_medium_bw', 309, 204, true);
+add_image_size ('author_page', 300, 300, true);
+//add_image_size ('issue_medium', 260, 359, true);
+add_image_size ('issue_medium', 250, 359, true);
+add_image_size ('issue_archive', 210, 297, true);
+add_image_size ('article_small', 210, 140, true);
+add_image_size ('article_small_bw', 212, 140, true);
+add_image_size ('issue_small', 150, 212, true);
+add_image_size ('author_small', 113, 113, true);
+add_image_size ('article_very_small', 113, 75, true);
+add_image_size ('article_very_small_bw', 115, 75, true);
+add_image_size ('square_thumbnail_tiny', 75, 75, true);

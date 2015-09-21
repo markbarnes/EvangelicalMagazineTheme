@@ -21,7 +21,7 @@ class evangelical_magazine_home_page {
         if ($latest_issues) {
             //Output the cover of the most recent issue
             echo '<aside id="recent-articles">';
-            echo "<a href=\"{$latest_issues[0]->get_link()}\"><div id=\"latest-cover\" class=\"box-shadow-transition\" style=\"background-image: url('{$latest_issues[0]->get_image_url('width_300')}')\"></div></a>";
+            echo "<a href=\"{$latest_issues[0]->get_link()}\"><div id=\"latest-cover\" class=\"box-shadow-transition\" style=\"background-image: url('{$latest_issues[0]->get_image_url('issue_medium')}')\"></div></a>";
             //Get the seven most recent articles from these issues
             $articles = array();
             foreach ($latest_issues as $issue) {
@@ -44,14 +44,14 @@ class evangelical_magazine_home_page {
                 echo '<div id="latest-articles"><div class="first-row">';
                 $count = 1;
                 foreach ($articles as $article) {
-                    $size = ($count <= 3) ? 400 : 300;
+                    $size = ($count <= 3) ? 'article_medium' : 'article_small';
                     if ($count == 4) {
                         echo '</div><div class="second-row">';
                     }
                     if ($article->is_future()) {
-                        echo "<div class=\"article article-{$size} future\" style=\"background-image: url('{$article->get_image_url("width_{$size}")}')\"><div class=\"coming-soon\">Coming {$article->get_coming_date()}</div><div class=\"article-title\">{$article->get_title()}</div></div>";
+                        echo "<div class=\"article {$size} future\" style=\"background-image: url('{$article->get_image_url("{$size}")}')\"><div class=\"coming-soon\">Coming {$article->get_coming_date()}</div><div class=\"article-title\">{$article->get_title()}</div></div>";
                     } else {
-                        echo "<a href=\"{$article->get_link()}\"><div class=\"article article-{$size} current box-shadow-transition\" style=\"background-image: url('{$article->get_image_url("width_{$size}")}')\"><div class=\"article-title\">{$article->get_title()}</div></div></a>";
+                        echo "<a href=\"{$article->get_link()}\"><div class=\"article {$size} current box-shadow-transition\" style=\"background-image: url('{$article->get_image_url("{$size}")}')\"><div class=\"article-title\">{$article->get_title()}</div></div></a>";
                     }
                     $article_ids[] = $article->get_id();
                     $count++;

@@ -170,7 +170,7 @@ class evangelical_magazine_theme {
     public static function add_image_to_pages() {
         $image_id = get_post_thumbnail_id ();
         if ($image_id) {
-            $image = wp_get_attachment_image_src($image_id, is_singular('em_author') ? 'width_300' : 'width_800');
+            $image = wp_get_attachment_image_src($image_id, is_singular('em_author') ? 'author_page' : (is_singular('em_issue') ? 'issue_medium' : 'article_header'));
             if ($image) {
                 echo "<style type=\"text/css\">.entry-header { background-image: url('{$image[0]}')}</style>";
             }
@@ -355,7 +355,7 @@ class evangelical_magazine_theme {
                         $issue_name = str_replace(' ','&nbsp;',$issue_name);
                     }
                     $issue_menu .= "<li id=\"menu-item-issue-{$issue->get_id()}\" class=\"menu-item menu-item-type-issue menu-item-issue-{$issue->get_id()}\">";
-                    $issue_menu .= "<a href=\"{$issue->get_link()}\" itemprop=\"url\">{$issue->get_image_html ('width_150')}<span itemprop=\"name\">{$issue_name}</span></a></li>";
+                    $issue_menu .= "<a href=\"{$issue->get_link()}\" itemprop=\"url\">{$issue->get_image_html ('issue_small')}<span itemprop=\"name\">{$issue_name}</span></a></li>";
                 }
                 $issue_menu .= "<li id=\"menu-item-more-issues\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-more-issues\"><a href=\"".get_post_type_archive_link ('em_issue')."\" itemprop=\"url\"><span itemprop=\"name\">More&hellip;</span></a></li>";
                 $issue_menu .= '</ul>'; // The closing div will be added by the str_replace at the end of the function
@@ -371,7 +371,7 @@ class evangelical_magazine_theme {
                 $author_menu = '<ul class="sub-menu sub-menu-authors"><div class="wrap">';
                 foreach ($authors as $author) {
                     $author_menu .= "<li id=\"menu-item-author-{$author->get_id()}\" class=\"menu-item menu-item-type-author menu-item-author-{$author->get_id()}\">";
-                    $author_menu .= "<a href=\"{$author->get_link()}\" itemprop=\"url\">{$author->get_image_html ('thumbnail_75')}<span itemprop=\"name\">{$author->get_name()}</span></a></li>";
+                    $author_menu .= "<a href=\"{$author->get_link()}\" itemprop=\"url\">{$author->get_image_html ('square_thumbnail_tiny')}<span itemprop=\"name\">{$author->get_name()}</span></a></li>";
                 }
                 $author_menu .= "<li id=\"menu-item-more-authors\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-more-authors\"><a href=\"".get_post_type_archive_link ('em_author')."\" itemprop=\"url\"><span itemprop=\"name\">More&hellip;</span></a></li>";
                 $author_menu .= '</ul>';  // The closing div will be added by the str_replace at the end of the function
@@ -476,7 +476,7 @@ class evangelical_magazine_theme {
        $authors = evangelical_magazine_author::get_top_authors();
        if ($authors) {
            foreach ($authors as $author) {
-               echo "<a href=\"{$author->get_link()}\"><div class=\"author-grid image-fit\" style=\"background-image:url('{$author->get_image_url('width_150')}')\"><div class=\"author-description\">{$author->get_filtered_content()}</div></div></a>";
+               echo "<a href=\"{$author->get_link()}\"><div class=\"author-grid image-fit\" style=\"background-image:url('{$author->get_image_url('author_small')}')\"><div class=\"author-description\">{$author->get_filtered_content()}</div></div></a>";
            }
        }
     }
@@ -495,7 +495,7 @@ class evangelical_magazine_theme {
        if ($issues) {
            echo "<ul class=\"issue-list\">";
            foreach ($issues as $issue) {
-               echo "<li class=\"issue\"><a href=\"{$issue->get_link()}\"><div class=\"magazine-cover image-fit box-shadow-transition\" style=\"background-image:url('{$issue->get_image_url('width_210')}')\"></div></a>";
+               echo "<li class=\"issue\"><a href=\"{$issue->get_link()}\"><div class=\"magazine-cover image-fit box-shadow-transition\" style=\"background-image:url('{$issue->get_image_url('issue_archive')}')\"></div></a>";
                echo "<div class=\"issue-contents\"><h4>{$issue->get_name(true)}</h4>";
                $articles = $issue->get_top_articles($max_articles_displayed);
                if ($articles) {
@@ -540,7 +540,7 @@ class evangelical_magazine_theme {
                if ($articles) {
                    echo "<ul class=\"top-articles\">";
                    foreach ($articles as $article) {
-                       echo "<li><a href=\"{$article->get_link()}\"><div class=\"article-image\" style=\"background-image:url('{$article->get_image_url('width_210')}')\"></div></a><span class=\"article-title\">{$article->get_title(true)}</span><br/><span class=\"article-authors\">by {$article->get_author_names(true)}</span></li>";
+                       echo "<li><a href=\"{$article->get_link()}\"><div class=\"article-image\" style=\"background-image:url('{$article->get_image_url('article_small')}')\"></div></a><span class=\"article-title\">{$article->get_title(true)}</span><br/><span class=\"article-authors\">by {$article->get_author_names(true)}</span></li>";
                        $exclude_ids[] = $article->get_id();
                    }
                    $remaining_articles = $section->get_article_count() - $max_articles_displayed;
@@ -694,12 +694,12 @@ class evangelical_magazine_theme {
     public static function do_post_image_for_search () {
         $object = evangelical_magazine::get_object_from_id(get_the_ID());
         if ($object) {
-            $size = $object->is_author() ? 'thumbnail_75' : 'width_210';
+            $size = $object->is_author() ? 'square_thumbnail_tiny' : ($object->is_article() ? 'article_small' : 'issue_archive');
             echo $object->get_image_html($size, true, 'search-thumbnail');
         } else {
             if (has_post_thumbnail()) {
-                $src = wp_get_attachment_image_src (get_post_thumbnail_id(), 'width_210');
-                echo "<a class=\"search-thumbnails\" href=\"".get_permalink()."\"><img src=\"{$src[0]}\" width=\"{$src[1]}\" height=\"{$src[2]}\"/></a>";
+                $src = wp_get_attachment_image_src (get_post_thumbnail_id(), 'article_small');
+                echo "<a class=\"search-thumbnail\" href=\"".get_permalink()."\"><img src=\"{$src[0]}\" width=\"{$src[1]}\" height=\"{$src[2]}\"/></a>";
                 
             }
         }
@@ -789,7 +789,7 @@ class evangelical_magazine_theme {
             $output .= "<ol>";
             $make_image_bigger = $make_first_image_bigger;
             foreach ($articles as $article) {
-                $url = $make_image_bigger ? $article->get_image_url('width_400') : $article->get_image_url('width_150');
+                $url = $make_image_bigger ? $article->get_image_url('article_large') : $article->get_image_url('article_very_small');
                 $class = $make_image_bigger ? 'large-image' : '';
                 $image_html = "<div class=\"box-shadow-transition article-list-box-image\" style=\"background-image: url('{$url}')\"></div>";
                 if ($article->is_future()) {
@@ -817,5 +817,11 @@ class evangelical_magazine_theme {
     public static function add_rss_feeds() {
         echo "<link rel=\"alternate\" type=\"application/rss+xml\" title=\"Evangelical Magazine Articles\" href=\"".get_post_type_archive_feed_link('em_article')."\" />\r\n";
         echo "<link rel=\"alternate\" type=\"application/rss+xml\" title=\"Evangelical Magazine Issues\" href=\"".get_post_type_archive_feed_link('em_issue')."\" />\r\n";
+    }
+    
+    public static function remove_default_image_sizes($sizes) {
+        unset( $sizes['medium']);
+        unset( $sizes['large']);
+        return $sizes;
     }
 }
