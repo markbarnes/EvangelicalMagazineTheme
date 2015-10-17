@@ -33,7 +33,7 @@ class evangelical_magazine_theme {
          // Add our own footer
         add_action ('genesis_footer', array (__CLASS__, 'do_footer_bottom'));
         // Other bits and pieces
-        add_action ('genesis_meta', array (__CLASS__, 'add_viewport'));
+        //add_action ('genesis_meta', array (__CLASS__, 'add_viewport'));
         remove_action ('genesis_entry_footer', 'genesis_post_meta' );
         unregister_sidebar( 'header-right' );
         //* Theme support
@@ -412,12 +412,12 @@ class evangelical_magazine_theme {
             echo "<h3 class=\"articles_by\">Articles by {$author->get_name()}</h3>";
             $chunks = array_chunk ($articles, 3);
             foreach ($chunks as $chunk) {
-                echo "<div class=\"article-box-row-wrap\">";
+                //echo "<div class=\"article-box-row-wrap\">";
                 foreach ($chunk as $article) {
                     $sub_title = $article->is_future() ? "Coming {$article->get_coming_date()}" : $article->get_issue_name(true);
                     echo $article->get_small_box_html(true, $sub_title);
                 }
-                echo '</div>';
+                //echo '</div>';
             }
         }
     }
@@ -645,7 +645,7 @@ class evangelical_magazine_theme {
             @ini_set( 'memory_limit', apply_filters( 'image_memory_limit', WP_MAX_MEMORY_LIMIT ) );
             $image = imagecreatefromstring (file_get_contents($file));
             if (substr($size, -3) == '_bw') {
-                // Blur and confert to black and white
+                // Blur and convert to black and white
                 imagefilter($image, IMG_FILTER_GRAYSCALE);
                 $matrix = array(array(1, 1, 1), array(1, 1, 1), array(1, 1, 1));
                 switch ($orig_type) {
@@ -664,7 +664,7 @@ class evangelical_magazine_theme {
                 }
             } else {
                 //Sharpen
-                $matrix = array(array(-1, -1, -1), array(-1, 50, -1), array(-1, -1, -1));
+                $matrix = array(array(-1, -1, -1), array(-1, 35, -1), array(-1, -1, -1));
             }
             $divisor = array_sum(array_map('array_sum', $matrix));
             $offset = 0; 

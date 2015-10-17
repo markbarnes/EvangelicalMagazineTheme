@@ -25,7 +25,6 @@ add_image_size ('issue_large', 360, 508, true);
 add_image_size ('article_medium', 307, 204, true);
 add_image_size ('article_medium_bw', 309, 204, true);
 add_image_size ('author_page', 300, 300, true);
-//add_image_size ('issue_medium', 260, 359, true);
 add_image_size ('issue_medium', 250, 359, true);
 add_image_size ('issue_archive', 210, 297, true);
 add_image_size ('article_small', 210, 140, true);
