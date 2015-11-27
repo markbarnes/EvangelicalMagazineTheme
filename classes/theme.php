@@ -881,8 +881,10 @@ class evangelical_magazine_theme {
             echo "\t<meta property=\"og:description\" content=\"{$article->get_excerpt()}\" />\r\n";
             echo "\t<meta property=\"og:site_name\" content=\"".get_bloginfo('name')."\" />\r\n";
             echo "\t<meta property=\"og:image\" content=\"{$image_details['url']}\" />\r\n";
+            echo "\t<meta property=\"og:image:url\" content=\"{$image_details['url']}\" />\r\n";
             echo "\t<meta property=\"og:image:width\" content=\"{$image_details['width']}\" />\r\n";
             echo "\t<meta property=\"og:image:height\" content=\"{$image_details['height']}\" />\r\n";
+            echo "\t<meta property=\"og:image:type\" content=\"{$image_details['mimetype']}\" />\r\n";
             echo "\t<meta property=\"og:type\" content=\"article\" />\r\n";
             echo "\t<meta property=\"og:locale\" content=\"en_GB\" />\r\n";
             echo "\t<meta property=\"og:rich_attachment\" content=\"true\" />\r\n";
