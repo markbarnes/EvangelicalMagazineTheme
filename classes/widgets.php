@@ -58,7 +58,6 @@ class evangelical_magazine_most_popular extends WP_Widget {
         $exclude = (isset($post->ID)) ? array($post->ID) : array();
         $articles = evangelical_magazine_article::get_top_articles(5, $exclude);
         if ($articles) {
-            shuffle($articles);
             echo $args['before_widget'];
             echo "{$args['before_title']}Other popular articles{$args['after_title']}";
             echo "<ul>";
