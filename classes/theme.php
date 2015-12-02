@@ -877,11 +877,11 @@ class evangelical_magazine_theme {
         if ($article && $article->is_article()) {
             $image_details = $article -> get_image_details('facebook_share');
             $authors = $article->get_author_names();
-            $article_preview = htmlspecialchars("By {$authors}. ".wp_trim_words ($article->get_content(), 55, '…'), ENT_HTML5);
+            $article_preview = htmlspecialchars(wp_trim_words (strip_shortcodes($article->get_content()), 75, '…'), ENT_HTML5);
             echo "\r\n\t<meta property=\"og:url\" content=\"{$article->get_link()}\" />\r\n";
-            echo "\t<meta property=\"og:title\" content=\"".htmlspecialchars($article->get_name(), ENT_HTML5)."\" />\r\n";
+            echo "\t<meta property=\"og:title\" content=\"".htmlspecialchars($article->get_name()." — by {$authors}.", ENT_HTML5)."\" />\r\n";
             echo "\t<meta property=\"og:description\" content=\"{$article_preview}\" />\r\n";
-            echo "\t<meta property=\"og:site_name\" content=\"".htmlspecialchars('name', ENT_HTML5)."\" />\r\n";
+            echo "\t<meta property=\"og:site_name\" content=\"".htmlspecialchars(get_bloginfo('name'), ENT_HTML5)."\" />\r\n";
             echo "\t<meta property=\"og:image\" content=\"{$image_details['url']}\" />\r\n";
             echo "\t<meta property=\"og:image:url\" content=\"{$image_details['url']}\" />\r\n";
             echo "\t<meta property=\"og:image:width\" content=\"{$image_details['width']}\" />\r\n";
