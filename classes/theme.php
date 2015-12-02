@@ -876,18 +876,25 @@ class evangelical_magazine_theme {
         $article = evangelical_magazine::get_object_from_id(get_the_ID());
         if ($article && $article->is_article()) {
             $image_details = $article -> get_image_details('facebook_share');
+            $authors = $article->get_author_names();
+            $article_preview = htmlspecialchars("By {$authors}. ".wp_trim_words ($article->get_content(), 55, '…'), ENT_HTML5);
             echo "\r\n\t<meta property=\"og:url\" content=\"{$article->get_link()}\" />\r\n";
-            echo "\t<meta property=\"og:title\" content=\"{$article->get_name()}\" />\r\n";
-            echo "\t<meta property=\"og:description\" content=\"{$article->get_excerpt()}\" />\r\n";
-            echo "\t<meta property=\"og:site_name\" content=\"".get_bloginfo('name')."\" />\r\n";
+            echo "\t<meta property=\"og:title\" content=\"".htmlspecialchars($article->get_name(), ENT_HTML5)."\" />\r\n";
+            echo "\t<meta property=\"og:description\" content=\"{$article_preview}\" />\r\n";
+            echo "\t<meta property=\"og:site_name\" content=\"".htmlspecialchars('name', ENT_HTML5)."\" />\r\n";
             echo "\t<meta property=\"og:image\" content=\"{$image_details['url']}\" />\r\n";
             echo "\t<meta property=\"og:image:url\" content=\"{$image_details['url']}\" />\r\n";
             echo "\t<meta property=\"og:image:width\" content=\"{$image_details['width']}\" />\r\n";
             echo "\t<meta property=\"og:image:height\" content=\"{$image_details['height']}\" />\r\n";
             echo "\t<meta property=\"og:image:type\" content=\"{$image_details['mimetype']}\" />\r\n";
             echo "\t<meta property=\"og:type\" content=\"article\" />\r\n";
+            if ($authors == 'Mark Barnes') {
+                echo "\t<meta property=\"article:author\" content=\"573010528\" />\r\n";
+            }
+            echo "\t<meta property=\"article:publisher\" content=\"https://www.facebook.com/evangelicalmagazine/\" />\r\n";
             echo "\t<meta property=\"og:locale\" content=\"en_GB\" />\r\n";
             echo "\t<meta property=\"og:rich_attachment\" content=\"true\" />\r\n";
+            echo "\t<meta property=\"fb:app_id\" content=\"1248516525165787\" />\r\n";
         }
     }
 }
