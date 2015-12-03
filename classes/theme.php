@@ -649,7 +649,9 @@ class evangelical_magazine_theme {
     public static function enhance_media_images ($meta) {
         $dir = wp_upload_dir();
         foreach ($meta['sizes'] as $size => &$details) {
-            $file = trailingslashit($dir['path']).$details['file'];
+            $uploaded_file = trailingslashit($dir['basedir']).$meta['file'];
+            $upload_folder = dirname($uploaded_file);
+            $file = trailingslashit($upload_folder).$details['file'];
             list($orig_w, $orig_h, $orig_type) = @getimagesize($file);
             @ini_set( 'memory_limit', apply_filters( 'image_memory_limit', WP_MAX_MEMORY_LIMIT ) );
             $image = imagecreatefromstring (file_get_contents($file));
@@ -886,7 +888,7 @@ class evangelical_magazine_theme {
             $authors = $article->get_author_names();
             $article_preview = htmlspecialchars(wp_trim_words (strip_shortcodes($article->get_content()), 75, '…'), ENT_HTML5);
             echo "\r\n\t<meta property=\"og:url\" content=\"{$article->get_link()}\" />\r\n";
-            echo "\t<meta property=\"og:title\" content=\"".htmlspecialchars($article->get_name()." — by {$authors}.", ENT_HTML5)."\" />\r\n";
+            echo "\t<meta property=\"og:title\" content=\"".htmlspecialchars($article->get_name()." — by {$authors}", ENT_HTML5)."\" />\r\n";
             echo "\t<meta property=\"og:description\" content=\"{$article_preview}\" />\r\n";
             echo "\t<meta property=\"og:site_name\" content=\"".htmlspecialchars(get_bloginfo('name'), ENT_HTML5)."\" />\r\n";
             echo "\t<meta property=\"og:image\" content=\"{$image_details['url']}\" />\r\n";
