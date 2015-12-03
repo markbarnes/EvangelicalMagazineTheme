@@ -16,6 +16,7 @@ add_filter ('wp_generate_attachment_metadata',array ('evangelical_magazine_theme
         
 // Add image sizes
 add_image_size ('facebook_share', 1200, 630, true);
+add_image_size ('twitter_share', 800, 400, true);
 add_image_size ('article_header', 800, 400, true);
 add_image_size ('article_large', 380, 253, true);
 add_image_size ('article_large_bw', 382, 253, true);

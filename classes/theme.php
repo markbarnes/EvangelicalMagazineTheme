@@ -70,8 +70,9 @@ class evangelical_magazine_theme {
             // Add the author/'see also' detail at the end of the article (also increases the view count)
             add_action ('genesis_entry_content', array (__CLASS__, 'add_to_end_of_article'), 11);
             self::add_full_size_header_image();
-            // Add Facebook Open Graph tags
+            // Add extra meta tags for social media embeds
             add_action ('genesis_meta', array (__CLASS__, 'add_facebook_open_graph'));
+            add_action ('genesis_meta', array (__CLASS__, 'add_twitter_card'));
         }
         // Single author pages
         elseif (is_singular('em_author')) {
@@ -895,6 +896,27 @@ class evangelical_magazine_theme {
             echo "\t<meta property=\"og:locale\" content=\"en_GB\" />\r\n";
             echo "\t<meta property=\"og:rich_attachment\" content=\"true\" />\r\n";
             echo "\t<meta property=\"fb:app_id\" content=\"1248516525165787\" />\r\n";
+        }
+    }
+
+    /**
+    * Adds the Twitter Summary Card tags to single articles
+    * 
+    */
+    public static function add_twitter_card() {
+        $article = evangelical_magazine::get_object_from_id(get_the_ID());
+        if ($article && $article->is_article()) {
+            $image_details = $article -> get_image_details('twitter_share');
+            $authors = $article->get_author_names();
+            $article_preview = htmlspecialchars(wp_trim_words (strip_shortcodes($article->get_content()), 75, '…'), ENT_HTML5);
+            echo "\r\n\t<meta name=\"twitter:card\" content=\"summary_large_image\">\r\n";
+            echo "\t<meta name=\"twitter:site\" content=\"@EvangelicalMag\">";
+            echo "\t<meta name=\"twitter:title\" content=\"".htmlspecialchars($article->get_name()." — by {$authors}", ENT_HTML5)."\" />\r\n";
+            echo "\t<meta name=\"twitter:description\" content=\"{$article_preview}\" />\r\n";
+            echo "\t<meta name=\"twitter:image\" content=\"{$image_details['url']}\" />\r\n";
+            if ($authors == 'Mark Barnes') {
+                echo "\t<meta name=\"twitter:creator\" content=\"@mbarnes\" />\r\n";
+            }
         }
     }
 }
