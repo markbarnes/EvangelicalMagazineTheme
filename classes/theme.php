@@ -40,6 +40,11 @@ class evangelical_magazine_theme {
         add_theme_support( 'html5', array('search-form', 'comment-form', 'comment-list', 'gallery', 'caption')); //* Add HTML5 markup structure
         add_theme_support( 'genesis-accessibility', array( 'headings', 'drop-down-menu',  'search-form', 'skip-links', 'rems' ) ); //* Add Accessibility support
         //add_theme_support( 'genesis-responsive-viewport' ); //* Add viewport meta tag for mobile browsers
+        
+        // Front page
+        if (is_front_page()) {
+            add_action ('genesis_meta', array (__CLASS__, 'add_google_structured_data_to_homepage'));
+        }
         // All singular pages
         if (is_singular()) {
             remove_action ('genesis_entry_header', 'genesis_post_info', 12);
@@ -73,6 +78,7 @@ class evangelical_magazine_theme {
             // Add extra meta tags for social media embeds
             add_action ('genesis_meta', array (__CLASS__, 'add_facebook_open_graph'));
             add_action ('genesis_meta', array (__CLASS__, 'add_twitter_card'));
+            add_action ('genesis_meta', array (__CLASS__, 'add_google_breadcrumb'));
         }
         // Single author pages
         elseif (is_singular('em_author')) {
@@ -918,5 +924,36 @@ class evangelical_magazine_theme {
                 echo "\t<meta name=\"twitter:creator\" content=\"@mbarnes\" />\r\n";
             }
         }
+    }
+
+   /**
+    * Adds a breadcrumb to Google, for single articles
+    * 
+    */
+    public static function add_google_breadcrumb () {
+        $article = evangelical_magazine::get_object_from_id(get_the_ID());
+        if ($article && $article->is_article() && $article->has_issue()) {
+            $issue_name = htmlspecialchars($article->get_issue_name(), ENT_HTML5);
+            echo "<script type=\"application/ld+json\">\r\n";
+            echo "{\"@context\": \"http://schema.org\", \"@type\": \"BreadcrumbList\", \"itemListElement\": [";
+            echo "{ \"@type\": \"ListItem\", \"position\": 1, \"item\": { \"@id\": \"{$article->get_issue_link()}\", \"name\": \"{$issue_name}\"}}";
+            echo "]}\r\n";
+            echo "</script>\r\n";
+            
+        }
+    }
+    
+   /**
+    * Adds structured data to the homepage, for Google
+    * 
+    */
+    public static function add_google_structured_data_to_homepage () {
+        $site_name = htmlspecialchars(get_bloginfo('name'), ENT_HTML5);
+        $url = htmlspecialchars(get_home_url(), ENT_HTML5);
+        $search_url = str_replace('search_term_string', '{search_term_string}', htmlspecialchars(get_search_link('search_term_string'), ENT_HTML5));
+        $logo = htmlspecialchars(get_stylesheet_directory_uri().'/images/square-logo.png', ENT_HTML5);
+        echo "\r\n";
+        echo "<script type=\"application/ld+json\">{\"@context\" : \"http://schema.org\", \"@type\" : \"WebSite\", \"name\" : \"{$site_name}\", \"url\" : \"{$url}\", \"potentialAction\": {\"@type\": \"SearchAction\",\"target\": \"{$search_url}\",\"query-input\": \"required name=search_term_string\"}}</script>\r\n";
+        echo "<script type=\"application/ld+json\">{\"@context\" : \"http://schema.org\", \"@type\" : \"Organization\", \"url\" : \"{$url}\", \"logo\" : \"{$logo}\", \"ContactPoint\" : [{ \"@type\" : \"ContactPoint\", \"telephone\" : \"+44-1656-655886\", \"contactType\" : \"customer support\" }]}</script>\r\n";
     }
 }
