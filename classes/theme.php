@@ -183,7 +183,7 @@ class evangelical_magazine_theme {
     public static function add_image_to_pages() {
         $image_id = get_post_thumbnail_id ();
         if ($image_id) {
-            $image = wp_get_attachment_image_src($image_id, is_singular('em_author') ? 'author_page' : (is_singular('em_issue') ? 'issue_medium' : 'article_header'));
+            $image = wp_get_attachment_image_src($image_id, is_singular('em_author') ? 'author_page' : (is_singular('em_issue') ? 'issue_large' : 'article_header'));
             if ($image) {
                 echo "<style type=\"text/css\">.entry-header { background-image: url('{$image[0]}')}</style>";
             }
