@@ -19,6 +19,8 @@ class evangelical_magazine_theme {
         remove_action ('wp_head', 'feed_links', 2 );
         add_action ('wp_head', array (__CLASS__, 'add_rss_feeds'));
         add_action ('wp_head', array (__CLASS__, 'configure_reftagger'));
+        add_filter ('wp_head', array (__CLASS__, 'add_icons_to_head'));
+        add_filter ('genesis_pre_load_favicon', array (__CLASS__, 'return_favicon_url'));
         // Menu
         add_filter ('wp_nav_menu_items', array (__CLASS__, 'modify_menu'));
         add_filter ('genesis_structural_wrap-menu-primary', array (__CLASS__, 'add_logo_to_nav_bar'));
@@ -873,7 +875,7 @@ class evangelical_magazine_theme {
         g.src = '".get_stylesheet_directory_uri()."/js/reftagger.js';
         s.parentNode.insertBefore(g, s);
     }(document, 'script'));
-</script>";
+</script>\r\n";
         
     }
     
@@ -957,5 +959,39 @@ class evangelical_magazine_theme {
         echo "\r\n";
         echo "<script type=\"application/ld+json\">{\"@context\" : \"http://schema.org\", \"@type\" : \"WebSite\", \"name\" : \"{$site_name}\", \"url\" : \"{$url}\", \"potentialAction\": {\"@type\": \"SearchAction\",\"target\": \"{$search_url}\",\"query-input\": \"required name=search_term_string\"}}</script>\r\n";
         echo "<script type=\"application/ld+json\">{\"@context\" : \"http://schema.org\", \"@type\" : \"Organization\", \"url\" : \"{$url}\", \"logo\" : \"{$logo}\", \"ContactPoint\" : [{ \"@type\" : \"ContactPoint\", \"telephone\" : \"+44-1656-655886\", \"contactType\" : \"customer support\" }]}</script>\r\n";
+    }
+    
+    /**
+    * Returns the URL of the favicon
+    * 
+    * @return string
+    */
+    public static function return_favicon_url() {
+        return get_stylesheet_directory_uri().'/images/icons/favicon.ico';
+    }
+    
+    /**
+    * Outputs the HTML for various icons
+    */
+    public static function add_icons_to_head() {
+        $u = get_stylesheet_directory_uri().'/images/icons';
+        echo "\t<link rel=\"apple-touch-icon\" sizes=\"57x57\" href=\"{$u}/apple-touch-icon-57x57.png\">\r\n";
+        echo "\t<link rel=\"apple-touch-icon\" sizes=\"60x60\" href=\"{$u}/apple-touch-icon-60x60.png\">\r\n";
+        echo "\t<link rel=\"apple-touch-icon\" sizes=\"72x72\" href=\"{$u}/apple-touch-icon-72x72.png\">\r\n";
+        echo "\t<link rel=\"apple-touch-icon\" sizes=\"76x76\" href=\"{$u}/apple-touch-icon-76x76.png\">\r\n";
+        echo "\t<link rel=\"apple-touch-icon\" sizes=\"114x114\" href=\"{$u}/apple-touch-icon-114x114.png\">\r\n";
+        echo "\t<link rel=\"apple-touch-icon\" sizes=\"120x120\" href=\"{$u}/apple-touch-icon-120x120.png\">\r\n";
+        echo "\t<link rel=\"apple-touch-icon\" sizes=\"144x144\" href=\"{$u}/apple-touch-icon-144x144.png\">\r\n";
+        echo "\t<link rel=\"apple-touch-icon\" sizes=\"152x152\" href=\"{$u}/apple-touch-icon-152x152.png\">\r\n";
+        echo "\t<link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"{$u}/apple-touch-icon-180x180.png\">\r\n";
+        echo "\t<link rel=\"icon\" type=\"image/png\" href=\"{$u}/favicon-32x32.png\" sizes=\"32x32\">\r\n";
+        echo "\t<link rel=\"icon\" type=\"image/png\" href=\"{$u}/android-chrome-192x192.png\" sizes=\"192x192\">\r\n";
+        echo "\t<link rel=\"icon\" type=\"image/png\" href=\"{$u}/favicon-96x96.png\" sizes=\"96x96\">\r\n";
+        echo "\t<link rel=\"icon\" type=\"image/png\" href=\"{$u}/favicon-16x16.png\" sizes=\"16x16\">\r\n";
+        echo "\t<link rel=\"manifest\" href=\"{$u}/manifest.json\">\r\n";
+        echo "\t<link rel=\"mask-icon\" href=\"{$u}/safari-pinned-tab.svg\" color=\"#5bbad5\">\r\n";
+        echo "\t<meta name=\"msapplication-TileColor\" content=\"#2d89ef\">\r\n";
+        echo "\t<meta name=\"msapplication-TileImage\" content=\"{$u}/mstile-144x144.png\">\r\n";
+        echo "\t<meta name=\"theme-color\" content=\"#ffffff\">\r\n";
     }
 }
