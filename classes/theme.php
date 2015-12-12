@@ -624,21 +624,7 @@ class evangelical_magazine_theme {
         $args = evangelical_magazine_article::_future_posts_args();
         $articles = $section->_get_articles ($args);
         if ($articles) {
-            $column_index = array ('left', 'right');
-            $count = 0;
-            foreach ($articles as $article) {
-                if ($count == 2 || ($count%2) == 1) {
-                    $col = 1;
-                } else {
-                    $col = 0;
-                }
-                $column [$column_index[$col]][] = $article;
-                $count++;
-            }
-            echo "<div class=\"section-page section-left\">".self::get_article_list_box($column['left'])."</div>";
-            if (isset($column['right'])) {
-                echo "<div class=\"section-page section-right\">".self::get_article_list_box($column['right'], false)."</div>";
-            }
+            echo "<div class=\"section-page\">".self::get_article_list_box($articles)."</div>";
         } else {
             echo '<div class="article-list-box"><p>Coming soon.</p></div>';
         }
@@ -821,10 +807,9 @@ class evangelical_magazine_theme {
             $output = "<div class=\"article-list-box\">";
             $output .= $heading ? "<h3>{$heading}</h3>" : '';
             $output .= "<ol>";
-            $make_image_bigger = $make_first_image_bigger;
+            $class = $make_first_image_bigger ? 'large-image' : '';
             foreach ($articles as $article) {
-                $url = $make_image_bigger ? $article->get_image_url('article_large') : $article->get_image_url('article_very_small');
-                $class = $make_image_bigger ? 'large-image' : '';
+                $url = $article->get_image_url('article_large');
                 $image_html = "<div class=\"box-shadow-transition article-list-box-image\" style=\"background-image: url('{$url}')\"></div>";
                 if ($article->is_future()) {
                     $class = trim ($class.' future');
@@ -840,7 +825,7 @@ class evangelical_magazine_theme {
                     $output .= "<br/><span class=\"article-list-box-coming-soon\">Coming {$article->get_coming_date()}</span>";
                 }
                 $output .= "</div></li>";
-                $make_image_bigger = false;
+                $class = '';
             }
             $output .= "</ol>";
             $output .= '</div>';

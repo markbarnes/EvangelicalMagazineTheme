@@ -1832,28 +1832,38 @@ body.single-em_section .entry-title {
 
 .entry-content .section-page .article-list-box {
     float: none;
-    width: 325px;
+    width: auto;
 }
 
 .section-page .article-list-box ol {
     margin-left: 0;
 }
 
-.section-page .article-list-box li:first-child {
+.section-page .article-list-box li {
+    width: 325px;
+    display: inline-block;
+    vertical-align: top;
+    border-bottom: none;
+    border-top: 1px solid #086788;
+}
+
+.section-page .article-list-box li:nth-of-type(1), .section-page .article-list-box li:nth-of-type(2) {
     padding-top: 0;
+    border-top: 0;
 }
 
-.section-page.section-left {
-    float:left;
-}
-
-.section-page.section-right {
-    float:right;
-}
-
-.section-page .article-list-box-image.first {
+.section-page li:nth-of-type(1) .article-list-box-image, .section-page li:nth-of-type(2) .article-list-box-image {
     width: 325px;
     height: 217px;
+    margin-bottom: 10px;
+}
+
+.section-page .article-list-box li:nth-of-type(even) {
+    margin-left: 30px;
+}
+
+.section-page .article-list-box li:nth-of-type(1) .title-author-wrapper, .section-page .article-list-box li:nth-of-type(2) .title-author-wrapper {
+    width: auto;
 }
 
 /* ## Section archive page
@@ -2930,6 +2940,26 @@ a:hover .article-list-box-image {
         line-height: 15px;
     }
 
+    /* Single section page
+       -------------------  */
+       
+    .section-page .article-list-box li {
+        width: 250px;
+    }
+    
+    .section-page li:nth-of-type(1) .article-list-box-image, .section-page li:nth-of-type(2) .article-list-box-image {
+        width: 250px;
+        height: 166.667px;
+    }
+
+    .section-page .article-list-box li:nth-of-type(even) {
+        margin-left: 30px;
+    }
+    
+    .article-list-box .title-author-wrapper {
+        width: 150px;
+    }
+
     /* Home page
        ---------  */
 
@@ -2979,7 +3009,7 @@ a:hover .article-list-box-image {
 	
 }
 
-@media only screen and (max-width: 976px) {
+@media only screen and (max-width: 1000px) {
 
     /* Basic set up (scaling x 0.67)
        ----------------------------- */
@@ -3155,6 +3185,26 @@ a:hover .article-list-box-image {
         height: 75px;
     }
     
+    /* Single section page
+       -------------------  */
+       
+    .section-page .article-list-box li {
+        width: 325px;
+    }
+    
+    .section-page li:nth-of-type(1) .article-list-box-image, .section-page li:nth-of-type(2) .article-list-box-image {
+        width: 325px;
+        height: 216.667px;
+    }
+
+    .section-page .article-list-box li:nth-of-type(even) {
+        margin-left: 50px;
+    }
+    
+    .article-list-box .title-author-wrapper {
+        width: 225px;
+    }
+
     /* Widgets (2 column, below)
        -------------------------  */
        
@@ -3185,7 +3235,6 @@ a:hover .article-list-box-image {
 	.site-inner,
 	.wrap {
         width: 670px;
-        padding: 0;
 	}
     
     /* Home page
@@ -3253,6 +3302,138 @@ a:hover .article-list-box-image {
     .sub-menu-section .menu-item-type-section a {
         padding-left: 12px;
         padding-right: 12px;
+    }
+
+    /* Single section page
+       -------------------  */
+       
+    .section-page .article-list-box li {
+        width: 275px;
+    }
+    
+    .section-page li:nth-of-type(1) .article-list-box-image, .section-page li:nth-of-type(2) .article-list-box-image {
+        width: 275px;
+        height: 183.333px;
+    }
+
+    .section-page .article-list-box li:nth-of-type(even) {
+        margin-left: 30px;
+    }
+    
+    .article-list-box .title-author-wrapper {
+        width: 175px;
+    }
+
+    /* Widgets (2 column, below)
+       -------------------------  */
+       
+    .sidebar .widget {
+        width: 320px;
+    }
+
+    .sidebar .widget:nth-of-type(even) {
+        margin-left: 27px;
+    }
+    
+    .sidebar .widget_evangelical_magazine_subscribe_print .widget-wrap > a > div {
+        width: 334px;
+        height: 310px;
+    }
+    
+    .sidebar .widget_evangelical_magazine_current_issue .cover-image {
+        width: 320px;
+        height: 452px;
+    }
+    
+    .widget_evangelical_magazine_most_popular .popular_article:first-child .popular-article-cover {
+        width: 320px;
+        height: 213.333px;
+    }
+    
+    /* Issue archive page
+       ------------------  */
+       
+    body.post-type-archive-em_issue .issue-contents {
+        width: 392px;
+    }
+
+    /* Single issue page
+       -----------------  */
+       
+    body.single-em_issue .entry-content > div:first-of-type {
+        width:auto;
+    }
+    body.single-em_issue .entry-header {
+        float: none;
+        display: inline-block;
+        width: 240px;
+        height: 340px;
+        vertical-align: top;
+    }
+    
+    body.single-em_issue .entry-content > div > p {
+        display: inline-block;
+        width: 300px;
+        margin-left: 40px;
+        vertical-align: top;
+    }
+    
+    body.single-em_issue .entry-content .article-list-box {
+        width: 580px;
+    }
+    
+    body.single-em_issue .entry-content .article-list-box ol {
+        margin-left: 0;
+    }
+    
+    body.single-em_issue .large-image {
+        border-top: 1px solid #086788;
+    }
+    body.single-em_issue .article-list-box li:first-child {
+        padding-top: 15px;
+    }
+    
+    body.single-em_issue .large-image .article-list-box-image,
+    body.single-em_issue .article-list-box-image {
+        width: 240px;
+        height: 160px;
+        margin-right: 40px;
+    }
+    
+    body.single-em_issue .article-list-box-title {
+        font-size: 20px;
+    }
+    
+    body.single-em_issue .article-list-box .title-author-wrapper {
+        width: 300px;
+    }
+
+    /* Single author page
+       ------------------  */
+       
+    body.single-em_author .small-article-box {
+        width: 275px;
+    }
+    
+    body.single-em_author .small-article-box .article-image {
+        width: 275px;
+        height: 183.33px;
+    }
+
+    body.single-em_author .small-article-box:nth-of-type(3n-1) {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    body.single-em_author .small-article-box:nth-of-type(even) {
+        margin-left: 30px;
+    }
+
+    /* Section archive page
+       --------------------  */
+       
+    .post-type-archive-em_section .issue-contents {
+        font-size: 18px;
     }
 }
 
