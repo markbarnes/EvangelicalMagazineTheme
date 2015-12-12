@@ -86,30 +86,19 @@ class evangelical_magazine_home_page {
         $args = array ('orderby' => 'name', 'order' => 'ASC');
         $sections = evangelical_magazine_section::get_all_sections($args);
         if ($sections) {
-            //shuffle($sections);
             mt_srand(strtotime(date('DMY')));
             $order = array_map(create_function('$val', 'return mt_rand();'), range(1, count($sections)));
             array_multisort($order, $sections);
             echo '<aside id="sections">';
-                $possible_sides = array ('left', 'center', 'right');
-                $side_index = 0;
-                foreach ($possible_sides as $s) {
-                    $outputs [$s] = '';
+            foreach ($sections as $section) {
+                $articles = $section->get_articles(1, $exclude_article_ids);
+                $info_box = evangelical_magazine_theme::get_article_list_box($articles, $section->get_name(true), $section->get_name(true), true);
+                if ($info_box) {
+                    echo $info_box;
+                    $exclude_article_ids = array_merge ($exclude_article_ids, evangelical_magazine_article::get_object_ids_from_array($articles));
+                    $side_index ++;
                 }
-                foreach ($sections as $section) {
-                    $articles = $section->get_articles(1, $exclude_article_ids);
-                    $info_box = evangelical_magazine_theme::get_article_list_box($articles, $section->get_name(true), $section->get_name(true), true);
-                    if ($info_box) {
-                        $outputs[$possible_sides[($side_index % 3)]] .= $info_box;
-                        $exclude_article_ids = array_merge ($exclude_article_ids, evangelical_magazine_article::get_object_ids_from_array($articles));
-                        $side_index ++;
-                    }
-                }
-                foreach ($outputs as $side => $output) {
-                    if ($output) {
-                        echo "<aside id=\"sections-{$side}\">{$output}</aside>";
-                    }
-                }
+            }
             echo '</aside>';
         }
     }
