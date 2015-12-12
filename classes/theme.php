@@ -35,7 +35,7 @@ class evangelical_magazine_theme {
          // Add our own footer
         add_action ('genesis_footer', array (__CLASS__, 'do_footer_bottom'));
         // Other bits and pieces
-        //add_action ('genesis_meta', array (__CLASS__, 'add_viewport'));
+        add_action ('genesis_meta', array (__CLASS__, 'add_viewport'));
         remove_action ('genesis_entry_footer', 'genesis_post_meta' );
         unregister_sidebar( 'header-right' );
         //* Theme support
@@ -707,7 +707,7 @@ class evangelical_magazine_theme {
     * 
     */
     public static function add_viewport() {
-        echo '<meta name="viewport" content="width=1300, initial-scale=1" />' . "\n";
+        echo '<meta name="viewport" content="width=1000" />' . "\n";
     }
     
     /**

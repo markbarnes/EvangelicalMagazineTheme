@@ -2675,11 +2675,6 @@ a:hover .article-list-box-image {
 		width: 400px;
 	}
 
-	.sidebar-primary,
-	.title-area {
-		width: 300px;
-	}
-    
     h1 {
         font-size: 38px;
     }
@@ -2804,6 +2799,11 @@ a:hover .article-list-box-image {
         font-size: 24px;
     }
 	
+    .sidebar-primary,
+    .title-area {
+        width: 300px;
+    }
+    
 	.widget_evangelical_magazine_subscribe_print .widget-wrap >a >div {
 		width: 320px !important;
 		height: 290px !important;
@@ -2915,7 +2915,7 @@ a:hover .article-list-box-image {
 	}
 	
    /* Issue archive page
-       ---------  */
+       -----------------  */
 
     body.post-type-archive-em_issue ul.issue-list > li.issue {
         margin: 32px 0;
@@ -2984,6 +2984,9 @@ a:hover .article-list-box-image {
 
 @media only screen and (max-width: 960px) {
 
+    /* Basic set up (scaling x 0.67)
+       ----------------------------- */
+    
 	.site-inner,
 	.wrap {
 		max-width: 800px;
@@ -3011,6 +3014,9 @@ a:hover .article-list-box-image {
 		background-position: center top;
 	}
 
+    /* Top menu
+       --------  */
+
 	.genesis-nav-menu li,
 	.site-header ul.genesis-nav-menu,
 	.site-header .search-form {
@@ -3025,12 +3031,6 @@ a:hover .article-list-box-image {
 		text-align: center;
 	}
 
-	.genesis-nav-menu a,
-	.genesis-nav-menu > .first > a,
-	.genesis-nav-menu > .last > a {
-		padding: 20px 16px;
-	}
-
 	.site-header .search-form {
 		margin: 16px auto;
 	}
@@ -3038,7 +3038,31 @@ a:hover .article-list-box-image {
 	.genesis-nav-menu li.right {
 		display: none;
 	}
+    
+    /* Home page
+       ---------  */
 
+    body.home .article_medium {
+        width: 266.6666px;
+        height: 177px;
+    }
+    
+    body.home .article_small {
+        width: 200px;
+        height: 133px;
+    }
+    
+    #recent-articles {
+        padding: 22px 0;
+    }
+    
+    #subscription-form {
+        display: none;
+    }
+    
+    body.home #sections {
+        padding-top: 0;
+    }
 }
 
 @media only screen and (max-width: 800px) {
