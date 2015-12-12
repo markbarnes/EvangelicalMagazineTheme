@@ -2318,18 +2318,20 @@ body.home #latest-articles {
 
 body.home .article {
     float:left;
+    width: 308px;
+    height: 205px;
     background-size: cover;
     position: relative;
     overflow:hidden;
     box-shadow: inset 0 0 65px 10px rgba(0,0,0,0.8);
 }
 
-body.home #latest-articles .first-row .article {
+body.home #latest-articles .article {
     border-right: 1px solid white;
     border-bottom: 1px solid white;
 }
 
-body.home #latest-articles .first-row a:last-child .article {
+body.home #latest-articles .article-wrap:nth-of-type(3) .article, body.home #latest-articles .article-wrap:nth-of-type(7) .article {
     border-right: none;
 }
 
@@ -2345,17 +2347,6 @@ body.home a:hover .article {
     box-shadow: none;
 }
 
-body.home .article_medium {
-    width: 308px;
-    height: 205px;
-}
-
-body.home .article_small {
-    float:left;
-    width: 231px;
-    height: 154px;
-}
-
 body.home .article-title {
     bottom: 0;
     position: absolute;
@@ -2365,14 +2356,6 @@ body.home .article-title {
     padding: 0 20px 10px 20px;
     text-shadow: 1.25px 1.25px 1px rgba(0,0,0,.85);
     color:#FECA00;
-}
-
-body.home .article-400 .article-title {
-    width: 308px;
-}
-
-body.home .article-300 .article-title {
-    width: 231px;
 }
 
 body.home .current.article:hover .article-title {
@@ -2392,11 +2375,16 @@ body.home #latest-articles .coming-soon {
     float: right;
 }
 
-#sections .article-list-box {
+body.home #latest-articles .article-wrap:nth-of-type(4) .article, body.home #latest-articles .article-wrap:nth-of-type(5) .article, body.home #latest-articles .article-wrap:nth-of-type(6) .article, body.home #latest-articles .article-wrap:nth-of-type(7) .article {
+    width: 231px;
+    height: 154px;
+}
+    
+body.home #sections .article-list-box {
     margin-right: 30px;
 }
 
-#sections .article-list-box:nth-of-type(3n+0) {
+body.home #sections .article-list-box:nth-of-type(3n+0) {
     margin-right: 0;
 }
 
