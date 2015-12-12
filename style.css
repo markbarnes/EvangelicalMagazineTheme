@@ -2680,12 +2680,20 @@ a:hover .article-list-box-image {
 		width: 300px;
 	}
     
+    h1 {
+        font-size: 38px;
+    }
+    
     h2 {
         font-size: 29px;
     }
 	
     h3 {
         font-size: 24px;
+    }
+    
+    h4 {
+        font-size: 19px;
     }
     
     /* Top menu
@@ -2906,6 +2914,22 @@ a:hover .article-list-box-image {
 		width: 340px;
 	}
 	
+   /* Issue archive page
+       ---------  */
+
+    body.post-type-archive-em_issue ul.issue-list > li.issue {
+        margin: 32px 0;
+    }
+    
+    body.post-type-archive-em_issue h4 {
+        font-size: 24px;
+    }
+
+    body.post-type-archive-em_issue .issue-contents {
+        font-size: 14px;
+        line-height: 15px;
+    }
+
     /* Home page
        ---------  */
 
