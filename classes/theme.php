@@ -396,7 +396,7 @@ class evangelical_magazine_theme {
         //Sections
         $text_to_look_for = '<span itemprop="name">Sections</span></a>';
         if (strpos($menu, $text_to_look_for) !== FALSE) {
-            $menu = str_replace ('<a href="#" itemprop="url"><span itemprop="name">Sections</span></a>', '<a href="'.get_post_type_archive_link ('em_sections').'" itemprop="url"><span itemprop="name">Sections</span></a>', $menu);
+            $menu = str_replace ('<a href="#" itemprop="url"><span itemprop="name">Sections</span></a>', '<a href="'.get_post_type_archive_link ('em_section').'" itemprop="url"><span itemprop="name">Sections</span></a>', $menu);
             $sections = evangelical_magazine_section::get_all_sections();
             if ($sections) {
                 $section_menu = '<ul class="sub-menu sub-menu-section"><div class="wrap">';
