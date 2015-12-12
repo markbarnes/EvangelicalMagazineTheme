@@ -1335,11 +1335,10 @@ img.alignright,
 
 .nav-primary {
 	background-color: #086788;
-    text-align: right;
 }
 
 .nav-primary .logo {
-    float: left;
+    display:inline-block;
     margin-top: 10px;
     width: 181px;
     height: 50px;
@@ -3155,8 +3154,6 @@ a:hover .article-list-box-image {
         width: 113px;
         height: 75px;
     }
-       
-    
     
     /* Widgets (2 column, below)
        -------------------------  */
@@ -3181,56 +3178,82 @@ a:hover .article-list-box-image {
         width: 360px;
         height: 509px;
     }
-    
 }
 
-@media only screen and (max-width: 800px) {
-
-	body {
-		background-color: #fff;
-		font-size: 16px;
-	}
+@media only screen and (max-width: 835px) {
 
 	.site-inner,
 	.wrap {
-		padding-left: 5%;
-		padding-right: 5%;
+        width: 670px;
+        padding: 0;
 	}
+    
+    /* Home page
+       -------------------------  */
+    
+    body.home #latest-articles .article-wrap:nth-of-type(n) .article {
+        width: 320px;
+        height: 213.333px;
+        border: none;
+        margin-bottom: 30px;
+    }
 
-	.archive-description,
-	.author-box,
-	.comment-respond,
-	.entry,
-	.entry-comments,
-	.entry-pings,
-	.sidebar .widget,
-	.site-header {
-		padding: 0;
-	}
+    body.home #latest-articles .article-wrap:nth-of-type(odd) .article {
+        margin-left: 30px;
+    }
 
-	.archive-pagination li a {
-		margin-bottom: 4px;
-	}
+    body.home #latest-articles .article-wrap:nth-of-type(6) .article, body.home #latest-articles .article-wrap:nth-of-type(7) .article {
+        margin-bottom: 0;
+    }
+    
+    body.home #sections .article-list-box {
+        width: 100%;
+    }
+    
+    body.home #sections .large-image .article-list-box-image {
+        margin-bottom: 0;
+    }
+    
+    body.home #sections .article-list-box h3 {
+        text-align: left;
+        font-size: 36px;
+    }
+    
+    body.home #sections .title-author-wrapper {
+        padding-top: 10px;
+        padding-right: 10px;
+        width: 400px;
+    }
 
-	.five-sixths,
-	.four-sixths,
-	.one-fourth,
-	.one-half,
-	.one-sixth,
-	.one-third,
-	.three-fourths,
-	.three-sixths,
-	.two-fourths,
-	.two-sixths,
-	.two-thirds {
-		margin: 0;
-		width: 100%;
-	}
+    body.home #sections .title-author-wrapper a {
+        font-size: 22px;
+        line-height: 30px;
+    }
 
-	.sidebar .widget.enews-widget {
-		padding: 40px;
-	}
+    /* Menu
+    -------------------------  */
+    
+    .sub-menu-issues .menu-item-type-issue:nth-of-type(5) {
+        display: none;
+    }
+    
+    .sub-menu-authors .menu-item-type-author:nth-of-type(8) {
+        display: none;
+    }
 
+    .sub-menu-authors #menu-item-more-authors {
+        width: 62px;
+    }
+
+    .sub-menu-authors #menu-item-more-authors a {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+    
+    .sub-menu-section .menu-item-type-section a {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
 }
 
 /* # Print Styles

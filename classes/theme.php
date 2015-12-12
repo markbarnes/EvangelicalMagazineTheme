@@ -158,8 +158,8 @@ class evangelical_magazine_theme {
     * Filters the primary menu markup to add the logo
     */
     public static function add_logo_to_nav_bar($markup) {
-        if ($markup == "</div>") {
-            return "<a class=\"logo\" href=\"".get_site_url()."\"></a>{$markup}";
+        if ($markup == "<div class=\"wrap\">") {
+            return "{$markup}<a class=\"logo\" href=\"".get_site_url()."\"></a>";
         } else {
             return $markup;
         }
