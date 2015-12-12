@@ -2922,18 +2922,19 @@ a:hover .article-list-box-image {
 		width: 100%;
 	}
 	
-	body.home .article_medium {
+	body.home .article {
 		width: 320px;
 		height: 213px;
 	}
 	
-	body.home .article_small {
+	body.home #latest-articles .article-wrap:nth-of-type(4) .article, body.home #latest-articles .article-wrap:nth-of-type(5) .article, body.home #latest-articles .article-wrap:nth-of-type(6) .article, body.home #latest-articles .article-wrap:nth-of-type(7) .article {
 		width: 240px;
 		height: 160px;
 	}
     
-    body.home #sections-left, body.home #sections-center, body.home #sections-right {
+    body.home .article-list-box {
         width: 300px;
+        margin-bottom: 30px;
     }
     
     body.home .large-image .article-list-box-image {
@@ -2941,10 +2942,6 @@ a:hover .article-list-box-image {
         height: 200px;
     }
     
-    body.home .article-list-box {
-        margin-bottom: 30px;
-    }
-	
 	#subscription-form .gform_body ul > li:first-of-type > .ginput_complex {
 		width: 340px;
 	}
