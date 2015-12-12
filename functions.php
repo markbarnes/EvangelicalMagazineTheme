@@ -19,7 +19,7 @@ add_image_size ('facebook_share', 1200, 630, true);
 add_image_size ('twitter_share', 800, 400, true);
 add_image_size ('article_header', 800, 400, true);
 add_image_size ('article_large', 380, 253, true);
-add_image_size ('article_large_bw', 418, 178, true);
+add_image_size ('article_large_bw', 418, 278, true);
 add_image_size ('article_sidebar', 360, 240, true);
 add_image_size ('issue_large', 360, 508, true);
 add_image_size ('article_medium', 307, 204, true);
