@@ -693,7 +693,7 @@ class evangelical_magazine_theme {
     * 
     */
     public static function add_viewport() {
-        echo '<meta name="viewport" content="width=975" />' . "\n";
+        echo '<meta name="viewport" content="width=760" />' . "\n";
     }
     
     /**
