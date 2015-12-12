@@ -74,6 +74,8 @@ class evangelical_magazine_theme {
             add_filter ('genesis_post_info', array (__CLASS__, 'filter_post_info'));
             // Filter the title
             add_filter ('genesis_post_title_output', array (__CLASS__, 'filter_post_title'));
+            // Adds Facebook javascript SDK for social media buttons
+            add_action ('genesis_before', array (__CLASS__, 'output_facebook_javascript_sdk'));
             // Add the author/'see also' detail at the end of the article (also increases the view count)
             add_action ('genesis_entry_content', array (__CLASS__, 'add_to_end_of_article'), 11);
             self::add_full_size_header_image();
@@ -227,6 +229,8 @@ class evangelical_magazine_theme {
         if (!is_user_logged_in()) {
             $article->record_view_count();
         }
+        // Facebook buttons
+        echo "<h3>Share or recommend</h3><div style=\"margin-bottom: 2em\" class=\"fb-like\" data-href=\"{$article->get_link()}\" data-width=\"680\" data-layout=\"standard\" data-action=\"like\" data-show-faces=\"true\" data-share=\"true\"></div>\r\n";
         // Show authors
         $authors = $article->get_authors();
         if ($article->has_series()) {
