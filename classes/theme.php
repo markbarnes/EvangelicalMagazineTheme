@@ -994,4 +994,15 @@ class evangelical_magazine_theme {
         echo "\t<meta name=\"msapplication-TileImage\" content=\"{$u}/mstile-144x144.png\">\r\n";
         echo "\t<meta name=\"theme-color\" content=\"#ffffff\">\r\n";
     }
+    
+    /**
+    * Outputs the Facebook Javascript SD
+    * 
+    * Ideally called on 'genesis_before' action
+    * 
+    */
+    public static function output_facebook_javascript_sdk() {
+        echo '<div id="fb-root"></div><script>(function(d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.5&appId=1248516525165787"; fjs.parentNode.insertBefore(js, fjs);}(document, \'script\', \'facebook-jssdk\'));</script>'."\r\n";
+    }
+
 }
