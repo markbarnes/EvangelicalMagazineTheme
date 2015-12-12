@@ -2679,7 +2679,15 @@ a:hover .article-list-box-image {
 	.title-area {
 		width: 300px;
 	}
+    
+    h2 {
+        font-size: 29px;
+    }
 	
+    h3 {
+        font-size: 24px;
+    }
+    
     /* Top menu
        ------------  */
     
@@ -2771,9 +2779,22 @@ a:hover .article-list-box-image {
     /* Widgets
        ------------  */
     
+    .sidebar {
+        font-size: 13px;
+    }
+
+    .sidebar li {
+        margin-bottom: 8px;
+        padding-bottom: 8px;
+    }
+
 	.sidebar .article-info {
 		font-size: 14px;
 	}
+    
+    .sidebar .widget-title {
+        font-size: 24px;
+    }
 	
 	.widget_evangelical_magazine_subscribe_print .widget-wrap >a >div {
 		width: 320px !important;
@@ -2789,6 +2810,10 @@ a:hover .article-list-box-image {
     /* Single pages
        ------------  */
     
+    .entry-title {
+        font-size: 44px;
+    }
+
 	.entry-content {
 		padding: 35px 45px;
 	}
