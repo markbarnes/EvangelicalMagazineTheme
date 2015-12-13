@@ -340,8 +340,8 @@ class evangelical_magazine_theme {
     * 
     */
     public static function do_footer_bottom() {
-        echo "<p><a class=\"logo\" href=\"".get_site_url()."\"></a>";
-        echo '<span class="emw">The Evangelical Magazine is published by the <a href="https://www.emw.org.uk/">Evangelical Movement of Wales</a></span><br/>';
+        echo "<a class=\"logo\" href=\"".get_site_url()."\"></a>";
+        echo '<p class="footer-details"><span class="emw">The Evangelical Magazine is published by the <a href="https://www.emw.org.uk/">Evangelical Movement of Wales</a></span><br/>';
         echo '<span class="address">Waterton Cross Business Park, South Road, Bridgend CF31 3UL</span><br/>';
         echo '<span class="registration">Registered charity number 222407</span></p>';
         $rss_feed = get_post_type_archive_feed_link('em_article');
@@ -491,7 +491,7 @@ class evangelical_magazine_theme {
        $authors = evangelical_magazine_author::get_top_authors();
        if ($authors) {
            foreach ($authors as $author) {
-               echo "<a href=\"{$author->get_link()}\"><div class=\"author-grid image-fit\" style=\"background-image:url('{$author->get_image_url('author_small')}')\"><div class=\"author-description\">{$author->get_filtered_content()}</div></div></a>";
+               echo "<div class=\"grid-author-container\"><a href=\"{$author->get_link()}\" class=\"grid-author-image image-fit\" style=\"background-image:url('{$author->get_image_url('author_page')}')\"></a><div class=\"author-name-description\"><div class=\"author-name\">{$author->get_name(true)}</div><div class=\"author-description\">{$author->get_filtered_content()}</div></div></div>";
            }
        }
     }
@@ -693,7 +693,7 @@ class evangelical_magazine_theme {
     * 
     */
     public static function add_viewport() {
-        echo '<meta name="viewport" content="width=760" />' . "\n";
+        echo '<meta name="viewport" content="width=768, initial-scale=1" />' . "\n";
     }
     
     /**
