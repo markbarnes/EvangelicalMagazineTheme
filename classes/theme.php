@@ -183,7 +183,7 @@ class evangelical_magazine_theme {
     public static function add_image_to_pages() {
         $image_id = get_post_thumbnail_id ();
         if ($image_id) {
-            $image = wp_get_attachment_image_src($image_id, is_singular('em_author') ? 'author_page' : (is_singular('em_issue') ? 'issue_large' : 'article_header'));
+            $image = wp_get_attachment_image_src($image_id, is_singular('em_author') ? 'author_medium' : (is_singular('em_issue') ? 'issue_very_large' : 'article_header'));
             if ($image) {
                 echo "<style type=\"text/css\">.entry-header { background-image: url('{$image[0]}')}</style>";
             }
@@ -491,7 +491,7 @@ class evangelical_magazine_theme {
        $authors = evangelical_magazine_author::get_top_authors();
        if ($authors) {
            foreach ($authors as $author) {
-               echo "<div class=\"grid-author-container\"><a href=\"{$author->get_link()}\" class=\"grid-author-image image-fit\" style=\"background-image:url('{$author->get_image_url('author_page')}')\"></a><div class=\"author-name-description\"><div class=\"author-name\">{$author->get_name(true)}</div><div class=\"author-description\">{$author->get_filtered_content()}</div></div></div>";
+               echo "<div class=\"grid-author-container\"><a href=\"{$author->get_link()}\" class=\"grid-author-image image-fit\" style=\"background-image:url('{$author->get_image_url('author_medium')}')\"></a><div class=\"author-name-description\"><div class=\"author-name\">{$author->get_name(true)}</div><div class=\"author-description\">{$author->get_filtered_content()}</div></div></div>";
            }
        }
     }
@@ -510,7 +510,7 @@ class evangelical_magazine_theme {
        if ($issues) {
            echo "<ul class=\"issue-list\">";
            foreach ($issues as $issue) {
-               echo "<li class=\"issue\"><a href=\"{$issue->get_link()}\"><div class=\"magazine-cover image-fit box-shadow-transition\" style=\"background-image:url('{$issue->get_image_url('issue_archive')}')\"></div></a>";
+               echo "<li class=\"issue\"><a href=\"{$issue->get_link()}\"><div class=\"magazine-cover image-fit box-shadow-transition\" style=\"background-image:url('{$issue->get_image_url('issue_medium')}')\"></div></a>";
                echo "<div class=\"issue-contents\"><h4>{$issue->get_name(true)}</h4>";
                $articles = $issue->get_top_articles($max_articles_displayed);
                if ($articles) {
@@ -693,7 +693,7 @@ class evangelical_magazine_theme {
     * 
     */
     public static function add_viewport() {
-        echo '<meta name="viewport" content="width=768, initial-scale=1" />' . "\n";
+        echo '<meta name="viewport" content="width=device-width, initial-scale=1" />' . "\n";
     }
     
     /**
@@ -714,7 +714,7 @@ class evangelical_magazine_theme {
     public static function do_post_image_for_search () {
         $object = evangelical_magazine::get_object_from_id(get_the_ID());
         if ($object) {
-            $size = $object->is_author() ? 'square_thumbnail_tiny' : ($object->is_article() ? 'article_small' : 'issue_archive');
+            $size = $object->is_author() ? 'square_thumbnail_tiny' : ($object->is_article() ? 'article_small' : 'issue_medium');
             echo $object->get_image_html($size, true, 'search-thumbnail');
         } else {
             if (has_post_thumbnail()) {
