@@ -531,4 +531,22 @@ body.single-em_section .article-list-box .title-author-wrapper {
 body.single-em_section .article-list-author {
     font-size: 18px;
 }
+
+/* Search page
+   -----------  */
+
+body.search-results .em_article .search-thumbnail img {
+    width: 100px;
+}
+
+body.search-results .em_article .entry-content > div {
+    width: 330px;
+    margin-left: 30px;
+}
+
+body.search-results .em_author .entry-content > div {
+    width: 355px;
+    margin-left: 30px;
+}
+
 }

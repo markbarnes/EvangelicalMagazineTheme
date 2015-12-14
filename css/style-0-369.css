@@ -614,4 +614,31 @@ body.single-em_section .article-list-box-author {
     font-size: 14px;
 }    
 
+/* Search page
+   -----------  */
+
+body.search-results .em_article .search-thumbnail img {
+    width: 220px;
+}
+
+body.search-results .em_article .entry-content > div {
+    width: 100%;
+    margin-left: 0;
+}
+
+body.search-results .em_author .search-thumbnail img {
+    margin-right: 10px;
+}
+
+body.search-results article.em_author .entry-content > div {
+    width: 100%;
+    margin-left: 0;
+    float: none;
+    padding: 0 10px;
+}
+
+body.search-results .archive-title {
+    font-size: 36px;
+}
+
 }

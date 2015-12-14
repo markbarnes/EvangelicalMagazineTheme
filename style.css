@@ -2025,7 +2025,7 @@ body.search-results article.em_author .entry-content div {
 
 body.search-results article.em_author .entry-content p {
     font-size: 15px;
-    width: 605px;
+    width: 100%;
 }
 
 body.search-no-results .entry {

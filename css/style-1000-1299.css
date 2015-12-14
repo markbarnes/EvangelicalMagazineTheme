@@ -383,4 +383,21 @@ body.home #subscription-form input[type=submit] {
     width: 100px;
 }
 
+/* Search page
+   -----------  */
+
+body.search-results .em_article .search-thumbnail img {
+    width: 150px;
+}
+
+body.search-results .em_article .entry-content > div {
+    width: 360px;
+    margin-left: 30px;
+}
+
+body.search-results .em_author .entry-content > div {
+    width: 435px;
+    margin-left: 30px;
+}
+
 }
