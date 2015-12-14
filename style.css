@@ -2709,6 +2709,11 @@ a:hover .article-list-box-image {
        pointer-events: none;
        cursor: default;    
     }
+    
+    #menu-primary .menu-item-type-custom .sub-menu a  {
+        pointer-events: auto;
+        cursor: auto;
+    }
 	
 	.nav-primary .search .dashicons-search {
 		font-size: 27px;
@@ -3102,6 +3107,11 @@ a:hover .article-list-box-image {
        cursor: default;    
     }
     
+    #menu-primary .menu-item-type-custom .sub-menu a  {
+        pointer-events: auto;
+        cursor: auto;
+    }    
+
     .nav-primary .search .dashicons-search {
         font-size: 27px;
         height: 44px;
@@ -3570,6 +3580,11 @@ a:hover .article-list-box-image {
        cursor: default;    
     }
     
+    #menu-primary .menu-item-type-custom .sub-menu a  {
+        pointer-events: auto;
+        cursor: auto;
+    }    
+
     .nav-primary .search .dashicons-search {
         font-size: 27px;
         height: 44px;
@@ -4102,6 +4117,11 @@ a:hover .article-list-box-image {
        cursor: default;    
     }
     
+    #menu-primary .menu-item-type-custom .sub-menu a  {
+        pointer-events: auto;
+        cursor: auto;
+    }    
+
     .nav-primary .search .dashicons-search {
         font-size: 27px;
         height: 44px;
@@ -4689,6 +4709,11 @@ a:hover .article-list-box-image {
        cursor: default;    
     }
     
+    #menu-primary .menu-item-type-custom .sub-menu a  {
+        pointer-events: auto;
+        cursor: auto;
+    }    
+
     .nav-primary .search .dashicons-search {
         font-size: 27px;
         height: 44px;
@@ -5300,6 +5325,12 @@ a:hover .article-list-box-image {
        cursor: default;    
     }
     
+    #menu-primary .menu-item-type-custom .sub-menu a  {
+        pointer-events: auto;
+        cursor: auto;
+    }
+        
+
     .nav-primary .search .dashicons-search {
         font-size: 27px;
         height: 44px;
