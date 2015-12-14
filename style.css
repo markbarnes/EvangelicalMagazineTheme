@@ -4,7 +4,7 @@ Theme URI: http://www.evangelicalmagazine.com
 Description: Custom theme for the Evangelical Magazine
 Author: Mark Barnes
 Author URI: http://www.markbarnes.net/
-Version: 0.5
+Version: 0.5.1
 Template: genesis
 Template Version: 2.2.0
 Tags: one-column, two-columns, three-columns, left-sidebar, right-sidebar, responsive-layout, custom-menu, full-width-template, rtl-language-support, sticky-post, theme-options, threaded-comments
@@ -2714,6 +2714,11 @@ a:hover .article-list-box-image {
 		height: 33px;
 		margin-top: 7px;
 	}
+    
+    #menu-primary .menu-item-type-custom a {
+       pointer-events: none;
+       cursor: default;    
+    }
 	
 	.nav-primary .search .dashicons-search {
 		font-size: 27px;
@@ -3101,6 +3106,11 @@ a:hover .article-list-box-image {
         width: 120px;
         height: 33px;
         margin-top: 7px;
+    }
+    
+    #menu-primary .menu-item-type-custom a {
+       pointer-events: none;
+       cursor: default;    
     }
     
     .nav-primary .search .dashicons-search {
@@ -3565,6 +3575,11 @@ a:hover .article-list-box-image {
         width: 120px;
         height: 33px;
         margin: 7px 0 0 7px;
+    }
+    
+    #menu-primary .menu-item-type-custom a {
+       pointer-events: none;
+       cursor: default;    
     }
     
     .nav-primary .search .dashicons-search {
@@ -4092,6 +4107,11 @@ a:hover .article-list-box-image {
         width: 120px;
         height: 33px;
         margin: 7px 0 0 7px;
+    }
+    
+    #menu-primary .menu-item-type-custom a {
+       pointer-events: none;
+       cursor: default;    
     }
     
     .nav-primary .search .dashicons-search {
@@ -4674,6 +4694,11 @@ a:hover .article-list-box-image {
         width: 120px;
         height: 33px;
         margin: 7px 0 0 7px;
+    }
+    
+    #menu-primary .menu-item-type-custom a {
+       pointer-events: none;
+       cursor: default;    
     }
     
     .nav-primary .search .dashicons-search {
@@ -5280,6 +5305,11 @@ a:hover .article-list-box-image {
         width: 120px;
         height: 33px;
         margin: 7px 0 0 7px;
+    }
+    
+    #menu-primary .menu-item-type-custom a {
+       pointer-events: none;
+       cursor: default;    
     }
     
     .nav-primary .search .dashicons-search {
