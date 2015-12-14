@@ -555,7 +555,7 @@ class evangelical_magazine_theme {
                if ($articles) {
                    echo "<ul class=\"top-articles\">";
                    foreach ($articles as $article) {
-                       echo "<li><a href=\"{$article->get_link()}\"><div class=\"article-image\" style=\"background-image:url('{$article->get_image_url('article_small')}')\"></div></a><span class=\"article-title\">{$article->get_title(true)}</span><br/><span class=\"article-authors\">by {$article->get_author_names(true)}</span></li>";
+                       echo "<li><a href=\"{$article->get_link()}\"><div class=\"article-image image-fit\" style=\"background-image:url('{$article->get_image_url('article_small')}')\"></div></a><span class=\"article-title\">{$article->get_title(true)}</span><br/><span class=\"article-authors\">by {$article->get_author_names(true)}</span></li>";
                        $exclude_ids[] = $article->get_id();
                    }
                    $remaining_articles = $section->get_article_count() - $max_articles_displayed;
