@@ -14,6 +14,7 @@ class evangelical_magazine_theme {
         // HTML HEAD
         add_action ('wp_enqueue_scripts', array (__CLASS__, 'enqueue_fonts'));
         add_action ('wp_enqueue_scripts', array (__CLASS__, 'disable_superfish'));
+        add_action ('wp_enqueue_scripts', array (__CLASS__, 'enqueue_media_stylesheets'));
         add_filter ('genesis_superfish_enabled', '__return_false'); // Doesn't seem to work
         remove_action ('wp_head', 'feed_links_extra', 3);
         remove_action ('wp_head', 'feed_links', 2 );
@@ -985,7 +986,7 @@ class evangelical_magazine_theme {
     }
     
     /**
-    * Outputs the Facebook Javascript SD
+    * Outputs the Facebook Javascript SDK
     * 
     * Ideally called on 'genesis_before' action
     * 
@@ -1001,5 +1002,17 @@ class evangelical_magazine_theme {
             $attributes['class'] = 'image-fit';
         }
         return $attributes;
+    }
+    
+    public static function enqueue_media_stylesheets() {
+        $sizes = array ('1000-1299' => 'screen and (min-width: 1000px) and (max-width: 1299px)',
+                        '735-999' => 'screen and (min-width:735px) and (max-width: 999px)',
+                        '560-734' => 'screen and (min-width:560px) and (max-width: 734px)',
+                        '470-559' => 'screen and (min-width:470px) and (max-width: 559px)',
+                        '370-469' => 'screen and (min-width:370px) and (max-width: 469px)',
+                        '0-369' => 'screen and (max-width: 369px)');
+        foreach ($sizes as $name => $media) {
+            wp_enqueue_style ("magazine-css-{$name}", get_stylesheet_directory_uri()."/css/style-{$name}.css", false, CHILD_THEME_VERSION, $media);    
+        }
     }
 }

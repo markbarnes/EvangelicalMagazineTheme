@@ -1,0 +1,386 @@
+@media only screen and (min-width: 1000px) and (max-width: 1299px) {
+    
+/* Basic set up (scaling x0.8)
+
+   Targeted at iPads in landscape (1024) 
+   -----------------------------------------  */
+
+body {
+    font-size: 15px;
+}
+
+.site-inner,
+.wrap {
+    max-width: 960px;
+}
+
+.content-sidebar-sidebar .content-sidebar-wrap,
+.sidebar-content-sidebar .content-sidebar-wrap,
+.sidebar-sidebar-content .content-sidebar-wrap {
+    width: 740px;
+}
+
+.content,
+.site-header .widget-area {
+    width: 620px;
+}
+
+.sidebar-content-sidebar .content,
+.sidebar-sidebar-content .content,
+.content-sidebar-sidebar .content {
+    width: 400px;
+}
+
+h1 {
+    font-size: 38px;
+}
+
+h2 {
+    font-size: 29px;
+}
+
+h3 {
+    font-size: 24px;
+}
+
+h4 {
+    font-size: 19px;
+}
+
+/* Top menu
+   ------------  */
+
+.nav-primary .logo {
+    width: 120px;
+    height: 33px;
+    margin-top: 7px;
+}
+
+#menu-primary .menu-item-type-custom a {
+   pointer-events: none;
+   cursor: default;    
+}
+
+#menu-primary .menu-item-type-custom .sub-menu a  {
+    pointer-events: auto;
+    cursor: auto;
+}
+
+.nav-primary .search .dashicons-search {
+    font-size: 27px;
+    height: 44px;
+    width: 27px;
+    padding-top: 9px;
+}
+
+.nav-primary input[type="search"] {
+    padding: 5px;
+}
+
+.genesis-nav-menu {
+    font-size: 24px;
+}
+
+.genesis-nav-menu a {
+    padding: 10px 12px;
+}
+
+.nav-primary .search a {
+    padding: 0;
+}
+
+.genesis-nav-menu .menu-item-type-issue {
+    width: 149px;
+    padding: 16px 14px;
+}
+
+.genesis-nav-menu .menu-item-type-issue:first-child {
+    width: 130px;
+}
+
+.genesis-nav-menu .menu-item-type-issue:last-child {
+    width: 130px;
+}
+
+.genesis-nav-menu .menu-item-type-issue img {
+    margin-bottom: 8px;
+    width: 120px;
+}
+
+.genesis-nav-menu .menu-item-more-issues {
+    padding-top: 80px;
+}
+
+.genesis-nav-menu .menu-item-more-issues a, .genesis-nav-menu .menu-item-more-authors a {
+    font-size: 14px;
+}
+
+.genesis-nav-menu .menu-item-type-author {
+    width: 89px;
+    padding: 16px 14px;
+}
+
+.genesis-nav-menu .menu-item-type-author:first-child {
+    width: 74px;
+}
+
+.genesis-nav-menu .menu-item-type-author:last-child {
+    width: 40px;
+}
+
+.genesis-nav-menu .menu-item-more-authors {
+    padding-top: 36px;
+}
+
+.genesis-nav-menu .menu-item-type-author img {
+    margin-bottom: 8px;
+    width: 60px;
+}
+
+.genesis-nav-menu .sub-menu .menu-item-type-section a {
+    font-size: 29px;
+}
+
+input, select, textarea {
+    font-size: 14px;
+}
+
+/* Widgets
+   ------------  */
+
+.sidebar {
+    font-size: 13px;
+}
+
+.sidebar li {
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+}
+
+.sidebar .article-info {
+    font-size: 14px;
+}
+
+.sidebar .widget-title {
+    font-size: 24px;
+}
+
+.sidebar-primary,
+.title-area {
+    width: 300px;
+}
+
+.widget_evangelical_magazine_subscribe_print .widget-wrap >a >div {
+    width: 320px;
+    height: 290px;
+}
+
+.widget_evangelical_magazine_current_issue .cover-image {
+    width: 300px;
+    height: 424px;
+}
+
+/* Single pages
+   ------------  */
+
+.entry-title {
+    font-size: 44px;
+}
+
+.entry-content {
+    padding: 35px 45px;
+}
+
+body.full-size-header-image .entry-header {
+    height: 310px;
+}
+
+.section-list .article-image {
+    width: 147px;
+    height: 98px;
+}
+
+.author-grid {
+    width: 132px;
+    height: 132px;
+}
+
+body.single-em_author .entry-header {
+    width: 210px;
+    height: 210px;
+}
+
+.small-article-box {
+    width: 250px;
+}
+
+.small-article-box .article-image {
+    width: 250px;
+    height: 167px;
+}
+
+.small-article-box:nth-of-type(3n-2) {
+    margin-right: 0;
+}
+
+.small-article-box:nth-of-type(odd) {
+    margin-right: 30px;
+}
+
+.small-article-box:nth-of-type(3n) {
+    margin-left: 0;
+}
+
+/* Issue archive page
+   -----------------  */
+
+body.post-type-archive-em_issue .magazine-cover {
+    width: 168px;
+    height: 237px;
+}
+
+body.post-type-archive-em_issue .issue-contents {
+    width: 340px;
+}
+
+body.post-type-archive-em_issue ul.issue-list > li.issue {
+    margin: 32px 0;
+}
+
+body.post-type-archive-em_issue h4 {
+    font-size: 24px;
+}
+
+body.post-type-archive-em_issue .issue-contents {
+    font-size: 14px;
+    line-height: 15px;
+}
+
+/* Single issue pages
+   ------------------  */
+
+body.single-em_issue .entry-header {
+    width: 200px;
+    height: 282px;
+}
+
+body.single-em_issue .entry-content > div:first-of-type {
+    width: 200px;
+}
+
+body.single-em_issue .entry-content .article-list-box {
+    width: 300px;
+}
+
+body.single-em_issue .large-image .article-list-box-image {
+    width: 300px;
+    height: 200px;
+}
+
+.article-list-box-title {
+    font-size: 16px;
+}
+
+.article-list-box-author,
+.article-list-box-coming-soon {
+    font-size: 14px;
+}
+
+.article-list-box-image {
+    width: 90px;
+    height: 60px;
+}
+
+.article-list-box .title-author-wrapper {
+    width: 160px;
+}
+
+/* Author archive page
+   -------------------  */
+   
+.grid-author-image {
+    width: 75px;
+    height: 75px;
+}
+
+.grid-author-container {
+    width: 250px;
+    margin-bottom: 30px;
+}
+
+.grid-author-container:nth-of-type(even) {
+    margin-left: 30px;
+}
+
+.grid-author-container .author-name-description {
+    width: 140px;
+}
+   
+/* Single section page
+   -------------------  */
+   
+.section-page .article-list-box li {
+    width: 250px;
+}
+
+.section-page li:nth-of-type(1) .article-list-box-image, .section-page li:nth-of-type(2) .article-list-box-image {
+    width: 250px;
+    height: 166.667px;
+}
+
+.section-page .article-list-box li:nth-of-type(even) {
+    margin-left: 30px;
+}
+
+.article-list-box .title-author-wrapper {
+    width: 150px;
+}
+
+/* Home page
+   ---------  */
+
+body.home #latest-cover {
+    display: none;
+}
+
+body.home #latest-articles {
+    width: 100%;
+}
+
+body.home .article {
+    width: 320px;
+    height: 213px;
+}
+
+body.home #latest-articles .article-wrap:nth-of-type(4) .article, body.home #latest-articles .article-wrap:nth-of-type(5) .article, body.home #latest-articles .article-wrap:nth-of-type(6) .article, body.home #latest-articles .article-wrap:nth-of-type(7) .article {
+    width: 240px;
+    height: 160px;
+}
+
+body.home .article-list-box {
+    width: 300px;
+    margin-bottom: 30px;
+}
+
+body.home .large-image .article-list-box-image {
+    width: 300px;
+    height: 200px;
+}
+
+#subscription-form .gform_body ul > li:first-of-type > .ginput_complex {
+    width: 340px;
+}
+
+body.home #subscription-form input {
+    width: 160px;
+}
+
+body.home #subscription-form input[type=email] {
+    width: 230px;
+}
+
+body.home #subscription-form input[type=submit] {
+    width: 100px;
+}
+
+}
