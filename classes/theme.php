@@ -38,10 +38,10 @@ class evangelical_magazine_theme {
         add_action ('genesis_meta', array (__CLASS__, 'add_viewport'));
         remove_action ('genesis_entry_footer', 'genesis_post_meta' );
         unregister_sidebar( 'header-right' );
+        add_filter ('genesis_attr_entry-header', array (__CLASS__, 'add_attributes_to_entry_header'));
         //* Theme support
         add_theme_support( 'html5', array('search-form', 'comment-form', 'comment-list', 'gallery', 'caption')); //* Add HTML5 markup structure
         add_theme_support( 'genesis-accessibility', array( 'headings', 'drop-down-menu',  'search-form', 'skip-links', 'rems' ) ); //* Add Accessibility support
-        //add_theme_support( 'genesis-responsive-viewport' ); //* Add viewport meta tag for mobile browsers
         
         // Front page
         if (is_front_page()) {
@@ -810,7 +810,7 @@ class evangelical_magazine_theme {
             $class = $make_first_image_bigger ? 'large-image' : '';
             foreach ($articles as $article) {
                 $url = $article->get_image_url('article_large');
-                $image_html = "<div class=\"box-shadow-transition article-list-box-image\" style=\"background-image: url('{$url}')\"></div>";
+                $image_html = "<div class=\"box-shadow-transition article-list-box-image image-fit\" style=\"background-image: url('{$url}')\"></div>";
                 if ($article->is_future()) {
                     $class = trim ($class.' future');
                 } else {
@@ -993,5 +993,13 @@ class evangelical_magazine_theme {
     public static function output_facebook_javascript_sdk() {
         echo '<div id="fb-root"></div><script>(function(d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.5&appId=1248516525165787"; fjs.parentNode.insertBefore(js, fjs);}(document, \'script\', \'facebook-jssdk\'));</script>'."\r\n";
     }
-
+    
+    public static function add_attributes_to_entry_header($attributes) {
+        if (isset($attributes['class'])) {
+            $attributes['class'] .= ' image-fit';
+        } else {
+            $attributes['class'] = 'image-fit';
+        }
+        return $attributes;
+    }
 }

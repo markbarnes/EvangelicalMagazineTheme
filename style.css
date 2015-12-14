@@ -4,7 +4,7 @@ Theme URI: http://www.evangelicalmagazine.com
 Description: Custom theme for the Evangelical Magazine
 Author: Mark Barnes
 Author URI: http://www.markbarnes.net/
-Version: 0.5.1
+Version: 0.5.2
 Template: genesis
 Template Version: 2.2.0
 Tags: one-column, two-columns, three-columns, left-sidebar, right-sidebar, responsive-layout, custom-menu, full-width-template, rtl-language-support, sticky-post, theme-options, threaded-comments
@@ -1463,14 +1463,9 @@ img.alignright,
     overflow: hidden;
 }
 
-.entry-header {
-    background-position: center center;
-    background-size: cover;
-}
-
 body.full-size-header-image .entry-header {
     height: 400px;
-    box-shadow: inset 0 0 100px 75px rgba(0,0,0,0.5);
+    box-shadow: inset 0 0 5rem 2rem rgba(0,0,0,0.5);
 }
 
 .content .entry {
@@ -1679,7 +1674,7 @@ p.entry-meta {
     width: 135px;
     height:135px;
     display: inline-block;
-    box-shadow: inset 0 0 50px 5px rgba(0,0,0,0.65);
+    box-shadow: inset 0 0 4rem 0.25rem rgba(0,0,0,0.65);
     margin-right: 15px;
     display: inline-block;
     vertical-align: top;
@@ -1799,7 +1794,7 @@ body.post-type-archive-em_issue .magazine-cover {
     height: 297px;
     float: left;
     margin-right: 20px;
-    box-shadow: inset 0 0 40px 10px rgba(0,0,0,0.5);
+    box-shadow: inset 0 0 3rem 0.5rem rgba(0,0,0,0.5);
 }
 
 body.post-type-archive-em_issue a:hover .magazine-cover {
@@ -1910,7 +1905,7 @@ body.single-em_section .entry-title {
     height: 140px;
     float:left;
     margin-right: 20px;
-    box-shadow: inset 0 0 60px rgba(0,0,0,0.8);
+    box-shadow: inset 0 0 3rem rgba(0,0,0,0.8);
 }
 
 .section-list a:hover .article-image {
@@ -2325,8 +2320,7 @@ body.home #latest-cover {
     float:left;
     height: 359px;
     width: 250px;
-    background-size: cover;
-    box-shadow: inset 0 0 65px 0 rgba(0,0,0,0.5);
+    box-shadow: inset 0 0 3rem 0 rgba(0,0,0,0.5);
 }
 
 body.home a:hover #latest-cover {
@@ -2342,11 +2336,9 @@ body.home .article {
     float:left;
     width: 308px;
     height: 205px;
-    background-size: cover;
-    background-position: center center;
     position: relative;
     overflow:hidden;
-    box-shadow: inset 0 0 65px 10px rgba(0,0,0,0.8);
+    box-shadow: inset 0 0 3rem 0.25rem rgba(0,0,0,0.8);
 }
 
 body.home #latest-articles .article {
@@ -2575,9 +2567,7 @@ body.home .site-inner {
     width: 113px;
     float:left;
     margin-right: 10px;
-    background-size: cover;
-    background-position: center;
-    box-shadow: inset 0 0 100px rgba(0,0,0,0.8);
+    box-shadow: inset 0 0 5rem rgba(0,0,0,0.8);
 }
 
 a:hover .article-list-box-image {
@@ -2827,7 +2817,6 @@ a:hover .article-list-box-image {
 	.widget_evangelical_magazine_subscribe_print .widget-wrap >a >div {
 		width: 320px;
 		height: 290px;
-		background-size: cover;
 	}
 	
 	.widget_evangelical_magazine_current_issue .cover-image {
@@ -3248,7 +3237,6 @@ a:hover .article-list-box-image {
     .sidebar .widget_evangelical_magazine_subscribe_print .widget-wrap >a >div {
         width: 372px;
         height: 337px;
-        background-size: cover;
     }
     
     .sidebar .widget_evangelical_magazine_current_issue .cover-image {

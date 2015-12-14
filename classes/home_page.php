@@ -21,7 +21,7 @@ class evangelical_magazine_home_page {
         if ($latest_issues) {
             //Output the cover of the most recent issue
             echo '<aside id="recent-articles">';
-            echo "<a href=\"{$latest_issues[0]->get_link()}\"><div id=\"latest-cover\" class=\"box-shadow-transition\" style=\"background-image: url('{$latest_issues[0]->get_image_url('issue_medium')}')\"></div></a>";
+            echo "<a href=\"{$latest_issues[0]->get_link()}\"><div id=\"latest-cover\" class=\"box-shadow-transition image-fit\" style=\"background-image: url('{$latest_issues[0]->get_image_url('issue_medium')}')\"></div></a>";
             //Get the seven most recent articles from these issues
             $articles = array();
             foreach ($latest_issues as $issue) {
@@ -45,9 +45,9 @@ class evangelical_magazine_home_page {
                 foreach ($articles as $article) {
                     echo '<span class="article-wrap">';
                     if ($article->is_future()) {
-                        echo "<div class=\"article future\" style=\"background-image: url('{$article->get_image_url('article_large_bw')}')\"><div class=\"coming-soon\">Coming {$article->get_coming_date()}</div><div class=\"article-title\">{$article->get_title()}</div></div>";
+                        echo "<div class=\"article future image-fit\" style=\"background-image: url('{$article->get_image_url('article_large_bw')}')\"><div class=\"coming-soon\">Coming {$article->get_coming_date()}</div><div class=\"article-title\">{$article->get_title()}</div></div>";
                     } else {
-                        echo "<a href=\"{$article->get_link()}\"><div class=\"article current box-shadow-transition\" style=\"background-image: url('{$article->get_image_url('article_large')}')\"><div class=\"article-title\">{$article->get_title()}</div></div></a>";
+                        echo "<a href=\"{$article->get_link()}\"><div class=\"article current image-fit box-shadow-transition\" style=\"background-image: url('{$article->get_image_url('article_large')}')\"><div class=\"article-title\">{$article->get_title()}</div></div></a>";
                     }
                     echo '</span>';
                 }
