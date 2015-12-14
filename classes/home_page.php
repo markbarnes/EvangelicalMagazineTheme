@@ -50,6 +50,7 @@ class evangelical_magazine_home_page {
                         echo "<a href=\"{$article->get_link()}\"><div class=\"article current image-fit box-shadow-transition\" style=\"background-image: url('{$article->get_image_url('article_large')}')\"><div class=\"article-title\">{$article->get_title()}</div></div></a>";
                     }
                     echo '</span>';
+                    $article_ids[] = $article->get_id();
                 }
                 echo '</div>';
             }
