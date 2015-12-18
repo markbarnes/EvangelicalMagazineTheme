@@ -20,7 +20,8 @@ class evangelical_magazine_theme {
         remove_action ('wp_head', 'feed_links', 2 );
         add_action ('wp_head', array (__CLASS__, 'add_rss_feeds'));
         add_action ('wp_head', array (__CLASS__, 'configure_reftagger'));
-        add_filter ('wp_head', array (__CLASS__, 'add_icons_to_head'));
+        add_action ('wp_head', array (__CLASS__, 'add_icons_to_head'));
+        add_action ('wp_head', array (__CLASS__, 'add_link_prefetching_to_head'));
         add_filter ('genesis_pre_load_favicon', array (__CLASS__, 'return_favicon_url'));
         // Menu
         add_filter ('wp_nav_menu_items', array (__CLASS__, 'modify_menu'));
@@ -47,6 +48,7 @@ class evangelical_magazine_theme {
         // Front page
         if (is_front_page()) {
             add_action ('genesis_meta', array (__CLASS__, 'add_google_structured_data_to_homepage'));
+            add_action ('genesis_meta', array (__CLASS__, 'add_facebook_app_id_to_homepage'));
         }
         // All singular pages
         if (is_singular()) {
@@ -1014,5 +1016,16 @@ class evangelical_magazine_theme {
         foreach ($sizes as $name => $media) {
             wp_enqueue_style ("magazine-css-{$name}", get_stylesheet_directory_uri()."/css/style-{$name}.css", false, CHILD_THEME_VERSION, $media);    
         }
+    }
+    
+    public static function add_link_prefetching_to_head() {
+        echo "\t<link rel=\"preconnect\" href=\"//connect.facebook.net\">\r\n";
+        echo "\t<link rel=\"preconnect\" href=\"//bible.logos.com\">\r\n";
+        echo "\t<link rel=\"preconnect\" href=\"//staticxx.facebook.com\">\r\n";
+        echo "\t<link rel=\"preconnect\" href=\"//www.facebook.com\">\r\n";
+    }
+    
+    public static function add_facebook_app_id_to_homepage() {
+        echo "\t<meta property=\"fb:app_id\" content=\"1248516525165787\" />\r\n";
     }
 }
