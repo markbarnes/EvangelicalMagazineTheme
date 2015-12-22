@@ -43,7 +43,7 @@ class evangelical_magazine_theme {
         add_filter ('genesis_attr_entry-header', array (__CLASS__, 'add_attributes_to_entry_header'));
         //* Theme support
         add_theme_support( 'html5', array('search-form', 'comment-form', 'comment-list', 'gallery', 'caption')); //* Add HTML5 markup structure
-        add_theme_support( 'genesis-accessibility', array( 'headings', 'drop-down-menu',  'search-form', 'skip-links', 'rems' ) ); //* Add Accessibility support
+        add_theme_support( 'genesis-accessibility', array( 'headings', 'search-form', 'skip-links', 'rems' ) ); //* Add Accessibility support
         
         // Front page
         if (is_front_page()) {
@@ -343,10 +343,11 @@ class evangelical_magazine_theme {
     * 
     */
     public static function do_footer_bottom() {
+        $admin_link = '<a href="'.get_admin_url().'">.</a>';
         echo "<a class=\"logo\" href=\"".get_site_url()."\"></a>";
-        echo '<p class="footer-details"><span class="emw">The Evangelical Magazine is published by the <a href="https://www.emw.org.uk/">Evangelical Movement of Wales</a></span><br/>';
-        echo '<span class="address">Waterton Cross Business Park, South Road, Bridgend CF31 3UL</span><br/>';
-        echo '<span class="registration">Registered charity number 222407</span></p>';
+        echo "<p class=\"footer-details\"><span class=\"emw\">The Evangelical Magazine is published by the <a href=\"https://www.emw.org.uk/\">Evangelical Movement of Wales</a>{$admin_link}</span><br/>";
+        echo "<span class=\"address\">Waterton Cross Business Park, South Road, Bridgend CF31 3UL{$admin_link}</span><br/>";
+        echo "<span class=\"registration\">Registered charity number 222407{$admin_link}</span></p>";
         $rss_feed = get_post_type_archive_feed_link('em_article');
         echo '<p class="social-icons"><a href="https://www.facebook.com/evangelicalmagazine"><span class="dashicons dashicons-facebook"></span></a><a href="https://twitter.com/EvangelicalMag"><span class="dashicons dashicons-twitter"></span></a><a href="mailto:admin@evangelicalmagazine.com"><span class="dashicons dashicons-email"></span><a href="'.$rss_feed.'"><span class="dashicons dashicons-rss"></span></a></p>';
     }
@@ -1027,5 +1028,9 @@ class evangelical_magazine_theme {
     
     public static function add_facebook_app_id_to_homepage() {
         echo "\t<meta property=\"fb:app_id\" content=\"1248516525165787\" />\r\n";
+    }
+    
+    public static function output_beacon_ads_main_code() {
+        echo "\t<script type=\"text/javascript\">(function(){ var bsa = document.createElement('script'); bsa.type = 'text/javascript'; bsa.async = true; bsa.src = '//cdn.beaconads.com/ac/beaconads.js'; (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(bsa);})();</script>\r\n";
     }
 }
