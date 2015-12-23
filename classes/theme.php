@@ -923,7 +923,7 @@ class evangelical_magazine_theme {
         }
     }
 
-   /**
+    /**
     * Adds a breadcrumb to Google, for single articles
     * 
     */
@@ -940,7 +940,7 @@ class evangelical_magazine_theme {
         }
     }
     
-   /**
+    /**
     * Adds structured data to the homepage, for Google
     * 
     */
@@ -998,6 +998,14 @@ class evangelical_magazine_theme {
         echo '<div id="fb-root"></div><script>(function(d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.5&appId=1248516525165787"; fjs.parentNode.insertBefore(js, fjs);}(document, \'script\', \'facebook-jssdk\'));</script>'."\r\n";
     }
     
+    /**
+    * Adds the 'image-fit' class to the entry header div
+    * 
+    * Filters genesis_attr_entry-header
+    * 
+    * @param array $attributes
+    * @return array
+    */
     public static function add_attributes_to_entry_header($attributes) {
         if (isset($attributes['class'])) {
             $attributes['class'] .= ' image-fit';
@@ -1007,6 +1015,13 @@ class evangelical_magazine_theme {
         return $attributes;
     }
     
+    /**
+    * Enqueues the stylesheets for various media queries
+    * 
+    * Called on the wp_enqueue_scripts action
+    * 
+    * Having separate stylesheets makes editing easier.
+    */
     public static function enqueue_media_stylesheets() {
         $sizes = array ('1000-1299' => 'screen and (min-width: 1000px) and (max-width: 1299px)',
                         '735-999' => 'screen and (min-width:735px) and (max-width: 999px)',
@@ -1019,6 +1034,13 @@ class evangelical_magazine_theme {
         }
     }
     
+    /**
+    * Adds link prefetching to the HEAD section
+    * 
+    * Called on the wp_head action
+    * 
+    * Should speed up http connections slightly in some modern browsers
+    */
     public static function add_link_prefetching_to_head() {
         echo "\t<link rel=\"preconnect\" href=\"//connect.facebook.net\">\r\n";
         echo "\t<link rel=\"preconnect\" href=\"//bible.logos.com\">\r\n";
@@ -1026,10 +1048,22 @@ class evangelical_magazine_theme {
         echo "\t<link rel=\"preconnect\" href=\"//www.facebook.com\">\r\n";
     }
     
+    /**
+    * Adds the Facbook app ID to the HEAD section of the homepage
+    * 
+    * Called on the wp_head action
+    * 
+    * Provides authentication for Facebook
+    */
     public static function add_facebook_app_id_to_homepage() {
         echo "\t<meta property=\"fb:app_id\" content=\"1248516525165787\" />\r\n";
     }
     
+    /**
+    * Adds Beacon Ads javascript 
+    * 
+    * Intended to be called on the genesis_before action
+    */
     public static function output_beacon_ads_main_code() {
         echo "\t<script type=\"text/javascript\">(function(){ var bsa = document.createElement('script'); bsa.type = 'text/javascript'; bsa.async = true; bsa.src = '//cdn.beaconads.com/ac/beaconads.js'; (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(bsa);})();</script>\r\n";
     }

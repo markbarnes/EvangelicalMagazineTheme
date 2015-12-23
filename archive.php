@@ -14,9 +14,7 @@
 remove_action( 'genesis_post_content', 'genesis_do_post_content' );
 remove_action( 'genesis_entry_content', 'genesis_do_post_content' );
 
-
 // We won't call the standard Genesis function, because we need to change too much.
 // Instead we'll cannabalise the genesis() and genesis_standard_loop() functions to
 // output a single post which we can then modify to give us the output we need.
-
 evangelical_magazine_theme::my_genesis();
