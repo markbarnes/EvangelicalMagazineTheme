@@ -3,11 +3,12 @@
 include_once (get_template_directory() . '/lib/init.php' );
 require ('classes/theme.php');
 require ('classes/home_page.php');
+require ('classes/microdata.php');
 
 //* Child theme
 define( 'CHILD_THEME_NAME', 'Evangelical Magazine Theme' );
 define( 'CHILD_THEME_URL', 'http://www.evangelicalmagazine.com/' );
-define( 'CHILD_THEME_VERSION', '0.6' );
+define( 'CHILD_THEME_VERSION', '0.7' );
 
 add_action ('wp', array ('evangelical_magazine_theme', 'set_everything_up'));
 add_filter ('intermediate_image_sizes_advanced', array ('evangelical_magazine_theme', 'remove_default_image_sizes'));

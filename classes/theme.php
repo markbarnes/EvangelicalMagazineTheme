@@ -79,6 +79,8 @@ class evangelical_magazine_theme {
             add_filter ('genesis_post_title_output', array (__CLASS__, 'filter_post_title'));
             // Adds Facebook javascript SDK for social media buttons
             add_action ('genesis_before', array (__CLASS__, 'output_facebook_javascript_sdk'));
+            // Add some schema.org meta
+            add_action ('genesis_entry_content', array (__CLASS__, 'add_to_start_of_article'), 9);
             // Add the author/'see also' detail at the end of the article (also increases the view count)
             add_action ('genesis_entry_content', array (__CLASS__, 'add_to_end_of_article'), 11);
             self::add_full_size_header_image();
@@ -86,6 +88,8 @@ class evangelical_magazine_theme {
             add_action ('genesis_meta', array (__CLASS__, 'add_facebook_open_graph'));
             add_action ('genesis_meta', array (__CLASS__, 'add_twitter_card'));
             add_action ('genesis_meta', array (__CLASS__, 'add_google_breadcrumb'));
+            // Adds the correct schema.org microdata
+            add_filter ('genesis_attr_entry', array (__CLASS__, 'add_schema_org_microdata'), 10, 2);
         }
         // Single author pages
         elseif (is_singular('em_author')) {
@@ -208,16 +212,29 @@ class evangelical_magazine_theme {
         global $post;
         if ($post && $post->post_type == 'em_article') {
             $article = new evangelical_magazine_article($post);
-            $output = 'By '.$article->get_author_names(true); 
+            $output = 'By '.$article->get_author_names(true, true); 
             $output .= "<span style=\"float:right\">{$article->get_issue_name(true)}";
             if ($page_num = $article->get_page_num()) {
-                $output .= ", page {$page_num}";
+                $output .= ", page <span itemprop=\"pageStart\">{$page_num}</span>";
             }
             return "{$output}</span>";
         } else {
             return $post_info;
         }
     }
+    
+    public static function add_to_start_of_article() {
+        global $post;
+        $article = new evangelical_magazine_article($post);
+        $date = $article->get_issue_datetime();
+        $logo = get_template_directory_uri().'/images/emw-logo.png';
+        $microdata = new evangelical_magazine_microdata();
+        echo $microdata->get_ImageObject($article->get_image_url('article_header'), 800, 400);
+        echo $microdata->get_datePublished($article->get_issue_datetime());
+        echo $microdata->get_dateModified($article->get_post_datetime());
+        echo $microdata->get_publisher('Evangelical Movement of Wales', 'https://www.emw.org.uk/', $logo);
+        echo $microdata->get_mainEntityOfPage($article->get_link());
+   }
     
     /**
     * Outputs Author/Series/Section information at the end of articles
@@ -818,7 +835,7 @@ class evangelical_magazine_theme {
                 if ($article->is_future()) {
                     $class = trim ($class.' future');
                 } else {
-                    $image_html = $article->get_link_html($image_html, 'article-image');
+                    $image_html = $article->get_link_html($image_html, array ('class' => 'article-image'));
                 }
                 $class = $class ? " class=\"{$class}\"" : '';
                 $output .= "<li{$class}>{$image_html}";
@@ -1066,5 +1083,12 @@ class evangelical_magazine_theme {
     */
     public static function output_beacon_ads_main_code() {
         echo "\t<script type=\"text/javascript\">(function(){ var bsa = document.createElement('script'); bsa.type = 'text/javascript'; bsa.async = true; bsa.src = '//cdn.beaconads.com/ac/beaconads.js'; (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(bsa);})();</script>\r\n";
+    }
+    
+    public static function add_schema_org_microdata ($attributes, $context) {
+        if ($context == 'entry') {
+            $attributes['itemtype'] = 'http://schema.org/Article';
+        }
+        return $attributes;
     }
 }
