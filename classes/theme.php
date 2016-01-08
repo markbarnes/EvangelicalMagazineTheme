@@ -239,7 +239,14 @@ class evangelical_magazine_theme {
         echo $microdata->get_datePublished($article->get_issue_datetime());
         echo $microdata->get_dateModified($article->get_post_datetime());
         echo $microdata->get_publisher('Evangelical Movement of Wales', 'https://www.emw.org.uk/', $logo);
-        echo $microdata->get_mainEntityOfPage($article->get_link());
+        echo $microdata->meta ('mainEntityOfPage', $article->get_link());
+        $sections = $article->get_sections();
+        if ($sections) {
+            foreach ($sections as $section) {
+                echo $microdata->meta ('articleSection', $section->get_name());
+            }
+        }
+        echo $microdata->meta ('isFamilyFriendly', 'true');
    }
     
     /**
