@@ -92,7 +92,6 @@ class evangelical_magazine_home_page {
                 if ($info_box) {
                     echo $info_box;
                     $exclude_article_ids = array_merge ($exclude_article_ids, evangelical_magazine_article::get_object_ids_from_array($articles));
-                    $side_index ++;
                 }
             }
             echo '</aside>';
