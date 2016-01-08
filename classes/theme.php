@@ -80,9 +80,9 @@ class evangelical_magazine_theme {
             // Adds Facebook javascript SDK for social media buttons
             add_action ('genesis_before', array (__CLASS__, 'output_facebook_javascript_sdk'));
             // Add some schema.org meta
-            add_action ('genesis_entry_content', array (__CLASS__, 'add_to_start_of_article'), 9);
+            add_action ('genesis_before_entry_content', array (__CLASS__, 'add_before_start_of_article'));
             // Add the author/'see also' detail at the end of the article (also increases the view count)
-            add_action ('genesis_entry_content', array (__CLASS__, 'add_to_end_of_article'), 11);
+            add_action ('genesis_after_entry_content', array (__CLASS__, 'add_after_end_of_article'));
             self::add_full_size_header_image();
             // Add extra meta tags for social media embeds
             add_action ('genesis_meta', array (__CLASS__, 'add_facebook_open_graph'));
@@ -223,7 +223,13 @@ class evangelical_magazine_theme {
         }
     }
     
-    public static function add_to_start_of_article() {
+    /**
+    * Outputs schema.org microdata before the text of the article
+    * 
+    * Called by the genesis_before_entry_content action.
+    * 
+    */
+    public static function add_before_start_of_article() {
         global $post;
         $article = new evangelical_magazine_article($post);
         $date = $article->get_issue_datetime();
@@ -240,15 +246,16 @@ class evangelical_magazine_theme {
     * Outputs Author/Series/Section information at the end of articles
     * Also updates the view count, as it's only called for singular article views.
     * 
-    * Called by the genesis_entry_content action.
+    * Called by the genesis_after_entry_content action.
     * 
     */
-    public static function add_to_end_of_article () {
+    public static function add_after_end_of_article () {
         global $post;
         $article = new evangelical_magazine_article($post);
         if (!is_user_logged_in()) {
             $article->record_view_count();
         }
+        echo "<div class=\"after-article\">";
         // Facebook buttons
         echo "<h3>Share or recommend</h3><div style=\"margin-bottom: 2em\" class=\"fb-like\" data-href=\"{$article->get_link()}\" data-width=\"680\" data-layout=\"standard\" data-action=\"like\" data-show-faces=\"true\" data-share=\"true\"></div>\r\n";
         // Show authors
@@ -313,6 +320,7 @@ class evangelical_magazine_theme {
                 }
             }
         }
+        echo "</div>";
     }
     
     /**

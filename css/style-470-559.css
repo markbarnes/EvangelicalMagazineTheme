@@ -338,6 +338,11 @@ body.home #sections .article-list-box-title a {
     padding: 35px;
 }
 
+.after-article {
+    padding: 0 35px 15px 35px;
+    margin-top: -17.5px;
+}
+
 body.full-size-header-image .entry-header {
     height: 225px;
 }

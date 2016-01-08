@@ -191,6 +191,11 @@ input, select, textarea {
     padding: 35px 45px;
 }
 
+.after-article {
+    padding: 0 45px 15px 45px;
+    margin-top: -17.5px;
+}
+
 body.full-size-header-image .entry-header {
     height: 310px;
 }

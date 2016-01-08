@@ -355,6 +355,11 @@ body.home #sections .article-list-box-title a {
     padding: 20px;
 }
 
+.after-article {
+    padding: 0 20px 20px 20px;
+    margin-top: -10px;
+}
+
 .entry-content h2 {
     font-size: 24px;
 }
