@@ -1089,6 +1089,7 @@ class evangelical_magazine_theme {
     */
     public static function add_facebook_app_id_to_homepage() {
         echo "\t<meta property=\"fb:app_id\" content=\"1248516525165787\" />\r\n";
+        echo "\t<meta property=\"fb:pages\" content=\"317371662084\" />\r\n";
     }
     
     /**
