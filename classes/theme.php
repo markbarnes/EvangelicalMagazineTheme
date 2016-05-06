@@ -667,7 +667,7 @@ class evangelical_magazine_theme {
     }
 
     /**
-    * Creates black and white image for the *_bw sizes.
+    * Sharpens resized images.
     * 
     * Filters 'wp_generate_attachment_metadata'
     * 
@@ -675,6 +675,10 @@ class evangelical_magazine_theme {
     * @return array
     */
     public static function enhance_media_images ($meta) {
+        global $wp_filesystem;
+        if ($wp_filesystem === NULL) {
+            WP_Filesystem();
+        }
         $dir = wp_upload_dir();
         foreach ($meta['sizes'] as $size => &$details) {
             $uploaded_file = trailingslashit($dir['basedir']).$meta['file'];
@@ -682,29 +686,9 @@ class evangelical_magazine_theme {
             $file = trailingslashit($upload_folder).$details['file'];
             list($orig_w, $orig_h, $orig_type) = @getimagesize($file);
             @ini_set( 'memory_limit', apply_filters( 'image_memory_limit', WP_MAX_MEMORY_LIMIT ) );
-            $image = imagecreatefromstring (file_get_contents($file));
-            if (substr($size, -3) == '_bw') {
-                // Blur and convert to black and white
-                imagefilter($image, IMG_FILTER_GRAYSCALE);
-                $matrix = array(array(1, 1, 1), array(1, 1, 1), array(1, 1, 1));
-                switch ($orig_type) {
-                    case IMAGETYPE_GIF:
-                       $file = str_replace(".gif", "-bw.gif", $file);
-                       $details['file'] = str_replace(".gif", "-bw.gif", $details['file']);
-                       break;
-                    case IMAGETYPE_PNG:
-                       $file = str_replace(".png", "-bw.png", $file);
-                       $details['file'] = str_replace(".png", "-bw.png", $details['file']);
-                       break;
-                    case IMAGETYPE_JPEG:
-                       $file = str_replace(".jpg", "-bw.jpg", $file);
-                       $details['file'] = str_replace(".jpg", "-bw.jpg", $details['file']);
-                       break;
-                }
-            } else {
-                //Sharpen
-                $matrix = array(array(-1, -1, -1), array(-1, 35, -1), array(-1, -1, -1));
-            }
+            $image = imagecreatefromstring ($wp_filesystem->get_contents($file));
+            //Sharpen
+            $matrix = array(array(-1, -1, -1), array(-1, 35, -1), array(-1, -1, -1));
             $divisor = array_sum(array_map('array_sum', $matrix));
             $offset = 0; 
             imageconvolution($image, $matrix, $divisor, $offset);
@@ -717,7 +701,7 @@ class evangelical_magazine_theme {
                    imagepng ($image, $file);
                    break;
                 case IMAGETYPE_JPEG:
-                   imagejpeg ($image, $file, 90);
+                   imagejpeg ($image, $file, apply_filters ('wp_editor_set_quality', 82, 'image/jpeg'));
                    break;
             }
         }
