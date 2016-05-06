@@ -19,6 +19,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	- Box Sizing
 	- Float Clearing
 - Defaults
+    - Standard classes
 	- Typographical Elements
 	- Headings
 	- Objects
@@ -37,15 +38,17 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	- Titles
 	- WordPress
 - Widgets
+    - Popular Articles Widget
+    - Subscription Widgets
+    - Latest Issue Widget
 	- Featured Content
 - Plugins
-	- Genesis eNews Extended
-	- Jetpack
+    - Gravity Forms
+- Skip Links
 - Site Header
 	- Title Area
 	- Widget Area
 - Site Navigation
-	- Accessible Menu
 	- Site Header Navigation
 	- Primary Navigation
 	- Secondary Navigation
@@ -53,15 +56,25 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 - Content Area
 	- Entries
 	- Entry Meta
+    - Author, Series and Sections Meta
+    - Article boxes
+    - Author grid
+    - Single article pages
+    - Single author pages
+    - Single issue pages
+    - Issue archive page
+    - Single section page
+    - Section archive page
+    - Article List Box
+    - 404 error
+    - Search results
 	- Pagination
 	- Comments
 - Sidebars
 - Site Footer
-- Media Queries
-	- Retina Display
-	- Max-width: 1200px
-	- Max-width: 960px
-	- Max-width: 800px
+    - Footer Widgets
+- Home Page
+    - Subscription Form
 - Print Styles
 */
 
@@ -129,8 +142,11 @@ input[type="search"]{
 }
 
 
-/* # Standard classes
+/* # Defaults
 ---------------------------------------------------------------------------------------------------- */
+
+/* ## Standard classes
+--------------------------------------------- */
 
 .image-fit {
     background-position: center center;
@@ -143,6 +159,22 @@ input[type="search"]{
     -ms-transition:     box-shadow 0.4s ease-in-out;
     -o-transition:      box-shadow 0.4s ease-in-out;
     transition:         box-shadow 0.4s ease-in-out;
+}
+
+.grayscale {
+    -webkit-filter: grayscale(100%);
+    -moz-filter:    grayscale(100%);
+    -ms-filter:     grayscale(100%);
+    -o-filter:      grayscale(100%);
+    filter:         grayscale(100%);
+}
+
+.grayscale-off {
+    -webkit-filter: grayscale(0);
+    -moz-filter:    grayscale(0);
+    -ms-filter:     grayscale(0);
+    -o-filter:      grayscale(0);
+    filter:         grayscale(0);
 }
 
 /* ## Typographical Elements
@@ -862,6 +894,13 @@ img.alignright,
 	padding: 0;
 }
 
+.sidebar .widget {
+    padding: 0;
+    font-family: Lato, sans-serif;
+    background-color: white;
+    margin: 40px 0;
+}
+
 .widget_calendar table {
 	width: 100%;
 }
@@ -876,13 +915,6 @@ img.alignright,
     padding: 0;
     margin-top: -17px;
     background-color: transparent;
-}
-
-.sidebar .widget {
-    padding: 0;
-    font-family: Lato, sans-serif;
-    background-color: white;
-    margin: 40px 0;
 }
 
 .sidebar .widget:first-of-type {
@@ -901,7 +933,8 @@ img.alignright,
     margin-bottom: 0;
 }
 
-/* Popular Articles Widget */
+/* ## Popular Articles Widget
+--------------------------------------------- */
 
 .widget_evangelical_magazine_most_popular .popular_article {
     overflow:hidden;
@@ -940,7 +973,8 @@ img.alignright,
     padding: 10px 20px 10px 20px;
 }
 
-/* Subscription widgets */
+/* ## Subscription Widgets
+--------------------------------------------- */
 
 .widget_evangelical_magazine_subscribe_print .subscription-image {
     width:386px;
@@ -1002,18 +1036,12 @@ img.alignright,
     color: #002636;
 }
 
-/* Latest issue widget */
+/* ## Latest Issue Widget
+--------------------------------------------- */
 
 .widget_evangelical_magazine_current_issue .cover-image {
     width: 360px;
     height: 509px;
-}
-
-/* ## Gravity Forms
---------------------------------------------- */
-
-.gform_validation_container {
-    display: none;
 }
 
 /* ## Featured Content
@@ -1032,6 +1060,13 @@ img.alignright,
 
 /* # Plugins
 ---------------------------------------------------------------------------------------------------- */
+
+/* ## Gravity Forms
+--------------------------------------------- */
+
+.gform_validation_container {
+    display: none;
+}
 
 /* # Skip Links
 ---------------------------------------------------------------------------------------------------- */
@@ -1867,6 +1902,11 @@ body.single-em_section .entry-title {
     width: auto;
 }
 
+.single-em_section .large-image .article-list-box-image {
+    width: 325px;
+    height: 216.67px;
+}
+
 /* ## Section archive page
 --------------------------------------------- */
 
@@ -1927,6 +1967,125 @@ body.single-em_section .entry-title {
 
 .section-list .article-authors a {
     font-weight: 300;
+}
+
+/* ## Article List Box (list of articles in a section or issue)
+--------------------------------------------- */
+
+.article-list-box {
+    font-family: Lato, sans-serif;
+    margin-bottom: 40px;
+    background-color: white;
+    width: 380px;
+    display: inline-block;
+}
+
+.article-list-box ol {
+    padding: 0;
+}
+
+.article-list-box li {
+    overflow: hidden;
+    border-bottom: 1px solid #086788;
+    line-height: 22px;
+}
+
+.article-list-box li:first-child {
+    padding-top: 0;
+}
+
+.article-list-box li:last-child {
+    border-bottom: none;
+}
+
+.article-list-box a.article-image {
+    float:left;
+}
+
+.article-list-box-image.first {
+    margin-left: -10px;
+}
+
+.article-list-box-image {
+    height: 75px;
+    width: 113px;
+    float:left;
+    margin-right: 10px;
+    box-shadow: inset 0 0 5rem rgba(0,0,0,0.8);
+}
+
+a:hover .article-list-box-image {
+    box-shadow: none;
+}
+
+.large-image .article-list-box-image {
+    width: 380px;
+    height: 253px;
+    margin-bottom: 10px;
+}
+
+.article-list-box-title {
+    font-size: 20px;
+    font-weight: 700;
+} 
+
+.article-list-box a {
+    color: #002636;
+}
+
+.article-list-box .title-author-wrapper {
+    float:left;
+    width: 200px;
+}
+
+.article-list-box .large-image .title-author-wrapper {
+    width: auto;
+}
+
+.article-list-box .article-list-box-author a {
+    color: #086788;
+}
+
+.article-list-box h3 {
+    padding: 0 10px;
+    margin-bottom: 0;
+    height: 0;
+    text-align: right;
+    font-size: 30px;
+    text-shadow: 0.75px 0.75px 1px rgba(0,0,0,0.85);
+}
+
+.article-list-box h3 a {
+    color: #feca00;
+}
+
+.article-list-box-author {
+    font-size: 16px;
+}
+
+.article-list-box-coming-soon {
+    font-size: 16px;
+}
+
+.article-list-box .future {
+    background-color: #EEE;
+    border-color: black;
+}
+
+.article-list-box-issue {
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.entry-content .article-list-box ol > li {
+    list-style-type: none;
+    padding: 15px 0; 
+    margin: 0px;
+}
+
+.entry-content .article-list-box {
+    float:right;
+    width: 400px;
 }
 
 /* ## 404 error
@@ -2173,65 +2332,6 @@ li.comment {
 	margin-bottom: 0;
 }
 
-/*
-Footer Widgets
----------------------------------------------------------------------------------------------------- */
-
-.footer-widgets {
-    background-color: #333;
-    color: #999;
-    clear: both;
-    padding: 40px 0 0;
-}
-
-.footer-widgets-1,
-.footer-widgets-3 {
-    width: 360px;
-}
-
-.footer-widgets-2 {
-    width: 360px;
-}
-
-.footer-widgets-1 {
-    margin-right: 40px;
-}
-
-.footer-widgets-1,
-.footer-widgets-2 {
-    float: left;
-}
-
-.footer-widgets-3 {
-    float: right;
-}
-
-.footer-widgets a {
-    color: #999;
-}
-
-.footer-widgets a:hover {
-    color: white;
-}
-
-.footer-widgets .widget {
-    margin-bottom: 24px;
-}
-
-.footer-widgets .widget-title {
-    color: #fff;
-    text-align: center;
-}
-
-.footer-widgets li {
-    list-style-type: none;
-    margin-bottom: 6px;
-    word-wrap: break-word;
-}
-
-.footer-widgets .search-form input:focus {
-    border: 1px solid #ddd;
-}
 
 /* # Site Footer
 ---------------------------------------------------------------------------------------------------- */
@@ -2302,6 +2402,65 @@ Footer Widgets
 
 .site-footer a:hover {
     text-decoration: none;
+}
+
+/* ## Footer Widgets
+--------------------------------------------- */
+
+.footer-widgets {
+    background-color: #333;
+    color: #999;
+    clear: both;
+    padding: 40px 0 0;
+}
+
+.footer-widgets-1,
+.footer-widgets-3 {
+    width: 360px;
+}
+
+.footer-widgets-2 {
+    width: 360px;
+}
+
+.footer-widgets-1 {
+    margin-right: 40px;
+}
+
+.footer-widgets-1,
+.footer-widgets-2 {
+    float: left;
+}
+
+.footer-widgets-3 {
+    float: right;
+}
+
+.footer-widgets a {
+    color: #999;
+}
+
+.footer-widgets a:hover {
+    color: white;
+}
+
+.footer-widgets .widget {
+    margin-bottom: 24px;
+}
+
+.footer-widgets .widget-title {
+    color: #fff;
+    text-align: center;
+}
+
+.footer-widgets li {
+    list-style-type: none;
+    margin-bottom: 6px;
+    word-wrap: break-word;
+}
+
+.footer-widgets .search-form input:focus {
+    border: 1px solid #ddd;
 }
 
 /* # Home Page
@@ -2417,6 +2576,9 @@ body.home .site-inner {
     padding-top: 0;
 }
 
+/* ## Subscription form
+--------------------------------------------- */
+
 #subscription-form {
     background-color: #086788;
     color: #FECA00; 
@@ -2520,133 +2682,6 @@ body.home .site-inner {
     text-transform: none;
     font-weight: 700;
     padding: 8.5px 20px;
-}
-
-/* # Sections page
----------------------------------------------------------------------------------------------------- */
-
-.single-em_section .large-image .article-list-box-image {
-    width: 325px;
-    height: 216.67px;
-}
-
-/* # Article List Box (list of articles in a section or issue)
----------------------------------------------------------------------------------------------------- */
-
-.article-list-box {
-    font-family: Lato, sans-serif;
-    margin-bottom: 40px;
-    background-color: white;
-    width: 380px;
-    display: inline-block;
-}
-
-.article-list-box ol {
-    padding: 0;
-}
-
-.article-list-box li {
-    overflow: hidden;
-    border-bottom: 1px solid #086788;
-    line-height: 22px;
-}
-
-.article-list-box li:first-child {
-    padding-top: 0;
-}
-
-.article-list-box li:last-child {
-    border-bottom: none;
-}
-
-.article-list-box a.article-image {
-    float:left;
-}
-
-.article-list-box-image.first {
-    margin-left: -10px;
-}
-
-.article-list-box-image {
-    height: 75px;
-    width: 113px;
-    float:left;
-    margin-right: 10px;
-    box-shadow: inset 0 0 5rem rgba(0,0,0,0.8);
-}
-
-a:hover .article-list-box-image {
-    box-shadow: none;
-}
-
-.large-image .article-list-box-image {
-    width: 380px;
-    height: 253px;
-    margin-bottom: 10px;
-}
-
-.article-list-box-title {
-    font-size: 20px;
-    font-weight: 700;
-} 
-
-.article-list-box a {
-    color: #002636;
-}
-
-.article-list-box .title-author-wrapper {
-    float:left;
-    width: 200px;
-}
-
-.article-list-box .large-image .title-author-wrapper {
-    width: auto;
-}
-
-.article-list-box .article-list-box-author a {
-    color: #086788;
-}
-
-.article-list-box h3 {
-    padding: 0 10px;
-    margin-bottom: 0;
-    height: 0;
-    text-align: right;
-    font-size: 30px;
-    text-shadow: 0.75px 0.75px 1px rgba(0,0,0,0.85);
-}
-
-.article-list-box h3 a {
-    color: #feca00;
-}
-
-.article-list-box-author {
-    font-size: 16px;
-}
-
-.article-list-box-coming-soon {
-    font-size: 16px;
-}
-
-.article-list-box .future {
-    background-color: #EEE;
-    border-color: black;
-}
-
-.article-list-box-issue {
-    font-size: 14px;
-    font-weight: 300;
-}
-
-.entry-content .article-list-box ol > li {
-    list-style-type: none;
-    padding: 15px 0; 
-    margin: 0px;
-}
-
-.entry-content .article-list-box {
-    float:right;
-    width: 400px;
 }
 
 /* # Print Styles
