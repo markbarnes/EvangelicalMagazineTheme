@@ -161,22 +161,6 @@ input[type="search"]{
     transition:         box-shadow 0.4s ease-in-out;
 }
 
-.grayscale {
-    -webkit-filter: grayscale(100%);
-    -moz-filter:    grayscale(100%);
-    -ms-filter:     grayscale(100%);
-    -o-filter:      grayscale(100%);
-    filter:         grayscale(100%);
-}
-
-.grayscale-off {
-    -webkit-filter: grayscale(0);
-    -moz-filter:    grayscale(0);
-    -ms-filter:     grayscale(0);
-    -o-filter:      grayscale(0);
-    filter:         grayscale(0);
-}
-
 /* ## Typographical Elements
 --------------------------------------------- */
 
@@ -2068,13 +2052,11 @@ a:hover .article-list-box-image {
 }
 
 .article-list-box .future {
-    background-color: #EEE;
-    border-color: black;
-    -webkit-filter: grayscale(100%);
-    -moz-filter:    grayscale(100%);
-    -ms-filter:     grayscale(100%);
-    -o-filter:      grayscale(100%);
-    filter:         grayscale(100%);
+    -webkit-filter: grayscale(100%) blur(1px);
+    -moz-filter:    grayscale(100%) blur(1px);
+    -ms-filter:     grayscale(100%) blur(1px);
+    -o-filter:      grayscale(100%) blur(1px);
+    filter:         grayscale(100%) blur(1px);
 }
 
 .article-list-box-issue {
@@ -2510,17 +2492,23 @@ body.home .article {
     box-shadow: inset 0 0 3rem 0.25rem rgba(0,0,0,0.8);
 }
 
+body.home .article-coming-soon {
+    width: 308px;
+    height: 205px;
+    position: absolute;
+}
+
 body.home #latest-articles .article {
     border-right: 1px solid white;
     border-bottom: 1px solid white;
 }
 
 body.home #latest-articles .article.future {
-    -webkit-filter: grayscale(100%);
-    -moz-filter:    grayscale(100%);
-    -ms-filter:     grayscale(100%);
-    -o-filter:      grayscale(100%);
-    filter:         grayscale(100%);
+    -webkit-filter: grayscale(100%) blur(2px);
+    -moz-filter:    grayscale(100%) blur(2px);
+    -ms-filter:     grayscale(100%) blur(2px);
+    -o-filter:      grayscale(100%) blur(2px);
+    filter:         grayscale(100%) blur(2px);
 }
 
 body.home #latest-articles .article-wrap:nth-of-type(3) .article, body.home #latest-articles .article-wrap:nth-of-type(7) .article {
@@ -2554,7 +2542,7 @@ body.home .current.article:hover .article-title {
     text-decoration: underline;
 }
 
-body.home .future.article .article-title {
+body.home .article-coming-soon .article-title {
     color: white;
 }
 

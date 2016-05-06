@@ -230,6 +230,7 @@ body.home #latest-articles {
 }
 
 body.home #latest-articles .article-wrap .article,
+body.home #latest-articles .article-wrap .article-coming-soon,
 body.home #latest-articles .article-wrap:nth-of-type(6) .article,
 body.home #latest-articles .article-wrap:nth-of-type(7) .article {
     width: 365px;

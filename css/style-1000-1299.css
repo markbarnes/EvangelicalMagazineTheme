@@ -352,7 +352,8 @@ body.home #latest-articles {
     width: 100%;
 }
 
-body.home .article {
+body.home .article,
+body.home .article-coming-soon {
     width: 320px;
     height: 213px;
 }

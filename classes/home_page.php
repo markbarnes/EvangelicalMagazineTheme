@@ -45,7 +45,8 @@ class evangelical_magazine_home_page {
                 foreach ($articles as $article) {
                     echo '<span class="article-wrap">';
                     if ($article->is_future()) {
-                        echo "<div class=\"article future image-fit\" style=\"background-image: url('{$article->get_image_url('article_large')}')\"><div class=\"coming-soon\">Coming {$article->get_coming_date()}</div><div class=\"article-title\">{$article->get_title()}</div></div>";
+                        echo "<div class=\"article future image-fit\" style=\"background-image: url('{$article->get_image_url('article_large')}')\"></div>";
+                        echo "<div class=\"article-coming-soon\"><div class=\"coming-soon\">Coming {$article->get_coming_date()}</div><div class=\"article-title\">{$article->get_title()}</div></div>";
                     } else {
                         echo "<a href=\"{$article->get_link()}\"><div class=\"article current image-fit box-shadow-transition\" style=\"background-image: url('{$article->get_image_url('article_large')}')\"><div class=\"article-title\">{$article->get_title()}</div></div></a>";
                     }
