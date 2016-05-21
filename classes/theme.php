@@ -1,7 +1,11 @@
 <?php
 
 /**
-* Wrapper class to make sure there are no collisions
+* Main theme class (using a clash mostly to avoid function name collisions)
+* 
+* @package evangelical-magazine-theme
+* @author Mark Barnes
+* @access public
 */
 class evangelical_magazine_theme {
     
@@ -163,6 +167,9 @@ class evangelical_magazine_theme {
     
     /**
     * Filters the primary menu markup to add the logo
+    * 
+    * @param string $markup
+    * return string
     */
     public static function add_logo_to_nav_bar($markup) {
         if ($markup == "<div class=\"wrap\">") {
@@ -349,9 +356,7 @@ class evangelical_magazine_theme {
     }
     
     /**
-    * Outputs an opening div
-    * 
-    * Called by various actions
+    * Helper function to outputs an opening div
     * 
     */
     public static function open_div() {
@@ -748,7 +753,7 @@ class evangelical_magazine_theme {
     /**
     * Highlights search terms in the post title, if Relevanssi plugin is installed
     * 
-    * @param mixed $title
+    * @param string $title
     * @return string;
     */
     public static function filter_post_title_for_search_terms ($title) {
@@ -791,8 +796,6 @@ class evangelical_magazine_theme {
     }
     
     /**
-    * put your comment there...
-    * 
     * Filters the search query to add terms from the URL to the search boxes.
     * 
     * Added to the get_search_query_filter on 404 pages
@@ -821,6 +824,7 @@ class evangelical_magazine_theme {
     * Returns the HTML for a list of articles with thumbnails, title and author
     * 
     * @param array $articles
+    * @return string
     */
     public static function get_article_list_box($articles, $make_first_image_bigger = true, $heading = '', $shrink_text_if_long = false) {
         if ($articles) {
@@ -865,7 +869,8 @@ class evangelical_magazine_theme {
     /**
     * Removes the default 'medium' and 'large' image sizes, so they're not unnecessarily created.
     * 
-    * @param mixed $sizes
+    * @param array $sizes
+    * @return array
     */
     public static function remove_default_image_sizes($sizes) {
         unset( $sizes['medium']);
@@ -885,7 +890,6 @@ class evangelical_magazine_theme {
         s.parentNode.insertBefore(g, s);
     }(document, 'script'));
 </script>\r\n";
-        
     }
     
     /**

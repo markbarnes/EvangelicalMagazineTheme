@@ -1,4 +1,11 @@
 <?php
+/**
+* Class containing functions to generate the home page
+* 
+* @package evangelical-magazine-theme
+* @author Mark Barnes
+* @access public
+*/
 class evangelical_magazine_home_page {
     
     /**

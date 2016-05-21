@@ -1,14 +1,13 @@
 <?php
 /**
- * 404 Error page.
- *
- * @author Mark Barnes
- * @package Generate
- * @subpackage Customizations
- */
+* 404 Error page.
+*
+* @package evangelical-magazine-theme
+* @author Mark Barnes
+* @access public
+*/
 
-//* We're going to automatically redirect to the search page based on URL parameters
-
+//* Instead of displaying a standard 404 error page, we're going to display a search page based on strings in the URL
 add_action ('genesis_loop', 'genesis_404', 9);
 remove_action( 'genesis_loop', 'genesis_do_loop' );
 
