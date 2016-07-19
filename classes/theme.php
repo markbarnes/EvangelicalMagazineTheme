@@ -1,13 +1,13 @@
 <?php
 
 /**
-* Main theme class (using a clash mostly to avoid function name collisions)
+* Main theme class (using a class mostly to avoid function name collisions)
 * 
 * @package evangelical-magazine-theme
 * @author Mark Barnes
 * @access public
 */
-class evangelical_magazine_theme {
+class evangelical_mag_theme {
     
     /**
     * All the actions and filters to rearrange the layout as required for the various post types.
@@ -241,7 +241,7 @@ class evangelical_magazine_theme {
         $article = new evangelical_magazine_article($post);
         $date = $article->get_issue_datetime();
         $logo = get_template_directory_uri().'/images/emw-logo.png';
-        $microdata = new evangelical_magazine_microdata();
+        $microdata = new evangelical_mag_microdata();
         echo $microdata->get_ImageObject($article->get_image_url('article_header'), 800, 400);
         echo $microdata->get_datePublished($article->get_issue_datetime());
         echo $microdata->get_dateModified($article->get_post_datetime());

@@ -19,4 +19,4 @@ remove_action( 'genesis_entry_content', 'genesis_do_post_content' );
 * Instead we'll cannabalise the genesis() and genesis_standard_loop() functions to
 * output a single post which we can then modify to give us the output we need.
 */
-evangelical_magazine_theme::my_genesis();
+evangelical_mag_theme::my_genesis();

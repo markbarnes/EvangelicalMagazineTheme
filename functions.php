@@ -21,9 +21,9 @@ define( 'CHILD_THEME_NAME', 'Evangelical Magazine Theme' );
 define( 'CHILD_THEME_URL', 'http://www.evangelicalmagazine.com/' );
 define( 'CHILD_THEME_VERSION', '0.77' );
 
-add_action ('wp', array ('evangelical_magazine_theme', 'set_everything_up'));
-add_filter ('intermediate_image_sizes_advanced', array ('evangelical_magazine_theme', 'remove_default_image_sizes'));
-add_filter ('wp_generate_attachment_metadata',array ('evangelical_magazine_theme', 'enhance_media_images'));
+add_action ('wp', array ('evangelical_mag_theme', 'set_everything_up'));
+add_filter ('intermediate_image_sizes_advanced', array ('evangelical_mag_theme', 'remove_default_image_sizes'));
+add_filter ('wp_generate_attachment_metadata',array ('evangelical_mag_theme', 'enhance_media_images'));
 
 // Add image sizes
 add_image_size ('facebook_share', 1200, 630, true);

@@ -11,7 +11,7 @@
 add_action ('genesis_loop', 'genesis_404', 9);
 remove_action( 'genesis_loop', 'genesis_do_loop' );
 
-add_filter ('get_search_query', array ('evangelical_magazine_theme', 'filter_search_query_on_404'));
+add_filter ('get_search_query', array ('evangelical_mag_theme', 'filter_search_query_on_404'));
 
 /**
 * Outputs the 404 page

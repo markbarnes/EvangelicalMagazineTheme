@@ -8,7 +8,7 @@
 * @author Mark Barnes
 * @access public
 */
-class evangelical_magazine_microdata {
+class evangelical_mag_microdata {
     
     /**
     * Generic function to return meta tag with itemprop and content parameters (schema.org)

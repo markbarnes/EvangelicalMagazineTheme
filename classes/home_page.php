@@ -6,7 +6,7 @@
 * @author Mark Barnes
 * @access public
 */
-class evangelical_magazine_home_page {
+class evangelical_mag_home_page {
     
     /**
     * Outputs the home page
@@ -96,7 +96,7 @@ class evangelical_magazine_home_page {
             echo '<aside id="sections">';
             foreach ($sections as $section) {
                 $articles = $section->get_articles(1, $exclude_article_ids);
-                $info_box = evangelical_magazine_theme::get_article_list_box($articles, $section->get_name(true), $section->get_name(true), true);
+                $info_box = evangelical_mag_theme::get_article_list_box($articles, $section->get_name(true), $section->get_name(true), true);
                 if ($info_box) {
                     echo $info_box;
                     $exclude_article_ids = array_merge ($exclude_article_ids, evangelical_magazine_article::get_object_ids_from_array($articles));
