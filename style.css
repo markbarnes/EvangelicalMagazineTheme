@@ -1671,7 +1671,7 @@ p.entry-meta {
     color: #086788;
 }
 
-.small-article-box .future {
+.small-article-box.future {
     -webkit-filter: grayscale(100%) blur(1px);
     -moz-filter:    grayscale(100%) blur(1px);
     -ms-filter:     grayscale(100%) blur(1px);
