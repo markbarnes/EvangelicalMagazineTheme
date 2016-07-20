@@ -19,7 +19,7 @@ require ('classes/microdata.php');
 //* Child theme
 define( 'CHILD_THEME_NAME', 'Evangelical Magazine Theme' );
 define( 'CHILD_THEME_URL', 'http://www.evangelicalmagazine.com/' );
-define( 'CHILD_THEME_VERSION', '0.77' );
+define( 'CHILD_THEME_VERSION', '0.78' );
 
 add_action ('wp', array ('evangelical_mag_theme', 'set_everything_up'));
 add_filter ('intermediate_image_sizes_advanced', array ('evangelical_mag_theme', 'remove_default_image_sizes'));
