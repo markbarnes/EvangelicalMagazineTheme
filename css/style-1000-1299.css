@@ -406,4 +406,11 @@ body.search-results .em_author .entry-content > div {
     margin-left: 30px;
 }
 
+/* ## Subscription form
+--------------------------------------------- */
+
+#subscription-form input[type=email] {
+    width: 238px;
+}
+
 }

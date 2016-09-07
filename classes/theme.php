@@ -27,6 +27,7 @@ class evangelical_mag_theme {
         add_action ('wp_head', array (__CLASS__, 'add_icons_to_head'));
         add_action ('wp_head', array (__CLASS__, 'add_link_prefetching_to_head'));
         add_filter ('genesis_pre_load_favicon', array (__CLASS__, 'return_favicon_url'));
+        add_filter ('option_rg_gforms_disable_css', '__return_true');
         // Menu
         add_filter ('wp_nav_menu_items', array (__CLASS__, 'modify_menu'));
         add_filter ('genesis_structural_wrap-menu-primary', array (__CLASS__, 'add_logo_to_nav_bar'));

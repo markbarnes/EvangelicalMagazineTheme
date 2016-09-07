@@ -4,7 +4,7 @@ Theme URI: http://www.evangelicalmagazine.com
 Description: Custom theme for the Evangelical Magazine
 Author: Mark Barnes
 Author URI: http://www.markbarnes.net/
-Version: 0.78
+Version: 0.79
 Template: genesis
 Template Version: 2.2.0
 Tags: one-column, two-columns, three-columns, left-sidebar, right-sidebar, responsive-layout, custom-menu, full-width-template, rtl-language-support, sticky-post, theme-options, threaded-comments
@@ -2625,10 +2625,6 @@ body.home .site-inner {
     /* width: auto; */
 }
 
-#subscription-form .gform_body ul > li:first-of-type > .ginput_complex {
-    width: 410px;
-}
-
 #subscription-form .gform_body ul > li:first-child > .ginput_container,
 #subscription-form .gform_body ul > li:nth-child(2) > .ginput_container {
     margin-top: 0;
@@ -2667,6 +2663,7 @@ body.home .site-inner {
     padding: 10px 20px;
     margin-right: 10px;
     font-weight: 400;
+    font-size: 16px;
 }
 
 #subscription-form input::placeholder {
@@ -2682,7 +2679,7 @@ body.home .site-inner {
     float:left;
     clear: none;
     padding: 0;
-    margin-left:  20px;
+    margin-left: 20px;
 }
 
 #subscription-form input[type=submit] {
@@ -2690,7 +2687,7 @@ body.home .site-inner {
     color: #086788;
     text-transform: none;
     font-weight: 700;
-    padding: 8.5px 20px;
+    padding: 10px 20px;
 }
 
 /* # Print Styles
