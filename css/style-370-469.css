@@ -494,8 +494,8 @@ body.single-em_issue .article-list-box-coming-soon {
 }
 
 .grid-author-image {
-    width: 100px;
-    height: 100px;
+    width: 75px;
+    height: 75px;
 }
 
 .grid-author-container:nth-of-type(even) {
@@ -508,7 +508,7 @@ body.single-em_issue .article-list-box-coming-soon {
 }
 
 .grid-author-container .author-name-description {
-    width: 195px;
+    width: 220px;
 }
    
 /* Single author page

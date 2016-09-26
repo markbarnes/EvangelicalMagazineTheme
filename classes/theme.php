@@ -533,7 +533,7 @@ class evangelical_mag_theme {
        $authors = evangelical_magazine_author::get_top_authors();
        if ($authors) {
            foreach ($authors as $author) {
-               echo "<div class=\"grid-author-container\"><a href=\"{$author->get_link()}\" class=\"grid-author-image image-fit\" style=\"background-image:url('{$author->get_image_url('author_medium')}')\"></a><div class=\"author-name-description\"><div class=\"author-name\">{$author->get_name(true)}</div><div class=\"author-description\">{$author->get_filtered_content()}</div></div></div>";
+               echo "<div class=\"grid-author-container\"><a href=\"{$author->get_link()}\" class=\"grid-author-image image-fit\" style=\"background-image:url('{$author->get_image_url('thumbnail')}')\"></a><div class=\"author-name-description\"><div class=\"author-name\">{$author->get_name(true)}</div><div class=\"author-description\">{$author->get_filtered_content()}</div></div></div>";
            }
        }
    }

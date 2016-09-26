@@ -435,8 +435,8 @@ body.single-em_issue .article-list-author {
 }
 
 .grid-author-image {
-    width: 100px;
-    height: 100px;
+    width: 75px;
+    height: 75px;
 }
 
 .grid-author-container:nth-of-type(even) {
@@ -444,7 +444,7 @@ body.single-em_issue .article-list-author {
 }
 
 .grid-author-container .author-name-description {
-    width: 355px;
+    width: 380px;
 }
    
 /* Single author page
