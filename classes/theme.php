@@ -46,9 +46,6 @@ class evangelical_mag_theme {
         remove_action ('genesis_entry_footer', 'genesis_post_meta' );
         unregister_sidebar( 'header-right' );
         add_filter ('genesis_attr_entry-header', array (__CLASS__, 'add_attributes_to_entry_header'));
-        //* Theme support
-        add_theme_support( 'html5', array('search-form', 'comment-form', 'comment-list', 'gallery', 'caption')); //* Add HTML5 markup structure
-        add_theme_support( 'genesis-accessibility', array( 'headings', 'search-form', 'skip-links', 'rems' ) ); //* Add Accessibility support
         
         // Front page
         if (is_front_page()) {

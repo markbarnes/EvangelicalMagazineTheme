@@ -25,6 +25,10 @@ add_action ('wp', array ('evangelical_mag_theme', 'set_everything_up'));
 add_filter ('intermediate_image_sizes_advanced', array ('evangelical_mag_theme', 'remove_default_image_sizes'));
 add_filter ('wp_generate_attachment_metadata',array ('evangelical_mag_theme', 'enhance_media_images'));
 
+//* Theme support
+add_theme_support( 'html5', array('search-form', 'comment-form', 'comment-list', 'gallery', 'caption')); //* Add HTML5 markup structure
+add_theme_support( 'genesis-accessibility', array( 'headings', 'search-form', 'skip-links', 'rems' ) ); //* Add Accessibility support
+
 // Add image sizes
 add_image_size ('facebook_share', 1200, 630, true);
 add_image_size ('twitter_share', 800, 400, true);
