@@ -88,8 +88,12 @@ h4 {
     font-size: 22px;
 }
 
+.genesis-nav-menu .menu-item:first-child a {
+    padding-left: 0;
+}
+
 .genesis-nav-menu a {
-    padding: 11.5px 12px;
+    padding: 11.5px 11px;
 }
 
 .nav-primary .search a {
