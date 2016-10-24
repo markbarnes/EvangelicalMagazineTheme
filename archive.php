@@ -2,8 +2,8 @@
 /**
 * This file handles the author archive page.
 * 
-* To generate this page, we filter they main query to return only one result.
-* We then filter the contents of that page to out the archive we want.
+* To generate this page, we filter the main query to return only one result.
+* We then filter the contents of that page to output the archive we want.
 *
 * @package evangelical-magazine-theme
 * @author Mark Barnes
