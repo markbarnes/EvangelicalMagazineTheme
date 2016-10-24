@@ -77,7 +77,7 @@ h4 {
     font-size: 27px;
     height: 44px;
     width: 27px;
-    padding-top: 9px;
+    padding-top: 2px;
 }
 
 .nav-primary input[type="search"] {
@@ -88,16 +88,22 @@ h4 {
     font-size: 22px;
 }
 
-.genesis-nav-menu .menu-item:first-child a {
-    padding-left: 0;
-}
-
 .genesis-nav-menu a {
-    padding: 11.5px 11px;
+    padding: 6px 11px;
 }
 
 .nav-primary .search a {
     padding: 0;
+}
+
+#menu-primary {
+    text-align: center;
+    padding: 5px 0 0 0;
+    clear: none;
+    float:none;
+    display: inline-block;
+    width: 320px;
+    margin-left: 80px;
 }
 
 .genesis-nav-menu .menu-item-type-issue {
