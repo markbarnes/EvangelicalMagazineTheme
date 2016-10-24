@@ -19,7 +19,8 @@ class evangelical_mag_theme {
         add_action ('wp_enqueue_scripts', array (__CLASS__, 'enqueue_fonts'));
         add_action ('wp_enqueue_scripts', array (__CLASS__, 'disable_superfish'));
         add_action ('wp_enqueue_scripts', array (__CLASS__, 'enqueue_media_stylesheets'));
-        add_filter ('genesis_superfish_enabled', '__return_false'); // Doesn't seem to work
+        add_action ('wp_enqueue_scripts', array (__CLASS__, 'disable_emojis'));
+        add_filter ('genesis_superfish_enabled', '__return_false');
         remove_action ('wp_head', 'feed_links_extra', 3);
         remove_action ('wp_head', 'feed_links', 2 );
         add_action ('wp_head', array (__CLASS__, 'add_rss_feeds'));
@@ -28,6 +29,7 @@ class evangelical_mag_theme {
         add_action ('wp_head', array (__CLASS__, 'add_link_prefetching_to_head'));
         add_filter ('genesis_pre_load_favicon', array (__CLASS__, 'return_favicon_url'));
         add_filter ('option_rg_gforms_disable_css', '__return_true');
+        add_filter ('wp_resource_hints', array(__CLASS__, 'filter_resource_hints'), 10, 2 );
         // Menu
         add_filter ('wp_nav_menu_items', array (__CLASS__, 'modify_menu'));
         add_filter ('genesis_structural_wrap-menu-primary', array (__CLASS__, 'add_logo_to_nav_bar'));
@@ -163,6 +165,22 @@ class evangelical_mag_theme {
         wp_enqueue_style ('magazine-font-aleo', get_stylesheet_directory_uri().'/fonts/aleo.css', array(), CHILD_THEME_VERSION);
         wp_enqueue_style ('magazine-font-lato', get_stylesheet_directory_uri().'/fonts/lato.css', array(), CHILD_THEME_VERSION);
         wp_enqueue_style ('dashicons');
+    }
+    
+    /**
+    * Remove emoji support for older browsers to speed up page loading
+    * 
+    * @link https://wordpress.org/plugins/disable-emojis/
+    */
+    public static function disable_emojis() {
+        remove_action ('wp_head', 'print_emoji_detection_script', 7);
+        remove_action ('admin_print_scripts', 'print_emoji_detection_script');
+        remove_action ('wp_print_styles', 'print_emoji_styles');
+        remove_action ('admin_print_styles', 'print_emoji_styles');
+        remove_filter ('the_content_feed', 'wp_staticize_emoji');
+        remove_filter ('comment_text_rss', 'wp_staticize_emoji');     
+        remove_filter ('wp_mail', 'wp_staticize_emoji_for_email');
+        //add_filter ('tiny_mce_plugins', 'disable_emojis_tinymce');
     }
     
     /**
@@ -1076,10 +1094,25 @@ class evangelical_mag_theme {
         echo "\t<script type=\"text/javascript\">(function(){ var bsa = document.createElement('script'); bsa.type = 'text/javascript'; bsa.async = true; bsa.src = '//cdn.beaconads.com/ac/beaconads.js'; (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(bsa);})();</script>\r\n";
     }
 
+    /**
+    * Modifies schema.org microdata
+    * 
+    * @param array $attributes
+    * @param string $context
+    * @return array
+    */
     public static function add_schema_org_microdata ($attributes, $context) {
         if ($context == 'entry') {
             $attributes['itemtype'] = 'http://schema.org/Article';
         }
         return $attributes;
+    }
+    
+    public static function filter_resource_hints ($urls, $relation_type) {
+        if ($relation_type == 'dns-prefetch') {
+            $emoji_svg_url = apply_filters ('emoji_svg_url', 'https://s.w.org/images/core/emoji/2/svg/');
+            $urls = array_diff ($urls, array ($emoji_svg_url));
+        }
+        return $urls;
     }
 }
