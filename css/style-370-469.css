@@ -517,12 +517,41 @@ body.single-em_issue .article-list-box-coming-soon {
 body.single-em_author .entry-header {
     width: 125px;
     height: 125px;
+    margin-right: 15px;
 }
 
-body.single-em_author h3.articles_by {
-    font-size: 36px;
+body.single-em_author .entry-content > div:first-of-type {
+    width: auto;
+    font-size: 14px;
 }
-   
+
+body.single-em_author .entry-content {
+    padding-bottom: 5px;
+}
+
+body.single-em_author .entry-content .article-list-box,
+body.single-em_author .large-image .article-list-box-image,
+body.single-em_author .article-list-box .large-image .title-author-wrapper {
+    width: 330px;
+}
+
+body.single-em_author .article-list-box ol {
+    margin-left: 20px;
+    margin-bottom: 0;
+}
+
+body.single-em_author .article-list-box .title-author-wrapper {
+    width: 187px;
+}
+
+body.single-em_author .article-list-box .large-image .article-list-box-title {
+    font-size: 20px;
+}
+
+body.single-em_author .article-list-box .article-list-box-title {
+    font-size: 16px;
+}
+
 /* Section archive page
    --------------------  */
 

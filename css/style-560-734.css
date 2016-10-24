@@ -430,6 +430,52 @@ body.single-em_issue .article-list-author {
     font-size: 18px;
 }    
 
+/* Single author pages
+   ------------------  */
+
+body.single-em_author .entry-header {
+    width: 190px;
+    height: 190px;
+}
+
+body.single-em_author .entry-content > div:first-of-type {
+    width: 190px;
+}
+
+body.single-em_author .entry-content .article-list-box {
+    width: 275px;
+}
+
+body.single-em_author .large-image .article-list-box-image {
+    width: 235px;
+    height: 156.667px;
+}
+
+body.single-em_author .article-list-box li {
+    line-height: 18px;
+}
+
+body.single-em_author .article-list-box li.large-image {
+    line-height: 22px;
+}
+
+body.single-em_author .article-list-box .large-image .title-author-wrapper {
+    width: 235px;
+}
+
+body.single-em_author .article-list-box .title-author-wrapper {
+    width: 112px;
+}
+
+body.single-em_author .article-list-box .large-image .title-author-wrapper .article-list-box-title {
+    font-size: 18px;
+}
+
+body.single-em_author .article-list-box .title-author-wrapper .article-list-box-title {
+    font-size: 14px;
+    line-height: 14px;
+}
+
 /* Author archive page
    -------------------  */
    
