@@ -97,11 +97,13 @@ class evangelical_mag_theme {
         elseif (is_singular('em_author')) {
              // Specify the title image using styles in the <HEAD>
             add_action ('genesis_meta', array (__CLASS__, 'add_image_to_pages'), 11);
-            add_action ('genesis_entry_content', array (__CLASS__, 'add_to_end_of_author_page'));
             self::move_entry_header_inside_entry_content();
-            add_filter ('body_class', function($classes) {$classes[]="half-size-header-image";return $classes;});
+            //add_filter ('body_class', function($classes) {$classes[]="half-size-header-image";return $classes;});
             remove_action ('genesis_entry_header', 'genesis_do_post_title');
-            add_action ('genesis_entry_content', 'genesis_do_post_title', 9);
+            add_action ('genesis_entry_content', 'genesis_do_post_title', 4);
+            add_action ('genesis_entry_content', array (__CLASS__, 'open_div'), 4);
+            add_action ('genesis_entry_content', array (__CLASS__, 'close_div'), 11);
+            add_action ('genesis_entry_content', array (__CLASS__, 'add_to_end_of_author_page'), 12);
         }
         // Single issue pages
         elseif (is_singular('em_issue')) {
@@ -463,16 +465,7 @@ class evangelical_mag_theme {
         $author = new evangelical_magazine_author($author_id);
         $articles = $author->_get_articles($author::_future_posts_args());
         if ($articles) {
-            echo "<h3 class=\"articles_by\">Articles by {$author->get_name()}</h3>";
-            $chunks = array_chunk ($articles, 3);
-            foreach ($chunks as $chunk) {
-                //echo "<div class=\"article-box-row-wrap\">";
-                foreach ($chunk as $article) {
-                    $sub_title = $article->is_future() ? "Coming {$article->get_coming_date()}" : $article->get_issue_name(true);
-                    echo $article->get_small_box_html(true, $sub_title);
-                }
-                //echo '</div>';
-            }
+            echo self::get_article_list_box($articles);
         }
     }
 
