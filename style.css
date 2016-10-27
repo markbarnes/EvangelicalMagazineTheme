@@ -1059,6 +1059,11 @@ img.alignright,
     display: none;
 }
 
+#genesis-content .gform_wrapper .gsection .gfield_label, #genesis-content .gform_wrapper h2.gsection_title, #genesis-content .gform_wrapper h3.gform_title {
+    font-size: 36px;
+    font-weight: 400;
+}
+
 /* # Skip Links
 ---------------------------------------------------------------------------------------------------- */
 .genesis-skip-link {
