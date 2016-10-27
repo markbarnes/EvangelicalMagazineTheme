@@ -28,7 +28,6 @@ class evangelical_mag_theme {
         add_action ('wp_head', array (__CLASS__, 'add_icons_to_head'));
         add_action ('wp_head', array (__CLASS__, 'add_link_prefetching_to_head'));
         add_filter ('genesis_pre_load_favicon', array (__CLASS__, 'return_favicon_url'));
-        add_filter ('option_rg_gforms_disable_css', '__return_true');
         add_filter ('wp_resource_hints', array(__CLASS__, 'filter_resource_hints'), 10, 2 );
         // Menu
         add_filter ('wp_nav_menu_items', array (__CLASS__, 'modify_menu'));
@@ -53,6 +52,7 @@ class evangelical_mag_theme {
         if (is_front_page()) {
             add_action ('genesis_meta', array (__CLASS__, 'add_google_structured_data_to_homepage'));
             add_action ('genesis_meta', array (__CLASS__, 'add_facebook_app_id_to_homepage'));
+            add_filter ('option_rg_gforms_disable_css', '__return_true');
         }
         // All singular pages
         if (is_singular()) {
