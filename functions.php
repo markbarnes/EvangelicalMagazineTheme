@@ -19,7 +19,7 @@ require ('classes/microdata.php');
 //* Child theme
 define( 'CHILD_THEME_NAME', 'Evangelical Magazine Theme' );
 define( 'CHILD_THEME_URL', 'http://www.evangelicalmagazine.com/' );
-define( 'CHILD_THEME_VERSION', '0.82.1' );
+define( 'CHILD_THEME_VERSION', '0.83' );
 
 add_action ('wp', array ('evangelical_mag_theme', 'set_everything_up'));
 add_filter ('intermediate_image_sizes_advanced', array ('evangelical_mag_theme', 'remove_default_image_sizes'));
@@ -33,12 +33,16 @@ add_theme_support( 'genesis-accessibility', array( 'headings', 'search-form', 's
 add_image_size ('facebook_share', 1200, 630, true);
 add_image_size ('twitter_share', 800, 400, true);
 add_image_size ('article_header', 800, 400, true);
+add_image_size ('full-post-width', 800);
 add_image_size ('issue_very_large', 540, 762, true);
 add_image_size ('article_very_large', 540, 360, true);
 add_image_size ('article_large', 380, 253, true);
+add_image_size ('half-post-width', 400);
 add_image_size ('author_medium', 300, 300, true);
 add_image_size ('issue_medium', 250, 359, true);
 add_image_size ('article_small', 210, 140, true);
 add_image_size ('issue_small', 150, 212, true);
 add_image_size ('author_small', 113, 113, true);
 add_image_size ('square_thumbnail_tiny', 75, 75, true);
+
+add_filter ('image_size_names_choose', array ('evangelical_mag_theme', 'add_image_sizes_to_media_gallery'));

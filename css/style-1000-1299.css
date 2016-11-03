@@ -236,6 +236,23 @@ body.single-em_author .entry-header {
     margin-left: 0;
 }
 
+img.size-full-post-width {
+    margin-left: -45px;
+    width: 620px;
+}
+
+img.size-half-post-width {
+    width: 310px;
+}
+
+img.size-half-post-width.alignleft {
+    margin-left: -45px;
+}
+
+img.size-half-post-width.alignright {
+    margin-right: -45px;
+}
+
 /* Issue archive page
    -----------------  */
 

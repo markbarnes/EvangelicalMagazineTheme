@@ -47,7 +47,7 @@ class evangelical_mag_theme {
         remove_action ('genesis_entry_footer', 'genesis_post_meta' );
         unregister_sidebar( 'header-right' );
         add_filter ('genesis_attr_entry-header', array (__CLASS__, 'add_attributes_to_entry_header'));
-        
+
         // Front page
         if (is_front_page()) {
             add_action ('genesis_meta', array (__CLASS__, 'add_google_structured_data_to_homepage'));
@@ -1038,6 +1038,20 @@ class evangelical_mag_theme {
             $attributes['class'] = 'image-fit';
         }
         return $attributes;
+    }
+    
+    /**
+    * Filters the list of images sizes available in the media gallery
+    * 
+    * Filters image_size_names_choose
+    * 
+    * @param array $sizes
+    * @return array
+    */
+    public static function add_image_sizes_to_media_gallery ($sizes) {
+        $sizes ['half-post-width'] = 'Half-width';
+        $sizes ['full-post-width'] = 'Full-width';
+        return $sizes;
     }
 
     /**

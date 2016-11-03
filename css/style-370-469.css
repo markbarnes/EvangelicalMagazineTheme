@@ -393,6 +393,24 @@ body.full-size-header-image .entry-title {
     margin-bottom: 0;
 }
 
+img.size-full-post-width {
+    margin-left: -20px;
+    width: 350px;
+}
+
+img.size-half-post-width {
+    width: 350px;
+    margin-right: 0;
+}
+
+img.size-half-post-width.alignleft {
+    margin-left: -20px;
+}
+
+img.size-half-post-width.alignright {
+    margin-right: -20px;
+}
+
 /* Issue archive page
    -----------------  */
 

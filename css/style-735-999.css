@@ -332,6 +332,23 @@ body.full-size-header-image .entry-header {
     height: 133.333px;
 }
 
+img.size-full-post-width {
+    margin-left: -35px;
+    width: 730px;
+}
+
+img.size-half-post-width {
+    width: 365px;
+}
+
+img.size-half-post-width.alignleft {
+    margin-left: -35px;
+}
+
+img.size-half-post-width.alignright {
+    margin-right: -35px;
+}
+
 /* Issue archive page
    -----------------  */
 

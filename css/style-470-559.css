@@ -369,6 +369,23 @@ body.full-size-header-image .entry-header {
     margin-left: 17.5px;
 }
 
+img.size-full-post-width {
+    margin-left: -35px;
+    width: 450px;
+}
+
+img.size-half-post-width {
+    width: 225px;
+}
+
+img.size-half-post-width.alignleft {
+    margin-left: -35px;
+}
+
+img.size-half-post-width.alignright {
+    margin-right: -35px;
+}
+
 /* Issue archive page
    -----------------  */
 
