@@ -237,7 +237,7 @@ class evangelical_mag_theme {
         global $post;
         if ($post && $post->post_type == 'em_article') {
             $article = new evangelical_magazine_article($post);
-            $output = 'By '.$article->get_author_names(true, true); 
+            $output = $article->get_author_names(true, true, 'By '); 
             $output .= "<span style=\"float:right\">{$article->get_issue_name(true)}";
             if ($page_num = $article->get_page_num()) {
                 $output .= ", page <span itemprop=\"pageStart\">{$page_num}</span>";
@@ -289,7 +289,7 @@ class evangelical_mag_theme {
         }
         echo "<div class=\"after-article\">";
         // Facebook buttons
-        echo "<h3>Share or recommend</h3><div style=\"margin-bottom: 2em\" class=\"fb-like\" data-href=\"{$article->get_link()}\" data-width=\"680\" data-layout=\"standard\" data-action=\"like\" data-show-faces=\"true\" data-share=\"true\"></div>\r\n";
+        echo "<h3>Like or share this article</h3><div style=\"margin-bottom: 2em\" class=\"fb-like\" data-href=\"{$article->get_link()}\" data-width=\"680\" data-layout=\"standard\" data-action=\"like\" data-show-faces=\"true\" data-share=\"true\"></div>\r\n";
         // Show authors
         $authors = $article->get_authors();
         if ($article->has_series()) {
@@ -309,7 +309,7 @@ class evangelical_mag_theme {
                 if ($also_by) {
                     if ($is_single_author) {
                         $author = current ($authors);
-                        echo '<h3>Also by '.$author->get_name(true).'</h3>';
+                        echo '<h3>'.$author->get_name(true, false, 'Also by ').'</h3>';
                     } else {
                         echo '<h3>Also by these authors</h3>';
                     }
@@ -568,7 +568,7 @@ class evangelical_mag_theme {
                if ($articles) {
                    echo "<ul class=\"top-articles\">";
                    foreach ($articles as $article) {
-                       echo "<li><span class=\"article-title\">{$article->get_title(true)}</span><br/><span class=\"article-authors\">by {$article->get_author_names(true)}</span></li>";
+                       echo "<li><span class=\"article-title\">{$article->get_title(true)}</span><br/><span class=\"article-authors\">{$article->get_author_names(true, false, 'by ')}</span></li>";
                    }
                    $remaining_articles = $issue->get_article_count() - $max_articles_displayed;
                    if ($remaining_articles > 0) {
@@ -607,7 +607,7 @@ class evangelical_mag_theme {
                if ($articles) {
                    echo "<ul class=\"top-articles\">";
                    foreach ($articles as $article) {
-                       echo "<li><a href=\"{$article->get_link()}\"><div class=\"article-image image-fit\" style=\"background-image:url('{$article->get_image_url('article_small')}')\"></div></a><span class=\"article-title\">{$article->get_title(true)}</span><br/><span class=\"article-authors\">by {$article->get_author_names(true)}</span></li>";
+                       echo "<li><a href=\"{$article->get_link()}\"><div class=\"article-image image-fit\" style=\"background-image:url('{$article->get_image_url('article_small')}')\"></div></a><span class=\"article-title\">{$article->get_title(true)}</span><br/><span class=\"article-authors\">{$article->get_author_names(true, false, 'by ')}</span></li>";
                        $exclude_ids[] = $article->get_id();
                    }
                    $remaining_articles = $section->get_article_count() - $max_articles_displayed;
@@ -783,7 +783,7 @@ class evangelical_mag_theme {
     public static function do_article_meta_for_search() {
         $object = evangelical_magazine::get_object_from_id(get_the_ID());
         if ($object && $object->is_article()) {
-            echo "<p class=\"article-meta\">by {$object->get_author_names(true)} ({$object->get_issue_name(true)})</p>";
+            echo "<p class=\"article-meta\">{$object->get_author_names(true, false, 'by ')} ({$object->get_issue_name(true)})</p>";
         }
     }
 
@@ -855,7 +855,7 @@ class evangelical_mag_theme {
                 $output .= "<li{$class}>{$image_html}";
                 $title = $article->get_title();
                 $style = ($shrink_text_if_long && strlen($title) > 35) ? ' style="font-size:'.round(35/strlen($title)*1,2).'em"' : '';
-                $output .= "<div class=\"title-author-wrapper\"><span class=\"article-list-box-title\"><span{$style}>{$article->get_title(true)}</span></span><br/><span class=\"article-list-box-author\">by {$article->get_author_names(!$article->is_future())}</span>";
+                $output .= "<div class=\"title-author-wrapper\"><span class=\"article-list-box-title\"><span{$style}>{$article->get_title(true)}</span></span><br/><span class=\"article-list-box-author\">{$article->get_author_names(!$article->is_future(), false, 'by ')}</span>";
                 if ($article->is_future()) {
                     $output .= "<br/><span class=\"article-list-box-coming-soon\">Coming {$article->get_coming_date()}</span>";
                 }
@@ -905,10 +905,10 @@ class evangelical_mag_theme {
         $article = evangelical_magazine::get_object_from_id(get_the_ID());
         if ($article && $article->is_article()) {
             $image_details = $article -> get_image_details('facebook_share');
-            $authors = $article->get_author_names();
+            $authors = $article->get_author_names(false, false, ' — by ');
             $article_preview = htmlspecialchars(wp_trim_words (strip_shortcodes($article->get_content()), 75, '…'), ENT_HTML5);
             echo "\r\n\t<meta property=\"og:url\" content=\"{$article->get_link()}\" />\r\n";
-            echo "\t<meta property=\"og:title\" content=\"".htmlspecialchars($article->get_name()." — by {$authors}", ENT_HTML5)."\" />\r\n";
+            echo "\t<meta property=\"og:title\" content=\"".htmlspecialchars($article->get_name().$authors, ENT_HTML5)."\" />\r\n";
             echo "\t<meta property=\"og:description\" content=\"{$article_preview}\" />\r\n";
             echo "\t<meta property=\"og:site_name\" content=\"".htmlspecialchars(get_bloginfo('name'), ENT_HTML5)."\" />\r\n";
             echo "\t<meta property=\"og:image\" content=\"{$image_details['url']}\" />\r\n";
@@ -917,7 +917,7 @@ class evangelical_mag_theme {
             echo "\t<meta property=\"og:image:height\" content=\"{$image_details['height']}\" />\r\n";
             echo "\t<meta property=\"og:image:type\" content=\"{$image_details['mimetype']}\" />\r\n";
             echo "\t<meta property=\"og:type\" content=\"article\" />\r\n";
-            if ($authors == 'Mark Barnes') {
+            if ($authors == ' — by Mark Barnes') {
                 echo "\t<meta property=\"article:author\" content=\"573010528\" />\r\n";
             }
             echo "\t<meta property=\"article:publisher\" content=\"https://www.facebook.com/evangelicalmagazine/\" />\r\n";
@@ -935,14 +935,14 @@ class evangelical_mag_theme {
         $article = evangelical_magazine::get_object_from_id(get_the_ID());
         if ($article && $article->is_article()) {
             $image_details = $article -> get_image_details('twitter_share');
-            $authors = $article->get_author_names();
+            $authors = $article->get_author_names(false, false, ' — by ');
             $article_preview = htmlspecialchars(wp_trim_words (strip_shortcodes($article->get_content()), 75, '…'), ENT_HTML5);
             echo "\r\n\t<meta name=\"twitter:card\" content=\"summary_large_image\">\r\n";
             echo "\t<meta name=\"twitter:site\" content=\"@EvangelicalMag\">";
-            echo "\t<meta name=\"twitter:title\" content=\"".htmlspecialchars($article->get_name()." — by {$authors}", ENT_HTML5)."\" />\r\n";
+            echo "\t<meta name=\"twitter:title\" content=\"".htmlspecialchars($article->get_name().$authors, ENT_HTML5)."\" />\r\n";
             echo "\t<meta name=\"twitter:description\" content=\"{$article_preview}\" />\r\n";
             echo "\t<meta name=\"twitter:image\" content=\"{$image_details['url']}\" />\r\n";
-            if ($authors == 'Mark Barnes') {
+            if ($authors == ' — by Mark Barnes') {
                 echo "\t<meta name=\"twitter:creator\" content=\"@mbarnes\" />\r\n";
             }
         }
