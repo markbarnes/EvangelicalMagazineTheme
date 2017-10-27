@@ -150,7 +150,7 @@ class evangelical_mag_theme {
             add_action ('genesis_entry_content', 'genesis_do_post_title', 8);
             add_action ('genesis_entry_content', array (__CLASS__, 'do_article_meta_for_search'), 9);
             add_action ('genesis_entry_content', array (__CLASS__, 'close_div'), 13);
-            add_filter ('genesis_post_title_output', array(__CLASS__, 'filter_post_title_for_search_terms'));
+            add_filter ('genesis_post_title_text', array(__CLASS__, 'filter_post_title_for_search_terms'));
             add_action ('genesis_after_loop', array (__CLASS__, 'add_to_end_of_search_page'), 12);
         }
     }
