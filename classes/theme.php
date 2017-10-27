@@ -538,7 +538,7 @@ class evangelical_mag_theme {
     */
     public static function output_author_archive_page ($content) {
        echo "<h1>Authors</h1>";
-       $authors = evangelical_magazine_author::get_top_authors();
+       $authors = evangelical_magazine_author::get_all_authors();
        if ($authors) {
            $articles = evangelical_magazine_article::get_all_articles();
            evangelical_magazine::update_facebook_stats_if_required($articles);
