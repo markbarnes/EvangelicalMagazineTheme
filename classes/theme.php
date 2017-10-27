@@ -537,15 +537,48 @@ class evangelical_mag_theme {
     * @param string $content
     */
     public static function output_author_archive_page ($content) {
-       echo "<h1>Authors</h1>";
-       $authors = evangelical_magazine_author::get_all_authors();
-       if ($authors) {
-           $articles = evangelical_magazine_article::get_all_articles();
-           evangelical_magazine::update_facebook_stats_if_required($articles);
-           foreach ($authors as $author) {
-               echo "<div class=\"grid-author-container\"><a href=\"{$author->get_link()}\" class=\"grid-author-image image-fit\" style=\"background-image:url('{$author->get_image_url('thumbnail')}')\"></a><div class=\"author-name-description\"><div class=\"author-name\">{$author->get_name(true)}</div><div class=\"author-description\">{$author->get_filtered_content()}</div><div class=\"author-article-count\"><a href=\"{$author->get_link()}\">{$author->get_article_count(true, true)}</a></div></div></div>";
-           }
-       }
+    	echo "<h1>Authors</h1>";
+    	$output = '';
+		$authors = evangelical_magazine_author::get_all_authors();
+		$output_index = (bool)(count($authors) >= 20);
+		$previous_letter = '';
+		if ($authors) {
+			$articles = evangelical_magazine_article::get_all_articles();
+			evangelical_magazine::update_facebook_stats_if_required($articles);
+			$letters_used = '';
+			foreach ($authors as $author) {
+				if ($output_index) {
+					if (($current_letter = strtoupper(substr($author->get_name(),0,1))) != $previous_letter) {
+						if ($previous_letter != '') {
+							$output .= "</div>";
+						}
+						$output .= "<h2 class=\"grid-author-heading\" id=\"grid-author-{$current_letter}\"><a href=\"#author-index\">{$current_letter}</a></h2><div class= \"grid-author-{$current_letter}\">";
+						$previous_letter = $current_letter;
+						$letters_used .= $current_letter;
+					}
+				}
+				$output .= "<div class=\"grid-author-container\"><a href=\"{$author->get_link()}\" class=\"grid-author-image image-fit\" style=\"background-image:url('{$author->get_image_url('thumbnail')}')\"></a><div class=\"author-name-description\"><div class=\"author-name\">{$author->get_name(true)}</div><div class=\"author-description\">{$author->get_filtered_content()}</div><div class=\"author-article-count\"><a href=\"{$author->get_link()}\">{$author->get_article_count(true, true)}</a></div></div></div>";
+			}
+			if ($output_index) {
+				$index = '<div id="author-index">';
+				$letters_needed = array_unique(array_merge(range('A','Z'),str_split($letters_used)));
+				sort($letters_needed, SORT_STRING);
+				foreach ($letters_needed as $l) {
+					$index .= '<span class="author-index-cell">';
+					if (strpos($letters_used, $l) !== FALSE) {
+						$index .= "<a href=\"#grid-author-{$l}\">{$l}</a>";
+					} else {
+						$index .= $l;
+					}
+					$index .= '</span>';
+				}
+				$index .= '</div>';
+				$output = $index.$output;
+			}
+		} else {
+			$output .= '<p>No authors found.</p>';
+		}
+		echo $output;
     }
 
     /**

@@ -58,7 +58,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	- Entry Meta
     - Author, Series and Sections Meta
     - Article boxes
-    - Author grid
+    - Author archive page
     - Single article pages
     - Single author pages
     - Single issue pages
@@ -1718,9 +1718,44 @@ p.entry-meta {
     height: 140px;
 }
     
-/* ## Author grid
+/* ## Author archive page
 --------------------------------------------- */
 
+#author-index {
+	display: block;
+	width: 100%;
+	background-color: #086788;
+	color: white;
+	font-family: 'League Gothic';
+	display: flex;
+	justify-content: space-between;
+	padding: 5px 10px;
+	font-size: 24px;
+	margin-bottom: 24px;
+}
+
+#author-index .author-index-cell {
+	display: inline-block;
+}
+
+#author-index .author-index-cell a {
+	color: #feca00;
+}
+
+#author-index .author-index-cell a:hover, .grid-author-heading a:hover {
+	text-decoration: none;
+}
+
+.grid-author-heading {
+	background-color: #086788;
+	padding: 5px 10px;
+	margin-top: 24px;
+}
+
+.grid-author-heading a {
+	color: #feca00;
+}
+	
 .grid-author-container {
     display: inline-block;
     width: 320px;
