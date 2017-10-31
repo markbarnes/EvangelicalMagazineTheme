@@ -640,7 +640,14 @@ class evangelical_mag_theme {
                if ($articles) {
                    echo "<ul class=\"top-articles\">";
                    foreach ($articles as $article) {
-                       echo "<li><a href=\"{$article->get_link()}\"><div class=\"article-image image-fit\" style=\"background-image:url('{$article->get_image_url('article_small')}')\"></div></a><span class=\"article-title\">{$article->get_title(true)}</span><br/><span class=\"article-authors\">{$article->get_author_names(true, false, 'by ')}</span></li>";
+                       echo "<li><a href=\"{$article->get_link()}\"><div class=\"article-image image-fit\" style=\"background-image:url('{$article->get_image_url('article_small')}')\"></div></a><span class=\"article-title\">{$article->get_title(true)}</span>";
+                       if ($authors = $article->get_author_names(true, false, 'by ')) {
+                       	echo "<br/><span class=\"article-authors\">{$authors}</span>";
+					   }
+                       if ($likes = $article->get_facebook_stats()) {
+						   echo "<br/><span class=\"article-facebook-likes\">{$likes} people liked this</span>";
+                       }
+                       echo "</li>";
                        $exclude_ids[] = $article->get_id();
                    }
                    $remaining_articles = $section->get_article_count() - $max_articles_displayed;
@@ -709,7 +716,7 @@ class evangelical_mag_theme {
         $args = evangelical_magazine_article::_future_posts_args();
         $articles = $section->_get_articles ($args);
         if ($articles) {
-            echo "<div class=\"section-page\">".self::get_article_list_box($articles)."</div>";
+            echo "<div class=\"section-page\">".self::get_article_list_box($articles, true, '', false, true)."</div>";
         } else {
             echo '<div class="article-list-box"><p>Coming soon.</p></div>';
         }
@@ -867,10 +874,10 @@ class evangelical_mag_theme {
     /**
     * Returns the HTML for a list of articles with thumbnails, title and author
     * 
-    * @param array $articles
+    * @param evangelical_magazine_article[] $articles
     * @return string
     */
-    public static function get_article_list_box($articles, $make_first_image_bigger = true, $heading = '', $shrink_text_if_long = false) {
+    public static function get_article_list_box($articles, $make_first_image_bigger = true, $heading = '', $shrink_text_if_long = false, $add_facebook_likes = false) {
         if ($articles) {
             $output = "<div class=\"article-list-box\">";
             $output .= $heading ? "<h3>{$heading}</h3>" : '';
@@ -891,6 +898,8 @@ class evangelical_mag_theme {
                 $output .= "<div class=\"title-author-wrapper\"><span class=\"article-list-box-title\"><span{$style}>{$article->get_title(true)}</span></span><br/><span class=\"article-list-box-author\">{$article->get_author_names(!$article->is_future(), false, 'by ')}</span>";
                 if ($article->is_future()) {
                     $output .= "<br/><span class=\"article-list-box-coming-soon\">Coming {$article->get_coming_date()}</span>";
+                } elseif ($add_facebook_likes && ($likes = $article->get_facebook_stats())) {
+					$output .= "<br/><span class=\"article-list-box-likes\">{$likes} likes</span>";
                 }
                 $output .= "</div></li>";
                 $class = '';
@@ -935,6 +944,7 @@ class evangelical_mag_theme {
     * 
     */
     public static function add_facebook_open_graph() {
+    	/** @var evangelical_magazine_article */
         $article = evangelical_magazine::get_object_from_id(get_the_ID());
         if ($article && $article->is_article()) {
             $image_details = $article -> get_image_details('facebook_share');
