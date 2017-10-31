@@ -1,7 +1,7 @@
 <?php
 /**
 * Initialise the theme functions
-* 
+*
 * This theme is a child theme for the Genesis Framework
 * @see http://my.studiopress.com/themes/genesis/
 *

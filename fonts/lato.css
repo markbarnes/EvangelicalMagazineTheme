@@ -1,110 +1,110 @@
 @font-face {
-    font-family: 'lato';
-    src: url('lato/lato-bol.eot');
-    src: url('lato/lato-bol.eot?#iefix') format('embedded-opentype'),
-         url('lato/lato-bol.woff') format('woff'),
-         url('lato/lato-bol.ttf') format('truetype'),
-         url('lato/lato-bol.svg#latobold') format('svg');
-    font-weight: 700;
-    font-style: normal;
+	font-family: 'lato';
+	src: url('lato/lato-bol.eot');
+	src: url('lato/lato-bol.eot?#iefix') format('embedded-opentype'),
+	     url('lato/lato-bol.woff') format('woff'),
+	     url('lato/lato-bol.ttf') format('truetype'),
+	     url('lato/lato-bol.svg#latobold') format('svg');
+	font-weight: 700;
+	font-style: normal;
 }
 
 @font-face {
-    font-family: 'lato';
-    src: url('lato/lato-bolita.eot');
-    src: url('lato/lato-bolita.eot?#iefix') format('embedded-opentype'),
-         url('lato/lato-bolita.woff') format('woff'),
-         url('lato/lato-bolita.ttf') format('truetype'),
-         url('lato/lato-bolita.svg#latobold_italic') format('svg');
-    font-weight: 700;
-    font-style: italic;
+	font-family: 'lato';
+	src: url('lato/lato-bolita.eot');
+	src: url('lato/lato-bolita.eot?#iefix') format('embedded-opentype'),
+	     url('lato/lato-bolita.woff') format('woff'),
+	     url('lato/lato-bolita.ttf') format('truetype'),
+	     url('lato/lato-bolita.svg#latobold_italic') format('svg');
+	font-weight: 700;
+	font-style: italic;
 }
 
 @font-face {
-    font-family: 'lato';
-    src: url('lato/lato-lig.eot');
-    src: url('lato/lato-lig.eot?#iefix') format('embedded-opentype'),
-         url('lato/lato-lig.woff') format('woff'),
-         url('lato/lato-lig.ttf') format('truetype'),
-         url('lato/lato-lig.svg#latolight') format('svg');
-    font-weight: 300;
-    font-style: normal;
+	font-family: 'lato';
+	src: url('lato/lato-lig.eot');
+	src: url('lato/lato-lig.eot?#iefix') format('embedded-opentype'),
+	     url('lato/lato-lig.woff') format('woff'),
+	     url('lato/lato-lig.ttf') format('truetype'),
+	     url('lato/lato-lig.svg#latolight') format('svg');
+	font-weight: 300;
+	font-style: normal;
 }
 
 @font-face {
-    font-family: 'lato';
-    src: url('lato/lato-reg.eot');
-    src: url('lato/lato-reg.eot?#iefix') format('embedded-opentype'),
-         url('lato/lato-reg.woff') format('woff'),
-         url('lato/lato-reg.ttf') format('truetype'),
-         url('lato/lato-reg.svg#latoregular') format('svg');
-    font-weight: 400;
-    font-style: normal;
+	font-family: 'lato';
+	src: url('lato/lato-reg.eot');
+	src: url('lato/lato-reg.eot?#iefix') format('embedded-opentype'),
+	     url('lato/lato-reg.woff') format('woff'),
+	     url('lato/lato-reg.ttf') format('truetype'),
+	     url('lato/lato-reg.svg#latoregular') format('svg');
+	font-weight: 400;
+	font-style: normal;
 }
 
 @font-face {
-    font-family: 'lato';
-    src: url('lato/lato-regita.eot');
-    src: url('lato/lato-regita.eot?#iefix') format('embedded-opentype'),
-         url('lato/lato-regita.woff') format('woff'),
-         url('lato/lato-regita.ttf') format('truetype'),
-         url('lato/lato-regita.svg#latoitalic') format('svg');
-    font-weight: 400;
-    font-style: italic;
+	font-family: 'lato';
+	src: url('lato/lato-regita.eot');
+	src: url('lato/lato-regita.eot?#iefix') format('embedded-opentype'),
+	     url('lato/lato-regita.woff') format('woff'),
+	     url('lato/lato-regita.ttf') format('truetype'),
+	     url('lato/lato-regita.svg#latoitalic') format('svg');
+	font-weight: 400;
+	font-style: italic;
 }
 
 @font-face {
-    font-family: 'lato';
-    src: url('lato/lato-ligita.eot');
-    src: url('lato/lato-ligita.eot?#iefix') format('embedded-opentype'),
-         url('lato/lato-ligita.woff') format('woff'),
-         url('lato/lato-ligita.ttf') format('truetype'),
-         url('lato/lato-ligita.svg#latolight_italic') format('svg');
-    font-weight: 300;
-    font-style: italic;
+	font-family: 'lato';
+	src: url('lato/lato-ligita.eot');
+	src: url('lato/lato-ligita.eot?#iefix') format('embedded-opentype'),
+	     url('lato/lato-ligita.woff') format('woff'),
+	     url('lato/lato-ligita.ttf') format('truetype'),
+	     url('lato/lato-ligita.svg#latolight_italic') format('svg');
+	font-weight: 300;
+	font-style: italic;
 }
 
 /* Nasty hack to fix rendering problems in Chrome, forcing it to use the SVG version */
 @media screen and (-webkit-min-device-pixel-ratio:0) {
 	 @font-face {
-	    font-family: 'lato';
-	    src: url('lato/lato-bol.svg#latobold') format('svg');
-	    font-weight: 700;
-	    font-style: normal;
+		font-family: 'lato';
+		src: url('lato/lato-bol.svg#latobold') format('svg');
+		font-weight: 700;
+		font-style: normal;
 	}
 
 	@font-face {
-	    font-family: 'lato';
-	    src: url('lato/lato-bolita.svg#latobold_italic') format('svg');
-	    font-weight: 700;
-	    font-style: italic;
+		font-family: 'lato';
+		src: url('lato/lato-bolita.svg#latobold_italic') format('svg');
+		font-weight: 700;
+		font-style: italic;
 	}
 
 	@font-face {
-	    font-family: 'lato';
-	    src: url('lato/lato-lig.svg#latolight') format('svg');
-	    font-weight: 300;
-	    font-style: normal;
+		font-family: 'lato';
+		src: url('lato/lato-lig.svg#latolight') format('svg');
+		font-weight: 300;
+		font-style: normal;
 	}
 
 	@font-face {
-	    font-family: 'lato';
-	    src: url('lato/lato-reg.svg#latoregular') format('svg');
-	    font-weight: 400;
-	    font-style: normal;
+		font-family: 'lato';
+		src: url('lato/lato-reg.svg#latoregular') format('svg');
+		font-weight: 400;
+		font-style: normal;
 	}
 
 	@font-face {
-	    font-family: 'lato';
-	    src: url('lato/lato-regita.svg#latoitalic') format('svg');
-	    font-weight: 400;
-	    font-style: italic;
+		font-family: 'lato';
+		src: url('lato/lato-regita.svg#latoitalic') format('svg');
+		font-weight: 400;
+		font-style: italic;
 	}
 
 	@font-face {
-	    font-family: 'lato';
-	    src: url('lato/lato-ligita.svg#latolight_italic') format('svg');
-	    font-weight: 300;
-	    font-style: italic;
+		font-family: 'lato';
+		src: url('lato/lato-ligita.svg#latolight_italic') format('svg');
+		font-weight: 300;
+		font-style: italic;
 	}
 }

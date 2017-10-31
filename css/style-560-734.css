@@ -6,182 +6,182 @@ Basic set up
 ----------------------------- */
 
 body {
-    font-size: 15px;
+	font-size: 15px;
 }
 
 .site-inner,
 .wrap,
 .content {
-    width: 540px;
-    max-width: 540px;
-    margin-left: auto;
-    margin-right: auto;
+	width: 540px;
+	max-width: 540px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .site-inner {
-    padding: 25px 0;
+	padding: 25px 0;
 }
 
 body.full-size-header-image .entry-header {
-    height: 270px;
+	height: 270px;
 }
 
 .content-sidebar-sidebar .content-sidebar-wrap,
 .sidebar-content-sidebar .content-sidebar-wrap,
 .sidebar-sidebar-content .content-sidebar-wrap {
-    width: 540px;
+	width: 540px;
 }
 
 .sidebar-content-sidebar .content,
 .sidebar-sidebar-content .content,
 .content-sidebar-sidebar .content {
-    width: 540px;
+	width: 540px;
 }
 
 h1 {
-    font-size: 56px;
+	font-size: 56px;
 }
 
 h2 {
-    font-size: 29px;
+	font-size: 29px;
 }
 
 h3 {
-    font-size: 24px;
+	font-size: 24px;
 }
 
 h4 {
-    font-size: 19px;
+	font-size: 19px;
 }
 
 /* Top menu
    ------------  */
 
 .nav-primary .logo {
-    width: 120px;
-    height: 33px;
-    margin: 7px 0 0 7px;
+	width: 120px;
+	height: 33px;
+	margin: 7px 0 0 7px;
 }
 
 #menu-primary .menu-item-type-custom a {
    pointer-events: none;
-   cursor: default;    
+   cursor: default;	
 }
 
 #menu-primary .menu-item-type-custom .sub-menu a  {
-    pointer-events: auto;
-    cursor: auto;
-}    
+	pointer-events: auto;
+	cursor: auto;
+}	
 
 .nav-primary .search .dashicons-search {
-    font-size: 27px;
-    height: 44px;
-    width: 27px;
-    padding-top: 2px;
+	font-size: 27px;
+	height: 44px;
+	width: 27px;
+	padding-top: 2px;
 }
 
 .nav-primary input[type="search"] {
-    padding: 5px;
+	padding: 5px;
 }
 
 .genesis-nav-menu {
-    font-size: 22px;
+	font-size: 22px;
 }
 
 .genesis-nav-menu a {
-    padding: 6px 11px;
+	padding: 6px 11px;
 }
 
 .nav-primary .search a {
-    padding: 0;
+	padding: 0;
 }
 
 #menu-primary {
-    text-align: center;
-    padding: 5px 0 0 0;
-    clear: none;
-    float:none;
-    display: inline-block;
-    width: 320px;
-    margin-left: 80px;
+	text-align: center;
+	padding: 5px 0 0 0;
+	clear: none;
+	float:none;
+	display: inline-block;
+	width: 320px;
+	margin-left: 80px;
 }
 
 .genesis-nav-menu .menu-item-type-issue {
-    width: 124px;
-    padding: 12px 12px;
+	width: 124px;
+	padding: 12px 12px;
 }
 
 .genesis-nav-menu .menu-item-type-issue:first-child {
-    width: 112px;
+	width: 112px;
 }
 
 .genesis-nav-menu .menu-item-type-issue:last-child {
-    width: 112px;
+	width: 112px;
 }
 
 .genesis-nav-menu .menu-item-type-issue img {
-    margin-bottom: 8px;
-    width: 100px;
+	margin-bottom: 8px;
+	width: 100px;
 }
 
 .genesis-nav-menu .menu-item-more-issues {
-    padding-top: 10px;
+	padding-top: 10px;
 }
 
 .genesis-nav-menu .menu-item-more-issues a,
 .genesis-nav-menu .menu-item-more-authors a {
-    font-size: 14px;
+	font-size: 14px;
 }
 
 .genesis-nav-menu .menu-item-more-issues a {
-    padding: 63px 0 12px 0;
+	padding: 63px 0 12px 0;
 }
 
 .sub-menu-issues .menu-item-type-issue:nth-of-type(5),
 .sub-menu-issues .menu-item-type-issue:nth-of-type(6) {
-    display: none;
+	display: none;
 }
 
 .genesis-nav-menu .menu-item-type-author {
-    width: 80px;
-    padding: 10px 10px;
+	width: 80px;
+	padding: 10px 10px;
 }
 
 .sub-menu-authors .menu-item-type-author:nth-of-type(7),
 .sub-menu-authors .menu-item-type-author:nth-of-type(8),
 .sub-menu-authors .menu-item-type-author:nth-of-type(9),
 .sub-menu-authors .menu-item-type-author:nth-of-type(10) {
-    display: none;
+	display: none;
 }
 
 .genesis-nav-menu .menu-item-type-author:first-child {
-    width: 70px;
+	width: 70px;
 }
 
 .genesis-nav-menu .menu-item-type-author:last-child {
-    width: 40px;
+	width: 40px;
 }
 
 .genesis-nav-menu .menu-item-type-author img {
-    margin-bottom: 8px;
-    width: 60px;
+	margin-bottom: 8px;
+	width: 60px;
 }
 
 .genesis-nav-menu .menu-item-more-authors {
-    padding: 36px 0 10px 10px;
+	padding: 36px 0 10px 10px;
 }
 
 .genesis-nav-menu .menu-item-more-authors a {
-    padding: 0;
+	padding: 0;
 }
 
 .genesis-nav-menu .sub-menu .menu-item-type-section a {
-    font-size: 20px;
-    padding: 10px;
+	font-size: 20px;
+	padding: 10px;
 }
 
 input, select, textarea {
-    font-size: 14px;
+	font-size: 14px;
 }
 
 /* Widgets (1 column, below)
@@ -189,83 +189,83 @@ input, select, textarea {
    
 .sidebar-primary,
 .title-area {
-    width: 540px;
+	width: 540px;
 }
 
 .sidebar .widget {
-    display:inline-block;
-    width: 540px;
-    vertical-align: top;
-    margin-top: 0;
+	display:inline-block;
+	width: 540px;
+	vertical-align: top;
+	margin-top: 0;
 }
 
 .sidebar .widget_evangelical_magazine_subscribe_print,
 .sidebar .widget_evangelical_magazine_current_issue {
-    display: none;
+	display: none;
 }
 
 .sidebar .widget-title {
-    font-size: 30px;
+	font-size: 30px;
 }
 
 .sidebar {
-    font-size: 15px;
+	font-size: 15px;
 }
 
 .sidebar li {
-    margin-bottom: 8px;
-    padding-bottom: 8px;
+	margin-bottom: 8px;
+	padding-bottom: 8px;
 }
 
 .sidebar .widget_evangelical_magazine_current_issue .cover-image {
-    width: 540px;
-    height: 762px;
+	width: 540px;
+	height: 762px;
 }
 
 .widget_evangelical_magazine_most_popular .popular_article:first-child .popular-article-cover {
-    width: 540px;
-    height: 360px;
+	width: 540px;
+	height: 360px;
 }
 
 .widget_evangelical_magazine_most_popular .article-info {
-    font-size: 18px;
+	font-size: 18px;
 }
 
 .widget_evangelical_magazine_most_popular .article-link {
-    font-weight: 700;
+	font-weight: 700;
 }
 
 .widget_evangelical_magazine_most_popular .popular-article-cover {
-    width: 100px;
-    height: 100px;
+	width: 100px;
+	height: 100px;
 }
 
 /* Footer
    ------  */
 
 .site-footer {
-    text-align: center;
+	text-align: center;
 }
    
 .site-footer .logo {
-    display: inline-block;
-    float: none;
-    margin-bottom: 15px;
+	display: inline-block;
+	float: none;
+	margin-bottom: 15px;
 }
 
 /* Home page
    ---------  */
 
 body.home #latest-cover {
-    display: none;
+	display: none;
 }
 
 body.home #latest-articles {
-    width: 100%;
+	width: 100%;
 }
 
 body.home #latest-articles .future {
-    display: none;
+	display: none;
 }
 
 body.home #latest-articles .article-wrap .article,
@@ -274,286 +274,286 @@ body.home #latest-articles .article-wrap:nth-of-type(4) .article,
 body.home #latest-articles .article-wrap:nth-of-type(5) .article,
 body.home #latest-articles .article-wrap:nth-of-type(6) .article,
 body.home #latest-articles .article-wrap:nth-of-type(7) .article {
-    width: 270px;
-    height: 180px;
+	width: 270px;
+	height: 180px;
 }
 
 body.home #latest-articles .article-wrap:nth-of-type(odd) .article {
-    border-right: none;
+	border-right: none;
 }
 
 body.home #latest-articles .article-wrap:nth-of-type(even) .article {
-    border-right: 1px solid white;
+	border-right: 1px solid white;
 }
 
 body.home #latest-articles .article-title {
-    font-size: 30px;
-    line-height: 35px;
+	font-size: 30px;
+	line-height: 35px;
 }
 
 body.home #subscription-form {
-    display: none;
+	display: none;
 }
 
 body.home #sections {
-    padding: 0;
+	padding: 0;
 }
 
 body.home #sections .article-list-box {
-    width: 540px;
-    margin: 0 0 30px 0;
+	width: 540px;
+	margin: 0 0 30px 0;
 }
 
 body.home #sections .article-list-box h3 {
-    font-size: 48px;
-    text-align: left;
+	font-size: 48px;
+	text-align: left;
 }
 
 body.home #sections .article-list-box-image {
-    width: 270px;
-    height: 180px;
-    margin: 0;
+	width: 270px;
+	height: 180px;
+	margin: 0;
 }
 
 body.home #sections .article-list-box .large-image .title-author-wrapper {
-    width: 270px;
-    padding: 10px 15px;
+	width: 270px;
+	padding: 10px 15px;
 }
 
 body.home #sections .article-list-box-title a {
-    font-size: 20px;
+	font-size: 20px;
 }
 
 /* Single pages
    ------------  */
 
 .entry-title {
-    font-size: 44px;
+	font-size: 44px;
 }
 
 .entry-content {
-    padding: 35px;
+	padding: 35px;
 }
 
 .after-article {
-    padding: 0 35px 15px 35px;
-    margin-top: -17.5px;
+	padding: 0 35px 15px 35px;
+	margin-top: -17.5px;
 }
 
 body.full-size-header-image .entry-header {
-    height: 270px;
+	height: 270px;
 }
 
 .small-article-box {
-    width: 220px;
+	width: 220px;
 }
 
 .small-article-box .article-image {
-    width: 220px;
-    height: 146.667px;
+	width: 220px;
+	height: 146.667px;
 }
 
 .small-article-box:nth-of-type(3n) {
-    margin-left:auto;
+	margin-left:auto;
 }
 
 .small-article-box:nth-of-type(3n-2) {
-    margin-right: auto;
+	margin-right: auto;
 }
 
 .small-article-box:nth-of-type(even) {
-    margin-left: 30px;
+	margin-left: 30px;
 }
 
 img.size-full-post-width {
-    margin-left: -35px;
-    width: 540px;
+	margin-left: -35px;
+	width: 540px;
 }
 
 img.size-half-post-width {
-    width: 270px;
+	width: 270px;
 }
 
 img.size-half-post-width.alignleft {
-    margin-left: -35px;
+	margin-left: -35px;
 }
 
 img.size-half-post-width.alignright {
-    margin-right: -35px;
+	margin-right: -35px;
 }
 
 /* Issue archive page
    -----------------  */
 
 body.post-type-archive-em_issue .magazine-cover {
-    width: 180px;
-    height: 254px;
+	width: 180px;
+	height: 254px;
 }
 
 body.post-type-archive-em_issue .issue-contents {
-    width: 270px;
+	width: 270px;
 }
 
 body.post-type-archive-em_issue ul.issue-list > li.issue {
-    margin: 32px 0;
+	margin: 32px 0;
 }
 
 body.post-type-archive-em_issue h4 {
-    font-size: 28px;
+	font-size: 28px;
 }
 
 body.post-type-archive-em_issue .issue-contents {
-    font-size: 15px;
-    line-height: 17px;
+	font-size: 15px;
+	line-height: 17px;
 }
 
 /* Single issue pages
    ------------------  */
 
 body.single-em_issue .entry-header {
-    width: 180px;
-    height: 254px;
-    display: inline-block;
-    margin-right: 30px;
+	width: 180px;
+	height: 254px;
+	display: inline-block;
+	margin-right: 30px;
 }
 
 body.single-em_issue .entry-content > div:first-of-type {
-    width: 100%;
+	width: 100%;
 }
 
 body.single-em_issue .entry-content > div:first-of-type p {
-    display: inline-block;
-    width: 260px;
+	display: inline-block;
+	width: 260px;
 }
 
 body.single-em_issue .entry-content .article-list-box {
-    width: 100%;
-    clear: both;
-    margin-bottom: 0;
-    border-top: 1px solid #086788;
-    padding-top: 15px; 
+	width: 100%;
+	clear: both;
+	margin-bottom: 0;
+	border-top: 1px solid #086788;
+	padding-top: 15px; 
 }   
 
 body.single-em_issue .entry-content .article-list-box ol {
-    margin-left: 0;
+	margin-left: 0;
 }
 
 body.single-em_issue .article-list-box-image {
-    width: 180px;
-    height: 120px;
-    margin-right: 30px;
-    margin-bottom: 0;
+	width: 180px;
+	height: 120px;
+	margin-right: 30px;
+	margin-bottom: 0;
 }
 
 body.single-em_issue .article-list-box .title-author-wrapper {
-    width: 260px;
+	width: 260px;
 }
 
 body.single-em_issue .article-list-author {
-    font-size: 18px;
-}    
+	font-size: 18px;
+}	
 
 /* Single author pages
    ------------------  */
 
 body.single-em_author .entry-header {
-    width: 190px;
-    height: 190px;
+	width: 190px;
+	height: 190px;
 }
 
 body.single-em_author .entry-content > div:first-of-type {
-    width: 190px;
+	width: 190px;
 }
 
 body.single-em_author .entry-content .article-list-box {
-    width: 275px;
+	width: 275px;
 }
 
 body.single-em_author .large-image .article-list-box-image {
-    width: 235px;
-    height: 156.667px;
+	width: 235px;
+	height: 156.667px;
 }
 
 body.single-em_author .article-list-box li {
-    line-height: 18px;
+	line-height: 18px;
 }
 
 body.single-em_author .article-list-box li.large-image {
-    line-height: 22px;
+	line-height: 22px;
 }
 
 body.single-em_author .article-list-box .large-image .title-author-wrapper {
-    width: 235px;
+	width: 235px;
 }
 
 body.single-em_author .article-list-box .title-author-wrapper {
-    width: 112px;
+	width: 112px;
 }
 
 body.single-em_author .article-list-box .large-image .title-author-wrapper .article-list-box-title {
-    font-size: 18px;
+	font-size: 18px;
 }
 
 body.single-em_author .article-list-box .title-author-wrapper .article-list-box-title {
-    font-size: 14px;
-    line-height: 14px;
+	font-size: 14px;
+	line-height: 14px;
 }
 
 /* Author archive page
    -------------------  */
    
 .grid-author-container {
-    width: 100%;
-    margin-bottom: 30px;
+	width: 100%;
+	margin-bottom: 30px;
 }
 
 .grid-author-image {
-    width: 75px;
-    height: 75px;
+	width: 75px;
+	height: 75px;
 }
 
 .grid-author-container:nth-of-type(even) {
-    margin-left: 0;
+	margin-left: 0;
 }
 
 .grid-author-container .author-name-description {
-    width: 380px;
+	width: 380px;
 }
    
 /* Single author page
    -------------------  */
 
 body.single-em_author .entry-header {
-    width: 200px;
-    height: 200px;
+	width: 200px;
+	height: 200px;
 }
 
 body.single-em_author h3.articles_by {
-    font-size: 36px;
+	font-size: 36px;
 }
    
 body.single-em_author .entry-content {
-    padding-bottom: 5px;
+	padding-bottom: 5px;
 }
 
 /* Section archive page
    --------------------  */
 
 .post-type-archive-em_section .section-list > .issue h4 {
-    font-size: 36px;
+	font-size: 36px;
 }
 
 .post-type-archive-em_section .issue-contents {
-    font-size: 18px;
+	font-size: 18px;
 }
 
 .post-type-archive-em_section .section-list .article-authors a {
-    font-weight: 400;
+	font-weight: 400;
 }
 
 .section-page .article-list-box li:nth-of-type(2) {
-    border-top: 1px solid #086788;
-    padding-top: 15px;
+	border-top: 1px solid #086788;
+	padding-top: 15px;
 }
    
 /* Single section page
@@ -561,71 +561,71 @@ body.single-em_author .entry-content {
    
    
 body.single-em_section .entry-content .article-list-box {
-    width: 100%;
-    clear: both;
-    margin-bottom: 0;
-    border-top: 1px solid #086788;
-    padding-top: 15px; 
+	width: 100%;
+	clear: both;
+	margin-bottom: 0;
+	border-top: 1px solid #086788;
+	padding-top: 15px; 
 }   
 
 body.single-em_section .entry-content .article-list-box ol {
-    margin: 0;
+	margin: 0;
 }
 
 body.single-em_section .section-page .article-list-box li {
-    width: 100%;
+	width: 100%;
 }
 
 body.single-em_section .section-page .article-list-box li:nth-of-type(even) {
-    margin-left: 0;
+	margin-left: 0;
 }
 
 body.single-em_section .section-page .article-list-box li:last-of-type {
-    padding-bottom: 0;
+	padding-bottom: 0;
 }
 
 body.single-em_section .section-page li:nth-of-type(1) .article-list-box-image,
 body.single-em_section .section-page li:nth-of-type(2) .article-list-box-image,
 body.single-em_section .article-list-box-image {
-    width: 180px;
-    height: 120px;
-    margin-right: 30px;
-    margin-bottom: 0;
+	width: 180px;
+	height: 120px;
+	margin-right: 30px;
+	margin-bottom: 0;
 }
 
 body.single-em_section .article-list-box li:nth-of-type(1) .title-author-wrapper,
 body.single-em_section .article-list-box li:nth-of-type(2) .title-author-wrapper,
 body.single-em_section .article-list-box .title-author-wrapper {
-    width: 260px;
+	width: 260px;
 }
 
 body.single-em_section .article-list-box a.article-image,
 body.single-em_section .article-list-box-image,
 body.single-em_section .article-list-box .title-author-wrapper {
-    float: none;
-    display: inline-block;
-    vertical-align: top;
+	float: none;
+	display: inline-block;
+	vertical-align: top;
 }
 
 body.single-em_section .article-list-author {
-    font-size: 18px;
+	font-size: 18px;
 }
 
 /* Search page
    -----------  */
 
 body.search-results .em_article .search-thumbnail img {
-    width: 100px;
+	width: 100px;
 }
 
 body.search-results .em_article .entry-content > div {
-    width: 330px;
-    margin-left: 30px;
+	width: 330px;
+	margin-left: 30px;
 }
 
 body.search-results .em_author .entry-content > div {
-    width: 355px;
-    margin-left: 30px;
+	width: 355px;
+	margin-left: 30px;
 }
 
 }

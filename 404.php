@@ -15,13 +15,13 @@ add_filter ('get_search_query', array ('evangelical_mag_theme', 'filter_search_q
 
 /**
 * Outputs the 404 page
-* 
+*
 */
 function genesis_404() {
-    echo '<article class="entry"><h1 class="entry-title">Sorry, page not found</h1><div class="entry-content">';
-    echo '<p>The page you are looking for doesn&#0146;t exist. Perhaps you can find what you&#0146;re looking for by searching. Enter your query, then click <strong>search</strong>.</p>';
-    echo get_search_form(false);
-    echo '</article>';
+	echo '<article class="entry"><h1 class="entry-title">Sorry, page not found</h1><div class="entry-content">';
+	echo '<p>The page you are looking for doesn&#0146;t exist. Perhaps you can find what you&#0146;re looking for by searching. Enter your query, then click <strong>search</strong>.</p>';
+	echo get_search_form(false);
+	echo '</article>';
 }
 
 genesis();

@@ -6,174 +6,174 @@ Basic set up
 ----------------------------- */
 
 body {
-    font-size: 15px;
+	font-size: 15px;
 }
 
 .site-inner,
 .wrap,
 .content {
-    width: 730px;
-    max-width: 730px;
-    margin-left: auto;
-    margin-right: auto;
+	width: 730px;
+	max-width: 730px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .wrap {
 }
 
 .site-inner {
-    padding: 40px 0;
+	padding: 40px 0;
 }
 
 body.full-size-header-image .entry-header {
-    height: 365px;
+	height: 365px;
 }
 
 .content-sidebar-sidebar .content-sidebar-wrap,
 .sidebar-content-sidebar .content-sidebar-wrap,
 .sidebar-sidebar-content .content-sidebar-wrap {
-    width: 730px;
+	width: 730px;
 }
 
 .sidebar-content-sidebar .content,
 .sidebar-sidebar-content .content,
 .content-sidebar-sidebar .content {
-    width: 350px;
+	width: 350px;
 }
 
 h1 {
-    font-size: 56px;
+	font-size: 56px;
 }
 
 h2 {
-    font-size: 29px;
+	font-size: 29px;
 }
 
 h3 {
-    font-size: 24px;
+	font-size: 24px;
 }
 
 h4 {
-    font-size: 19px;
+	font-size: 19px;
 }
 
 /* Top menu
    ------------  */
 
 .nav-primary .logo {
-    width: 120px;
-    height: 33px;
-    margin-top: 7px;
+	width: 120px;
+	height: 33px;
+	margin-top: 7px;
 }
 
 #menu-primary .menu-item-type-custom a {
    pointer-events: none;
-   cursor: default;    
+   cursor: default;	
 }
 
 #menu-primary .menu-item-type-custom .sub-menu a  {
-    pointer-events: auto;
-    cursor: auto;
-}    
+	pointer-events: auto;
+	cursor: auto;
+}	
 
 .nav-primary .search .dashicons-search {
-    font-size: 27px;
-    height: 44px;
-    width: 27px;
-    padding-top: 9px;
+	font-size: 27px;
+	height: 44px;
+	width: 27px;
+	padding-top: 9px;
 }
 
 .nav-primary input[type="search"] {
-    padding: 5px;
+	padding: 5px;
 }
 
 .genesis-nav-menu {
-    font-size: 24px;
+	font-size: 24px;
 }
 
 .genesis-nav-menu a {
-    padding: 11.5px 12px;
+	padding: 11.5px 12px;
 }
 
 .nav-primary .search a {
-    padding: 0;
+	padding: 0;
 }
 
 .genesis-nav-menu .menu-item-type-issue {
-    width: 159px;
-    padding: 16px 24px;
+	width: 159px;
+	padding: 16px 24px;
 }
 
 .genesis-nav-menu .menu-item-type-issue:first-child {
-    width: 130px;
+	width: 130px;
 }
 
 .genesis-nav-menu .menu-item-type-issue:last-child {
-    width: 130px;
+	width: 130px;
 }
 
 .genesis-nav-menu .menu-item-type-issue img {
-    margin-bottom: 8px;
-    width: 120px;
+	margin-bottom: 8px;
+	width: 120px;
 }
 
 .genesis-nav-menu .menu-item-more-issues {
-    padding-top: 80px;
+	padding-top: 80px;
 }
 
 .genesis-nav-menu .menu-item-more-issues a,
 .genesis-nav-menu .menu-item-more-authors a {
-    font-size: 14px;
+	font-size: 14px;
 }
 
 .genesis-nav-menu .menu-item-type-author {
-    width: 95px;
-    padding: 16px 17px;
+	width: 95px;
+	padding: 16px 17px;
 }
 
 .genesis-nav-menu .menu-item-type-author:first-child {
-    width: 74px;
+	width: 74px;
 }
 
 .genesis-nav-menu .menu-item-type-author:last-child {
-    width: 40px;
+	width: 40px;
 }
 
 .genesis-nav-menu .menu-item-more-authors {
-    padding-top: 36px;
+	padding-top: 36px;
 }
 
 .genesis-nav-menu .menu-item-type-author img {
-    margin-bottom: 8px;
-    width: 60px;
+	margin-bottom: 8px;
+	width: 60px;
 }
 
 .genesis-nav-menu .menu-item-type-section a {
-    font-size: 29px;
-    padding: 16px;
+	font-size: 29px;
+	padding: 16px;
 }
 
 input, select, textarea {
-    font-size: 14px;
+	font-size: 14px;
 }
 
 .sub-menu-issues .menu-item-type-issue:nth-of-type(5),
 .sub-menu-issues .menu-item-type-issue:nth-of-type(6) {
-    display: none;
+	display: none;
 }
 
 .sub-menu-issues #menu-item-more-issues {
-    width: 72px;
+	width: 72px;
 }
 
 .sub-menu-authors .menu-item-type-author:nth-of-type(8),
 .sub-menu-authors .menu-item-type-author:nth-of-type(9),
 .sub-menu-authors .menu-item-type-author:nth-of-type(10) {
-    display: none;
+	display: none;
 }
 
 .genesis-nav-menu .sub-menu .menu-item-type-section a {
-    font-size: 24px;
+	font-size: 24px;
 }
 
 /* Widgets (2 column, below)
@@ -181,332 +181,332 @@ input, select, textarea {
    
 .sidebar-primary,
 .title-area {
-    width: 730px;
+	width: 730px;
 }
 
 .sidebar .widget {
-    display:inline-block;
-    width: 340px;
-    vertical-align: top;
-    margin-top: 0;
+	display:inline-block;
+	width: 340px;
+	vertical-align: top;
+	margin-top: 0;
 }
 
 .sidebar .widget:nth-of-type(even) {
-    margin-left: 46px;
+	margin-left: 46px;
 }
 
 .sidebar .widget-title {
-    font-size: 30px;
+	font-size: 30px;
 }
 
 .sidebar {
-    font-size: 15px;
+	font-size: 15px;
 }
 
 .sidebar li {
-    margin-bottom: 8px;
-    padding-bottom: 8px;
+	margin-bottom: 8px;
+	padding-bottom: 8px;
 }
 
 .sidebar .widget_evangelical_magazine_subscribe_print .widget-wrap >a >div {
-    width: 372px;
-    height: 337px;
+	width: 372px;
+	height: 337px;
 }
 
 .sidebar .widget_evangelical_magazine_current_issue .cover-image {
-    width: 340px;
-    height: 480px;
+	width: 340px;
+	height: 480px;
 }
 
 /* Home page
    ---------  */
 
 body.home #latest-cover {
-    display: none;
+	display: none;
 }
 
 body.home #latest-articles {
-    width: 100%;
+	width: 100%;
 }
 
 body.home #latest-articles .article-wrap .article,
 body.home #latest-articles .article-wrap .article-coming-soon,
 body.home #latest-articles .article-wrap:nth-of-type(6) .article,
 body.home #latest-articles .article-wrap:nth-of-type(7) .article {
-    width: 365px;
-    height: 243.333px;
+	width: 365px;
+	height: 243.333px;
 }
 
 body.home #latest-articles .article-wrap:nth-of-type(3) .article,
 body.home #latest-articles .article-wrap:nth-of-type(4) .article,
 body.home #latest-articles .article-wrap:nth-of-type(5) .article {
-    width: 243.333px;
-    height: 162.222px;
+	width: 243.333px;
+	height: 162.222px;
 }
 
 body.home #latest-articles .article-wrap:nth-of-type(1) .article,
 body.home #latest-articles .article-wrap:nth-of-type(3) .article,
 body.home #latest-articles .article-wrap:nth-of-type(4) .article,
 body.home #latest-articles .article-wrap:nth-of-type(6) .article {
-    border-right: 1px solid white;
+	border-right: 1px solid white;
 }
 
 body.home #latest-articles .article-wrap:nth-of-type(2) .article,
 body.home #latest-articles .article-wrap:nth-of-type(5) .article,
 body.home #latest-articles .article-wrap:nth-of-type(7) .article {
-    border-right: none;
+	border-right: none;
 }
 
 body.home #latest-articles .article-title {
-    font-size: 36px;
-    line-height: 42px;
+	font-size: 36px;
+	line-height: 42px;
 }
 
 body.home #latest-articles .article-wrap:nth-of-type(3) .article .article-title,
 body.home #latest-articles .article-wrap:nth-of-type(4) .article .article-title,
 body.home #latest-articles .article-wrap:nth-of-type(5) .article .article-title {
-    font-size: 30px;
-    line-height: 35px;
+	font-size: 30px;
+	line-height: 35px;
 }
 
 body.home #subscription-form {
-    display: none;
+	display: none;
 }
 
 body.home #sections {
-    padding: 0;
+	padding: 0;
 }
 
 body.home #sections .article-list-box {
-    width: 340px;
-    margin: 0 0 50px 0;
+	width: 340px;
+	margin: 0 0 50px 0;
 }
 
 body.home #sections .article-list-box:nth-of-type(even) {
-    margin-left: 50px;
+	margin-left: 50px;
 }
 
 body.home #sections .article-list-box h3 {
-    font-size: 56px;
+	font-size: 56px;
 }
 
 body.home #sections .article-list-box-image {
-    width: 340px;
-    height: 226.667px;
+	width: 340px;
+	height: 226.667px;
 }
 
 body.home #sections .article-list-box-title {
-    font-size: 24px;
+	font-size: 24px;
 }
 
 body.home #sections .article-list-box-title {
-    font-size: 20px;
+	font-size: 20px;
 }
 
 /* Single pages
    ------------  */
 
 .entry-title {
-    font-size: 44px;
+	font-size: 44px;
 }
 
 .entry-content {
-    padding: 35px;
+	padding: 35px;
 }
 
 .after-article {
-    padding: 0 35px 15px 35px;
-    margin-top: -17.5px;
+	padding: 0 35px 15px 35px;
+	margin-top: -17.5px;
 }
 
 body.full-size-header-image .entry-header {
-    height: 310px;
+	height: 310px;
 }
 
 .small-article-box {
-    width: 200px;
+	width: 200px;
 }
 
 .small-article-box .article-image {
-    width: 200px;
-    height: 133.333px;
+	width: 200px;
+	height: 133.333px;
 }
 
 img.size-full-post-width {
-    margin-left: -35px;
-    width: 730px;
+	margin-left: -35px;
+	width: 730px;
 }
 
 img.size-half-post-width {
-    width: 365px;
+	width: 365px;
 }
 
 img.size-half-post-width.alignleft {
-    margin-left: -35px;
+	margin-left: -35px;
 }
 
 img.size-half-post-width.alignright {
-    margin-right: -35px;
+	margin-right: -35px;
 }
 
 /* Issue archive page
    -----------------  */
 
 body.post-type-archive-em_issue .magazine-cover {
-    width: 210px;
-    height: 297px;
+	width: 210px;
+	height: 297px;
 }
 
 body.post-type-archive-em_issue .issue-contents {
-    width: 430px;
+	width: 430px;
 }
 
 body.post-type-archive-em_issue ul.issue-list > li.issue {
-    margin: 32px 0;
+	margin: 32px 0;
 }
 
 body.post-type-archive-em_issue h4 {
-    font-size: 36px;
+	font-size: 36px;
 }
 
 body.post-type-archive-em_issue .issue-contents {
-    font-size: 18px;
-    line-height: 21px;
+	font-size: 18px;
+	line-height: 21px;
 }
 
 /* Single issue pages
    ------------------  */
 
 body.single-em_issue .entry-header {
-    width: 300px;
-    height: 423px;
-    display: inline-block;
-    margin-right: 40px;
+	width: 300px;
+	height: 423px;
+	display: inline-block;
+	margin-right: 40px;
 }
 
 body.single-em_issue .entry-content > div:first-of-type {
-    width: 100%;
+	width: 100%;
 }
 
 body.single-em_issue .entry-content > div:first-of-type p {
-    display: inline-block;
-    width: 320px;
+	display: inline-block;
+	width: 320px;
 }
 
 body.single-em_issue .entry-content .article-list-box {
-    width: 100%;
-    clear: both;
-    margin-bottom: 0;
-    border-top: 1px solid #086788;
-    padding-top: 15px; 
+	width: 100%;
+	clear: both;
+	margin-bottom: 0;
+	border-top: 1px solid #086788;
+	padding-top: 15px; 
 }   
 
 body.single-em_issue .entry-content .article-list-box ol {
-    margin-left: 0;
+	margin-left: 0;
 }
 
 body.single-em_issue .article-list-box-image {
-    width: 300px;
-    height: 200px;
-    margin-right: 40px;
-    margin-bottom: 0;
+	width: 300px;
+	height: 200px;
+	margin-right: 40px;
+	margin-bottom: 0;
 }
 
 body.single-em_issue .article-list-box .title-author-wrapper {
-    width: 320px;
+	width: 320px;
 }
 
 body.single-em_issue .article-list-author {
-    font-size: 18px;
-}    
+	font-size: 18px;
+}	
 
 /* Author archive page
    -------------------  */
    
 .grid-author-container {
-    width: 315px;
-    margin-bottom: 30px;
+	width: 315px;
+	margin-bottom: 30px;
 }
 
 .grid-author-image {
-    width: 75px;
-    height: 75px;
+	width: 75px;
+	height: 75px;
 }
 
 .grid-author-container:nth-of-type(even) {
-    margin-left: 30px;
+	margin-left: 30px;
 }
 
 .grid-author-container .author-name-description {
-    width: 225px;
+	width: 225px;
 }
    
 /* Single author page
    -------------------  */
 
 body.single-em_author h3.articles_by {
-    font-size: 36px;
+	font-size: 36px;
 }
    
 body.single-em_author .entry-content {
-    padding-bottom: 5px;
+	padding-bottom: 5px;
 }
 
 /* Section archive page
    --------------------  */
 
 .post-type-archive-em_section .section-list > .issue h4 {
-    font-size: 36px;
+	font-size: 36px;
 }
 
 .post-type-archive-em_section .issue-contents {
-    font-size: 18px;
+	font-size: 18px;
 }
 
 .post-type-archive-em_section .section-list .article-authors a {
-    font-weight: 400;
+	font-weight: 400;
 }
    
 /* Single section page
    -------------------  */
 
 .single-em_section .article-list-box {
-    margin-bottom: 0;
+	margin-bottom: 0;
 }
 
 .single-em_section .article-list-box ol {
-    margin-bottom: -15px;
+	margin-bottom: -15px;
 }
 
 .single-em_section .article-list-box li {
-    width: 310px;
+	width: 310px;
 }
 
 .single-em_section .article-list-box li:nth-of-type(even) {
-    margin-left: 40px;
+	margin-left: 40px;
 }
 
 .single-em_section li .article-list-box-image {
-    width: 310px;
-    height: 206.667px;
-    margin-bottom: 10px;
+	width: 310px;
+	height: 206.667px;
+	margin-bottom: 10px;
 }
 
 .single-em_section .article-list-box-title {
-    font-size: 18px;
+	font-size: 18px;
 }
 
 /* Search page
    -----------  */
 
 body.search-results .em_article .entry-content > div {
-    width: 405px;
-    margin-left: 30px;
+	width: 405px;
+	margin-left: 30px;
 }
 
 body.search-results .em_author .entry-content > div {
-    width: 540px;
-    margin-left: 30px;
+	width: 540px;
+	margin-left: 30px;
 }
 
 }
