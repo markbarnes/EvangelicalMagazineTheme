@@ -28,7 +28,7 @@ class evangelical_mag_home_page {
 		if ($latest_issues) {
 			//Output the cover of the most recent issue
 			echo '<aside id="recent-articles">';
-			echo "<a href=\"{$latest_issues[0]->get_link()}\"><span id=\"latest-cover\" class=\"box-shadow-transition image-fit\" style=\"background-image: url('{$latest_issues[0]->get_image_url('issue_medium')}')\"></span></a>";
+			echo "<a href=\"{$latest_issues[0]->get_link()}\"><div id=\"latest-cover\" class=\"box-shadow-transition image-fit\" style=\"background-image: url('{$latest_issues[0]->get_image_url('issue_medium')}')\"></div></a>";
 			//Get the seven most recent articles from these issues
 			$articles = array();
 			foreach ($latest_issues as $issue) {
@@ -50,14 +50,14 @@ class evangelical_mag_home_page {
 			if ($articles) {
 				echo '<div id="latest-articles">';
 				foreach ($articles as $article) {
-					echo '<span class="article-wrap">';
+					echo '<div class="article-wrap">';
 					if ($article->is_future()) {
 						echo "<div class=\"article future image-fit\" style=\"background-image: url('{$article->get_image_url('article_large')}')\"></div>";
-						echo "<div class=\"article-coming-soon\"><div class=\"coming-soon\">Coming {$article->get_coming_date()}</div><div class=\"article-title\">{$article->get_title()}</div></div>";
+						echo "<div class=\"article-coming-soon\"><span class=\"coming-soon\">Coming {$article->get_coming_date()}</span><span class=\"article-title\">{$article->get_title()}</span></div>";
 					} else {
 						echo "<a href=\"{$article->get_link()}\"><span class=\"article current image-fit box-shadow-transition\" style=\"background-image: url('{$article->get_image_url('article_large')}')\"><span class=\"article-title\">{$article->get_title()}</span></span></a>";
 					}
-					echo '</span>';
+					echo '</div>';
 					$article_ids[] = $article->get_id();
 				}
 				echo '</div>';
