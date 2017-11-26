@@ -404,7 +404,7 @@ class evangelical_mag_theme {
 		echo "<span class=\"address\">Waterton Cross Business Park, South Road, Bridgend CF31 3UL{$admin_link}</span><br/>";
 		echo "<span class=\"registration\">Registered charity number 222407{$admin_link}</span></p>";
 		$rss_feed = get_post_type_archive_feed_link('em_article');
-		echo '<p class="social-icons"><a href="https://www.facebook.com/evangelicalmagazine"><span class="dashicons dashicons-facebook"></span></a><a href="https://twitter.com/EvangelicalMag"><span class="dashicons dashicons-twitter"></span></a><a href="mailto:admin@evangelicalmagazine.com"><span class="dashicons dashicons-email"></span><a href="'.$rss_feed.'"><span class="dashicons dashicons-rss"></span></a></p>';
+		echo '<p class="social-icons"><a href="https://www.facebook.com/evangelicalmagazine"><span class="dashicons dashicons-facebook"></span></a><a href="https://twitter.com/EvangelicalMag"><span class="dashicons dashicons-twitter"></span></a><a href="mailto:admin@evangelicalmagazine.com"><span class="dashicons dashicons-email"></span></a><a href="'.$rss_feed.'"><span class="dashicons dashicons-rss"></span></a></p>';
 	}
 
 	/**
