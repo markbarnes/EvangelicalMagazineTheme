@@ -422,7 +422,7 @@ class evangelical_mag_theme {
 			$menu = str_replace ('<a href="#" itemprop="url"><span itemprop="name">Recent Issues</span></a>', '<a href="'.get_post_type_archive_link ('em_issue').'" itemprop="url"><span itemprop="name">Recent Issues</span></a>', $menu);
 			$issues = evangelical_magazine_issue::get_all_issues(6);
 			if ($issues) {
-				$issue_menu = '<ul class="sub-menu sub-menu-issues"><div class="wrap">';
+				$issue_menu = '<ul class="sub-menu sub-menu-issues"><li class="wrap"><ul>';
 				foreach ($issues as $issue) {
 					$issue_name = str_replace('/','/<wbr>',$issue->get_name());
 					if (strpos($issue_name, '<wbr>') !== FALSE) {
@@ -442,7 +442,7 @@ class evangelical_mag_theme {
 			$menu = str_replace ('<a href="#" itemprop="url"><span itemprop="name">Authors</span></a>', '<a href="'.get_post_type_archive_link ('em_author').'" itemprop="url"><span itemprop="name">Authors</span></a>', $menu);
 			$authors = evangelical_magazine_author::get_top_authors(10);
 			if ($authors) {
-				$author_menu = '<ul class="sub-menu sub-menu-authors"><div class="wrap">';
+				$author_menu = '<ul class="sub-menu sub-menu-authors"><li class="wrap"><ul>';
 				foreach ($authors as $author) {
 					$author_menu .= "<li id=\"menu-item-author-{$author->get_id()}\" class=\"menu-item menu-item-type-author menu-item-author-{$author->get_id()}\">";
 					$author_menu .= "<a href=\"{$author->get_link()}\" itemprop=\"url\">{$author->get_image_html ('square_thumbnail_tiny')}<span itemprop=\"name\">{$author->get_name()}</span></a></li>";
@@ -458,7 +458,7 @@ class evangelical_mag_theme {
 			$menu = str_replace ('<a href="#" itemprop="url"><span itemprop="name">Sections</span></a>', '<a href="'.get_post_type_archive_link ('em_section').'" itemprop="url"><span itemprop="name">Sections</span></a>', $menu);
 			$sections = evangelical_magazine_section::get_all_sections();
 			if ($sections) {
-				$section_menu = '<ul class="sub-menu sub-menu-section"><div class="wrap">';
+				$section_menu = '<ul class="sub-menu sub-menu-section"><li class="wrap"><ul>';
 				foreach ($sections as $section) {
 					$section_menu .= "<li id=\"menu-item-section-{$section->get_id()}\" class=\"menu-item menu-item-type-section menu-item-section-{$section->get_id()}\">";
 					$section_menu .= "<a href=\"{$section->get_link()}\" itemprop=\"url\"><span itemprop=\"name\">{$section->get_name()}</span></a></li>";
@@ -468,7 +468,7 @@ class evangelical_mag_theme {
 			}
 		}
 		//Add wrap to Wordpress menus
-		$menu = str_replace(array('<ul class="sub-menu">', '</ul>'), array('<ul class="sub-menu"><div class="wrap">', '</div></ul>'), $menu);
+		$menu = str_replace(array('<ul class="sub-menu">', '</ul>'), array('<ul class="sub-menu"><li class="wrap"><ul>', '</ul></li></ul>'), $menu);
 		return $menu;
 	}
 
@@ -839,7 +839,7 @@ class evangelical_mag_theme {
 	public static function add_search_button_to_nav_bar ($menu, $args) {
 		if ($args->theme_location === 'primary') {
 			$output = $menu."<li class=\"menu-item search\"><a href=\"#\"><span class=\"dashicons dashicons-search\"></span></a>";
-			$output .="<ul class=\"sub-menu sub-menu-search\"><div class=\"wrap\"><li id=\"\" class=\"menu-item\">".get_search_form(false)."</li></div></ul></li>";
+			$output .="<ul class=\"sub-menu sub-menu-search\"><li class=\"wrap\"><ul><li id=\"\" class=\"menu-item\">".get_search_form(false)."</li><//ul></li></ul></li>";
 			return $output;
 		} else {
 			return $menu;
