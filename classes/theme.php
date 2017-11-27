@@ -559,6 +559,9 @@ class evangelical_mag_theme {
 				}
 				$output .= "<div class=\"grid-author-container\"><a href=\"{$author->get_link()}\" class=\"grid-author-image image-fit\" style=\"background-image:url('{$author->get_image_url('thumbnail')}')\"></a><div class=\"author-name-description\"><div class=\"author-name\">{$author->get_name(true)}</div><div class=\"author-description\">{$author->get_filtered_content()}</div><div class=\"author-article-count\"><a href=\"{$author->get_link()}\">{$author->get_article_count(true, true)}</a></div></div></div>";
 			}
+			if ($previous_letter != '') {
+				$output .= "</div>";
+			}
 			if ($output_index) {
 				$index = '<div id="author-index">';
 				$letters_needed = array_unique(array_merge(range('A','Z'),str_split($letters_used)));
