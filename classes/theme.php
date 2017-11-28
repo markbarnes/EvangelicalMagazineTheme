@@ -26,7 +26,6 @@ class evangelical_mag_theme {
 		add_action ('wp_head', array (__CLASS__, 'add_rss_feeds'));
 		add_action ('wp_head', array (__CLASS__, 'configure_reftagger'));
 		add_action ('wp_head', array (__CLASS__, 'add_icons_to_head'));
-		add_action ('wp_head', array (__CLASS__, 'add_link_prefetching_to_head'));
 		add_filter ('genesis_pre_load_favicon', array (__CLASS__, 'return_favicon_url'));
 		add_filter ('wp_resource_hints', array(__CLASS__, 'filter_resource_hints'), 10, 2 );
 		// Menu
@@ -939,7 +938,7 @@ class evangelical_mag_theme {
 	*
 	*/
 	public static function configure_reftagger() {
-		echo "<script>var refTagger = {settings: {bibleVersion: \"NIV\",libronixBibleVersion: \"DEFAULT\",addLogosLink: false,appendIconToLibLinks: false,libronixLinkIcon: \"dark\",noSearchClassNames: [],useTooltip: true,noSearchTagNames: [\"h1\"],linksOpenNewWindow: true,convertHyperlinks: false,caseInsensitive: false,tagChapters: true}};(function(d, t) {var g = d.createElement(t), s = d.getElementsByTagName(t)[0];g.src = '".get_stylesheet_directory_uri()."/js/reftagger.js';s.parentNode.insertBefore(g, s);}(document, 'script'));</script>\r\n";
+		echo "<script>var refTagger = {settings: {bibleVersion: \"NIV\",libronixBibleVersion: \"DEFAULT\",addLogosLink: false,appendIconToLibLinks: false,libronixLinkIcon: \"dark\",noSearchClassNames: [],useTooltip: true,noSearchTagNames: [\"h1\"],linksOpenNewWindow: true,convertHyperlinks: false,caseInsensitive: false,tagChapters: true}};(function(d, t) {var g = d.createElement(t), s = d.getElementsByTagName(t)[0];g.src = '".get_stylesheet_directory_uri()."/js/reftagger.js?".CHILD_THEME_VERSION."';s.parentNode.insertBefore(g, s);}(document, 'script'));</script>\r\n";
 	}
 
 	/**
@@ -1120,20 +1119,6 @@ class evangelical_mag_theme {
 	}
 
 	/**
-	* Adds link prefetching to the HEAD section
-	*
-	* Called on the wp_head action
-	*
-	* Should speed up http connections slightly in some modern browsers
-	*/
-	public static function add_link_prefetching_to_head() {
-		echo "\t<link rel=\"preconnect\" href=\"//connect.facebook.net\">\r\n";
-		echo "\t<link rel=\"preconnect\" href=\"//bible.logos.com\">\r\n";
-		echo "\t<link rel=\"preconnect\" href=\"//staticxx.facebook.com\">\r\n";
-		echo "\t<link rel=\"preconnect\" href=\"//www.facebook.com\">\r\n";
-	}
-
-	/**
 	* Adds the Facbook app ID to the HEAD section of the homepage
 	*
 	* Called on the wp_head action
@@ -1169,26 +1154,37 @@ class evangelical_mag_theme {
 	}
 
 	/**
-	* Remove unwanted hosts from DNS pre-fetching and add others
+	* Performance improvements in resource hints
 	*
 	* @param array $urls
 	* @param string $relation_type
 	* @return array
 	*/
 	public static function filter_resource_hints ($urls, $relation_type) {
+		// Don't prefetch emojis
 		if ($relation_type == 'dns-prefetch') {
 			foreach ($urls as $key => $value) {
 				if (strpos ($value, 'https://s.w.org/images/core/emoji/') !== false) {
 					unset($urls[$key]);
 				}
 			}
-			//Add CDN to DNS prefetch if using BunnyCDN plugin
+		}
+		elseif ($relation_type == 'preconnect') {
+			//Preconnect to CDN if using BunnyCDN plugin
 			if (method_exists('BunnyCDN', 'getOptions')) {
 				$cdn_options = BunnyCDN::getOptions();
 				if (isset($cdn_options['cdn_domain_name']) && $cdn_options['cdn_domain_name']) {
-					$urls[] = $cdn_options['cdn_domain_name'];
+					$urls[] = array('href' => $cdn_options['cdn_domain_name'], 'crossorigin' => 'crossorigin');
 				}
 			}
+			//Add Reftagger domains
+			$urls = array_merge($urls, array ('https://api.reftagger.com/', 'https://reftaggercdn.global.ssl.fastly.net/'));
+			//Add Beaconads domains
+			$urls = array_merge($urls, array ('https://cdn.beaconads.com/'));
+			//Add Google Analytics
+			$urls = array_merge($urls, array ('https://www.google-analytics.com/'));
+			//Add Facebook domains
+			$urls = array_merge($urls, array ('https://connect.facebook.net/', 'https://static.xx.fbcdn.net/', 'https://staticxx.facebook.com/', 'https://web.facebook.com/', 'https://www.facebook.com/'));
 		}
 		return $urls;
 	}
