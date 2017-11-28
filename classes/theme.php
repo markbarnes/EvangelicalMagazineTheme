@@ -1168,10 +1168,27 @@ class evangelical_mag_theme {
 		return $attributes;
 	}
 
+	/**
+	* Remove unwanted hosts from DNS pre-fetching and add others
+	*
+	* @param array $urls
+	* @param string $relation_type
+	* @return array
+	*/
 	public static function filter_resource_hints ($urls, $relation_type) {
 		if ($relation_type == 'dns-prefetch') {
-			$emoji_svg_url = apply_filters ('emoji_svg_url', 'https://s.w.org/images/core/emoji/2/svg/');
-			$urls = array_diff ($urls, array ($emoji_svg_url));
+			foreach ($urls as $key => $value) {
+				if (strpos ($value, 'https://s.w.org/images/core/emoji/') !== false) {
+					unset($urls[$key]);
+				}
+			}
+			//Add CDN to DNS prefetch if using BunnyCDN plugin
+			if (method_exists('BunnyCDN', 'getOptions')) {
+				$cdn_options = BunnyCDN::getOptions();
+				if (isset($cdn_options['cdn_domain_name']) && $cdn_options['cdn_domain_name']) {
+					$urls[] = $cdn_options['cdn_domain_name'];
+				}
+			}
 		}
 		return $urls;
 	}
