@@ -24,27 +24,18 @@ class evangelical_mag_home_page {
 	*
 	*/
 	public static function do_most_recent_articles() {
-		$latest_issues = evangelical_magazine_issue::get_all_issues(20);
+		$latest_issues = evangelical_magazine_issue::get_all_issues(1);
 		if ($latest_issues) {
 			//Output the cover of the most recent issue
 			echo '<aside id="recent-articles">';
 			echo "<a href=\"{$latest_issues[0]->get_link()}\"><div id=\"latest-cover\" class=\"box-shadow-transition image-fit\" style=\"background-image: url('{$latest_issues[0]->get_image_url('issue_medium')}')\"></div></a>";
-			//Get the seven most recent articles from these issues
-			$articles = array();
-			foreach ($latest_issues as $issue) {
-				$these_articles = $issue->get_articles();
-				if ($these_articles) {
-					$articles = array_merge ($articles, $these_articles);
-					if (count($articles) >= 7) {
-						break;
-					}
-				}
-			}
+			//Get the seven most recently published articles
+			$articles = evangelical_magazine_article::get_recent_articles(7);
 			$next = evangelical_magazine_article::get_next_future_article();
 			if ($next) {
-				$articles = array_merge (array($next), $articles);
+				array_unshift($articles, $next);
+				$articles = array_slice ($articles, 0, 7);
 			}
-			$articles = array_slice ($articles, 0, 7);
 			// Output these articles
 			$article_ids = array();
 			if ($articles) {
