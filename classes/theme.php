@@ -308,7 +308,7 @@ class evangelical_mag_theme {
 				if ($also_by) {
 					if ($is_single_author) {
 						$author = current ($authors);
-						echo '<h3>'.$author->get_name(true, false, 'Also by ').'</h3>';
+						echo '<h3>Also by '.$author->get_name(true, false, 'Also by ').'</h3>';
 					} else {
 						echo '<h3>Also by these authors</h3>';
 					}
