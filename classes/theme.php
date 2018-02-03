@@ -298,7 +298,7 @@ class evangelical_mag_theme {
 		}
 		$excluded_articles = array();
 		if ($authors) {
-			$is_single_author = count($authors) == 1;
+			$is_single_author = (count($authors) == 1);
 			echo "<div class =\"author-meta\"><h2>About the author".($is_single_author ? '' : 's')."</h2>";
 			foreach ($authors as $author) {
 				echo $author->get_author_info_html();
@@ -308,7 +308,7 @@ class evangelical_mag_theme {
 				if ($also_by) {
 					if ($is_single_author) {
 						$author = current ($authors);
-						echo '<h3>Also by '.$author->get_name(true, false, 'Also by ').'</h3>';
+						echo '<h3>Also by '.$author->get_name(true, false).'</h3>';
 					} else {
 						echo '<h3>Also by these authors</h3>';
 					}

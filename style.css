@@ -4,7 +4,7 @@ Theme URI: http://www.evangelicalmagazine.com
 Description: Custom theme for the Evangelical Magazine
 Author: Mark Barnes
 Author URI: http://www.markbarnes.net/
-Version: 0.87
+Version: 0.88
 Template: genesis
 Template Version: 2.2.0
 Tags: one-column, two-columns, three-columns, left-sidebar, right-sidebar, responsive-layout, custom-menu, full-width-template, rtl-language-support, sticky-post, theme-options, threaded-comments
@@ -1033,6 +1033,13 @@ img.alignright,
 .widget_evangelical_magazine_current_issue .cover-image {
 	width: 360px;
 	height: 509px;
+}
+
+/* ## Beacon Ads Widget
+--------------------------------------------- */
+
+.widget_evangelical_magazine_beacon_ad {
+	background-color: transparent;
 }
 
 /* ## Featured Content
