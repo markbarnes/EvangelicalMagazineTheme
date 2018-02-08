@@ -10,24 +10,26 @@
 * @access public
 */
 
-//* Start the engine
-include_once (get_template_directory() . '/lib/init.php' );
-require ('classes/theme.php');
-require ('classes/home_page.php');
-require ('classes/microdata.php');
-
-//* Child theme
 define( 'CHILD_THEME_NAME', 'Evangelical Magazine Theme' );
 define( 'CHILD_THEME_URL', 'http://www.evangelicalmagazine.com/' );
-define( 'CHILD_THEME_VERSION', '0.9' );
+define( 'CHILD_THEME_VERSION', '0.91' );
+
+//* Start the engine
+include_once (get_template_directory() . '/lib/init.php' );
+
+//Make sure classes autoload
+spl_autoload_register('evangelical_mag_autoload_classes');
 
 add_action ('wp', array ('evangelical_mag_theme', 'set_everything_up'));
 add_filter ('intermediate_image_sizes_advanced', array ('evangelical_mag_theme', 'remove_default_image_sizes'));
 add_filter ('wp_generate_attachment_metadata',array ('evangelical_mag_theme', 'enhance_media_images'));
 
-//* Theme support
+// Theme support
 add_theme_support( 'html5', array('search-form', 'comment-form', 'comment-list', 'gallery', 'caption')); //* Add HTML5 markup structure
 add_theme_support( 'genesis-accessibility', array( 'headings', 'search-form', 'skip-links', 'rems' ) ); //* Add Accessibility support
+
+// Widgets
+add_action ('widgets_init', array ('evangelical_mag_widgets', 'register_widgets'));
 
 // Add image sizes
 add_image_size ('facebook_share', 1200, 630, true);
@@ -43,5 +45,17 @@ add_image_size ('article_small', 210, 140, true);
 add_image_size ('issue_small', 150, 212, true);
 add_image_size ('author_small', 105, 105, true);
 add_image_size ('author_tiny', 75, 75, true);
-
 add_filter ('image_size_names_choose', array ('evangelical_mag_theme', 'add_image_sizes_to_media_gallery'));
+
+/**
+* Autoloads classes
+*
+* @param string $class_name
+* @return void
+*/
+function evangelical_mag_autoload_classes($class_name) {
+	$prefix  = 'evangelical_mag_';
+	if (strpos($class_name, $prefix) === 0) {
+		require (plugin_dir_path(__FILE__).'classes/'.substr($class_name, strlen($prefix))).'.php';
+	}
+}
