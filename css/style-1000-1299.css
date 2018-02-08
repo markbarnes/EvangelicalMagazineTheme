@@ -1,8 +1,8 @@
 @media only screen and (min-width: 1000px) and (max-width: 1299px) {
-	
+
 /* Basic set up (scaling x0.8)
 
-   Targeted at iPads in landscape (1024) 
+   Targeted at iPads in landscape (1024)
    -----------------------------------------  */
 
 body {
@@ -58,7 +58,7 @@ h4 {
 
 #menu-primary .menu-item-type-custom a {
    pointer-events: none;
-   cursor: default;	
+   cursor: default;
 }
 
 #menu-primary .menu-item-type-custom .sub-menu a  {
@@ -282,12 +282,12 @@ body.post-type-archive-em_issue .issue-contents {
    ------------------  */
 
 body.single-em_issue .entry-header {
-	width: 200px;
-	height: 282px;
+	width: 230px;
+	height: 325px;
 }
 
 body.single-em_issue .entry-content > div:first-of-type {
-	width: 200px;
+	width: 230px;
 }
 
 body.single-em_issue .entry-content .article-list-box {
@@ -340,7 +340,7 @@ body.single-em_author .large-image .article-list-box-image {
 
 /* Author archive page
    -------------------  */
-   
+
 .grid-author-image {
 	width: 75px;
 	height: 75px;
@@ -358,10 +358,10 @@ body.single-em_author .large-image .article-list-box-image {
 .grid-author-container .author-name-description {
 	width: 160px;
 }
-   
+
 /* Single section page
    -------------------  */
-   
+
 .section-page .article-list-box li {
 	width: 250px;
 }

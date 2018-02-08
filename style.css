@@ -4,7 +4,7 @@ Theme URI: http://www.evangelicalmagazine.com
 Description: Custom theme for the Evangelical Magazine
 Author: Mark Barnes
 Author URI: http://www.markbarnes.net/
-Version: 0.88
+Version: 0.9
 Template: genesis
 Template Version: 2.2.0
 Tags: one-column, two-columns, three-columns, left-sidebar, right-sidebar, responsive-layout, custom-menu, full-width-template, rtl-language-support, sticky-post, theme-options, threaded-comments
@@ -582,7 +582,7 @@ th {
 
 .content {
 	float: right;
-	width: 800px;
+	width: 860px;
 	background-color: white;
 	margin-bottom: 40px
 }
@@ -607,7 +607,7 @@ th {
 
 .sidebar-primary {
 	float: right;
-	width: 360px;
+	width: 300px;
 	margin-bottom: 40px;
 }
 
@@ -923,6 +923,7 @@ img.alignright,
 .widget_evangelical_magazine_most_popular .popular_article {
 	overflow:hidden;
 	clear: both;
+	font-size: 14px;
 }
 
 .widget_evangelical_magazine_most_popular .popular-article-cover {
@@ -936,6 +937,7 @@ img.alignright,
 	background-color: #086788;
 	color: white;
 	padding-bottom: 0;
+	font-size: 16px;
 }
 
 .widget_evangelical_magazine_most_popular .popular_article:first-child a {
@@ -943,8 +945,8 @@ img.alignright,
 }
 
 .widget_evangelical_magazine_most_popular .popular_article:first-child .popular-article-cover {
-	width: 360px;
-	height: 240px;
+	width: 300px;
+	height: 200px;
 	margin: 0;
 }
 
@@ -968,8 +970,8 @@ img.alignright,
 --------------------------------------------- */
 
 .widget_evangelical_magazine_subscribe_print .subscription-image {
-	width:386px;
-	height:350px;
+	width:318px;
+	height:289px;
 }
 
 .widget_evangelical_magazine_subscribe_online {
@@ -1031,8 +1033,8 @@ img.alignright,
 --------------------------------------------- */
 
 .widget_evangelical_magazine_current_issue .cover-image {
-	width: 360px;
-	height: 509px;
+	width: 300px;
+	height: 424px;
 }
 
 /* ## Beacon Ads Widget
@@ -1671,11 +1673,11 @@ p.entry-meta {
 }
 
 .small-article-box:nth-of-type(3n-2) {
-	margin-right: 25px;
+	margin-right: 55px;
 }
 
 .small-article-box:nth-of-type(3n) {
-	margin-left: 25px;
+	margin-left: 55px;
 }
 
 .small-article-box .sub-title {
@@ -1764,7 +1766,7 @@ p.entry-meta {
 
 .grid-author-container {
 	display: inline-block;
-	width: 320px;
+	width: 350px;
 	vertical-align: top;
 	margin-bottom: 25px;
 }
@@ -1784,7 +1786,7 @@ p.entry-meta {
 }
 
 .grid-author-container .author-name-description {
-	width: 200px;
+	width: 230px;
 	display: inline-block;
 	vertical-align: top;
 	font-family: Lato, sans-serif;
@@ -1831,8 +1833,8 @@ body.single-em_article .entry-title-series a {
 --------------------------------------------- */
 
 body.single-em_author .entry-header {
-	height: 253px;
-	width: 253px;
+	height: 320px;
+	width: 320px;
 	float: left;
 	box-shadow: none;
 	margin-bottom: 20px;
@@ -1845,7 +1847,7 @@ body.single-em_author .entry-title {
 
 body.single-em_author .entry-content > div:first-of-type {
 	float:left;
-	width: 260px;
+	width: 320px;
 }
 
 body.single-em_author .entry-content .article-list-box {
@@ -1864,8 +1866,8 @@ body.single-em_author .article-list-box-author {
 --------------------------------------------- */
 
 body.single-em_issue .entry-header {
-	height: 359px;
-	width: 250px;
+	height: 480px;
+	width: 320px;
 	float: left;
 	box-shadow: none;
 	margin-bottom: 20px;
@@ -1880,7 +1882,7 @@ body.single-em_issue .entry-title {
 
 body.single-em_issue .entry-content > div:first-of-type {
 	float:left;
-	width: 260px;
+	width: 320px;
 }
 
 body.single-em_issue .article-list-box li:first-child {
@@ -1927,7 +1929,7 @@ body.post-type-archive-em_issue .issue-contents {
 	line-height: 18px;
 	font-family: Lato;
 	float: left;
-	width: 450px;
+	width: 510px;
 }
 
 body.post-type-archive-em_issue .issue-contents .article-title {

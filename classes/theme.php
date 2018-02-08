@@ -254,12 +254,14 @@ class evangelical_mag_theme {
 	*
 	*/
 	public static function add_before_start_of_article() {
-		global $post;
+		global $post, $_wp_additional_image_sizes;
 		$article = new evangelical_magazine_article($post);
 		$date = $article->get_issue_datetime();
 		$logo = get_template_directory_uri().'/images/emw-logo.png';
 		$microdata = new evangelical_mag_microdata();
-		echo $microdata->get_ImageObject($article->get_image_url('article_header'), 800, 400);
+		if (isset($_wp_additional_image_sizes['article_header'])) {
+			echo $microdata->get_ImageObject($article->get_image_url('article_header'), $_wp_additional_image_sizes['article_header']['width'], $_wp_additional_image_sizes['article_header']['height']);
+		}
 		echo $microdata->get_datePublished($article->get_issue_datetime());
 		echo $microdata->get_dateModified($article->get_post_datetime());
 		echo $microdata->get_publisher('Evangelical Movement of Wales', 'https://www.emw.org.uk/', $logo);
@@ -444,7 +446,7 @@ class evangelical_mag_theme {
 				$author_menu = '<ul class="sub-menu sub-menu-authors"><li class="wrap"><ul>';
 				foreach ($authors as $author) {
 					$author_menu .= "<li id=\"menu-item-author-{$author->get_id()}\" class=\"menu-item menu-item-type-author menu-item-author-{$author->get_id()}\">";
-					$author_menu .= "<a href=\"{$author->get_link()}\" itemprop=\"url\">{$author->get_image_html ('square_thumbnail_tiny')}<span itemprop=\"name\">{$author->get_name()}</span></a></li>";
+					$author_menu .= "<a href=\"{$author->get_link()}\" itemprop=\"url\">{$author->get_image_html ('author_tiny')}<span itemprop=\"name\">{$author->get_name()}</span></a></li>";
 				}
 				$author_menu .= "<li id=\"menu-item-more-authors\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-more-authors\"><a href=\"".get_post_type_archive_link ('em_author')."\" itemprop=\"url\"><span itemprop=\"name\">More&hellip;</span></a></li>";
 				$author_menu .= '</ul>';  // The closing div will be added by the str_replace at the end of the function
@@ -557,7 +559,7 @@ class evangelical_mag_theme {
 						$letters_used .= $current_letter;
 					}
 				}
-				$output .= "<div class=\"grid-author-container\"><a href=\"{$author->get_link()}\" class=\"grid-author-image image-fit\" style=\"background-image:url('{$author->get_image_url('thumbnail')}')\"></a><div class=\"author-name-description\"><div class=\"author-name\">{$author->get_name(true)}</div><div class=\"author-description\">{$author->get_filtered_content()}</div><div class=\"author-article-count\"><a href=\"{$author->get_link()}\">{$author->get_article_count(true, true)}</a></div></div></div>";
+				$output .= "<div class=\"grid-author-container\"><a href=\"{$author->get_link()}\" class=\"grid-author-image image-fit\" style=\"background-image:url('{$author->get_image_url('author_small')}')\"></a><div class=\"author-name-description\"><div class=\"author-name\">{$author->get_name(true)}</div><div class=\"author-description\">{$author->get_filtered_content()}</div><div class=\"author-article-count\"><a href=\"{$author->get_link()}\">{$author->get_article_count(true, true)}</a></div></div></div>";
 			}
 			if ($previous_letter != '') {
 				$output .= "</div>";
@@ -793,7 +795,7 @@ class evangelical_mag_theme {
 	public static function do_post_image_for_search () {
 		$object = evangelical_magazine::get_object_from_id(get_the_ID());
 		if ($object) {
-			$size = $object->is_author() ? 'square_thumbnail_tiny' : ($object->is_article() ? 'article_small' : 'issue_medium');
+			$size = $object->is_author() ? 'author_tiny' : ($object->is_article() ? 'article_small' : 'issue_medium');
 			echo $object->get_image_html($size, true, 'search-thumbnail');
 		} else {
 			if (has_post_thumbnail()) {

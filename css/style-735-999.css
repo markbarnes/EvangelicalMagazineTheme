@@ -2,7 +2,7 @@
 
 /* Targeted at iPads in Portrait (768px), and iPhone 6+ in landscape (736px)
 
-Basic set up 
+Basic set up
 ----------------------------- */
 
 body {
@@ -68,13 +68,13 @@ h4 {
 
 #menu-primary .menu-item-type-custom a {
    pointer-events: none;
-   cursor: default;	
+   cursor: default;
 }
 
 #menu-primary .menu-item-type-custom .sub-menu a  {
 	pointer-events: auto;
 	cursor: auto;
-}	
+}
 
 .nav-primary .search .dashicons-search {
 	font-size: 27px;
@@ -178,7 +178,7 @@ input, select, textarea {
 
 /* Widgets (2 column, below)
    -------------------------  */
-   
+
 .sidebar-primary,
 .title-area {
 	width: 730px;
@@ -186,13 +186,13 @@ input, select, textarea {
 
 .sidebar .widget {
 	display:inline-block;
-	width: 340px;
+	width: 300px;
 	vertical-align: top;
 	margin-top: 0;
 }
 
 .sidebar .widget:nth-of-type(even) {
-	margin-left: 46px;
+	margin-left: 126px;
 }
 
 .sidebar .widget-title {
@@ -206,16 +206,6 @@ input, select, textarea {
 .sidebar li {
 	margin-bottom: 8px;
 	padding-bottom: 8px;
-}
-
-.sidebar .widget_evangelical_magazine_subscribe_print .widget-wrap >a >div {
-	width: 372px;
-	height: 337px;
-}
-
-.sidebar .widget_evangelical_magazine_current_issue .cover-image {
-	width: 340px;
-	height: 480px;
 }
 
 /* Home page
@@ -398,8 +388,8 @@ body.single-em_issue .entry-content .article-list-box {
 	clear: both;
 	margin-bottom: 0;
 	border-top: 1px solid #086788;
-	padding-top: 15px; 
-}   
+	padding-top: 15px;
+}
 
 body.single-em_issue .entry-content .article-list-box ol {
 	margin-left: 0;
@@ -418,11 +408,11 @@ body.single-em_issue .article-list-box .title-author-wrapper {
 
 body.single-em_issue .article-list-author {
 	font-size: 18px;
-}	
+}
 
 /* Author archive page
    -------------------  */
-   
+
 .grid-author-container {
 	width: 315px;
 	margin-bottom: 30px;
@@ -440,14 +430,14 @@ body.single-em_issue .article-list-author {
 .grid-author-container .author-name-description {
 	width: 225px;
 }
-   
+
 /* Single author page
    -------------------  */
 
 body.single-em_author h3.articles_by {
 	font-size: 36px;
 }
-   
+
 body.single-em_author .entry-content {
 	padding-bottom: 5px;
 }
@@ -466,7 +456,7 @@ body.single-em_author .entry-content {
 .post-type-archive-em_section .section-list .article-authors a {
 	font-weight: 400;
 }
-   
+
 /* Single section page
    -------------------  */
 
@@ -508,5 +498,18 @@ body.search-results .em_author .entry-content > div {
 	width: 540px;
 	margin-left: 30px;
 }
+
+/* # Article boxes
+------------------ */
+
+.small-article-box:nth-of-type(3n-2) {
+	margin-right: 30px;
+}
+
+.small-article-box:nth-of-type(3n) {
+	margin-left: 30px;
+}
+
+
 
 }
