@@ -309,6 +309,11 @@ body.home #sections .article-list-box-title {
 	margin-top: -17.5px;
 }
 
+.after-article #subscription-form .gform_wrapper .ginput_complex .name_first,
+.after-article #subscription-form .gform_wrapper .ginput_complex .name_last {
+	width: 308px;
+}
+
 body.full-size-header-image .entry-header {
 	height: 310px;
 }

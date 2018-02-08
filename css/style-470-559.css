@@ -2,7 +2,7 @@
 
 /* Targeted at iPhone 4s and below in landscape (480px)
 
-Basic set up 
+Basic set up
 ----------------------------- */
 
 body {
@@ -66,13 +66,13 @@ h4 {
 
 #menu-primary .menu-item-type-custom a {
    pointer-events: none;
-   cursor: default;	
+   cursor: default;
 }
 
 #menu-primary .menu-item-type-custom .sub-menu a  {
 	pointer-events: auto;
 	cursor: auto;
-}	
+}
 
 .nav-primary .search .dashicons-search {
 	font-size: 27px;
@@ -189,7 +189,7 @@ input, select, textarea {
 
 /* Widgets (1 column, below)
    -------------------------  */
-   
+
 .sidebar-primary,
 .title-area {
 	width: 450px;
@@ -244,7 +244,7 @@ input, select, textarea {
 .site-footer {
 	text-align: center;
 }
-   
+
 .site-footer .logo {
 	display: inline-block;
 	float: none;
@@ -342,6 +342,24 @@ body.home #sections .article-list-box-title a {
 .after-article {
 	padding: 0 35px 15px 35px;
 	margin-top: -17.5px;
+}
+
+.after-article #subscription-form .gform_wrapper .ginput_complex .name_first,
+.after-article #subscription-form .gform_wrapper .ginput_complex .name_last {
+	width: 169px;
+}
+
+.after-article #subscription-form .gform_wrapper .ginput_container span:not(.ginput_price) {
+	display: inline-block;
+	margin-bottom: 0;
+}
+
+.after-article #subscription-form .gform_wrapper li.field_sublabel_below .ginput_complex {
+	margin-top:0 !important;
+}
+
+.after-article #subscription-form div.ginput_container_name span {
+	padding-right: 16px;
 }
 
 body.full-size-header-image .entry-header {
@@ -456,8 +474,8 @@ body.single-em_issue .entry-content .article-list-box {
 	clear: both;
 	margin-bottom: 0;
 	border-top: 1px solid #086788;
-	padding-top: 15px; 
-}   
+	padding-top: 15px;
+}
 
 body.single-em_issue .entry-content .article-list-box ol {
 	margin-left: 0;
@@ -483,11 +501,11 @@ body.single-em_issue .article-list-box-title {
 
 body.single-em_issue .article-list-author {
 	font-size: 18px;
-}	
+}
 
 /* Author archive page
    -------------------  */
-   
+
 .grid-author-container {
 	width: 100%;
 	margin-bottom: 30px;
@@ -510,7 +528,7 @@ body.single-em_issue .article-list-author {
 .grid-author-container .author-name-description {
 	width: 290px;
 }
-   
+
 /* Single author page
    -------------------  */
 
@@ -551,28 +569,28 @@ body.single-em_author .article-list-box .title-author-wrapper {
 
 .post-type-archive-em_section .issue-contents {
 	font-size: 16px;
-	line-height: 1.4; 
+	line-height: 1.4;
 }
 
 .post-type-archive-em_section .section-list .article-authors a {
 	font-weight: 400;
 }
-   
+
 .section-page .article-list-box li:nth-of-type(2) {
 	border-top: 1px solid #086788;
 	padding-top: 15px;
 }
-   
+
 /* Single section page
    -------------------  */
-   
+
 body.single-em_section .entry-content .article-list-box {
 	width: 100%;
 	clear: both;
 	margin-bottom: 0;
 	border-top: 1px solid #086788;
-	padding-top: 15px; 
-}   
+	padding-top: 15px;
+}
 
 body.single-em_section .entry-content .article-list-box ol {
 	margin: 0;
@@ -619,7 +637,7 @@ body.single-em_section .article-list-box-title {
 
 body.single-em_section .article-list-author {
 	font-size: 18px;
-}	
+}
 
 
 /* Search page

@@ -4,7 +4,7 @@ Theme URI: http://www.evangelicalmagazine.com
 Description: Custom theme for the Evangelical Magazine
 Author: Mark Barnes
 Author URI: http://www.markbarnes.net/
-Version: 0.91
+Version: 0.92
 Template: genesis
 Template Version: 2.2.0
 Tags: one-column, two-columns, three-columns, left-sidebar, right-sidebar, responsive-layout, custom-menu, full-width-template, rtl-language-support, sticky-post, theme-options, threaded-comments
@@ -1546,6 +1546,47 @@ body.full-size-header-image .entry-header {
 .after-article {
 	padding: 0 60px 30px 60px;
 	margin-top: -30px;
+}
+
+.after-article #subscription-form {
+	margin-bottom: 20px;
+}
+
+
+.after-article #subscription-form .title {
+	padding-bottom: 0;
+}
+
+.after-article #subscription-form .gform_wrapper {
+	clear: both;
+}
+
+.after-article #subscription-form .gform_wrapper .ginput_complex .name_first,
+.after-article #subscription-form .gform_wrapper .ginput_complex .name_last {
+	width: 348px;
+}
+
+.after-article #subscription-form .name_first input,
+.after-article #subscription-form .name_last input {
+	width: 100%;
+}
+
+.after-article #subscription-form .gform_wrapper .ginput_complex .name_last {
+	margin-right: 0;
+	padding-right: 0;
+}
+
+.after-article #subscription-form input[type=email] {
+	width: 700px;
+}
+
+.after-article #subscription-form .gform_footer {
+	margin-top: 16px;
+	margin-left: 0;
+}
+
+.after-article #subscription-form .nospam {
+	font-size: 12px;
 }
 
 img.size-full-post-width {
