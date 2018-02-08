@@ -1193,9 +1193,11 @@ class evangelical_mag_theme {
 			//Add Reftagger domains
 			$urls = array_merge($urls, array ('https://api.reftagger.com/', 'https://reftaggercdn.global.ssl.fastly.net/'));
 			//Add Beaconads domains
-			$urls = array_merge($urls, array ('https://cdn.beaconads.com/'));
+			if (is_active_widget(false, false, 'evangelical_magazine_beacon_ad')) {
+				$urls = array_merge($urls, array ('https://cdn.beaconads.com/','https://s3.buysellads.com/','https://srv.buysellads.com/'));
+			}
 			//Add Google Analytics
-			$urls = array_merge($urls, array ('https://www.google-analytics.com/'));
+			$urls = array_merge($urls, array ('https://www.googletagmanager.com/', 'https://www.google-analytics.com/'));
 			//Add Facebook domains
 			$urls = array_merge($urls, array ('https://connect.facebook.net/', 'https://static.xx.fbcdn.net/', 'https://staticxx.facebook.com/', 'https://web.facebook.com/', 'https://www.facebook.com/'));
 		}
