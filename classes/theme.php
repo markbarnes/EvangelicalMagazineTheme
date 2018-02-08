@@ -300,9 +300,9 @@ class evangelical_mag_theme {
 		echo "<div class=\"after-article\">";
 		// Email subscription form
 		if (function_exists ('gravity_form')) {
-				echo "<aside id=\"subscription-form\"><p class=\"title\">Get the latest articles direct by email every week:</p>";
+				echo "<aside id=\"subscription-form\"><p class=\"title\">Want more like this? Get the latest articles direct by email every week:</p>";
 				gravity_form (1, false);
-				echo "<p class=\"nospam\">Your personal details are safe. We won’t spam you, or pass on your details to anyone else. You can unsubscribe at any time.</p></aside>";
+				echo "<p class=\"nospam\">Your personal details are safe. We won’t spam you, or pass your details onto anyone else. You can unsubscribe at any time.</p></aside>";
 		}
 		// Facebook buttons
 		echo "<h3>Like or share this article</h3><div style=\"margin-bottom: 2em\" class=\"fb-like\" data-href=\"{$article->get_link()}\" data-width=\"680\" data-layout=\"standard\" data-action=\"like\" data-show-faces=\"true\" data-share=\"true\"></div>\r\n";
