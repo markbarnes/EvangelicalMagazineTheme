@@ -205,12 +205,54 @@ class evangelical_magazine_facebook_page_plugin extends WP_Widget {
 class evangelical_magazine_beacon_ad extends WP_Widget {
 
 	/**
+	 * Default instance.
+	 *
+	 * @var array
+	 */
+	protected $default_instance = array(
+		'zone' => 'Name of zone',
+		'ad_code' => '',
+	);
+
+	/**
 	* Instantiate the widget
 	*
 	* @return void
 	*/
 	function __construct() {
-		parent::__construct('evangelical_magazine_beacon_ad', 'Beacon Ads Plugin (Not finished)', array ('description' => 'Inserts an ad from Beacon Ads.'));
+		parent::__construct('evangelical_magazine_beacon_ad', 'Beacon Ads Plugin', array ('description' => 'Inserts an ad from Beacon Ads.'));
+	}
+
+	/**
+	* Displays the widget options
+	*
+	* @param array $instance - current instance
+	* @return void
+	*/
+	public function form ($instance) {
+		$instance = wp_parse_args ((array)$instance, $this->default_instance);
+		echo "<p><label for=\"{$this->get_field_id ('zone')}\">Zone:</label>";
+		echo "<input id=\"{$this->get_field_id ('zone')}\" name=\"{$this->get_field_name ('zone')}\" class=\"widefat title\" value=\"".esc_attr($instance ['zone'])."\"></p>";
+		echo "<p><label for=\"{$this->get_field_id ('ad_code')}\">Ad code (from step 2):</label>";
+		echo "<textarea id=\"{$this->get_field_id ('ad_code')}\" name=\"{$this->get_field_name ('ad_code')}\" class=\"widefat content\" style=\"height:100px\">".esc_textarea($instance['ad_code'])."</textarea></p>";
+	}
+
+	/**
+	* Handles updating the options
+	*
+	* @param array $new_instance  - the new settings for this instance
+	* @param array $old_instance - the old settings for this instance
+	* @return array|bool - settings to save or false to cancel
+	*/
+	public function update ($new_instance, $old_instance) {
+		$instance = array_merge($this->default_instance, $old_instance);
+		$instance['zone'] = sanitize_text_field ($new_instance['zone']);
+		if (current_user_can ('unfiltered_html')) {
+			$instance['ad_code'] = $new_instance['ad_code'];
+		} else {
+			$instance['ad_code'] = wp_kses_post($new_instance['ad_code']);
+		}
+		return $instance;
 	}
 
 	/**
@@ -222,7 +264,7 @@ class evangelical_magazine_beacon_ad extends WP_Widget {
 	*/
 	public function widget ($args, $instance) {
 		echo $args['before_widget'];
-		echo '<div id="bsap_1304381" class="bsarocks bsap_da154a6c34ffdee37c6b8e74ed808dfe"></div>';
+		echo $instance['ad_code'];
 		echo $args['after_widget'];
 	}
 }
