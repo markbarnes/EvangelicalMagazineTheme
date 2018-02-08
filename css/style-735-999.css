@@ -491,6 +491,13 @@ body.single-em_author .entry-content {
 	font-size: 18px;
 }
 
+/* Single series page
+   -------------------  */
+
+.series-page .article-list-box li .title-author-wrapper {
+	width: 375px;
+}
+
 /* Search page
    -----------  */
 

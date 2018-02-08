@@ -639,6 +639,21 @@ body.single-em_section .article-list-author {
 	font-size: 18px;
 }
 
+/* Single series page
+   -------------------  */
+
+body.single-em_series .article-list-box h3 {
+	display: none;
+}
+
+body.single-em_series .article-list-box .article-list-box-image {
+	width: 150px;
+	height: 100px;
+}
+
+.series-page .article-list-box li .title-author-wrapper {
+	width: 220px;
+}
 
 /* Search page
    -----------  */

@@ -78,8 +78,8 @@ class evangelical_mag_theme {
 			add_action ('genesis_entry_header', 'genesis_post_info', 16);
 			// Filter the post_info
 			add_filter ('genesis_post_info', array (__CLASS__, 'filter_post_info'));
-			// Filter the title
-			add_filter ('genesis_post_title_output', array (__CLASS__, 'filter_post_title'));
+			// Add series info to the title, if required
+			add_filter ('genesis_post_title_output', array (__CLASS__, 'add_series_to_title'));
 			// Adds Facebook javascript SDK for social media buttons
 			add_action ('genesis_before', array (__CLASS__, 'output_facebook_javascript_sdk'));
 			// Add some schema.org meta
@@ -122,6 +122,15 @@ class evangelical_mag_theme {
 			remove_action ('genesis_entry_header', 'genesis_do_post_title');
 			add_action ('genesis_entry_content', 'genesis_do_post_title', 4);
 			add_action ('genesis_entry_content', array (__CLASS__, 'add_to_end_of_section_page'), 12);
+		}
+		// Single series pages
+		elseif (is_singular('em_series')) {
+			// Move the post_info to AFTER the closing </header> tag
+			add_action ('genesis_entry_header', 'genesis_post_info', 16);
+			// Add series info to the title, if required
+			add_filter ('genesis_post_title_output', array (__CLASS__, 'add_series_to_title'));
+			self::add_full_size_header_image();
+			add_action ('genesis_entry_content', array (__CLASS__, 'add_to_end_of_series_page'), 12);
 		}
 		// Single pages
 		elseif (is_singular('page')) {
@@ -329,7 +338,7 @@ class evangelical_mag_theme {
 			echo '</div>';
 		}
 		if ($article->has_series() && count($also_in) > 1) {
-			echo "<div class =\"series-meta\"><h2>Also in the {$article->get_series_name()} series</h2>";
+			echo "<div class =\"series-meta\"><h2>Also in the {$article->get_series_name(true)} series</h2>";
 			$also_articles_array = array(); // We're going to split it into rows of three
 			foreach ($also_in as $also_article) {
 				$class = $also_article->get_id() == $article->get_id() ? 'current' : '';
@@ -365,19 +374,24 @@ class evangelical_mag_theme {
 	/**
 	* Adds series information into the header
 	*
-	* Filters 'genesis_post_title_output', but only for articles
+	* Filters 'genesis_post_title_output', but only for articles and series
 	*
 	* @param string $title
 	* @return string
 	*/
-	public static function filter_post_title ($title) {
+	public static function add_series_to_title ($title) {
 		global $post;
-		$article = new evangelical_magazine_article($post);
-		if ($article->has_series()) {
-			return "{$title}<h2 class=\"entry-title-series\">Part {$article->get_series_order()} of the {$article->get_series_name()} series</h2>";
-		} else {
-			return $title;
+		if ($post->post_type == 'em_article') {
+			$article = new evangelical_magazine_article($post);
+			if ($article->has_series()) {
+				return "{$title}<h2 class=\"entry-title-series\">Part {$article->get_series_order()} of the {$article->get_series_name(true)} series</h2>";
+			} else {
+				return $title;
+			}
+		} elseif ($post->post_type == 'em_series') {
+			return "{$title}<h2 class=\"entry-title-series\">Series</h2>";
 		}
+		return $title;
 	}
 
 	/**
@@ -720,6 +734,8 @@ class evangelical_mag_theme {
 	*
 	* Called by genesis_entry_content
 	*
+	* @var $content - the existing content of the page
+	* @return string - the updated content
 	*/
 	public static function add_to_end_of_section_page($content) {
 		$section_id = get_the_ID();
@@ -728,6 +744,32 @@ class evangelical_mag_theme {
 		$articles = $section->_get_articles ($args);
 		if ($articles) {
 			echo "<div class=\"section-page\">".self::get_article_list_box($articles, true, '', false, true)."</div>";
+		} else {
+			echo '<div class="article-list-box"><p>Coming soon.</p></div>';
+		}
+	}
+
+	/**
+	* Adds series info to the end of series pages.
+	*
+	* Called by genesis_entry_content
+	*
+	* @var $content - the existing content of the page
+	* @return string - the updated content
+	*/
+	public static function add_to_end_of_series_page($content) {
+		$series_id = get_the_ID();
+		$series = new evangelical_magazine_series($series_id);
+		$args = evangelical_magazine_article::_future_posts_args();
+		$articles = $series->_get_articles ($args);
+		if ($articles) {
+			echo '<div class="series-page">';
+			$article_array = array();
+			foreach ($articles as $article) {
+				$article_array[0] = $article;
+				echo self::get_article_list_box($article_array, false, "Part {$article->get_series_order()}", false, true);
+			}
+			echo "</div>";
 		} else {
 			echo '<div class="article-list-box"><p>Coming soon.</p></div>';
 		}

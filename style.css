@@ -2093,6 +2093,69 @@ body.single-em_section .entry-title {
 	font-weight: 300;
 }
 
+/* ## Single series page
+--------------------------------------------- */
+
+body.single-em_series .entry-title {
+	position:absolute;
+}
+
+body.single-em_series .entry-title-series {
+	padding: 10px 20px;
+	width: 100%;
+	color: #FECA00;
+	text-shadow: 0.75px 0.75px 1px rgba(0,0,0,0.85);
+	font-size: 45px;
+	margin: 0;
+	text-align: right;
+}
+
+body.single-em_series .entry-title-series a {
+	color: #FECA00;
+}
+
+.entry-content .series-page {
+	width: 100%;
+}
+
+.entry-content .series-page .article-list-box {
+	float: none;
+	width: 100%;
+	margin-bottom: 0;
+}
+
+.series-page .article-list-box h3 {
+	text-shadow: none;
+	margin-bottom: -5px;
+}
+
+.series-page .article-list-box ol {
+	margin-left: 0;
+	margin-bottom: 0;
+}
+
+.series-page .article-list-box li {
+	width: 100%;
+	display: inline-block;
+	vertical-align: top;
+	border-bottom: none;
+	border-top: 1px solid #086788;
+}
+
+.series-page .article-list-box:last-of-type li {
+	border-bottom: 1px solid #086788;
+}
+
+.series-page li .article-list-box-image {
+	width: 210px;
+	height: 140px;
+	margin-bottom: 10px;
+}
+
+.series-page .article-list-box li .title-author-wrapper {
+	width: auto;
+}
+
 /* ## Article List Box (list of articles in a section or issue)
 --------------------------------------------- */
 
