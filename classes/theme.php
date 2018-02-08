@@ -767,7 +767,8 @@ class evangelical_mag_theme {
 			$article_array = array();
 			foreach ($articles as $article) {
 				$article_array[0] = $article;
-				echo self::get_article_list_box($article_array, false, "Part {$article->get_series_order()}", false, true);
+				$heading = ($article->is_future()) ? array('text' => "Part {$article->get_series_order()}", 'class' => 'future') : "Part {$article->get_series_order()}";
+				echo self::get_article_list_box($article_array, false, $heading, false, true);
 			}
 			echo "</div>";
 		} else {
@@ -933,7 +934,13 @@ class evangelical_mag_theme {
 	public static function get_article_list_box($articles, $make_first_image_bigger = true, $heading = '', $shrink_text_if_long = false, $add_facebook_likes = false) {
 		if ($articles) {
 			$output = "<div class=\"article-list-box\">";
-			$output .= $heading ? "<h3>{$heading}</h3>" : '';
+			if ($heading) {
+				if (is_array($heading) && isset($heading['text']) && isset($heading['class'])) {
+					$output .= $heading ? "<h3 class=\"{$heading['class']}\">{$heading['text']}</h3>" : '';
+				} else {
+					$output .= $heading ? "<h3>{$heading}</h3>" : '';
+				}
+			}
 			$output .= "<ol>";
 			$class = $make_first_image_bigger ? 'large-image' : '';
 			foreach ($articles as $article) {
