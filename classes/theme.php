@@ -558,7 +558,6 @@ class evangelical_mag_theme {
 	* @param string $content
 	*/
 	public static function output_author_archive_page ($content) {
-		global $evangelical_magazine;
 		echo "<h1>Authors</h1>";
 		$output = '';
 		$authors = evangelical_magazine_author::get_all_authors();
@@ -566,7 +565,6 @@ class evangelical_mag_theme {
 		$previous_letter = '';
 		if ($authors) {
 			$articles = evangelical_magazine_article::get_all_articles();
-			$evangelical_magazine->update_all_stats_if_required($articles);
 			$letters_used = '';
 			foreach ($authors as $author) {
 				if ($output_index) {
