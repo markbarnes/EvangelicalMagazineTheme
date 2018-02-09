@@ -1,6 +1,15 @@
 # EvangelicalMagazineTheme
 Custom WordPress theme for the [Evangelical Magazine website](https://www.evangelicalmagazine.com/) and is provided here as a help to other developers who are creating WordPress sites for print magazines. This responsive theme requires a [helper plugin](https://github.com/markbarnes/EvangelicalMagazinePlugin), and the [Genesis Framework](http://my.studiopress.com/themes/genesis/).
 
+## Features
+* The plugin supports articles, authors, issues, series and sections
+* Browse by author, issue or section archive pages
+* Individual author, issue, section and series pages
+* Articles can have multiple authors and be part of multiple sections
+* Integrates with Google Analytics API to calculate trending articles
+* Integrates with Facebook API to display article likes
+* Five widgets for Beacon Ads, Facebook Page Plugin, Popular Articles, and more
+
 ## Screenshot
 ![Screenshot](https://github.com/markbarnes/EvangelicalMagazineTheme/blob/master/screenshot.png)
 
