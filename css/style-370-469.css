@@ -588,6 +588,12 @@ body.single-em_author .article-list-box .article-list-box-title {
 	font-size: 16px;
 }
 
+/* Single article page
+   ------------------- */
+body.single-em_article .fb-like {
+	float: none;
+}
+
 /* Section archive page
    --------------------  */
 

@@ -555,6 +555,12 @@ body.single-em_author .article-list-box .title-author-wrapper {
 	width: 257px;
 }
 
+/* Single article page
+   ------------------- */
+body.single-em_article .fb-like {
+	float: none;
+}
+
 /* Section archive page
    --------------------  */
 

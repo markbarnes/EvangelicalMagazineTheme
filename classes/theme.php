@@ -293,8 +293,8 @@ class evangelical_mag_theme {
 			$article->record_view_count();
 		}
 		echo "<div class=\"after-article\">";
-		self::output_email_subscription_box();
 		self::output_facebook_like_share_buttons ($article);
+		self::output_email_subscription_box();
 		$articles_in_same_series = $article->get_articles_in_same_series();
 		if (count($articles_in_same_series) > 1) {
 			self::output_about_the_author ($article, $articles_to_be_excluded, false);
@@ -328,8 +328,8 @@ class evangelical_mag_theme {
 	* @return void
 	*/
 	private static function output_facebook_like_share_buttons ($article) {
-		echo "<h2>Found this helpful? Like or share on Facebook</h2>";
-		echo "<div style=\"margin-bottom: 2em\" class=\"fb-like\" data-href=\"{$article->get_link()}\" data-width=\"680\" data-size=\"large\" data-layout=\"button_count\" data-action=\"like\" data-show-faces=\"true\" data-share=\"true\"></div>\r\n";
+		echo "<h2>Found this helpful? Like or share on Facebook ";
+		echo "<div class=\"fb-like\" data-href=\"{$article->get_link()}\" data-width=\"680\" data-size=\"large\" data-layout=\"button_count\" data-action=\"like\" data-show-faces=\"true\" data-share=\"true\"></div></h2>\r\n";
 	}
 
 	/**
