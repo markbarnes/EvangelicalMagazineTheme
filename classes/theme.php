@@ -933,11 +933,11 @@ class evangelical_mag_theme {
 	*/
 	public static function add_search_button_to_nav_bar ($items, $args) {
 		if ($args->theme_location === 'primary') {
-			$output = $menu."<li class=\"menu-item search\"><a href=\"#\"><span class=\"dashicons dashicons-search\"></span></a>";
+			$output = $items."<li class=\"menu-item search\"><a href=\"#\"><span class=\"dashicons dashicons-search\"></span></a>";
 			$output .="<ul class=\"sub-menu sub-menu-search\"><li class=\"wrap\"><ul><li id=\"seach-form-container\" class=\"menu-item\">".get_search_form(false)."</li></ul></li></ul></li>";
 			return $output;
 		} else {
-			return $menu;
+			return $items;
 		}
 	}
 
