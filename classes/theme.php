@@ -909,13 +909,9 @@ class evangelical_mag_theme {
 	public static function filter_search_query_on_404 ($query) {
 		$uri = $_SERVER['REQUEST_URI'];
 		$wordpress_url = parse_url(home_url());
-		if (isset($wordpress_url['path'])) {
-			$wordpress_path = $wordpress_url['path'];
-			$keywords = urldecode(str_replace (array($wordpress_path,'/','-'), array('', ' ',' '), $uri));
-			return $keywords;
-		} else {
-			return $query;
-		}
+		$wordpress_path = (isset($wordpress_url['path'])) ? $wordpress_url['path'] : '';
+		$keywords = urldecode(str_replace (array($wordpress_path,'/','-'), array('', ' ',' '), $uri));
+		return $keywords;
 	}
 
 	/**
