@@ -69,7 +69,7 @@ class evangelical_mag_home_page {
 	public static function do_subscription_form() {
 		if (function_exists ('gravity_form')) {
 			echo "<aside id=\"subscription-form\"><p>Get a new article every week:</p>";
-			gravity_form (1, false);
+			gravity_form ('Email subscribe', false, true, false, null, true, 1);
 			echo "</aside>";
 		}
 	}

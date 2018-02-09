@@ -316,7 +316,7 @@ class evangelical_mag_theme {
 	private static function output_email_subscription_box() {
 		if (function_exists ('gravity_form')) {
 				echo "<aside id=\"subscription-form\"><p class=\"title\">Want more like this? Get the latest articles direct by email every week:</p>";
-				gravity_form (1, false);
+				gravity_form ('Email subscribe', false, true, false, null, true, 10);
 				echo "<p class=\"nospam\">Your personal details are safe. We won’t spam you, or pass your details onto anyone else. You can unsubscribe at any time.</p></aside>";
 		}
 	}
