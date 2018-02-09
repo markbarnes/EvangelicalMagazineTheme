@@ -359,7 +359,7 @@ class evangelical_mag_theme {
 						echo '<h3>Also by these authors</h3>';
 					}
 					foreach ($also_by as $also_article) {
-						echo $also_article->get_small_box_html(true, $also_article->get_issue_name(true));
+						echo $also_article->get_small_box_html(true);
 						$articles_to_be_excluded[] = $also_article->get_id();
 					}
 				}
@@ -403,7 +403,7 @@ class evangelical_mag_theme {
 			if ($articles_in_same_section) {
 				echo "<div class =\"sections-meta\"><h2>Also in the {$section->get_name(true)} section</h2>";
 				foreach ($articles_in_same_section as $also_article) {
-					echo $also_article->get_small_box_html(true, $also_article->get_issue_name(true));
+					echo $also_article->get_small_box_html(true);
 					$articles_to_be_excluded[] = $also_article->get_id();
 				}
 				echo '</div>';
