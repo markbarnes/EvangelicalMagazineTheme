@@ -12,7 +12,7 @@
 
 define( 'CHILD_THEME_NAME', 'Evangelical Magazine Theme' );
 define( 'CHILD_THEME_URL', 'http://www.evangelicalmagazine.com/' );
-define( 'CHILD_THEME_VERSION', '0.93' );
+define( 'CHILD_THEME_VERSION', '0.94' );
 
 //* Start the engine
 include_once (get_template_directory() . '/lib/init.php' );
@@ -20,6 +20,7 @@ include_once (get_template_directory() . '/lib/init.php' );
 //Make sure classes autoload
 spl_autoload_register('evangelical_mag_autoload_classes');
 
+// Set everything up
 add_action ('wp', array ('evangelical_mag_theme', 'set_everything_up'));
 add_filter ('intermediate_image_sizes_advanced', array ('evangelical_mag_theme', 'remove_default_image_sizes'));
 add_filter ('wp_generate_attachment_metadata',array ('evangelical_mag_theme', 'enhance_media_images'));

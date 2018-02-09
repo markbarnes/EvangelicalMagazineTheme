@@ -11,19 +11,21 @@
 class evangelical_mag_microdata {
 
 	/**
-	* Generic function to return meta tag with itemprop and content parameters (schema.org)
+	* Returns a meta tag with itemprop and content parameters
+	*
+	* @see http://schema.org/docs/gs.html#advanced_missing
 	*
 	* @param string $itemprop
 	* @param string $content
 	* @return string
 	*/
-	public function meta ($itemprop, $content) {
+	public function get_meta ($itemprop, $content) {
 		$content = esc_html($content);
 		return "<meta itemprop=\"{$itemprop}\" content=\"{$content}\">";
 	}
 
 	/**
-	* Helper function to convert a timestampt into ISO8601 format
+	* Helper function to convert a timestamp into ISO8601 format
 	*
 	* @param integer $timestamp - Unix timestamp
 	* @return string
@@ -57,7 +59,7 @@ class evangelical_mag_microdata {
 	*/
 	public function get_datePublished ($timestamp) {
 		$date = self::convert_timestamp($timestamp);
-		return self::meta ('datePublished', $date);
+		return self::get_meta ('datePublished', $date);
 	}
 
 	/**
@@ -70,7 +72,7 @@ class evangelical_mag_microdata {
 	*/
 	public function get_dateModified ($timestamp) {
 		$date = self::convert_timestamp($timestamp);
-		return self::meta ('dateModified', $date);
+		return self::get_meta ('dateModified', $date);
 	}
 
 	/**

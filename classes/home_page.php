@@ -12,6 +12,8 @@ class evangelical_mag_home_page {
 	* Outputs the home page
 	*
 	* Called by the 'genesis_loop' action, added by front-page.php
+	*
+	* @return void
 	*/
 	public static function do_home_page() {
 		$recent_article_ids = self::do_most_recent_articles();
@@ -22,6 +24,7 @@ class evangelical_mag_home_page {
 	/**
 	* Outputs the 'recent articles' module on the home page
 	*
+	* @return void
 	*/
 	public static function do_most_recent_articles() {
 		$latest_issues = evangelical_magazine_issue::get_all_issues(1);
@@ -61,14 +64,14 @@ class evangelical_mag_home_page {
 	/**
 	* Outputs the subscription form on the home page
 	*
+	* return void
 	*/
 	public static function do_subscription_form() {
 		if (function_exists ('gravity_form')) {
-				echo "<aside id=\"subscription-form\"><p>Get a new article every week:</p>";
-				gravity_form (1, false);
-				echo "</aside>";
+			echo "<aside id=\"subscription-form\"><p>Get a new article every week:</p>";
+			gravity_form (1, false);
+			echo "</aside>";
 		}
-
 	}
 
 	/**
@@ -76,6 +79,7 @@ class evangelical_mag_home_page {
 	*
 	* @param integer $max_per_section - maximum number of articles per section
 	* @param integer[] $exclude_article_ids - array of article ids to exclude from this process
+	* @return void
 	*/
 	public static function do_sections($max_per_section = 5, $exclude_article_ids = array()) {
 		$args = array ('orderby' => 'name', 'order' => 'ASC');

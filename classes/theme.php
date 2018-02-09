@@ -13,11 +13,12 @@ class evangelical_mag_theme {
 	* All the actions and filters to rearrange the layout as required for the various post types.
 	*
 	* Called on the 'wp' action.
+	*
+	* @return void
 	*/
 	public static function set_everything_up() {
 		// HTML HEAD
 		add_action ('wp_enqueue_scripts', array (__CLASS__, 'enqueue_fonts'));
-		add_action ('wp_enqueue_scripts', array (__CLASS__, 'disable_superfish'));
 		add_action ('wp_enqueue_scripts', array (__CLASS__, 'enqueue_media_stylesheets'));
 		add_action ('wp_enqueue_scripts', array (__CLASS__, 'disable_emojis'));
 		add_filter ('genesis_superfish_enabled', '__return_false');
@@ -51,7 +52,7 @@ class evangelical_mag_theme {
 		if (is_front_page()) {
 			add_action ('genesis_meta', array (__CLASS__, 'add_google_structured_data_to_homepage'));
 			add_action ('genesis_meta', array (__CLASS__, 'add_facebook_app_id_to_homepage'));
-			add_filter ('option_rg_gforms_disable_css', '__return_true');
+			add_filter ('option_rg_gforms_disable_css', '__return_true'); // Disables Gravity Forms CSS
 		}
 		// All singular pages
 		if (is_singular()) {
@@ -77,13 +78,13 @@ class evangelical_mag_theme {
 			// Move the post_info to AFTER the closing </header> tag
 			add_action ('genesis_entry_header', 'genesis_post_info', 16);
 			// Filter the post_info
-			add_filter ('genesis_post_info', array (__CLASS__, 'filter_post_info'));
+			add_filter ('genesis_post_info', array (__CLASS__, 'add_author_issue_banner'));
 			// Add series info to the title, if required
 			add_filter ('genesis_post_title_output', array (__CLASS__, 'add_series_to_title'));
 			// Adds Facebook javascript SDK for social media buttons
 			add_action ('genesis_before', array (__CLASS__, 'output_facebook_javascript_sdk'));
 			// Add some schema.org meta
-			add_action ('genesis_before_entry_content', array (__CLASS__, 'add_before_start_of_article'));
+			add_action ('genesis_before_entry_content', array (__CLASS__, 'add_schema_org_data_to_articles'));
 			// Add the author/'see also' detail at the end of the article (also increases the view count)
 			add_action ('genesis_after_entry_content', array (__CLASS__, 'add_after_end_of_article'));
 			self::add_full_size_header_image();
@@ -99,7 +100,6 @@ class evangelical_mag_theme {
 			// Specify the title image using styles in the <HEAD>
 			add_action ('genesis_meta', array (__CLASS__, 'add_image_to_pages'), 11);
 			self::move_entry_header_inside_entry_content();
-			//add_filter ('body_class', function($classes) {$classes[]="half-size-header-image";return $classes;});
 			remove_action ('genesis_entry_header', 'genesis_do_post_title');
 			add_action ('genesis_entry_content', 'genesis_do_post_title', 4);
 			add_action ('genesis_entry_content', array (__CLASS__, 'open_div'), 4);
@@ -167,6 +167,8 @@ class evangelical_mag_theme {
 	* Enqueue fonts
 	*
 	* Called by the wp_enqueue_scripts action
+	*
+	* @return void
 	*/
 	public static function enqueue_fonts() {
 		wp_enqueue_style ('magazine-font-league-gothic', get_stylesheet_directory_uri().'/fonts/league-gothic.css', array(), CHILD_THEME_VERSION);
@@ -179,6 +181,8 @@ class evangelical_mag_theme {
 	* Remove emoji support for older browsers to speed up page loading
 	*
 	* @link https://wordpress.org/plugins/disable-emojis/
+	*
+	* @return void
 	*/
 	public static function disable_emojis() {
 		remove_action ('wp_head', 'print_emoji_detection_script', 7);
@@ -188,14 +192,13 @@ class evangelical_mag_theme {
 		remove_filter ('the_content_feed', 'wp_staticize_emoji');
 		remove_filter ('comment_text_rss', 'wp_staticize_emoji');
 		remove_filter ('wp_mail', 'wp_staticize_emoji_for_email');
-		//add_filter ('tiny_mce_plugins', 'disable_emojis_tinymce');
 	}
 
 	/**
 	* Filters the primary menu markup to add the logo
 	*
-	* @param string $markup
-	* return string
+	* @param string $markup - the existing markup
+	* return string - the modified markup
 	*/
 	public static function add_logo_to_nav_bar($markup) {
 		if ($markup == "<div class=\"wrap\">") {
@@ -206,19 +209,11 @@ class evangelical_mag_theme {
 	}
 
 	/**
-	* Dequeues the superfish javascript
-	*
-	*/
-	public static function disable_superfish() {
-		wp_dequeue_script('superfish');
-		wp_dequeue_script('superfish-args');
-		wp_dequeue_script('superfish-compat');
-	}
-
-	/**
 	* Adds the featured image to the top of the appropriate pages, by adding <style> to the HTML head.
 	*
 	* Called by the genesis_meta action, but only on single pages.
+	*
+	* @return void
 	*/
 	public static function add_image_to_pages() {
 		$image_id = get_post_thumbnail_id ();
@@ -236,12 +231,14 @@ class evangelical_mag_theme {
 	}
 
 	/**
-	* Filters the post info for articles
+	* Adds the author/issue banner below the article header image
 	*
-	* @param string $post_info
-	* @return string
+	* Filters genesis_post_info
+	*
+	* @param string $post_info - the existing post info
+	* @return string - the new post info
 	*/
-	public static function filter_post_info($post_info) {
+	public static function add_author_issue_banner ($post_info) {
 		global $post;
 		if ($post && $post->post_type == 'em_article') {
 			$article = new evangelical_magazine_article($post);
@@ -259,10 +256,9 @@ class evangelical_mag_theme {
 	/**
 	* Outputs schema.org microdata before the text of the article
 	*
-	* Called by the genesis_before_entry_content action.
-	*
+	* @return void
 	*/
-	public static function add_before_start_of_article() {
+	public static function add_schema_org_data_to_articles () {
 		global $post, $_wp_additional_image_sizes;
 		$article = new evangelical_magazine_article($post);
 		$date = $article->get_issue_datetime();
@@ -274,22 +270,21 @@ class evangelical_mag_theme {
 		echo $microdata->get_datePublished($article->get_issue_datetime());
 		echo $microdata->get_dateModified($article->get_post_datetime());
 		echo $microdata->get_publisher('Evangelical Movement of Wales', 'https://www.emw.org.uk/', $logo);
-		echo $microdata->meta ('mainEntityOfPage', $article->get_link());
+		echo $microdata->get_meta ('mainEntityOfPage', $article->get_link());
 		$sections = $article->get_sections();
 		if ($sections) {
 			foreach ($sections as $section) {
-				echo $microdata->meta ('articleSection', $section->get_name());
+				echo $microdata->get_meta ('articleSection', $section->get_name());
 			}
 		}
-		echo $microdata->meta ('isFamilyFriendly', 'true');
+		echo $microdata->get_meta ('isFamilyFriendly', 'true');
 	}
 
 	/**
-	* Outputs Author/Series/Section information at the end of articles
+	* Outputs all the data to be added to the end of articles
 	* Also updates the view count, as it's only called for singular article views.
 	*
-	* Called by the genesis_after_entry_content action.
-	*
+	* @return void
 	*/
 	public static function add_after_end_of_article () {
 		global $post;
@@ -298,29 +293,63 @@ class evangelical_mag_theme {
 			$article->record_view_count();
 		}
 		echo "<div class=\"after-article\">";
-		// Email subscription form
+		self::output_email_subscription_box();
+		self::output_facebook_like_share_buttons ($article);
+		$articles_in_same_series = $article->get_articles_in_same_series();
+		if (count($articles_in_same_series) > 1) {
+			self::output_about_the_author ($article, $articles_to_be_excluded, false);
+			self::output_also_in_this_series ($article, $articles_in_same_series, $articles_to_be_excluded);
+		} else {
+			self::output_about_the_author ($article, $articles_to_be_excluded, true);
+		}
+		$articles_to_be_excluded[] = $article->get_id();
+		$sections = $article->get_sections();
+		self::output_also_in_this_section ($sections, $articles_to_be_excluded);
+		echo "</div>";
+	}
+
+	/**
+	* Outputs a Gravity Form email subscription box
+	*
+	* @return void
+	*/
+	private static function output_email_subscription_box() {
 		if (function_exists ('gravity_form')) {
 				echo "<aside id=\"subscription-form\"><p class=\"title\">Want more like this? Get the latest articles direct by email every week:</p>";
 				gravity_form (1, false);
 				echo "<p class=\"nospam\">Your personal details are safe. We won’t spam you, or pass your details onto anyone else. You can unsubscribe at any time.</p></aside>";
 		}
-		// Facebook buttons
-		echo "<h3>Like or share this article</h3><div style=\"margin-bottom: 2em\" class=\"fb-like\" data-href=\"{$article->get_link()}\" data-width=\"680\" data-layout=\"standard\" data-action=\"like\" data-show-faces=\"true\" data-share=\"true\"></div>\r\n";
-		// Show authors
+	}
+
+	/**
+	* Outputs Facebook like and share buttons
+	*
+	* @param evangelical_magazine_article $article - the article to 'like' or 'share'
+	* @return void
+	*/
+	private static function output_facebook_like_share_buttons ($article) {
+		echo "<h2>Found this helpful? Like or share on Facebook</h2>";
+		echo "<div style=\"margin-bottom: 2em\" class=\"fb-like\" data-href=\"{$article->get_link()}\" data-width=\"680\" data-size=\"large\" data-layout=\"button_count\" data-action=\"like\" data-show-faces=\"true\" data-share=\"true\"></div>\r\n";
+	}
+
+	/**
+	* Outputs the "About the author" section
+	*
+	* @param evangelical_magazine_article $article - the article this applies to
+	* @param array &$articles_to_be_excluded - an array of article_ids to be excluded (will be modified - passed by reference)
+	* @param bool $output_also_by_section - true if the "Also by this author" section is to be included
+	* @return void
+	*/
+	private static function output_about_the_author ($article, &$articles_to_be_excluded, $output_also_by_section = false) {
 		$authors = $article->get_authors();
-		if ($article->has_series()) {
-			$also_in = $article->get_articles_in_same_series();
-		} else {
-			$also_in = array();
-		}
-		$excluded_articles = array();
+		$articles_to_be_excluded = array();
 		if ($authors) {
 			$is_single_author = (count($authors) == 1);
 			echo "<div class =\"author-meta\"><h2>About the author".($is_single_author ? '' : 's')."</h2>";
 			foreach ($authors as $author) {
-				echo $author->get_author_info_html();
+				echo $author->get_author_info_html('author_small');
 			}
-			if (count($also_in) < 2) {
+			if ($output_also_by_section) {
 				$also_by = $article->get_articles_by_same_authors(3);
 				if ($also_by) {
 					if ($is_single_author) {
@@ -331,44 +360,55 @@ class evangelical_mag_theme {
 					}
 					foreach ($also_by as $also_article) {
 						echo $also_article->get_small_box_html(true, $also_article->get_issue_name(true));
-						$excluded_articles[] = $also_article->get_id();
+						$articles_to_be_excluded[] = $also_article->get_id();
 					}
 				}
 			}
 			echo '</div>';
 		}
-		if ($article->has_series() && count($also_in) > 1) {
-			echo "<div class =\"series-meta\"><h2>Also in the {$article->get_series_name(true)} series</h2>";
-			$also_articles_array = array(); // We're going to split it into rows of three
-			foreach ($also_in as $also_article) {
-				$class = $also_article->get_id() == $article->get_id() ? 'current' : '';
-				$also_articles_array[] = $also_article->get_small_box_html(!(bool)$class, "Part {$also_article->get_series_order()}", $class);
-				$excluded_articles[] = $also_article->get_id();
-			}
-			$chunked_also_articles_array = array_chunk ($also_articles_array, 3);
-			foreach ($chunked_also_articles_array as $chunk) {
-				echo '<div class="row-wrap">'.implode('', $chunk).'</div>';
-			}
-			echo '</div>';
+	}
+
+	/**
+	* Outputs the "Also in this series" section
+	*
+	* @param evangelical_magazine_article $current_article - the current article in the series
+	* @param evangelical_magazine_article[] $articles_in_this_series - an array of articles in this series
+	* @param array &$articles_to_be_excluded - an array of article_ids to be excluded (will be modified - passed by reference)
+	* @return void
+	*/
+	private static function output_also_in_this_series ($current_article, $articles_in_this_series, &$articles_to_be_excluded) {
+		echo "<div class =\"series-meta\"><h2>Also in the {$current_article->get_series_name(true)} series</h2>";
+		$also_articles_array = array(); // We're going to split it into rows of three
+		foreach ($articles_in_this_series as $also_article) {
+			$class = $also_article->get_id() == $current_article->get_id() ? 'current' : '';
+			$also_articles_array[] = $also_article->get_small_box_html(!(bool)$class, "Part {$also_article->get_series_order()}", $class);
+			$articles_to_be_excluded[] = $also_article->get_id();
 		}
-		$excluded_articles[] = $article->get_id();
-		if ($article->has_sections()) {
-			$sections = $article->get_sections();
-			if ($sections) {
-				foreach ($sections as $section) {
-					$also_in = $section->get_articles(3, $excluded_articles);
-					if ($also_in) {
-						echo "<div class =\"sections-meta\"><h2>Also in the {$section->get_name(true)} section</h2>";
-						foreach ($also_in as $also_article) {
-							echo $also_article->get_small_box_html(true, $also_article->get_issue_name(true));
-							$excluded_articles[] = $also_article->get_id();
-						}
-						echo '</div>';
-					}
+		$chunked_also_articles_array = array_chunk ($also_articles_array, 3);
+		foreach ($chunked_also_articles_array as $chunk) {
+			echo '<div class="row-wrap">'.implode('', $chunk).'</div>';
+		}
+		echo '</div>';
+	}
+
+	/**
+	* Outputs the "Also in this section" section
+	*
+	* @param evangelical_magazine_section[] $sections - an array of sections the article is in
+	* @param array &$articles_to_be_excluded - an array of article_ids to be excluded (will be modified - passed by reference)
+	*/
+	private static function output_also_in_this_section ($sections, &$articles_to_be_excluded) {
+		foreach ($sections as $section) {
+			$articles_in_same_section = $section->get_articles(3, $articles_to_be_excluded);
+			if ($articles_in_same_section) {
+				echo "<div class =\"sections-meta\"><h2>Also in the {$section->get_name(true)} section</h2>";
+				foreach ($articles_in_same_section as $also_article) {
+					echo $also_article->get_small_box_html(true, $also_article->get_issue_name(true));
+					$articles_to_be_excluded[] = $also_article->get_id();
 				}
+				echo '</div>';
 			}
 		}
-		echo "</div>";
 	}
 
 	/**
@@ -376,8 +416,8 @@ class evangelical_mag_theme {
 	*
 	* Filters 'genesis_post_title_output', but only for articles and series
 	*
-	* @param string $title
-	* @return string
+	* @param string $title - the current page title
+	* @return string - the revised page title
 	*/
 	public static function add_series_to_title ($title) {
 		global $post;
@@ -397,6 +437,7 @@ class evangelical_mag_theme {
 	/**
 	* Helper function to outputs an opening div
 	*
+	* @return string
 	*/
 	public static function open_div() {
 		echo '<div>';
@@ -405,8 +446,7 @@ class evangelical_mag_theme {
 	/**
 	* Outputs a closing div
 	*
-	* Called by various actions
-	*
+	* @return string
 	*/
 	public static function close_div() {
 		echo '</div>';
@@ -415,8 +455,7 @@ class evangelical_mag_theme {
 	/**
 	* Outputs the footer on all pages
 	*
-	* Called by the 'genesis_foooter' action
-	*
+	* @return void
 	*/
 	public static function do_footer_bottom() {
 		$admin_link = '<a href="'.get_admin_url().'">.</a>';
@@ -433,8 +472,8 @@ class evangelical_mag_theme {
 	*
 	* Filters wp_nav_menu_items
 	*
-	* @param string $menu
-	* @return string
+	* @param string $menu - the current menu html
+	* @return string - the revised menu html
 	*/
 	public static function modify_menu ($menu) {
 		//Recent issues
@@ -494,24 +533,27 @@ class evangelical_mag_theme {
 	}
 
 	/**
-	* Adds article info to the end of author pages.
+	* Outputs article info to the end of author pages
 	*
-	* Called by genesis_entry_content
-	*
+	* @return void
 	*/
 	public static function add_to_end_of_author_page() {
 		$author_id = get_the_ID();
 		$author = new evangelical_magazine_author($author_id);
-		$articles = $author->_get_articles($author::_future_posts_args());
+		$args = evangelical_magazine_article::_future_posts_args();
+		$args ['order_by'] = array ('date' => 'DESC');
+		$articles = $author->_get_articles($args);
 		if ($articles) {
 			echo self::get_article_list_box($articles);
 		}
 	}
 
 	/**
-	* Custom version of the genesis() and genesis_standard_loop() functions.
+	* Custom version of the genesis() and genesis_standard_loop() functions
 	*
 	* Used for generating custom archive pages.
+	*
+	* @return void
 	*/
 	public static function my_genesis() {
 		get_header();
@@ -553,11 +595,9 @@ class evangelical_mag_theme {
 	/**
 	* Outputs the author archive page
 	*
-	* Called on the 'genesis_entry_content' action
-	*
-	* @param string $content
+	* @return void
 	*/
-	public static function output_author_archive_page ($content) {
+	public static function output_author_archive_page () {
 		echo "<h1>Authors</h1>";
 		$output = '';
 		$authors = evangelical_magazine_author::get_all_authors();
@@ -607,11 +647,9 @@ class evangelical_mag_theme {
 	/**
 	* Outputs the issue archive page
 	*
-	* Called on the 'genesis_entry_content' action
-	*
-	* @param string $content
+	* @return void
 	*/
-	public static function output_issue_archive_page ($content) {
+	public static function output_issue_archive_page () {
 		$max_articles_displayed = 4;
 		echo "<h1>Issues</h1>";
 		$issues = evangelical_magazine_issue::get_all_issues();
@@ -645,11 +683,9 @@ class evangelical_mag_theme {
 	/**
 	* Outputs the section archive page
 	*
-	* Called on the 'genesis_entry_content' action
-	*
-	* @param string $content
+	* @return void
 	*/
-	public static function output_section_archive_page ($content) {
+	public static function output_section_archive_page () {
 		$max_articles_displayed = 3;
 		echo "<h1>Sections</h1>";
 		$sections = evangelical_magazine_section::get_all_sections();
@@ -700,6 +736,8 @@ class evangelical_mag_theme {
 	*
 	* Useful for header image that don't display well in landscape modes.
 	* Used for author and issue single pages.
+	*
+	* @return void
 	*/
 	public static function move_entry_header_inside_entry_content() {
 		remove_action ('genesis_entry_header', 'genesis_do_post_format_image', 4);
@@ -712,12 +750,11 @@ class evangelical_mag_theme {
 	}
 
 	/**
-	* Adds issue info to the end of issue pages.
+	* Outputs issue info to the end of issue pages.
 	*
-	* Called by genesis_entry_content
-	*
+	* @return void
 	*/
-	public static function add_to_end_of_issue_page($content) {
+	public static function add_to_end_of_issue_page() {
 		$issue_id = get_the_ID();
 		$issue = new evangelical_magazine_issue($issue_id);
 		$args = evangelical_magazine_article::_future_posts_args();
@@ -728,14 +765,11 @@ class evangelical_mag_theme {
 	}
 
 	/**
-	* Adds section info to the end of section pages.
+	* Outputs section info to the end of section pages.
 	*
-	* Called by genesis_entry_content
-	*
-	* @var $content - the existing content of the page
-	* @return string - the updated content
+	* @return void
 	*/
-	public static function add_to_end_of_section_page($content) {
+	public static function add_to_end_of_section_page() {
 		$section_id = get_the_ID();
 		$section = new evangelical_magazine_section($section_id);
 		$args = evangelical_magazine_article::_future_posts_args();
@@ -748,7 +782,7 @@ class evangelical_mag_theme {
 	}
 
 	/**
-	* Adds series info to the end of series pages.
+	* Outputs series info to the end of series pages.
 	*
 	* Called by genesis_entry_content
 	*
@@ -775,12 +809,13 @@ class evangelical_mag_theme {
 	}
 
 	/**
-	* Sharpens resized images.
+	* Sharpens resized images
 	*
 	* Filters 'wp_generate_attachment_metadata'
+	* This method doesn't change the metadata, but we need the metadata to be able to sharpen the images
 	*
-	* @param array $meta
-	* @return array
+	* @param array $meta - metadata for the image
+	* @return array - the same metadata
 	*/
 	public static function enhance_media_images ($meta) {
 		global $wp_filesystem;
@@ -793,7 +828,7 @@ class evangelical_mag_theme {
 			$upload_folder = dirname($uploaded_file);
 			$file = trailingslashit($upload_folder).$details['file'];
 			list($orig_w, $orig_h, $orig_type) = @getimagesize($file);
-			@ini_set( 'memory_limit', apply_filters( 'image_memory_limit', WP_MAX_MEMORY_LIMIT ) );
+			@ini_set ('memory_limit', apply_filters('image_memory_limit', WP_MAX_MEMORY_LIMIT));
 			$image = imagecreatefromstring ($wp_filesystem->get_contents($file));
 			//Sharpen
 			$matrix = array(array(-1, -1, -1), array(-1, 35, -1), array(-1, -1, -1));
@@ -817,16 +852,18 @@ class evangelical_mag_theme {
 	}
 
 	/**
-	* Adds the viewport in the meta tag (at the moment, to disable mobile resizing)
+	* Outputs the viewport in the meta tag (at the moment, to disable mobile resizing)
 	*
+	* @return void
 	*/
 	public static function add_viewport() {
 		echo '<meta name="viewport" content="width=device-width, initial-scale=1" />' . "\n";
 	}
 
 	/**
-	* Adds the full size header image to the page
+	* Outputs the full size header image to the page
 	*
+	* @return void
 	*/
 	public static function add_full_size_header_image() {
 		global $post;
@@ -838,11 +875,13 @@ class evangelical_mag_theme {
 
 	/**
 	* Outputs the post thumbnail on the search page
+	*
+	* @return void
 	*/
 	public static function do_post_image_for_search () {
 		$object = evangelical_magazine::get_object_from_id(get_the_ID());
 		if ($object) {
-			$size = $object->is_author() ? 'author_tiny' : ($object->is_article() ? 'article_small' : 'issue_medium');
+			$size = $object->is_author() ? 'author_small' : ($object->is_article() ? 'article_small' : 'issue_small');
 			echo $object->get_image_html($size, true, 'search-thumbnail');
 		} else {
 			if (has_post_thumbnail()) {
@@ -856,8 +895,10 @@ class evangelical_mag_theme {
 	/**
 	* Highlights search terms in the post title, if Relevanssi plugin is installed
 	*
-	* @param string $title
-	* @return string;
+	* Filters genesis_post_title_text
+	*
+	* @param string $title - the current page title
+	* @return string - the modified page title
 	*/
 	public static function filter_post_title_for_search_terms ($title) {
 		if (function_exists('relevanssi_highlight_terms')) {
@@ -868,9 +909,11 @@ class evangelical_mag_theme {
 	}
 
 	/**
-	* Outputs the author names and issue.
+	* Outputs the author names and issue for the current post in the loop (articles only)
 	*
 	* Used in search results
+	*
+	* @return void
 	*/
 	public static function do_article_meta_for_search() {
 		$object = evangelical_magazine::get_object_from_id(get_the_ID());
@@ -884,11 +927,11 @@ class evangelical_mag_theme {
 	*
 	* Filters wp_nav_menu_items
 	*
-	* @param string $menu
-	* @param object $args
-	* @return string
+	* @param string $items - the HTML list content for the menu item
+	* @param stdClass $args - an object containing wp_nav_menu() arguments
+	* @return string - the updated HTML
 	*/
-	public static function add_search_button_to_nav_bar ($menu, $args) {
+	public static function add_search_button_to_nav_bar ($items, $args) {
 		if ($args->theme_location === 'primary') {
 			$output = $menu."<li class=\"menu-item search\"><a href=\"#\"><span class=\"dashicons dashicons-search\"></span></a>";
 			$output .="<ul class=\"sub-menu sub-menu-search\"><li class=\"wrap\"><ul><li id=\"seach-form-container\" class=\"menu-item\">".get_search_form(false)."</li></ul></li></ul></li>";
@@ -901,10 +944,10 @@ class evangelical_mag_theme {
 	/**
 	* Filters the search query to add terms from the URL to the search boxes.
 	*
-	* Added to the get_search_query_filter on 404 pages
+	* Filters get_search_query on 404 pages
 	*
-	* @param string $query
-	* @return string
+	* @param string $query - the current search query (should be empty)
+	* @return string - the revised search query
 	*/
 	public static function filter_search_query_on_404 ($query) {
 		$uri = $_SERVER['REQUEST_URI'];
@@ -917,7 +960,7 @@ class evangelical_mag_theme {
 	/**
 	* Outputs pagination at the end of search pages
 	*
-	* Called by the genesis_after_loop action
+	* @return void
 	*/
 	public static function add_to_end_of_search_page() {
 		echo "<div class=\"search-after-pagination\">".get_search_form(false)."</div>";
@@ -926,8 +969,12 @@ class evangelical_mag_theme {
 	/**
 	* Returns the HTML for a list of articles with thumbnails, title and author
 	*
-	* @param evangelical_magazine_article[] $articles
-	* @return string
+	* @param evangelical_magazine_article[] $articles - an array of articles
+	* @param bool $make_first_image_bigger - true if the first image will be larger
+	* @param string $heading - a text string to add as a heading
+	* @param bool $shrink_text_if_long - true if long text is to be shortened
+	* @param bool $add_facebook_likes - true if Facebook stats are to be added in the boxes
+	* @return string - the HTML
 	*/
 	public static function get_article_list_box($articles, $make_first_image_bigger = true, $heading = '', $shrink_text_if_long = false, $add_facebook_likes = false) {
 		if ($articles) {
@@ -969,8 +1016,9 @@ class evangelical_mag_theme {
 	}
 
 	/**
-	* Adds the RSS feeds to the HTML HEAD
+	* Outputs the RSS feeds to the HTML HEAD
 	*
+	* @return void
 	*/
 	public static function add_rss_feeds() {
 		echo "<link rel=\"alternate\" type=\"application/rss+xml\" title=\"Evangelical Magazine Articles\" href=\"".get_post_type_archive_feed_link('em_article')."\" />\r\n";
@@ -978,10 +1026,12 @@ class evangelical_mag_theme {
 	}
 
 	/**
-	* Removes the default 'medium' and 'large' image sizes, so they're not unnecessarily created.
+	* Removes the default 'medium' and 'large' image sizes, so images are not unnecessarily created
 	*
-	* @param array $sizes
-	* @return array
+	* Filters intermediate_image_sizes_advanced
+	*
+	* @param array $sizes - the existing array of image sizes
+	* @return array - the modified array
 	*/
 	public static function remove_default_image_sizes($sizes) {
 		unset( $sizes['medium']);
@@ -990,16 +1040,18 @@ class evangelical_mag_theme {
 	}
 
 	/**
-	* Adds the Reftagger code to the HTML HEAD
+	* Outputs the Reftagger code to the HTML HEAD
 	*
+	* @return void
 	*/
 	public static function configure_reftagger() {
 		echo "<script>var refTagger = {settings: {bibleVersion: \"NIV\",libronixBibleVersion: \"DEFAULT\",addLogosLink: false,appendIconToLibLinks: false,libronixLinkIcon: \"dark\",noSearchClassNames: [],useTooltip: true,noSearchTagNames: [\"h1\"],linksOpenNewWindow: true,convertHyperlinks: false,caseInsensitive: false,tagChapters: true}};(function(d, t) {var g = d.createElement(t), s = d.getElementsByTagName(t)[0];g.src = '".get_stylesheet_directory_uri()."/js/reftagger.js?".CHILD_THEME_VERSION."';s.parentNode.insertBefore(g, s);}(document, 'script'));</script>\r\n";
 	}
 
 	/**
-	* Adds the Facebook Open Graph tags to single articles
+	* Outputs the Facebook Open Graph tags to single articles
 	*
+	* @return void
 	*/
 	public static function add_facebook_open_graph() {
 		/** @var evangelical_magazine_article */
@@ -1029,8 +1081,9 @@ class evangelical_mag_theme {
 	}
 
 	/**
-	* Adds the Twitter Summary Card tags to single articles
+	* Outputs the Twitter Summary Card tags to single articles
 	*
+	* @return void
 	*/
 	public static function add_twitter_card() {
 		$article = evangelical_magazine::get_object_from_id(get_the_ID());
@@ -1050,8 +1103,9 @@ class evangelical_mag_theme {
 	}
 
 	/**
-	* Adds a breadcrumb to Google, for single articles
+	* Outputs a breadcrumb to Google, for single articles
 	*
+	* @return void
 	*/
 	public static function add_google_breadcrumb () {
 		$article = evangelical_magazine::get_object_from_id(get_the_ID());
@@ -1062,13 +1116,13 @@ class evangelical_mag_theme {
 			echo "{ \"@type\": \"ListItem\", \"position\": 1, \"item\": { \"@id\": \"{$article->get_issue_link()}\", \"name\": \"{$issue_name}\"}}";
 			echo "]}\r\n";
 			echo "</script>\r\n";
-
 		}
 	}
 
 	/**
-	* Adds structured data to the homepage, for Google
+	* Outputs structured data to the homepage, for Google
 	*
+	* @return void
 	*/
 	public static function add_google_structured_data_to_homepage () {
 		$site_name = htmlspecialchars(get_bloginfo('name'), ENT_HTML5);
@@ -1090,7 +1144,9 @@ class evangelical_mag_theme {
 	}
 
 	/**
-	* Outputs the HTML for various icons
+	* Outputs the HTML for favicon and mobile shortcut icons
+	*
+	* @return void
 	*/
 	public static function add_icons_to_head() {
 		$u = get_stylesheet_directory_uri().'/images/icons';
@@ -1117,8 +1173,7 @@ class evangelical_mag_theme {
 	/**
 	* Outputs the Facebook Javascript SDK
 	*
-	* Ideally called on 'genesis_before' action
-	*
+	* @return void
 	*/
 	public static function output_facebook_javascript_sdk() {
 		if (is_active_widget(false, false, 'evangelical_magazine_facebook_page_plugin')) {
@@ -1131,8 +1186,8 @@ class evangelical_mag_theme {
 	*
 	* Filters genesis_attr_entry-header
 	*
-	* @param array $attributes
-	* @return array
+	* @param array $attributes - the existing HTML attributes
+	* @return array - the revised HTML attributes
 	*/
 	public static function add_attributes_to_entry_header($attributes) {
 		if (isset($attributes['class'])) {
@@ -1148,21 +1203,21 @@ class evangelical_mag_theme {
 	*
 	* Filters image_size_names_choose
 	*
-	* @param array $sizes
-	* @return array
+	* @param array $size_names - array of image sizes and their names
+	* @return array - the revised array
 	*/
-	public static function add_image_sizes_to_media_gallery ($sizes) {
-		$sizes ['half-post-width'] = 'Half-width';
-		$sizes ['full-post-width'] = 'Full-width';
-		return $sizes;
+	public static function add_image_sizes_to_media_gallery ($size_names) {
+		$size_names ['half-post-width'] = 'Half-width';
+		$size_names ['full-post-width'] = 'Full-width';
+		return $size_names;
 	}
 
 	/**
 	* Enqueues the stylesheets for various media queries
 	*
-	* Called on the wp_enqueue_scripts action
+	* Having separate stylesheets for media types is slightly inefficient over http, but makes editing easier, and possibly slightly reduces time to paint
 	*
-	* Having separate stylesheets makes editing easier.
+	* @return void
 	*/
 	public static function enqueue_media_stylesheets() {
 		$sizes = array ('1000-1299' => 'screen and (min-width: 1000px) and (max-width: 1299px)',
@@ -1177,11 +1232,11 @@ class evangelical_mag_theme {
 	}
 
 	/**
-	* Adds the Facbook app ID to the HEAD section of the homepage
-	*
-	* Called on the wp_head action
+	* Outputs the Facebook app ID to the HEAD section of the homepage
 	*
 	* Provides authentication for Facebook
+	*
+	* @return void
 	*/
 	public static function add_facebook_app_id_to_homepage() {
 		echo "\t<meta property=\"fb:app_id\" content=\"1248516525165787\" />\r\n";
@@ -1191,7 +1246,7 @@ class evangelical_mag_theme {
 	/**
 	* Adds Beacon Ads javascript
 	*
-	* Intended to be called on the genesis_before action
+	* @return void
 	*/
 	public static function output_beacon_ads_main_code() {
 		if (is_active_widget(false, false, 'evangelical_magazine_beacon_ad')) {
@@ -1202,8 +1257,10 @@ class evangelical_mag_theme {
 	/**
 	* Modifies schema.org microdata
 	*
-	* @param array $attributes
-	* @param string $context
+	* Filters genesis_attr_entry
+	*
+	* @param array $attributes - the existing attributes
+	* @param string $context - the context (HTML tag)
 	* @return array
 	*/
 	public static function add_schema_org_microdata ($attributes, $context) {
@@ -1214,11 +1271,13 @@ class evangelical_mag_theme {
 	}
 
 	/**
-	* Performance improvements in resource hints
+	* Custom resource hints for improved http(s) performance
 	*
-	* @param array $urls
-	* @param string $relation_type
-	* @return array
+	* Filters wp_resource_hints
+	*
+	* @param array $urls - URLs to print for resource hints
+	* @param string $relation_type - the relation type the URLs are printed for, e.g. 'preconnect' or 'prerender'
+	* @return array - the revised URLs
 	*/
 	public static function filter_resource_hints ($urls, $relation_type) {
 		// Don't prefetch emojis
