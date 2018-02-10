@@ -84,18 +84,20 @@ class evangelical_mag_home_page {
 	public static function do_sections($max_per_section = 5, $exclude_article_ids = array()) {
 		$args = array ('orderby' => 'name', 'order' => 'ASC');
 		$sections = evangelical_magazine_section::get_all_sections($args);
+		$output = array();
 		if ($sections) {
-			mt_srand(strtotime(date('DMY')));
-			$order = array_map(create_function('$val', 'return mt_rand();'), range(1, count($sections)));
-			array_multisort($order, $sections);
-			echo '<aside id="sections">';
 			foreach ($sections as $section) {
 				$articles = $section->get_articles(1, $exclude_article_ids);
 				$info_box = evangelical_mag_theme::get_article_list_box($articles, true, $section->get_name(true), true);
 				if ($info_box) {
-					echo $info_box;
+					$output[$articles[0]->get_publish_date('U')] = $info_box;
 					$exclude_article_ids = array_merge ($exclude_article_ids, evangelical_magazine_article::get_object_ids_from_array($articles));
 				}
+			}
+			echo '<aside id="sections">';
+			krsort ($output);
+			foreach ($output as $o) {
+				echo $o;
 			}
 			echo '</aside>';
 		}
