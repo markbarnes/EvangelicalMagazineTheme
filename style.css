@@ -4,7 +4,7 @@ Theme URI: http://www.evangelicalmagazine.com
 Description: Custom theme for the Evangelical Magazine
 Author: Mark Barnes
 Author URI: http://www.markbarnes.net/
-Version: 0.95.1
+Version: 0.96
 Template: genesis
 Template Version: 2.2.0
 Tags: one-column, two-columns, three-columns, left-sidebar, right-sidebar, responsive-layout, custom-menu, full-width-template, rtl-language-support, sticky-post, theme-options, threaded-comments
@@ -1942,6 +1942,45 @@ body.single-em_issue .article-list-box li:first-child {
 
 /* ## Issue archive page
 --------------------------------------------- */
+
+#issue-index {
+	display: block;
+	width: 100%;
+	background-color: #086788;
+	color: white;
+	font-family: 'League Gothic';
+	padding: 5px 10px;
+	font-size: 24px;
+	margin-bottom: 24px;
+}
+
+#issue-index .issue-index-cell {
+	display: inline-block;
+	margin-right: 15px;
+}
+
+#issue-index .issue-index-cell:last-of-type {
+	margin-right: 0;
+}
+
+#issue-index .issue-index-cell a {
+	color: #feca00;
+}
+
+#issue-index .issue-index-cell a:hover, .issue-year-heading a:hover {
+	color: white;
+	text-decoration: none;
+}
+
+.issue-year-heading {
+	background-color: #086788;
+	padding: 5px 10px;
+	margin-top: 24px;
+}
+
+.issue-year-heading a {
+	color: #feca00;
+}
 
 body.post-type-archive-em_issue .issue-list {
 	margin-left: 0;

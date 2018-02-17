@@ -602,10 +602,9 @@ class evangelical_mag_theme {
 		$output = '';
 		$authors = evangelical_magazine_author::get_all_authors();
 		$output_index = (bool)(count($authors) >= 20);
-		$previous_letter = '';
 		if ($authors) {
 			$articles = evangelical_magazine_article::get_all_articles();
-			$letters_used = '';
+			$previous_letter = $letters_used = '';
 			foreach ($authors as $author) {
 				if ($output_index) {
 					if (($current_letter = strtoupper(substr($author->get_name(),0,1))) != $previous_letter) {
@@ -653,30 +652,46 @@ class evangelical_mag_theme {
 		$max_articles_displayed = 4;
 		echo "<h1>Issues</h1>";
 		$issues = evangelical_magazine_issue::get_all_issues();
+		$output = '';
 		if ($issues) {
-			echo "<ul class=\"issue-list\">";
+			$years = array();
 			foreach ($issues as $issue) {
-				echo "<li class=\"issue\"><a href=\"{$issue->get_link()}\"><div class=\"magazine-cover image-fit box-shadow-transition\" style=\"background-image:url('{$issue->get_image_url('issue_medium')}')\"></div></a>";
-				echo "<div class=\"issue-contents\"><h4>{$issue->get_name(true)}</h4>";
+				$date = $issue->get_date();
+				if (isset($date['year']) && !in_array($date['year'], $years)) {
+					if ($years) {
+						$output .= '</ul>';
+					}
+					$years[] = $date['year'];
+					$output .= "<h2 class=\"issue-year-heading\" id=\"issue-year-{$date['year']}\"><a href=\"#issue-index\">{$date['year']}</a></h2>";
+					$output .= "<ul class=\"issue-list\">";
+				}
+				$output .= "<li class=\"issue\"><a href=\"{$issue->get_link()}\"><div class=\"magazine-cover image-fit box-shadow-transition\" style=\"background-image:url('{$issue->get_image_url('issue_medium')}')\"></div></a>";
+				$output .= "<div class=\"issue-contents\"><h4>{$issue->get_name(true)}</h4>";
 				$articles = $issue->get_top_articles($max_articles_displayed);
 				if ($articles) {
-					echo "<ul class=\"top-articles\">";
+					$output .= "<ul class=\"top-articles\">";
 					foreach ($articles as $article) {
-						echo "<li><span class=\"article-title\">{$article->get_title(true)}</span><br/><span class=\"article-authors\">{$article->get_author_names(true, false, 'by ')}</span></li>";
+						$output .= "<li><span class=\"article-title\">{$article->get_title(true)}</span><br/><span class=\"article-authors\">{$article->get_author_names(true, false, 'by ')}</span></li>";
 					}
 					$remaining_articles = $issue->get_article_count() - $max_articles_displayed;
 					if ($remaining_articles > 0) {
-						echo "</ul><p>&hellip;and <a href=\"{$issue->get_link()}\">{$remaining_articles} more</a></p>";
+						$output .= "</ul><p>&hellip;and <a href=\"{$issue->get_link()}\">{$remaining_articles} more</a></p>";
 					} else {
-						echo "</ul>";
+						$output .= "</ul>";
 					}
 				}
 				else {
-					echo "<p>Coming soon&hellip;</p>";
+					$output .= "<p>Coming soon&hellip;</p>";
 				}
-				echo "</div></li>";
+				$output .= "</div></li>";
 			}
-			echo "</ul>";
+			$output .= "</ul>";
+			echo '<div id="issue-index">';
+			foreach ($years as $year) {
+				echo "<span class=\"issue-index-cell\"><a href=\"#issue-year-{$year}\">{$year}</a></span>";
+			}
+			echo '</div>';
+			echo $output;
 		}
 	}
 
