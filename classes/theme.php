@@ -544,7 +544,7 @@ class evangelical_mag_theme {
 		$args ['order_by'] = array ('date' => 'DESC');
 		$articles = $author->_get_articles($args);
 		if ($articles) {
-			echo self::get_article_list_box($articles);
+			echo self::get_article_list_box($articles, true, '', false, true);
 		}
 	}
 
@@ -1015,7 +1015,7 @@ class evangelical_mag_theme {
 				$output .= "<li{$class}>{$image_html}";
 				$title = $article->get_title();
 				$style = ($shrink_text_if_long && strlen($title) > 35) ? ' style="font-size:'.round(35/strlen($title)*1,2).'em"' : '';
-				$output .= "<div class=\"title-author-wrapper\"><span class=\"article-list-box-title\"><span{$style}>{$article->get_title(true)}</span></span><br/><span class=\"article-list-box-author\">{$article->get_author_names(!$article->is_future(), false, 'by ')}</span>";
+				$output .= "<div class=\"title-author-wrapper\"><span class=\"article-list-box-title\"><span{$style}>{$article->get_title(true)}</span></span><span class=\"article-list-box-author\"><br/>{$article->get_author_names(!$article->is_future(), false, 'by ')}</span>";
 				if ($article->is_future()) {
 					$output .= "<br/><span class=\"article-list-box-coming-soon\">Coming {$article->get_coming_date()}</span>";
 				} elseif ($add_facebook_likes && ($likes = $article->get_facebook_stats())) {
