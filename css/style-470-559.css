@@ -86,7 +86,7 @@ h4 {
 }
 
 .genesis-nav-menu {
-	font-size: 24px;
+	font-size: 22px;
 }
 
 .genesis-nav-menu a {
@@ -178,8 +178,17 @@ h4 {
 	padding: 0;
 }
 
+.genesis-nav-menu .sub-menu-section ul {
+	padding-bottom: 6px;
+	padding-top: 6px;
+}
+
+.genesis-nav-menu .menu-item-type-section {
+	line-height: 12px;
+}
+
 .genesis-nav-menu .sub-menu .menu-item-type-section a {
-	font-size: 20px;
+	font-size: 22px;
 	padding: 10px;
 }
 

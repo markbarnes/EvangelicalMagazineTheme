@@ -148,9 +148,18 @@ h4 {
 	width: 60px;
 }
 
+.genesis-nav-menu .sub-menu-section ul {
+	padding-bottom: 8px;
+	padding-top: 8px;
+}
+
+.genesis-nav-menu .menu-item-type-section {
+	line-height: 12px;
+}
+
 .genesis-nav-menu .menu-item-type-section a {
 	font-size: 29px;
-	padding: 16px;
+	padding: 12px;
 }
 
 input, select, textarea {
