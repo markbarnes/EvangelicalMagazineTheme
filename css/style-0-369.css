@@ -87,7 +87,7 @@ h4 {
 }
 
 .genesis-nav-menu {
-	font-size: 24px;
+	font-size: 22px;
 }
 
 .genesis-nav-menu a {
@@ -182,9 +182,13 @@ h4 {
 	font-size: 13px;
 }
 
+.genesis-nav-menu .menu-item-type-section {
+	line-height: 11px;
+}
+
 .genesis-nav-menu .sub-menu .menu-item-type-section a {
 	font-size: 20px;
-	padding: 10px;
+	padding: 9px;
 }
 
 input, select, textarea {
