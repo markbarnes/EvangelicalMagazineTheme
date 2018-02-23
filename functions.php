@@ -12,7 +12,7 @@
 
 define( 'CHILD_THEME_NAME', 'Evangelical Magazine Theme' );
 define( 'CHILD_THEME_URL', 'https://www.evangelicalmagazine.com/' );
-define( 'CHILD_THEME_VERSION', '0.97' );
+define( 'CHILD_THEME_VERSION', '0.98' );
 
 //* Start the engine
 include_once (get_template_directory() . '/lib/init.php' );
@@ -41,6 +41,7 @@ add_image_size ('issue_very_large', 320, 480, true);
 add_image_size ('article_large', 380, 253, true);
 add_image_size ('half-post-width', 430);
 add_image_size ('author_medium', 360, 360, true);
+add_image_size ('third-post-width', 287);
 add_image_size ('issue_medium', 250, 359, true);
 add_image_size ('article_small', 210, 140, true);
 add_image_size ('issue_small', 150, 212, true);

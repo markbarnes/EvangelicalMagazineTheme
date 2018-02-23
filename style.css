@@ -4,7 +4,7 @@ Theme URI: http://www.evangelicalmagazine.com
 Description: Custom theme for the Evangelical Magazine
 Author: Mark Barnes
 Author URI: http://www.markbarnes.net/
-Version: 0.97
+Version: 0.98
 Template: genesis
 Template Version: 2.2.0
 Tags: one-column, two-columns, three-columns, left-sidebar, right-sidebar, responsive-layout, custom-menu, full-width-template, rtl-language-support, sticky-post, theme-options, threaded-comments
@@ -60,6 +60,7 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 	- Article boxes
 	- Author archive page
 	- Single article pages
+	- Single review pages
 	- Single author pages
 	- Single issue pages
 	- Issue archive page
@@ -1614,7 +1615,7 @@ p.entry-meta {
 	font-size: 16px;
 	margin-bottom: 0;
 	padding: 10px 20px;
-	background-color: #086788;
+	/* background-color: #086788; */
 	color: white;
 	font-family: Lato;
 	overflow: hidden;
@@ -1878,6 +1879,65 @@ body.single-em_article .fb-like {
 
 body.single-em_article #subscription-form {
 	clear: both;
+}
+
+/* ## Single review pages
+--------------------------------------------- */
+
+body.single-em_review .entry-header {
+	margin-bottom: 20px;
+	/* background-color: #086788; */
+}
+
+body.single-em_review .entry-title {
+	text-shadow: none;
+	padding-left: 0;
+	padding-right: 0;
+	color: #086788;
+}
+
+body.single-em_review .entry-meta {
+	padding: 0;
+}
+
+body.single-em_review .review-metadata {
+	float:left;
+	width: 100%;
+	clear: both;
+	background-color: #086788;
+	padding: 5px 20px 10px 20px;
+}
+
+body.single-em_review .media-metadata {
+	float:left;
+	width: 100%;
+	background-color: transparent;
+	color: #086788;
+	padding: 10px 20px 5px 20px;
+	border: 2px solid #086788;
+}
+
+body.single-em_review .media-metadata a {
+	color: #086788;
+	text-decoration: underline;
+}
+
+body.single-em_review .entry-meta .metadata-item:nth-of-type(odd) {
+	float: left;
+	clear: both;
+}
+
+body.single-em_review .entry-meta .metadata-item:nth-of-type(even) {
+	float: right;
+}
+
+body.single-em_review .entry-meta .metadata-name {
+	font-weight: bold;
+}
+
+body.single-em_review .review-image {
+	float:left;
+	margin: 0 20px 20px 0;
 }
 
 /* ## Single author pages
@@ -3092,4 +3152,3 @@ body.home .site-inner {
 	Light grey/blue :   #a4bcc4 (used instead of #ddd, etc.)
 
 
-*/

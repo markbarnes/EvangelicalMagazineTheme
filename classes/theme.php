@@ -68,8 +68,8 @@ class evangelical_mag_theme {
 			remove_action( 'genesis_entry_content', 'genesis_do_post_content_nav', 12 );
 			remove_action( 'genesis_entry_content', 'genesis_do_post_permalink', 14 );
 		}
-		// Everything apart from articles
-		if (!is_singular('em_article')) {
+		// Everything apart from articles and reviews
+		if (!is_singular('em_article') && !is_singular('em_review')) {
 			add_filter ('genesis_post_info', '__return_false');
 		}
 
@@ -95,10 +95,36 @@ class evangelical_mag_theme {
 			// Adds the correct schema.org microdata
 			add_filter ('genesis_attr_entry', array (__CLASS__, 'add_schema_org_microdata'), 10, 2);
 		}
+		// Single reviews
+		if (is_singular('em_review')) {
+			add_filter('genesis_post_title_text', array (__CLASS__, 'add_review_type_to_title'));
+			// Filter the post_info
+			add_filter ('genesis_post_info', array (__CLASS__, 'add_review_metadata_to_page'));
+			// Specify the title image using styles in the <HEAD>
+			self::move_entry_header_inside_entry_content();
+			remove_action ('genesis_entry_header', 'genesis_do_post_title');
+			add_action ('genesis_entry_content', 'genesis_do_post_title', 4);
+			add_action ('genesis_entry_content', array (__CLASS__, 'open_div'), 4);
+			add_action ('genesis_entry_content', 'genesis_post_info', 5); // Move the post_info inside entry-content
+			add_action ('genesis_entry_content', array (__CLASS__, 'output_review_image'), 8); //Output the review image just after the header
+			add_action ('genesis_entry_content', array (__CLASS__, 'close_div'), 11);
+			// Adds Facebook javascript SDK for social media buttons
+			add_action ('genesis_before', array (__CLASS__, 'output_facebook_javascript_sdk'));
+			// Add some schema.org meta
+			add_action ('genesis_before_entry_content', array (__CLASS__, 'add_schema_org_data_to_articles'));
+			// Add the author/'see also' detail at the end of the article (also increases the view count)
+			add_action ('genesis_after_entry_content', array (__CLASS__, 'add_after_end_of_article'));
+			// Add extra meta tags for social media embeds
+			add_action ('genesis_meta', array (__CLASS__, 'add_facebook_open_graph'));
+			add_action ('genesis_meta', array (__CLASS__, 'add_twitter_card'));
+			add_action ('genesis_meta', array (__CLASS__, 'add_google_breadcrumb'));
+			// Adds the correct schema.org microdata
+			add_filter ('genesis_attr_entry', array (__CLASS__, 'add_schema_org_microdata'), 10, 2);
+		}
 		// Single author pages
 		elseif (is_singular('em_author')) {
 			// Specify the title image using styles in the <HEAD>
-			add_action ('genesis_meta', array (__CLASS__, 'add_image_to_pages'), 11);
+			add_action ('genesis_meta', array (__CLASS__, 'add_image_to_entry_header'), 11);
 			self::move_entry_header_inside_entry_content();
 			remove_action ('genesis_entry_header', 'genesis_do_post_title');
 			add_action ('genesis_entry_content', 'genesis_do_post_title', 4);
@@ -108,7 +134,7 @@ class evangelical_mag_theme {
 		}
 		// Single issue pages
 		elseif (is_singular('em_issue')) {
-			add_action ('genesis_meta', array (__CLASS__, 'add_image_to_pages'), 11);
+			add_action ('genesis_meta', array (__CLASS__, 'add_image_to_entry_header'), 11);
 			self::move_entry_header_inside_entry_content();
 			remove_action ('genesis_entry_header', 'genesis_do_post_title');
 			add_action ('genesis_entry_content', 'genesis_do_post_title', 4);
@@ -215,10 +241,10 @@ class evangelical_mag_theme {
 	*
 	* @return void
 	*/
-	public static function add_image_to_pages() {
+	public static function add_image_to_entry_header() {
 		$image_id = get_post_thumbnail_id ();
 		if ($image_id) {
-			$image = wp_get_attachment_image_src($image_id, is_singular('em_author') ? 'author_medium' : (is_singular('em_issue') ? 'issue_very_large' : 'article_header'));
+			$image = wp_get_attachment_image_src($image_id, (is_singular('em_author') || is_singular('em_review')) ? 'author_medium' : (is_singular('em_issue') ? 'issue_very_large' : 'article_header'));
 			if ($image) {
 				echo "<style type=\"text/css\">.entry-header { background-image: url('{$image[0]}')}</style>";
 			}
@@ -245,6 +271,35 @@ class evangelical_mag_theme {
 			$output = $article->get_author_names(true, true, 'By ');
 			$output .= "<span style=\"float:right\">{$article->get_issue_name(true)}";
 			if ($page_num = $article->get_page_num()) {
+				$output .= ", page <span itemprop=\"pageStart\">{$page_num}</span>";
+			}
+			return "{$output}</span>";
+		} else {
+			return $post_info;
+		}
+	}
+
+	/**
+	* Adds the review metadata below the article header image
+	*
+	* Filters genesis_post_info
+	*
+	* @param string $post_info - the existing post info
+	* @return string - the new post info
+	*/
+	public static function add_review_metadata_to_page ($post_info) {
+		global $post;
+		if ($post && $post->post_type == 'em_review') {
+			$review = new evangelical_magazine_review($post);
+			$output = "<span class=\"media-metadata\">";
+			$output .= $review->get_media_type_name('<span class="metadata-item"><span class="metadata-name">', ":</span> {$review->get_name()}</span>");
+			$output .= $review->get_creator("<span class=\"metadata-item\"><span class=\"metadata-name\">{$review->get_creator_type()}:</span> ", '</span>');
+			$output .= $review->get_publisher ('<span class="metadata-item"><span class="metadata-name">Publisher:</span> ', '</span>');
+			$output .= $review->get_price('<span class="metadata-item"><span class="metadata-name">Retail Price:</span> £', $review->get_purchase_url(' (<a href="', '" target="_blank">buy now</a>)').'</span>');
+			$output .= "</span><br/></span>";
+			$output .= "<span class=\"review-metadata\">{$review->get_author_names(true, true, 'Review by ')}";
+			$output .= "<span style=\"float:right\">{$review->get_issue_name(true)}";
+			if ($page_num = $review->get_page_num()) {
 				$output .= ", page <span itemprop=\"pageStart\">{$page_num}</span>";
 			}
 			return "{$output}</span>";
@@ -545,6 +600,20 @@ class evangelical_mag_theme {
 		$articles = $author->_get_articles($args);
 		if ($articles) {
 			echo self::get_article_list_box($articles, true, '', false, true);
+		}
+	}
+
+	/**
+	* Outputs the html for the feature image of the current review
+	*
+	* @return void
+	*/
+	public static function output_review_image() {
+		global $post;
+		$image_id = get_post_thumbnail_id ();
+		if ($image_id) {
+			$review = new evangelical_magazine_review($post);
+			echo wp_get_attachment_image($image_id, 'third-post-width', false, array ('class' => 'review-image', 'alt' => $review->get_name()));
 		}
 	}
 
@@ -882,9 +951,27 @@ class evangelical_mag_theme {
 	*/
 	public static function add_full_size_header_image() {
 		global $post;
-		add_action ('genesis_meta', array (__CLASS__, 'add_image_to_pages'), 11);
+		add_action ('genesis_meta', array (__CLASS__, 'add_image_to_entry_header'), 11);
 		if (has_post_thumbnail()) {
 			add_filter ('body_class', function($classes) {$classes[]="full-size-header-image";return $classes;});
+		}
+	}
+
+	/**
+	* Adds the review media type to the page title
+	*
+	* Filters genesis_post_title_text
+	*
+	* @param string $title - the current title
+	* @return string - the title witht the media type added
+	*/
+	public static function add_review_type_to_title ($title) {
+		global $post;
+		$review = new evangelical_magazine_review ($post);
+		if ($media_type = $review->get_media_type_name()) {
+			return "{$media_type} review — {$title}";
+		} else {
+			return "Review — {$title}";
 		}
 	}
 
