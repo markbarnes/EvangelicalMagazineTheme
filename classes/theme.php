@@ -748,13 +748,13 @@ class evangelical_mag_theme {
 				}
 				$output .= "<li class=\"issue\"><a href=\"{$issue->get_link()}\"><div class=\"magazine-cover image-fit box-shadow-transition\" style=\"background-image:url('{$issue->get_image_url('issue_medium')}')\"></div></a>";
 				$output .= "<div class=\"issue-contents\"><h4>{$issue->get_name(true)}</h4>";
-				$articles = $issue->get_top_articles($max_articles_displayed);
+				$articles = $issue->get_top_articles_and_reviews($max_articles_displayed);
 				if ($articles) {
 					$output .= "<ul class=\"top-articles\">";
 					foreach ($articles as $article) {
 						$output .= "<li><span class=\"article-title\">{$article->get_title(true)}</span><br/><span class=\"article-authors\">{$article->get_author_names(true, false, 'by ')}</span></li>";
 					}
-					$remaining_articles = $issue->get_article_count() - $max_articles_displayed;
+					$remaining_articles = $issue->get_article_and_review_count() - $max_articles_displayed;
 					if ($remaining_articles > 0) {
 						$output .= "</ul><p>&hellip;and <a href=\"{$issue->get_link()}\">{$remaining_articles} more</a></p>";
 					} else {
@@ -805,7 +805,7 @@ class evangelical_mag_theme {
 						echo "</li>";
 						$exclude_ids[] = $article->get_id();
 					}
-					$remaining_articles = $section->get_article_count() - $max_articles_displayed;
+					$remaining_articles = $section->get_article_and_review_count() - $max_articles_displayed;
 					if ($remaining_articles > 0) {
 						if (class_exists('NumberFormatter')) {
 							$r = new NumberFormatter("en", NumberFormatter::SPELLOUT);
