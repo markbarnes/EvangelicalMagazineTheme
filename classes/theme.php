@@ -403,7 +403,11 @@ class evangelical_mag_theme {
 		$articles_to_be_excluded = array();
 		if ($authors) {
 			$is_single_author = (count($authors) == 1);
-			echo "<div class =\"author-meta\"><h2>About the author".($is_single_author ? '' : 's')."</h2>";
+			if ($article->is_article()) {
+				echo "<div class =\"author-meta\"><h2>".($is_single_author ? 'About the author' : 'About the authors')."</h2>";
+			} else {
+				echo "<div class =\"author-meta\"><h2>".($is_single_author ? 'About the reviewer' : 'About the reviewers')."</h2>";
+			}
 			foreach ($authors as $author) {
 				echo $author->get_author_info_html('author_small');
 			}
