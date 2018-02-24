@@ -16,7 +16,7 @@ class evangelical_mag_home_page {
 	* @return void
 	*/
 	public static function do_home_page() {
-		$recent_article_ids = self::do_most_recent_articles();
+		$recent_article_ids = self::do_most_recent_articles_and_reviews();
 		self::do_subscription_form();
 		self::do_sections(1, $recent_article_ids);
 	}
@@ -26,15 +26,15 @@ class evangelical_mag_home_page {
 	*
 	* @return void
 	*/
-	public static function do_most_recent_articles() {
+	public static function do_most_recent_articles_and_reviews() {
 		$latest_issues = evangelical_magazine_issue::get_all_issues(1);
 		if ($latest_issues) {
 			//Output the cover of the most recent issue
 			echo '<aside id="recent-articles">';
 			echo "<a href=\"{$latest_issues[0]->get_link()}\"><div id=\"latest-cover\" class=\"box-shadow-transition image-fit\" style=\"background-image: url('{$latest_issues[0]->get_image_url('issue_medium')}')\"></div></a>";
 			//Get the seven most recently published articles
-			$articles = evangelical_magazine_article::get_recent_articles(7);
-			$next = evangelical_magazine_article::get_next_future_article();
+			$articles = evangelical_magazine_articles_and_reviews::get_recent_articles_and_reviews(7);
+			$next = evangelical_magazine_articles_and_reviews::get_next_future_article_or_review();
 			if ($next) {
 				array_unshift($articles, $next);
 				$articles = array_slice ($articles, 0, 7);
@@ -87,7 +87,7 @@ class evangelical_mag_home_page {
 		$output = array();
 		if ($sections) {
 			foreach ($sections as $section) {
-				$articles = $section->get_articles(1, $exclude_article_ids);
+				$articles = $section->get_articles_and_reviews(1, $exclude_article_ids);
 				$info_box = evangelical_mag_theme::get_article_list_box($articles, true, $section->get_name(true));
 				if ($info_box) {
 					$output[$articles[0]->get_publish_date('U')] = $info_box;

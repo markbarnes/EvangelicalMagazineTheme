@@ -86,7 +86,7 @@ class evangelical_mag_theme {
 			// Add some schema.org meta
 			add_action ('genesis_before_entry_content', array (__CLASS__, 'add_schema_org_data_to_articles'));
 			// Add the author/'see also' detail at the end of the article (also increases the view count)
-			add_action ('genesis_after_entry_content', array (__CLASS__, 'add_after_end_of_article'));
+			add_action ('genesis_after_entry_content', array (__CLASS__, 'add_after_end_of_article_or_review'));
 			self::add_full_size_header_image();
 			// Add extra meta tags for social media embeds
 			add_action ('genesis_meta', array (__CLASS__, 'add_facebook_open_graph'));
@@ -97,7 +97,7 @@ class evangelical_mag_theme {
 		}
 		// Single reviews
 		if (is_singular('em_review')) {
-			add_filter('genesis_post_title_text', array (__CLASS__, 'add_review_type_to_title'));
+			add_filter('genesis_post_title_text', array ('evangelical_magazine_review', 'add_review_type_to_title'));
 			// Filter the post_info
 			add_filter ('genesis_post_info', array (__CLASS__, 'add_review_metadata_to_page'));
 			// Specify the title image using styles in the <HEAD>
@@ -113,7 +113,7 @@ class evangelical_mag_theme {
 			// Add some schema.org meta
 			add_action ('genesis_before_entry_content', array (__CLASS__, 'add_schema_org_data_to_articles'));
 			// Add the author/'see also' detail at the end of the article (also increases the view count)
-			add_action ('genesis_after_entry_content', array (__CLASS__, 'add_after_end_of_article'));
+			add_action ('genesis_after_entry_content', array (__CLASS__, 'add_after_end_of_article_or_review'));
 			// Add extra meta tags for social media embeds
 			add_action ('genesis_meta', array (__CLASS__, 'add_facebook_open_graph'));
 			add_action ('genesis_meta', array (__CLASS__, 'add_twitter_card'));
@@ -184,6 +184,7 @@ class evangelical_mag_theme {
 			add_action ('genesis_entry_content', 'genesis_do_post_title', 8);
 			add_action ('genesis_entry_content', array (__CLASS__, 'do_article_meta_for_search'), 9);
 			add_action ('genesis_entry_content', array (__CLASS__, 'close_div'), 13);
+			add_filter ('genesis_post_title_text', array('evangelical_magazine_review', 'add_review_type_to_title'));
 			add_filter ('genesis_post_title_text', array(__CLASS__, 'filter_post_title_for_search_terms'));
 			add_action ('genesis_after_loop', array (__CLASS__, 'add_to_end_of_search_page'), 12);
 		}
@@ -336,29 +337,31 @@ class evangelical_mag_theme {
 	}
 
 	/**
-	* Outputs all the data to be added to the end of articles
-	* Also updates the view count, as it's only called for singular article views.
+	* Outputs all the data to be added to the end of articles and reviews
+	* Also updates the view count, as it's only called for singular article/review views.
 	*
 	* @return void
 	*/
-	public static function add_after_end_of_article () {
+	public static function add_after_end_of_article_or_review () {
 		global $post;
-		$article = new evangelical_magazine_article($post);
+		$object = evangelical_magazine::get_object_from_post($post);
 		if (!is_user_logged_in()) {
-			$article->record_view_count();
+			$object->record_view_count();
 		}
 		echo "<div class=\"after-article\">";
-		self::output_facebook_like_share_buttons ($article);
+		self::output_facebook_like_share_buttons ($object);
 		self::output_email_subscription_box();
-		$articles_in_same_series = $article->get_articles_in_same_series();
+		$articles_in_same_series = $object->get_articles_in_same_series();
 		if (count($articles_in_same_series) > 1) {
-			self::output_about_the_author ($article, $articles_to_be_excluded, false);
-			self::output_also_in_this_series ($article, $articles_in_same_series, $articles_to_be_excluded);
+			self::output_about_the_author ($object, $articles_to_be_excluded, false);
+			if ($object->is_article()) {
+				self::output_also_in_this_series ($object, $articles_in_same_series, $articles_to_be_excluded);
+			}
 		} else {
-			self::output_about_the_author ($article, $articles_to_be_excluded, true);
+			self::output_about_the_author ($object, $articles_to_be_excluded, true);
 		}
-		$articles_to_be_excluded[] = $article->get_id();
-		$sections = $article->get_sections();
+		$articles_to_be_excluded[] = $object->get_id();
+		$sections = $object->get_sections();
 		self::output_also_in_this_section ($sections, $articles_to_be_excluded);
 		echo "</div>";
 	}
@@ -405,7 +408,7 @@ class evangelical_mag_theme {
 				echo $author->get_author_info_html('author_small');
 			}
 			if ($output_also_by_section) {
-				$also_by = $article->get_articles_by_same_authors(3);
+				$also_by = $article->get_articles_and_reviews_by_same_authors(3);
 				if ($also_by) {
 					if ($is_single_author) {
 						$author = current ($authors);
@@ -454,7 +457,7 @@ class evangelical_mag_theme {
 	*/
 	private static function output_also_in_this_section ($sections, &$articles_to_be_excluded) {
 		foreach ($sections as $section) {
-			$articles_in_same_section = $section->get_articles(3, $articles_to_be_excluded);
+			$articles_in_same_section = $section->get_articles_and_reviews(3, $articles_to_be_excluded);
 			if ($articles_in_same_section) {
 				echo "<div class =\"sections-meta\"><h2>Also in the {$section->get_name(true)} section</h2>";
 				foreach ($articles_in_same_section as $also_article) {
@@ -597,7 +600,7 @@ class evangelical_mag_theme {
 		$author = new evangelical_magazine_author($author_id);
 		$args = evangelical_magazine_article::_future_posts_args();
 		$args ['order_by'] = array ('date' => 'DESC');
-		$articles = $author->_get_articles($args);
+		$articles = $author->_get_articles_and_reviews($args);
 		if ($articles) {
 			echo self::get_article_list_box($articles, true, '', false, true);
 		}
@@ -672,7 +675,6 @@ class evangelical_mag_theme {
 		$authors = evangelical_magazine_author::get_all_authors();
 		$output_index = (bool)(count($authors) >= 20);
 		if ($authors) {
-			$articles = evangelical_magazine_article::get_all_articles();
 			$previous_letter = $letters_used = '';
 			foreach ($authors as $author) {
 				if ($output_index) {
@@ -685,7 +687,13 @@ class evangelical_mag_theme {
 						$letters_used .= $current_letter;
 					}
 				}
-				$output .= "<div class=\"grid-author-container\"><a href=\"{$author->get_link()}\" class=\"grid-author-image image-fit\" style=\"background-image:url('{$author->get_image_url('author_small')}')\"></a><div class=\"author-name-description\"><div class=\"author-name\">{$author->get_name(true)}</div><div class=\"author-description\">{$author->get_filtered_content()}</div><div class=\"author-article-count\"><a href=\"{$author->get_link()}\">{$author->get_article_count(true, true)}</a></div></div></div>";
+				$output .= "<div class=\"grid-author-container\">";
+				$output .= "<a href=\"{$author->get_link()}\" class=\"grid-author-image image-fit\" style=\"background-image:url('{$author->get_image_url('author_small')}')\"></a>";
+				$output .= "<div class=\"author-name-description\">";
+				$output .= "<div class=\"author-name\">{$author->get_name(true)}</div>";
+				$output .= "<div class=\"author-description\">{$author->get_filtered_content()}</div>";
+				$output .= "<div class=\"author-article-count\"><a href=\"{$author->get_link()}\">{$author->get_article_and_review_count(true, true, true)}</a></div>";
+				$output .= "</div></div>";
 			}
 			if ($previous_letter != '') {
 				$output .= "</div>";
@@ -779,7 +787,7 @@ class evangelical_mag_theme {
 			foreach ($sections as $section) {
 				echo "<li class=\"issue\"><a href=\"{$section->get_link()}\"></a>";
 				echo "<div class=\"issue-contents\"><h4>{$section->get_name(true)}</h4>";
-				$articles = $section->get_top_articles($max_articles_displayed, $exclude_ids);
+				$articles = $section->get_top_articles_and_reviews($max_articles_displayed, $exclude_ids);
 				if ($articles) {
 					echo "<ul class=\"top-articles\">";
 					foreach ($articles as $article) {
@@ -839,12 +847,12 @@ class evangelical_mag_theme {
 	* @return void
 	*/
 	public static function add_to_end_of_issue_page() {
-		$issue_id = get_the_ID();
-		$issue = new evangelical_magazine_issue($issue_id);
+		global $post;
+		$issue = new evangelical_magazine_issue($post);
 		$args = evangelical_magazine_article::_future_posts_args();
 		$args['order'] = 'ASC';
-		$articles = $issue->_get_articles ($args);
-		$html = self::get_article_list_box($articles);
+		$content = $issue->_get_articles_and_reviews($args);
+		$html = self::get_article_list_box($content);
 		echo ($html) ? $html : '<div class="article-list-box"><p>Coming soon.</p></div>';
 	}
 
@@ -857,7 +865,7 @@ class evangelical_mag_theme {
 		$section_id = get_the_ID();
 		$section = new evangelical_magazine_section($section_id);
 		$args = evangelical_magazine_article::_future_posts_args();
-		$articles = $section->_get_articles ($args);
+		$articles = $section->_get_articles_and_reviews ($args);
 		if ($articles) {
 			echo "<div class=\"section-page\">".self::get_article_list_box($articles, true, '', false, true)."</div>";
 		} else {
@@ -958,24 +966,6 @@ class evangelical_mag_theme {
 	}
 
 	/**
-	* Adds the review media type to the page title
-	*
-	* Filters genesis_post_title_text
-	*
-	* @param string $title - the current title
-	* @return string - the title witht the media type added
-	*/
-	public static function add_review_type_to_title ($title) {
-		global $post;
-		$review = new evangelical_magazine_review ($post);
-		if ($media_type = $review->get_media_type_name()) {
-			return "{$media_type} review — {$title}";
-		} else {
-			return "Review — {$title}";
-		}
-	}
-
-	/**
 	* Outputs the post thumbnail on the search page
 	*
 	* @return void
@@ -1071,15 +1061,15 @@ class evangelical_mag_theme {
 	/**
 	* Returns the HTML for a list of articles with thumbnails, title and author
 	*
-	* @param evangelical_magazine_article[] $articles - an array of articles
+	* @param evangelical_magazine_article[]|evangelical_magazine_review[] $content - an array of articles and/or reviews
 	* @param bool $make_first_image_bigger - true if the first image will be larger
 	* @param string $heading - a text string to add as a heading
 	* @param bool $shrink_text_if_long - true if long text is to be shortened
 	* @param bool $add_facebook_likes - true if Facebook stats are to be added in the boxes
 	* @return string - the HTML
 	*/
-	public static function get_article_list_box($articles, $make_first_image_bigger = true, $heading = '', $shrink_text_if_long = false, $add_facebook_likes = false) {
-		if ($articles) {
+	public static function get_article_list_box($content, $make_first_image_bigger = true, $heading = '', $shrink_text_if_long = false, $add_facebook_likes = false) {
+		if ($content) {
 			$output = "<div class=\"article-list-box\">";
 			if ($heading) {
 				if (is_array($heading) && isset($heading['text']) && isset($heading['class'])) {
@@ -1090,7 +1080,7 @@ class evangelical_mag_theme {
 			}
 			$output .= "<ol>";
 			$class = $make_first_image_bigger ? 'large-image' : '';
-			foreach ($articles as $article) {
+			foreach ($content as $article) {
 				$url = $article->get_image_url('article_large');
 				$image_html = "<div class=\"box-shadow-transition article-list-box-image image-fit\" style=\"background-image: url('{$url}')\"></div>";
 				if ($article->is_future()) {

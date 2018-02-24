@@ -1615,7 +1615,7 @@ p.entry-meta {
 	font-size: 16px;
 	margin-bottom: 0;
 	padding: 10px 20px;
-	/* background-color: #086788; */
+	background-color: #086788;
 	color: white;
 	font-family: Lato;
 	overflow: hidden;
@@ -1911,7 +1911,7 @@ body.single-em_review .review-metadata {
 body.single-em_review .media-metadata {
 	float:left;
 	width: 100%;
-	background-color: transparent;
+	background-color: white;
 	color: #086788;
 	padding: 10px 20px 5px 20px;
 	border: 2px solid #086788;
