@@ -93,6 +93,7 @@ class evangelical_mag_theme {
 			add_filter ('genesis_attr_entry', array (__CLASS__, 'add_schema_org_itemtype_to_articles'), 10, 2);
 			// Add the author/'see also' detail at the end of the article (also increases the view count)
 			add_action ('genesis_entry_content', array (__CLASS__, 'add_series_toc_if_required'), 8);
+			add_action ('genesis_entry_content', array (__CLASS__, 'add_next_in_series_if_required'), 12);
 			add_action ('genesis_after_entry_content', array (__CLASS__, 'add_after_end_of_article_or_review'));
 			self::add_full_size_header_image();
 			// Add extra meta tags for social media embeds
@@ -1499,6 +1500,23 @@ class evangelical_mag_theme {
 					}
 				}
 				echo "</ul></div>";
+			}
+		}
+	}
+
+	/**
+	* Outputs the "Next in series" link if required
+	*
+	* @return void
+	*/
+	public static function add_next_in_series_if_required() {
+		global $post;
+		/** @var evangelical_magazine_article */
+		$article = evangelical_magazine::get_object_from_post($post);
+		if ($article->is_article() && $article->has_series()) {
+			$next = $article->get_next_in_series();
+			if ($next) {
+				echo "<p class=\"next-in-series\">Next in this series: {$next->get_name(true)} &raquo;</p>";
 			}
 		}
 	}

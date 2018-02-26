@@ -1902,6 +1902,12 @@ body.single-em_article #series-contents li {
 	margin: 7px 0;
 }
 
+body.single-em_article .next-in-series {
+	text-align: right;
+	font-family: Lato;
+	font-weight: bold;
+}
+
 /* ## Single review pages
 --------------------------------------------- */
 
