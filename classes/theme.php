@@ -58,7 +58,11 @@ class evangelical_mag_theme {
 		// All singular pages
 		if (is_singular()) {
 			remove_action ('genesis_entry_header', 'genesis_post_info', 12);
-			add_filter( 'genesis_post_meta', '__return_false' );
+			add_filter ('genesis_post_meta', '__return_false');
+			// Put the post text inside an extra div inside entry-content
+			remove_filter ('genesis_attr_entry-content', 'genesis_attributes_entry_content');
+			add_action ('genesis_entry_content', array (__CLASS__, 'open_div_with_itemprop_text'), 9);
+			add_action ('genesis_entry_content', array (__CLASS__, 'close_div'), 11);
 		// All archive pages
 		} elseif (is_archive()) {
 			// Remove all the standard entry headers/content
@@ -88,6 +92,7 @@ class evangelical_mag_theme {
 			add_action ('genesis_before_entry_content', array (__CLASS__, 'add_schema_org_data_to_articles'));
 			add_filter ('genesis_attr_entry', array (__CLASS__, 'add_schema_org_itemtype_to_articles'), 10, 2);
 			// Add the author/'see also' detail at the end of the article (also increases the view count)
+			add_action ('genesis_entry_content', array (__CLASS__, 'add_series_toc_if_required'), 8);
 			add_action ('genesis_after_entry_content', array (__CLASS__, 'add_after_end_of_article_or_review'));
 			self::add_full_size_header_image();
 			// Add extra meta tags for social media embeds
@@ -528,7 +533,7 @@ class evangelical_mag_theme {
 	}
 
 	/**
-	* Helper function to outputs an opening div
+	* Outputs an opening div
 	*
 	* @return string
 	*/
@@ -543,6 +548,15 @@ class evangelical_mag_theme {
 	*/
 	public static function close_div() {
 		echo '</div>';
+	}
+
+	/**
+	* Outputs an opening div with itemprop="text"
+	*
+	* @return string
+	*/
+	public static function open_div_with_itemprop_text() {
+		echo '<div itemprop="text">';
 	}
 
 	/**
@@ -1457,4 +1471,35 @@ class evangelical_mag_theme {
 		return $urls;
 	}
 
+	/**
+	* Outputs a series table of contents at the top of articles
+	*
+	* @return void
+	*/
+	public static function add_series_toc_if_required() {
+		global $post;
+		/** @var evangelical_magazine_article */
+		$article = evangelical_magazine::get_object_from_post($post);
+		if ($article->is_article() && $article->has_series()) {
+			$series = $article->get_series();
+			$articles_in_series = $series->get_articles(-1, array(), $series->_future_posts_args());
+			if ($series && count($articles_in_series) > 1) {
+				echo "<div id=\"series-contents\">";
+				echo "<h3>About this series</h3>";
+				echo "<h4>{$series->get_name (true)}</h4>";
+				echo "<ul>";
+				foreach ($articles_in_series as $a) {
+					if ($article->get_id() == $a->get_id()) {
+						echo "<li><strong>{$a->get_name()}</strong>&nbsp;({$a->get_series_order()})</li>";
+					} elseif ($a->is_future()) {
+						echo "<li><em>{$a->get_name()}</em> — coming {$a->get_coming_date()}</li>";
+					} else {
+						$link = "<a href=\"{$a->get_link()}#series-contents\">{$a->get_name()}</a>";
+						echo "<li>{$link} ({$a->get_series_order()})</li>";
+					}
+				}
+				echo "</ul></div>";
+			}
+		}
+	}
 }
