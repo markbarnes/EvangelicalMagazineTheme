@@ -21,6 +21,7 @@ class evangelical_mag_theme {
 		add_action ('wp_enqueue_scripts', array (__CLASS__, 'enqueue_fonts'));
 		add_action ('wp_enqueue_scripts', array (__CLASS__, 'enqueue_media_stylesheets'));
 		add_action ('wp_enqueue_scripts', array (__CLASS__, 'disable_emojis'));
+		add_action ('wp_enqueue_scripts', array (__CLASS__, 'enqueue_reftagger'));
 		add_filter ('genesis_superfish_enabled', '__return_false');
 		remove_action ('wp_head', 'feed_links_extra', 3);
 		remove_action ('wp_head', 'feed_links', 2 );
@@ -202,6 +203,17 @@ class evangelical_mag_theme {
 		wp_enqueue_style ('magazine-font-aleo', get_stylesheet_directory_uri().'/fonts/aleo.css', array(), CHILD_THEME_VERSION);
 		wp_enqueue_style ('magazine-font-lato', get_stylesheet_directory_uri().'/fonts/lato.css', array(), CHILD_THEME_VERSION);
 		wp_enqueue_style ('dashicons');
+	}
+
+	/**
+	* Enqueue reftagger
+	*
+	* Called by the wp_enqueue_scripts action
+	*
+	* @return void
+	*/
+	public static function enqueue_reftagger() {
+		wp_enqueue_script ('magazine-reftagger', get_stylesheet_directory_uri().'/js/reftagger.js', array(), CHILD_THEME_VERSION, true);
 	}
 
 	/**
@@ -1141,7 +1153,8 @@ class evangelical_mag_theme {
 	* @return void
 	*/
 	public static function configure_reftagger() {
-		echo "<script>var refTagger = {settings: {bibleVersion: \"NIV\",libronixBibleVersion: \"DEFAULT\",addLogosLink: false,appendIconToLibLinks: false,libronixLinkIcon: \"dark\",noSearchClassNames: [],useTooltip: true,noSearchTagNames: [\"h1\"],linksOpenNewWindow: true,convertHyperlinks: false,caseInsensitive: false,tagChapters: true}};(function(d, t) {var g = d.createElement(t), s = d.getElementsByTagName(t)[0];g.src = '".get_stylesheet_directory_uri()."/js/reftagger.js?".CHILD_THEME_VERSION."';s.parentNode.insertBefore(g, s);}(document, 'script'));</script>\r\n";
+		//echo "<script>var refTagger = {settings: {bibleVersion: \"NIV\",libronixBibleVersion: \"DEFAULT\",addLogosLink: false,appendIconToLibLinks: false,libronixLinkIcon: \"dark\",noSearchClassNames: [],useTooltip: true,noSearchTagNames: [\"h1\"],linksOpenNewWindow: true,convertHyperlinks: false,caseInsensitive: false,tagChapters: true}};(function(d, t) {var g = d.createElement(t), s = d.getElementsByTagName(t)[0];g.src = '".get_stylesheet_directory_uri()."/js/reftagger.js?".CHILD_THEME_VERSION."';s.parentNode.insertBefore(g, s);}(document, 'script'));</script>\r\n";
+		echo "<script>var refTagger = {settings: {bibleVersion: \"NIV\",libronixBibleVersion: \"DEFAULT\",addLogosLink: false,appendIconToLibLinks: false,libronixLinkIcon: \"dark\",noSearchClassNames: [],useTooltip: true,noSearchTagNames: [\"h1\"],linksOpenNewWindow: true,convertHyperlinks: false,caseInsensitive: false,tagChapters: true}}</script>";
 	}
 
 	/**
