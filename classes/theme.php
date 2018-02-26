@@ -1184,7 +1184,7 @@ class evangelical_mag_theme {
 	public static function add_facebook_open_graph() {
 		/** @var evangelical_magazine_article */
 		$object = evangelical_magazine::get_object_from_id(get_the_ID());
-		if ($object && ($object->is_article() || $object->is_review())) {
+		if ($object && $object->is_article_or_review()) {
 			$image_details = $object -> get_image_details($object->is_article() ? 'facebook_share' : 'half-post-width');
 			$authors = $object->get_author_names(false, false, $object->is_article() ? ' — by ' : ', reviewed by ');
 			$article_preview = htmlspecialchars(wp_trim_words (strip_shortcodes($object->get_content()), 75, '…'), ENT_HTML5);
@@ -1210,19 +1210,20 @@ class evangelical_mag_theme {
 	}
 
 	/**
-	* Outputs the Twitter Summary Card tags to single articles
+	* Outputs the Twitter Summary Card tags to single articles and reviews
 	*
 	* @return void
 	*/
 	public static function add_twitter_card() {
-		$article = evangelical_magazine::get_object_from_id(get_the_ID());
-		if ($article && $article->is_article()) {
-			$image_details = $article -> get_image_details('twitter_share');
-			$authors = $article->get_author_names(false, false, ' — by ');
-			$article_preview = htmlspecialchars(wp_trim_words (strip_shortcodes($article->get_content()), 75, '…'), ENT_HTML5);
-			echo "\r\n\t<meta name=\"twitter:card\" content=\"summary_large_image\">\r\n";
+		$object = evangelical_magazine::get_object_from_id(get_the_ID());
+		if ($object && $object->is_article_or_review()) {
+			$image_details = $object -> get_image_details($object->is_article() ? 'twitter_share' : 'half-post-width');
+			$authors = $object->get_author_names(false, false, $object->is_article() ? ' — by ' : ', reviewed by ');
+			$article_preview = htmlspecialchars(wp_trim_words (strip_shortcodes($object->get_content()), 75, '…'), ENT_HTML5);
+			$image_size = $object->is_article() ? 'summary_large_image' : 'summary';
+			echo "\r\n\t<meta name=\"twitter:card\" content=\"{$image_size}\">\r\n";
 			echo "\t<meta name=\"twitter:site\" content=\"@EvangelicalMag\">";
-			echo "\t<meta name=\"twitter:title\" content=\"".htmlspecialchars($article->get_name().$authors, ENT_HTML5)."\" />\r\n";
+			echo "\t<meta name=\"twitter:title\" content=\"".htmlspecialchars($object->get_title().$authors, ENT_HTML5)."\" />\r\n";
 			echo "\t<meta name=\"twitter:description\" content=\"{$article_preview}\" />\r\n";
 			echo "\t<meta name=\"twitter:image\" content=\"{$image_details['url']}\" />\r\n";
 			if ($authors == ' — by Mark Barnes') {
@@ -1232,17 +1233,17 @@ class evangelical_mag_theme {
 	}
 
 	/**
-	* Outputs a breadcrumb to Google, for single articles
+	* Outputs a breadcrumb to Google, for single articles and reviews
 	*
 	* @return void
 	*/
 	public static function add_google_breadcrumb () {
-		$article = evangelical_magazine::get_object_from_id(get_the_ID());
-		if ($article && $article->is_article() && $article->has_issue()) {
-			$issue_name = htmlspecialchars($article->get_issue_name(), ENT_HTML5);
+		$object = evangelical_magazine::get_object_from_id(get_the_ID());
+		if ($object && $object->is_article_or_review() && $object->has_issue()) {
+			$issue_name = htmlspecialchars($object->get_issue_name(), ENT_HTML5);
 			echo "<script type=\"application/ld+json\">\r\n";
 			echo "{\"@context\": \"http://schema.org\", \"@type\": \"BreadcrumbList\", \"itemListElement\": [";
-			echo "{ \"@type\": \"ListItem\", \"position\": 1, \"item\": { \"@id\": \"{$article->get_issue_link()}\", \"name\": \"{$issue_name}\"}}";
+			echo "{ \"@type\": \"ListItem\", \"position\": 1, \"item\": { \"@id\": \"{$object->get_issue_link()}\", \"name\": \"{$issue_name}\"}}";
 			echo "]}\r\n";
 			echo "</script>\r\n";
 		}
