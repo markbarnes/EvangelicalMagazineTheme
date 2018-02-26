@@ -1149,6 +1149,7 @@ class evangelical_mag_theme {
 	*/
 	public static function add_rss_feeds() {
 		echo "<link rel=\"alternate\" type=\"application/rss+xml\" title=\"Evangelical Magazine Articles\" href=\"".get_post_type_archive_feed_link('em_article')."\" />\r\n";
+		echo "<link rel=\"alternate\" type=\"application/rss+xml\" title=\"Evangelical Magazine Reviews\" href=\"".get_post_type_archive_feed_link('em_review')."\" />\r\n";
 		echo "<link rel=\"alternate\" type=\"application/rss+xml\" title=\"Evangelical Magazine Issues\" href=\"".get_post_type_archive_feed_link('em_issue')."\" />\r\n";
 	}
 
