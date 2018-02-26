@@ -1940,6 +1940,16 @@ body.single-em_review .review-image {
 	margin: 0 20px 20px 0;
 }
 
+body.single-em_review .fb-like {
+	margin-bottom: 20px;
+	line-height: 1em;
+	float: right;
+}
+
+body.single-em_review #subscription-form {
+	clear: both;
+}
+
 /* ## Single author pages
 --------------------------------------------- */
 

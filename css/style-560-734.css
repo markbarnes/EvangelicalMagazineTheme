@@ -569,6 +569,12 @@ body.single-em_article .fb-like {
 	float: none;
 }
 
+/* Single review page
+   ------------------- */
+body.single-em_review .fb-like {
+	float: none;
+}
+
 /* Section archive page
    --------------------  */
 
