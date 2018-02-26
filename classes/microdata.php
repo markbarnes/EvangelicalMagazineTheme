@@ -1,6 +1,6 @@
 <?php
 /**
-* Helper class containing functions to add schema.org microdata before the start of articles
+* Helper class containing functions to add schema.org microdata before the start of articles and reviews
 *
 * @see https://schema.org/Article
 *
@@ -11,17 +11,38 @@
 class evangelical_mag_microdata {
 
 	/**
+	* Returns a span tag with the required itemprop parameters
+	*
+	* @see http://schema.org/docs/gs.html
+	*
+	* @param string $itemprop
+	* @param string $itemtype
+	* @param string $content - the content between the opening and closing tags
+	* @return string
+	*/
+	public function get_span ($itemprop, $itemtype, $content = '') {
+		return $this->html_tag ('span', $content, array ('itemprop' => $itemprop, 'itemscope' => true, 'itemtype' => $itemtype));
+	}
+
+	/**
 	* Returns a meta tag with itemprop and content parameters
 	*
 	* @see http://schema.org/docs/gs.html#advanced_missing
 	*
-	* @param string $itemprop
+	* @param string|array $itemprop
 	* @param string $content
 	* @return string
 	*/
-	public function get_meta ($itemprop, $content) {
-		$content = esc_html($content);
-		return "<meta itemprop=\"{$itemprop}\" content=\"{$content}\">";
+	public function get_meta ($itemprop, $content = '') {
+		if (is_array($itemprop)) {
+			$output = '';
+			foreach ($itemprop as $k => $v) {
+				$output .= $this->get_meta ($k, $v);
+			}
+			return $output;
+		} else {
+			return $this->html_tag ('meta', '', array ('itemprop' => $itemprop, 'content' => $content));
+		}
 	}
 
 	/**
@@ -45,8 +66,7 @@ class evangelical_mag_microdata {
 	* @return string
 	*/
 	public function get_ImageObject ($url, $width, $height) {
-		$url = esc_html($url);
-		return "<span itemprop=\"image\" itemscope itemtype=\"https://schema.org/ImageObject\"><meta itemprop=\"url\" content=\"{$url}\"><meta itemprop=\"width\" content=\"{$width}\"><meta itemprop=\"height\" content=\"{$height}\"></span>";
+		return $this->get_span('image', 'https://schema.org/ImageObject', $this->get_meta (compact ('url', 'width', 'height')));
 	}
 
 	/**
@@ -58,8 +78,8 @@ class evangelical_mag_microdata {
 	* @return string
 	*/
 	public function get_datePublished ($timestamp) {
-		$date = self::convert_timestamp($timestamp);
-		return self::get_meta ('datePublished', $date);
+		$date = $this->convert_timestamp($timestamp);
+		return $this->get_meta ('datePublished', $date);
 	}
 
 	/**
@@ -71,8 +91,8 @@ class evangelical_mag_microdata {
 	* @return string
 	*/
 	public function get_dateModified ($timestamp) {
-		$date = self::convert_timestamp($timestamp);
-		return self::get_meta ('dateModified', $date);
+		$date = $this->convert_timestamp($timestamp);
+		return $this->get_meta ('dateModified', $date);
 	}
 
 	/**
@@ -84,8 +104,7 @@ class evangelical_mag_microdata {
 	* @return string
 	*/
 	public function get_logo($url) {
-		$url = esc_html($url);
-		return "<span itemprop=\"logo\" itemscope itemtype=\"https://schema.org/ImageObject\"><meta itemprop=\"url\" content=\"{$url}\"></span>";
+		return $this->get_span ('logo', 'https://schema.org/ImageObject', $this->get_meta(compact('url')));
 	}
 
 	/**
@@ -99,8 +118,57 @@ class evangelical_mag_microdata {
 	* @return string
 	*/
 	public function get_publisher ($name, $url, $logo_url) {
-		$name = esc_html($name);
-		$url = esc_html($url);
-		return "<span itemprop=\"publisher\" itemscope itemtype=\"https://schema.org/Organization\"><meta itemprop=\"name\" content=\"{$name}\"><meta itemprop=\"url\" content=\"{$url}\">".self::get_logo($logo_url).'</span>';
+		return $this->get_span ('publisher', 'https://schema.org/Organization', $this->get_meta (compact('name', 'url')).$this->get_logo($logo_url));
+	}
+
+	/**
+	* Returns the html for the image of an item reviewed
+	*
+	* @see https://schema.org/itemReviewed
+	*
+	* @param array $image_details - an indexed array with the values (url, width, height), for example created by wp_get_attachment_image_src
+	* @return string
+	*/
+	public function get_itemReviewed_image ($image_details) {
+		return $this->get_span ('itemReviewed', 'https://schema.org/Thing', $this->get_ImageObject($image_details[0], $image_details[1], $image_details[2]));
+	}
+
+	/**
+	* Converts an array of attributes into a string, ready for HTML output
+	*
+	* e.g. array ('key1' => 'value1', 'key2' => 'value2')
+	* will become 'key1="value1" key2="value2"'
+	*
+	* @param array $attributes
+	* @return string
+	*/
+	private function attr_html ($attributes) {
+		$output = '';
+		foreach ($attributes as $key => $value) {
+			if ($value) {
+				if ($value === true) {
+					$output .= esc_html($key).' ';
+				} else {
+					$output .= sprintf('%s="%s" ', esc_html($key), esc_attr($value));
+				}
+			}
+		}
+		return trim($output);
+	}
+
+	/**
+	* Returns a HTML tag
+	*
+	* @param string $tag - The name of the HTML tag
+	* @param string $contents -  the content between the opening and closing tags
+	* @param array $attributes - Various attributes and values [class, id, etc.] for the tag. The name of the attribute should be used as the key.
+	* @return string
+	*/
+	private function html_tag ($tag, $contents, $attributes = array()) {
+		if ($contents) {
+			return "<{$tag} {$this->attr_html($attributes)}>{$contents}</{$tag}>";
+		} else {
+			return "<{$tag} {$this->attr_html($attributes)} />";
+		}
 	}
 }
