@@ -22,7 +22,7 @@ spl_autoload_register('evangelical_mag_autoload_classes');
 
 // Set everything up
 add_action ('wp', array ('evangelical_mag_theme', 'set_everything_up'));
-add_filter ('intermediate_image_sizes_advanced', array ('evangelical_mag_theme', 'remove_default_image_sizes'));
+add_filter ('intermediate_image_sizes', array ('evangelical_mag_theme', 'remove_default_image_sizes'));
 add_filter ('wp_generate_attachment_metadata',array ('evangelical_mag_theme', 'enhance_media_images'));
 
 // Theme support

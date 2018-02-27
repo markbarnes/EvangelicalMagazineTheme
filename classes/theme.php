@@ -1169,16 +1169,21 @@ class evangelical_mag_theme {
 	}
 
 	/**
-	* Removes the default 'medium' and 'large' image sizes, so images are not unnecessarily created
+	* Removes the default 'medium', 'medium_large' and 'large' image sizes, so images are not unnecessarily created
 	*
-	* Filters intermediate_image_sizes_advanced
+	* Filters intermediate_image_sizes
 	*
 	* @param array $sizes - the existing array of image sizes
 	* @return array - the modified array
 	*/
 	public static function remove_default_image_sizes($sizes) {
-		unset( $sizes['medium']);
-		unset( $sizes['large']);
+		$image_sizes_to_remove = array ('medium', 'medium_large', 'large');
+		foreach ($image_sizes_to_remove as $i) {
+			$index = array_search ($i, $sizes);
+			if ($index) {
+				unset ($sizes[$index]);
+			}
+		}
 		return $sizes;
 	}
 
@@ -1188,7 +1193,6 @@ class evangelical_mag_theme {
 	* @return void
 	*/
 	public static function configure_reftagger() {
-		//echo "<script>var refTagger = {settings: {bibleVersion: \"NIV\",libronixBibleVersion: \"DEFAULT\",addLogosLink: false,appendIconToLibLinks: false,libronixLinkIcon: \"dark\",noSearchClassNames: [],useTooltip: true,noSearchTagNames: [\"h1\"],linksOpenNewWindow: true,convertHyperlinks: false,caseInsensitive: false,tagChapters: true}};(function(d, t) {var g = d.createElement(t), s = d.getElementsByTagName(t)[0];g.src = '".get_stylesheet_directory_uri()."/js/reftagger.js?".CHILD_THEME_VERSION."';s.parentNode.insertBefore(g, s);}(document, 'script'));</script>\r\n";
 		echo "<script>var refTagger = {settings: {bibleVersion: \"NIV\",libronixBibleVersion: \"DEFAULT\",addLogosLink: false,appendIconToLibLinks: false,libronixLinkIcon: \"dark\",noSearchClassNames: [],useTooltip: true,noSearchTagNames: [\"h1\"],linksOpenNewWindow: true,convertHyperlinks: false,caseInsensitive: false,tagChapters: true}}</script>";
 	}
 
@@ -1353,6 +1357,7 @@ class evangelical_mag_theme {
 	* @return array - the revised array
 	*/
 	public static function add_image_sizes_to_media_gallery ($size_names) {
+		$size_names ['third-post-width'] = 'Third-width';
 		$size_names ['half-post-width'] = 'Half-width';
 		$size_names ['full-post-width'] = 'Full-width';
 		return $size_names;
