@@ -24,6 +24,7 @@ spl_autoload_register('evangelical_mag_autoload_classes');
 add_action ('wp', array ('evangelical_mag_theme', 'set_everything_up'));
 add_filter ('intermediate_image_sizes', array ('evangelical_mag_theme', 'remove_default_image_sizes'));
 add_filter ('wp_generate_attachment_metadata',array ('evangelical_mag_theme', 'enhance_media_images'));
+add_filter ('tiny_mce_before_init', array ('evangelical_mag_theme', 'remove_unused_tinymce_formats'));
 
 // Theme support
 add_theme_support( 'html5', array('search-form', 'comment-form', 'comment-list', 'gallery', 'caption')); //* Add HTML5 markup structure

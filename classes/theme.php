@@ -17,7 +17,7 @@ class evangelical_mag_theme {
 	* @return void
 	*/
 	public static function set_everything_up() {
-		//Admin fonts
+		//Editor tweaks
 		add_action ('admin_enqueue_scripts', array (__CLASS__, 'enqueue_fonts'));
 
 		// HTML HEAD
@@ -1527,5 +1527,18 @@ class evangelical_mag_theme {
 				echo "<p class=\"next-in-series\">Next in this series: {$next->get_name(true)} &raquo;</p>";
 			}
 		}
+	}
+
+	/**
+	* Limits the paragraph styles shown in the TinyMCE dropdown
+	*
+	* Filters tiny_mce_before_init
+	*
+	* @param array $settings - the current settings
+	* @return array - the modified settings
+	*/
+	public static function remove_unused_tinymce_formats($settings) {
+		$settings['block_formats'] = 'Paragraph=p;Heading 2=h2;Heading 3=h3';
+		return $settings;
 	}
 }
