@@ -28,6 +28,7 @@ add_filter ('wp_generate_attachment_metadata',array ('evangelical_mag_theme', 'e
 // Theme support
 add_theme_support( 'html5', array('search-form', 'comment-form', 'comment-list', 'gallery', 'caption')); //* Add HTML5 markup structure
 add_theme_support( 'genesis-accessibility', array( 'headings', 'search-form', 'skip-links', 'rems' ) ); //* Add Accessibility support
+add_editor_style();
 
 // Widgets
 add_action ('widgets_init', array ('evangelical_mag_widgets', 'register_widgets'));

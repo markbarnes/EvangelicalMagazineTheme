@@ -17,6 +17,9 @@ class evangelical_mag_theme {
 	* @return void
 	*/
 	public static function set_everything_up() {
+		//Admin fonts
+		add_action ('admin_enqueue_scripts', array (__CLASS__, 'enqueue_fonts'));
+
 		// HTML HEAD
 		add_action ('wp_enqueue_scripts', array (__CLASS__, 'enqueue_fonts'));
 		add_action ('wp_enqueue_scripts', array (__CLASS__, 'enqueue_media_stylesheets'));
