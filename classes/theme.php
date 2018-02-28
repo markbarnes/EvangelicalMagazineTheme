@@ -23,6 +23,7 @@ class evangelical_mag_theme {
 		// HTML HEAD
 		add_action ('wp_enqueue_scripts', array (__CLASS__, 'enqueue_fonts'));
 		add_action ('wp_enqueue_scripts', array (__CLASS__, 'enqueue_media_stylesheets'));
+		add_action ('wp_enqueue_scripts', array (__CLASS__, 'enqueue_webp_detection'));
 		add_action ('wp_enqueue_scripts', array (__CLASS__, 'disable_emojis'));
 		add_action ('wp_enqueue_scripts', array (__CLASS__, 'enqueue_reftagger'));
 		add_filter ('genesis_superfish_enabled', '__return_false');
@@ -64,8 +65,6 @@ class evangelical_mag_theme {
 			add_filter ('genesis_post_meta', '__return_false');
 			// Put the post text inside an extra div inside entry-content
 			remove_filter ('genesis_attr_entry-content', 'genesis_attributes_entry_content');
-			add_action ('genesis_entry_content', array (__CLASS__, 'open_div_with_itemprop_text'), 9);
-			add_action ('genesis_entry_content', array (__CLASS__, 'close_div'), 11);
 		// All archive pages
 		} elseif (is_archive()) {
 			// Remove all the standard entry headers/content
@@ -83,6 +82,8 @@ class evangelical_mag_theme {
 
 		// Single articles
 		if (is_singular('em_article')) {
+			add_action ('genesis_entry_content', array (__CLASS__, 'open_div_with_itemprop_text'), 9);
+			add_action ('genesis_entry_content', array (__CLASS__, 'close_div'), 11);
 			// Move the post_info to AFTER the closing </header> tag
 			add_action ('genesis_entry_header', 'genesis_post_info', 16);
 			// Filter the post_info
@@ -106,6 +107,8 @@ class evangelical_mag_theme {
 		}
 		// Single reviews
 		if (is_singular('em_review')) {
+			add_action ('genesis_entry_content', array (__CLASS__, 'open_div_with_itemprop_text'), 9);
+			add_action ('genesis_entry_content', array (__CLASS__, 'close_div'), 11);
 			//Filter the page title
 			add_filter('genesis_post_title_text', array ('evangelical_magazine_review', 'add_review_type_to_title'));
 			// Move the post_info to AFTER the closing </header> tag
@@ -1382,6 +1385,22 @@ class evangelical_mag_theme {
 						'0-369' => 'screen and (max-width: 369px)');
 		foreach ($sizes as $name => $media) {
 			wp_enqueue_style ("magazine-css-{$name}", get_stylesheet_directory_uri()."/css/style-{$name}.css", false, CHILD_THEME_VERSION, $media);
+		}
+	}
+
+	/**
+	* Enqueues WebP description
+	*
+	* Adds the webp or no-webp CSS classes to <html>, as appropriate
+	* @see https://modernizr.com/download?webp-setclasses
+	*
+	* @return void
+	*/
+	public static function enqueue_webp_detection() {
+		if (WP_DEBUG === true) {
+			wp_enqueue_script ('magazine-webp-detection', get_stylesheet_directory_uri()."/js/webp-detection.js", false, CHILD_THEME_VERSION);
+		} else {
+			wp_enqueue_script ('magazine-webp-detection-minified', get_stylesheet_directory_uri()."/js/webp-detection.min.js", false, CHILD_THEME_VERSION);
 		}
 	}
 

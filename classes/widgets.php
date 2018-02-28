@@ -62,9 +62,8 @@ class evangelical_magazine_subscribe extends WP_Widget {
 			$args['before_widget'] = str_replace ('widget_evangelical_magazine_subscribe', 'widget_evangelical_magazine_subscribe_print', $args['before_widget']);
 			$link_url = $this->get_subscription_url();
 			if ($link_url) {
-				$image_url = get_stylesheet_directory_uri().'/images/subscribe.png';
 				echo $args['before_widget'];
-				echo "<a href=\"{$link_url}\"><div class=\"subscription-image image-fit\" style=\"background-image:url('{$image_url}');\"></div></a>";
+				echo "<a href=\"{$link_url}\"><div class=\"subscription-image image-fit\"></div></a>";
 				echo $args['after_widget'];
 			}
 		} else {

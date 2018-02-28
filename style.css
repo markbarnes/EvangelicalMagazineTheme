@@ -4,7 +4,7 @@ Theme URI: http://www.evangelicalmagazine.com
 Description: Custom theme for the Evangelical Magazine
 Author: Mark Barnes
 Author URI: http://www.markbarnes.net/
-Version: 1.00
+Version: 1.01
 Template: genesis
 Template Version: 2.2.0
 Tags: one-column, two-columns, three-columns, left-sidebar, right-sidebar, responsive-layout, custom-menu, full-width-template, rtl-language-support, sticky-post, theme-options, threaded-comments
@@ -174,6 +174,10 @@ body {
 	font-weight: 400;
 	line-height: 1.625;
 	margin: 0;
+}
+
+.webp body {
+	background-image: url('images/background.webp');
 }
 
 a,
@@ -973,6 +977,11 @@ img.alignright,
 .widget_evangelical_magazine_subscribe_print .subscription-image {
 	width:318px;
 	height:289px;
+	background-image: url('images/subscribe.png');
+}
+
+.webp .widget_evangelical_magazine_subscribe_print .subscription-image {
+	background-image: url('images/subscribe.webp');
 }
 
 .widget_evangelical_magazine_subscribe_online {
@@ -1136,6 +1145,11 @@ img.alignright,
 	min-height: 60px;
 	width: 100%;
 }
+
+.webp .header-image .site-title > a {
+	background: url(images/logo.webp);
+}
+
 
 .site-description {
 	font-size: 16px;
@@ -1389,6 +1403,10 @@ img.alignright,
 	-ms-transition: none;
 	-o-transition: none;
 	transition: none;
+}
+
+.webp .nav-primary .logo {
+	background-image: url('images/logo-sprite.webp');
 }
 
 .nav-primary .logo:hover {
@@ -2731,6 +2749,10 @@ li.comment {
 	-ms-transition: none;
 	-o-transition: none;
 	transition: none;
+}
+
+.webp .site-footer .logo {
+	background-image: url('images/logo-sprite.webp');
 }
 
 .site-footer .logo:hover {
