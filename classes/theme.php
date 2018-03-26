@@ -883,7 +883,7 @@ class evangelical_mag_theme {
 	* Move the entry-header inside entry-content
 	*
 	* Useful for header image that don't display well in landscape modes.
-	* Used for author and issue single pages.
+	* Used for author, issue and review single pages.
 	*
 	* @return void
 	*/
@@ -1482,7 +1482,7 @@ class evangelical_mag_theme {
 			if (method_exists('BunnyCDN', 'getOptions')) {
 				$cdn_options = BunnyCDN::getOptions();
 				if (isset($cdn_options['cdn_domain_name']) && $cdn_options['cdn_domain_name']) {
-					$urls[] = array('href' => $cdn_options['cdn_domain_name'], 'crossorigin' => 'crossorigin');
+					$urls[] = array('href' => $cdn_options['cdn_domain_name'], 'crossorigin');
 				}
 			}
 			//Add Reftagger domains
