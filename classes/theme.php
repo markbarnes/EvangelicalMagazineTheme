@@ -429,8 +429,8 @@ class evangelical_mag_theme {
 	* @return void
 	*/
 	private static function output_facebook_like_share_buttons ($article) {
-		echo "<h2>Found this helpful? Like or share on Facebook ";
-		echo "<div class=\"fb-like\" data-href=\"{$article->get_link()}\" data-width=\"680\" data-size=\"large\" data-layout=\"button_count\" data-action=\"like\" data-show-faces=\"true\" data-share=\"true\"></div></h2>\r\n";
+		echo "<div class=\"found-helpful\">Found this helpful? Like or share on Facebook ";
+		echo "<div class=\"fb-like\" data-href=\"{$article->get_link()}\" data-width=\"680\" data-size=\"large\" data-layout=\"button_count\" data-action=\"like\" data-show-faces=\"true\" data-share=\"true\"></div></div>\r\n";
 	}
 
 	/**
