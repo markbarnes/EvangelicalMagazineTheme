@@ -322,13 +322,13 @@ class evangelical_mag_theme {
 			$output .= $review->get_creator("<span class=\"metadata-item\"><span class=\"metadata-name\">{$review->get_creator_type()}:</span> ", '</span>');
 			$output .= $review->get_publisher ('<span class="metadata-item"><span class="metadata-name">Publisher:</span> ', '</span>');
 			$output .= $review->get_price('<span class="metadata-item"><span class="metadata-name">Retail Price:</span> £', $review->get_purchase_url(' (<a href="', '" target="_blank">buy now</a>)').'</span>');
-			$output .= "</span>{$image}<br/></span>";
+			$output .= "</span>{$image}<br/>";
 			$output .= "<span class=\"review-metadata\">{$review->get_author_names(true, true, 'Review by ')}";
 			$output .= "<span style=\"float:right\">{$review->get_issue_name(true)}";
 			if ($page_num = $review->get_page_num()) {
 				$output .= ", page {$page_num}";
 			}
-			return "{$output}</span>";
+			return "{$output}</span></span>";
 		} else {
 			return $post_info;
 		}
