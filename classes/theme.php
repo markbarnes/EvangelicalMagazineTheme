@@ -117,9 +117,7 @@ class evangelical_mag_theme {
 			add_filter ('genesis_post_info', array (__CLASS__, 'add_review_metadata_to_page'));
 			self::move_entry_header_inside_entry_content();
 			//remove_action ('genesis_entry_header', 'genesis_do_post_title');
-			add_action ('genesis_entry_content', array (__CLASS__, 'open_div'), 4);
 			add_action ('genesis_entry_content', array (__CLASS__, 'output_review_image'), 8); //Output the review image just after the header
-			add_action ('genesis_entry_content', array (__CLASS__, 'close_div'), 11);
 			// Adds Facebook javascript SDK for social media buttons
 			add_action ('genesis_before', array (__CLASS__, 'output_facebook_javascript_sdk'));
 			// Add some schema.org meta
