@@ -1,110 +1,71 @@
 @font-face {
 	font-family: 'lato';
-	src: url('lato/lato-bol.eot');
-	src: url('lato/lato-bol.eot?#iefix') format('embedded-opentype'),
-	     url('lato/lato-bol.woff') format('woff'),
-	     url('lato/lato-bol.ttf') format('truetype'),
-	     url('lato/lato-bol.svg#latobold') format('svg');
+	src: url('lato/lato-bold.eot');
+	src: url('lato/lato-bold.eot?#iefix') format('embedded-opentype'),
+	     url('lato/lato-bold.woff2') format('woff2'),
+	     url('lato/lato-bold.woff') format('woff'),
+	     url('lato/lato-bold.ttf') format('truetype'),
+	     url('lato/lato-bold.svg#latobold') format('svg');
 	font-weight: 700;
 	font-style: normal;
 }
 
 @font-face {
 	font-family: 'lato';
-	src: url('lato/lato-bolita.eot');
-	src: url('lato/lato-bolita.eot?#iefix') format('embedded-opentype'),
-	     url('lato/lato-bolita.woff') format('woff'),
-	     url('lato/lato-bolita.ttf') format('truetype'),
-	     url('lato/lato-bolita.svg#latobold_italic') format('svg');
+	src: url('lato/lato-bolditalic.eot');
+	src: url('lato/lato-bolditalic.eot?#iefix') format('embedded-opentype'),
+	     url('lato/lato-bolditalic.woff2') format('woff2'),
+	     url('lato/lato-bolditalic.woff') format('woff'),
+	     url('lato/lato-bolditalic.ttf') format('truetype'),
+	     url('lato/lato-bolditalic.svg#latobold_italic') format('svg');
 	font-weight: 700;
 	font-style: italic;
 }
 
 @font-face {
 	font-family: 'lato';
-	src: url('lato/lato-lig.eot');
-	src: url('lato/lato-lig.eot?#iefix') format('embedded-opentype'),
-	     url('lato/lato-lig.woff') format('woff'),
-	     url('lato/lato-lig.ttf') format('truetype'),
-	     url('lato/lato-lig.svg#latolight') format('svg');
+	src: url('lato/lato-light.eot');
+	src: url('lato/lato-light.eot?#iefix') format('embedded-opentype'),
+	     url('lato/lato-light.woff2') format('woff2'),
+	     url('lato/lato-light.woff') format('woff'),
+	     url('lato/lato-light.ttf') format('truetype'),
+	     url('lato/lato-light.svg#latolight') format('svg');
 	font-weight: 300;
 	font-style: normal;
 }
 
 @font-face {
 	font-family: 'lato';
-	src: url('lato/lato-reg.eot');
-	src: url('lato/lato-reg.eot?#iefix') format('embedded-opentype'),
-	     url('lato/lato-reg.woff') format('woff'),
-	     url('lato/lato-reg.ttf') format('truetype'),
-	     url('lato/lato-reg.svg#latoregular') format('svg');
+	src: url('lato/lato-regular.eot');
+	src: url('lato/lato-regular.eot?#iefix') format('embedded-opentype'),
+	     url('lato/lato-regular.woff2') format('woff2'),
+	     url('lato/lato-regular.woff') format('woff'),
+	     url('lato/lato-regular.ttf') format('truetype'),
+	     url('lato/lato-regular.svg#latoregular') format('svg');
 	font-weight: 400;
 	font-style: normal;
 }
 
 @font-face {
 	font-family: 'lato';
-	src: url('lato/lato-regita.eot');
-	src: url('lato/lato-regita.eot?#iefix') format('embedded-opentype'),
-	     url('lato/lato-regita.woff') format('woff'),
-	     url('lato/lato-regita.ttf') format('truetype'),
-	     url('lato/lato-regita.svg#latoitalic') format('svg');
+	src: url('lato/lato-regularitalic.eot');
+	src: url('lato/lato-regularitalic.eot?#iefix') format('embedded-opentype'),
+	     url('lato/lato-regularitalic.woff2') format('woff2'),
+	     url('lato/lato-regularitalic.woff') format('woff'),
+	     url('lato/lato-regularitalic.ttf') format('truetype'),
+	     url('lato/lato-regularitalic.svg#latoitalic') format('svg');
 	font-weight: 400;
 	font-style: italic;
 }
 
 @font-face {
 	font-family: 'lato';
-	src: url('lato/lato-ligita.eot');
-	src: url('lato/lato-ligita.eot?#iefix') format('embedded-opentype'),
-	     url('lato/lato-ligita.woff') format('woff'),
-	     url('lato/lato-ligita.ttf') format('truetype'),
-	     url('lato/lato-ligita.svg#latolight_italic') format('svg');
+	src: url('lato/lato-lightitalic.eot');
+	src: url('lato/lato-lightitalic.eot?#iefix') format('embedded-opentype'),
+	     url('lato/lato-lightitalic.woff2') format('woff2'),
+	     url('lato/lato-lightitalic.woff') format('woff'),
+	     url('lato/lato-lightitalic.ttf') format('truetype'),
+	     url('lato/lato-lightitalic.svg#latolight_italic') format('svg');
 	font-weight: 300;
 	font-style: italic;
-}
-
-/* Nasty hack to fix rendering problems in Chrome, forcing it to use the SVG version */
-@media screen and (-webkit-min-device-pixel-ratio:0) {
-	 @font-face {
-		font-family: 'lato';
-		src: url('lato/lato-bol.svg#latobold') format('svg');
-		font-weight: 700;
-		font-style: normal;
-	}
-
-	@font-face {
-		font-family: 'lato';
-		src: url('lato/lato-bolita.svg#latobold_italic') format('svg');
-		font-weight: 700;
-		font-style: italic;
-	}
-
-	@font-face {
-		font-family: 'lato';
-		src: url('lato/lato-lig.svg#latolight') format('svg');
-		font-weight: 300;
-		font-style: normal;
-	}
-
-	@font-face {
-		font-family: 'lato';
-		src: url('lato/lato-reg.svg#latoregular') format('svg');
-		font-weight: 400;
-		font-style: normal;
-	}
-
-	@font-face {
-		font-family: 'lato';
-		src: url('lato/lato-regita.svg#latoitalic') format('svg');
-		font-weight: 400;
-		font-style: italic;
-	}
-
-	@font-face {
-		font-family: 'lato';
-		src: url('lato/lato-ligita.svg#latolight_italic') format('svg');
-		font-weight: 300;
-		font-style: italic;
-	}
 }
