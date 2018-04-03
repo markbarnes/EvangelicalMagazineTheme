@@ -1224,9 +1224,6 @@ class evangelical_mag_theme {
 			echo "\t<meta property=\"og:image:height\" content=\"{$image_details['height']}\" />\r\n";
 			echo "\t<meta property=\"og:image:type\" content=\"{$image_details['mimetype']}\" />\r\n";
 			echo "\t<meta property=\"og:type\" content=\"article\" />\r\n";
-			if ($authors == ' — by Mark Barnes' || $authors == ', reviewed by Mark Barnes') {
-				echo "\t<meta property=\"article:author\" content=\"573010528\" />\r\n";
-			}
 			echo "\t<meta property=\"article:publisher\" content=\"https://www.facebook.com/evangelicalmagazine/\" />\r\n";
 			echo "\t<meta property=\"og:locale\" content=\"en_GB\" />\r\n";
 			echo "\t<meta property=\"og:rich_attachment\" content=\"{$rich_content}\" />\r\n";
@@ -1251,9 +1248,6 @@ class evangelical_mag_theme {
 			echo "\t<meta name=\"twitter:title\" content=\"".htmlspecialchars($object->get_title().$authors, ENT_HTML5)."\" />\r\n";
 			echo "\t<meta name=\"twitter:description\" content=\"{$article_preview}\" />\r\n";
 			echo "\t<meta name=\"twitter:image\" content=\"{$image_details['url']}\" />\r\n";
-			if ($authors == ' — by Mark Barnes') {
-				echo "\t<meta name=\"twitter:creator\" content=\"@mbarnes\" />\r\n";
-			}
 		}
 	}
 
