@@ -502,15 +502,17 @@ class evangelical_mag_theme {
 	* @param array &$articles_to_be_excluded - an array of article_ids to be excluded (will be modified - passed by reference)
 	*/
 	private static function output_also_in_this_section ($sections, &$articles_to_be_excluded) {
-		foreach ($sections as $section) {
-			$articles_in_same_section = $section->get_articles_and_reviews(3, $articles_to_be_excluded);
-			if ($articles_in_same_section) {
-				echo "<div class =\"sections-meta\"><h2>Also in the {$section->get_name(true)} section</h2>";
-				foreach ($articles_in_same_section as $also_article) {
-					echo $also_article->get_small_box_html(true);
-					$articles_to_be_excluded[] = $also_article->get_id();
+		if ($sections) {
+			foreach ($sections as $section) {
+				$articles_in_same_section = $section->get_articles_and_reviews(3, $articles_to_be_excluded);
+				if ($articles_in_same_section) {
+					echo "<div class =\"sections-meta\"><h2>Also in the {$section->get_name(true)} section</h2>";
+					foreach ($articles_in_same_section as $also_article) {
+						echo $also_article->get_small_box_html(true);
+						$articles_to_be_excluded[] = $also_article->get_id();
+					}
+					echo '</div>';
 				}
-				echo '</div>';
 			}
 		}
 	}
