@@ -82,13 +82,16 @@ class evangelical_mag_theme {
 
 		// Single articles
 		if (is_singular('em_article')) {
+			// Add extra info to the title tag
+			add_filter ('pre_get_document_title', array (__CLASS__, 'filter_title_tag'));
+			// Wrap entry-content
 			add_action ('genesis_entry_content', array (__CLASS__, 'open_div_with_itemprop_text'), 9);
 			add_action ('genesis_entry_content', array (__CLASS__, 'close_div'), 11);
 			// Move the post_info to AFTER the closing </header> tag
 			add_action ('genesis_entry_header', 'genesis_post_info', 16);
 			// Filter the post_info
 			add_filter ('genesis_post_info', array (__CLASS__, 'add_author_issue_banner'));
-			// Add series info to the title, if required
+			// Add series info to the post title, if required
 			add_filter ('genesis_post_title_output', array (__CLASS__, 'add_series_to_title'));
 			// Adds Facebook javascript SDK for social media buttons
 			add_action ('genesis_before', array (__CLASS__, 'output_facebook_javascript_sdk'));
@@ -107,9 +110,12 @@ class evangelical_mag_theme {
 		}
 		// Single reviews
 		if (is_singular('em_review')) {
+			// Add extra info to the title tag
+			add_filter ('pre_get_document_title', array (__CLASS__, 'filter_title_tag'));
+			// Wrap entry-content
 			add_action ('genesis_entry_content', array (__CLASS__, 'open_div_with_itemprop_text'), 9);
 			add_action ('genesis_entry_content', array (__CLASS__, 'close_div'), 11);
-			//Filter the page title
+			//Filter the post title
 			add_filter('genesis_post_title_text', array ('evangelical_magazine_review', 'add_review_type_to_title'));
 			// Move the post_info to AFTER the closing </header> tag
 			add_action ('genesis_entry_header', 'genesis_post_info', 16);
@@ -162,7 +168,7 @@ class evangelical_mag_theme {
 		elseif (is_singular('em_series')) {
 			// Move the post_info to AFTER the closing </header> tag
 			add_action ('genesis_entry_header', 'genesis_post_info', 16);
-			// Add series info to the title, if required
+			// Add series info to the post title, if required
 			add_filter ('genesis_post_title_output', array (__CLASS__, 'add_series_to_title'));
 			self::add_full_size_header_image();
 			add_action ('genesis_entry_content', array (__CLASS__, 'add_to_end_of_series_page'), 12);
@@ -197,6 +203,27 @@ class evangelical_mag_theme {
 			add_filter ('genesis_post_title_text', array(__CLASS__, 'filter_post_title_for_search_terms'));
 			add_action ('genesis_after_loop', array (__CLASS__, 'add_to_end_of_search_page'), 12);
 		}
+	}
+
+	/**
+	* Adds the author name to the page title tag for articles and reviews
+	* Filters pre_get_document_title
+	*
+	* @param string $title - the current title
+	* @return string
+	*/
+	public static function filter_title_tag ($title) {
+		global $post;
+		if ($post) {
+			/**
+			* @var evangelical_magazine_articles_and_reviews
+			*/
+			$object = evangelical_magazine::get_object_from_post($post);
+			if ($object->is_article_or_review()) {
+				$title = $object->get_title().$object->get_author_names(false, false, $object->is_article() ? ' — by ' : ', reviewed by ');
+			}
+		}
+		return $title;
 	}
 
 	/**
@@ -518,7 +545,7 @@ class evangelical_mag_theme {
 	}
 
 	/**
-	* Adds series information into the header
+	* Adds series information into the h2 header
 	*
 	* Filters 'genesis_post_title_output', but only for articles and series
 	*
@@ -1214,12 +1241,12 @@ class evangelical_mag_theme {
 		if ($object && $object->is_article_or_review()) {
 			$image_details = $object -> get_image_details($object->is_article() ? 'facebook_share' : 'half-post-width');
 			$authors = $object->get_author_names(false, false, $object->is_article() ? ' — by ' : ', reviewed by ');
-			$article_preview = htmlspecialchars(wp_trim_words (strip_shortcodes($object->get_content()), 75, '…'), ENT_HTML5);
+			$article_preview = esc_html(wp_trim_words (strip_shortcodes($object->get_content()), 75, '…'));
 			$rich_content = $object->is_review() ? 'false' : 'true';
 			echo "\r\n\t<meta property=\"og:url\" content=\"{$object->get_link()}\" />\r\n";
-			echo "\t<meta property=\"og:title\" content=\"".htmlspecialchars($object->get_title().$authors, ENT_HTML5)."\" />\r\n";
+			echo "\t<meta property=\"og:title\" content=\"".esc_html($object->get_title().$authors)."\" />\r\n";
 			echo "\t<meta property=\"og:description\" content=\"{$article_preview}\" />\r\n";
-			echo "\t<meta property=\"og:site_name\" content=\"".htmlspecialchars(get_bloginfo('name'), ENT_HTML5)."\" />\r\n";
+			echo "\t<meta property=\"og:site_name\" content=\"".esc_html(get_bloginfo('name'))."\" />\r\n";
 			echo "\t<meta property=\"og:image\" content=\"{$image_details['url']}\" />\r\n";
 			echo "\t<meta property=\"og:image:url\" content=\"{$image_details['url']}\" />\r\n";
 			echo "\t<meta property=\"og:image:width\" content=\"{$image_details['width']}\" />\r\n";
@@ -1243,11 +1270,11 @@ class evangelical_mag_theme {
 		if ($object && $object->is_article_or_review()) {
 			$image_details = $object -> get_image_details($object->is_article() ? 'twitter_share' : 'half-post-width');
 			$authors = $object->get_author_names(false, false, $object->is_article() ? ' — by ' : ', reviewed by ');
-			$article_preview = htmlspecialchars(wp_trim_words (strip_shortcodes($object->get_content()), 75, '…'), ENT_HTML5);
+			$article_preview = esc_html(wp_trim_words (strip_shortcodes($object->get_content()), 75, '…'));
 			$image_size = $object->is_article() ? 'summary_large_image' : 'summary';
 			echo "\r\n\t<meta name=\"twitter:card\" content=\"{$image_size}\">\r\n";
-			echo "\t<meta name=\"twitter:site\" content=\"@EvangelicalMag\">";
-			echo "\t<meta name=\"twitter:title\" content=\"".htmlspecialchars($object->get_title().$authors, ENT_HTML5)."\" />\r\n";
+			echo "\t<meta name=\"twitter:site\" content=\"@EvangelicalMag\">\r\n";
+			echo "\t<meta name=\"twitter:title\" content=\"".esc_html($object->get_title().$authors)."\" />\r\n";
 			echo "\t<meta name=\"twitter:description\" content=\"{$article_preview}\" />\r\n";
 			echo "\t<meta name=\"twitter:image\" content=\"{$image_details['url']}\" />\r\n";
 		}
@@ -1261,7 +1288,7 @@ class evangelical_mag_theme {
 	public static function add_google_breadcrumb () {
 		$object = evangelical_magazine::get_object_from_id(get_the_ID());
 		if ($object && $object->is_article_or_review() && $object->has_issue()) {
-			$issue_name = htmlspecialchars($object->get_issue_name(), ENT_HTML5);
+			$issue_name = esc_html($object->get_issue_name());
 			echo "<script type=\"application/ld+json\">\r\n";
 			echo "{\"@context\": \"http://schema.org\", \"@type\": \"BreadcrumbList\", \"itemListElement\": [";
 			echo "{ \"@type\": \"ListItem\", \"position\": 1, \"item\": { \"@id\": \"{$object->get_issue_link()}\", \"name\": \"{$issue_name}\"}}";
@@ -1276,10 +1303,10 @@ class evangelical_mag_theme {
 	* @return void
 	*/
 	public static function add_google_structured_data_to_homepage () {
-		$site_name = htmlspecialchars(get_bloginfo('name'), ENT_HTML5);
-		$url = htmlspecialchars(get_home_url(), ENT_HTML5);
-		$search_url = str_replace('search_term_string', '{search_term_string}', htmlspecialchars(get_search_link('search_term_string'), ENT_HTML5));
-		$logo = htmlspecialchars(get_stylesheet_directory_uri().'/images/square-logo.png', ENT_HTML5);
+		$site_name = esc_html(get_bloginfo('name'));
+		$url = esc_html(get_home_url());
+		$search_url = str_replace('search_term_string', '{search_term_string}', esc_html(get_search_link('search_term_string')));
+		$logo = esc_html(get_stylesheet_directory_uri().'/images/square-logo.png');
 		echo "\r\n";
 		echo "<script type=\"application/ld+json\">{\"@context\" : \"http://schema.org\", \"@type\" : \"WebSite\", \"name\" : \"{$site_name}\", \"url\" : \"{$url}\", \"potentialAction\": {\"@type\": \"SearchAction\",\"target\": \"{$search_url}\",\"query-input\": \"required name=search_term_string\"}}</script>\r\n";
 		echo "<script type=\"application/ld+json\">{\"@context\" : \"http://schema.org\", \"@type\" : \"Organization\", \"url\" : \"{$url}\", \"logo\" : \"{$logo}\", \"ContactPoint\" : [{ \"@type\" : \"ContactPoint\", \"telephone\" : \"+44-1656-655886\", \"contactType\" : \"customer support\" }]}</script>\r\n";
