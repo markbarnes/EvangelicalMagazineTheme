@@ -305,7 +305,46 @@ body.home #latest-articles .article-title {
 }
 
 body.home #subscription-form {
-	display: none;
+	margin-bottom: 30px;
+	margin-top: -10px;
+	padding-bottom: 20px;
+}
+
+body.home #subscription-form p {
+	width: 100%;
+	font-weight: bold;
+	font-size: 18px;
+	padding-top: 0;
+}
+
+body.home #subscription-form form {
+	overflow: visible;
+}
+
+body.home #subscription-form #input_1_3_3 {
+	width: 195px;
+}
+
+body.home #subscription-form #input_1_3_6 {
+	width: 196px;
+	margin: 0 0 0 10px;
+}
+
+body.home #subscription-form #input_1_2 {
+	width: 320px;
+	margin: 10px 0 0 0;
+}
+
+body.home #subscription-form .gform_footer {
+	margin-left: 0;
+	float:right;
+	margin-top: -47px;
+}
+
+body.home #subscription-form #gform_submit_button_1 {
+	width: 71px;
+	margin-right: 0;
+	padding: 10px 0;
 }
 
 body.home #sections {

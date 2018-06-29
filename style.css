@@ -3028,10 +3028,6 @@ body.home .site-inner {
 	margin-right: 5px;
 }
 
-#subscription-form form {
-	overflow: hidden;
-}
-
 #subscription-form label {
 	display: none;
 }
