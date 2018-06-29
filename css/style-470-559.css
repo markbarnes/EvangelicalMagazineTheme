@@ -312,25 +312,28 @@ body.home #subscription-form {
 
 body.home #subscription-form p {
 	width: 100%;
-	font-weight: bold;
 	font-size: 18px;
-	padding-top: 0;
+	padding: 0 0 10px 0;
 }
 
 body.home #subscription-form form {
 	overflow: visible;
 }
 
-body.home #subscription-form #input_1_3_3 {
+body.home #subscription-form input {
+	padding: 5px 10px;
+}
+
+body.home #subscription-form .name_first input {
 	width: 195px;
 }
 
-body.home #subscription-form #input_1_3_6 {
+body.home #subscription-form .name_last input {
 	width: 196px;
 	margin: 0 0 0 10px;
 }
 
-body.home #subscription-form #input_1_2 {
+body.home #subscription-form input[type=email] {
 	width: 320px;
 	margin: 10px 0 0 0;
 }
@@ -338,13 +341,14 @@ body.home #subscription-form #input_1_2 {
 body.home #subscription-form .gform_footer {
 	margin-left: 0;
 	float:right;
-	margin-top: -47px;
+	margin-top: -38px;
 }
 
-body.home #subscription-form #gform_submit_button_1 {
+body.home #subscription-form input[type=submit] {
 	width: 71px;
 	margin-right: 0;
-	padding: 10px 0;
+	padding: 5px 0;
+	border: 1px solid #feca00;
 }
 
 body.home #sections {

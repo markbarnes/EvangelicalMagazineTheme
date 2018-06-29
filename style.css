@@ -2971,6 +2971,25 @@ body.home .site-inner {
 	padding-top: 0;
 }
 
+body.home #subscription-form p {
+	width: 160px;
+	padding: 0;
+	font-weight: bold;
+	line-height: 1.25em;
+}
+
+body.home #subscription-form .name_first input {
+	width: 225px;
+}
+
+body.home #subscription-form .name_last input {
+	width: 225px;
+}
+
+body.home #subscription-form input[type=email] {
+	width: 389px;
+}
+
 /* ## Subscription form
 --------------------------------------------- */
 
@@ -3008,23 +3027,21 @@ body.home .site-inner {
 
 #subscription-form .gform_body ul > li {
 	float:left;
-	/* width: auto; */
 }
 
-#subscription-form .gform_body ul > li:first-child > .ginput_container,
-#subscription-form .gform_body ul > li:nth-child(2) > .ginput_container {
+#subscription-form .ginput_container {
 	margin-top: 0;
 }
 
-#subscription-form .gform_body ul > li:first-child > .ginput_container span {
+#subscription-form .ginput_container span {
 	padding-top: 0;
 }
 
-#subscription-form .gform_body ul > li:first-child > .ginput_container span.name_first {
+#subscription-form .name_first {
 	margin-right: 0;
 }
 
-#subscription-form .gform_body ul > li:first-child > .ginput_container span.name_first input {
+#subscription-form .name_first input {
 	margin-right: 5px;
 }
 

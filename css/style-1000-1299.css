@@ -425,16 +425,26 @@ body.home .large-image .article-list-box-image {
 	height: 200px;
 }
 
-body.home #subscription-form .gform_body ul > li:first-of-type > .ginput_complex {
-	width: 340px;
+body.home #subscription-form {
+	padding: 20px;
 }
 
-body.home #subscription-form input {
+body.home #subscription-form p {
+	width: 150px;
+	padding: 0;
+	line-height: 1.5em;
+}
+
+body.home #subscription-form .name_first input {
+	width: 160px;
+}
+
+body.home #subscription-form .name_last input {
 	width: 160px;
 }
 
 body.home #subscription-form input[type=email] {
-	width: 230px;
+	width: 281px;
 }
 
 body.home #subscription-form input[type=submit] {
