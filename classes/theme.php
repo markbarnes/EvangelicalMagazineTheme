@@ -210,7 +210,7 @@ class evangelical_mag_theme {
 	* Filters pre_get_document_title
 	*
 	* @param string $title - the current title
-	* @return string
+	* @return string - the revised title
 	*/
 	public static function filter_title_tag ($title) {
 		global $post;
@@ -527,6 +527,7 @@ class evangelical_mag_theme {
 	*
 	* @param evangelical_magazine_section[] $sections - an array of sections the article is in
 	* @param array &$articles_to_be_excluded - an array of article_ids to be excluded (will be modified - passed by reference)
+	* @return void
 	*/
 	private static function output_also_in_this_section ($sections, &$articles_to_be_excluded) {
 		if ($sections) {
