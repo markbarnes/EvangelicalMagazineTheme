@@ -10,8 +10,25 @@ Custom WordPress theme for the [Evangelical Magazine website](https://www.evange
 * Integrates with Facebook API to display article likes
 * Five widgets for Beacon Ads, Facebook Page Plugin, Popular Articles, and more
 
-## Screenshot
-![Screenshot](https://github.com/markbarnes/EvangelicalMagazineTheme/blob/master/screenshot.png)
+## Screenshots
+### Home page
+![Home Page](https://github.com/markbarnes/EvangelicalMagazineTheme/blob/master/screenshots/home-page.png)
+### Article and Review pages
+![Article](https://github.com/markbarnes/EvangelicalMagazineTheme/blob/master/screenshots/single-article.png)
+![Review](https://github.com/markbarnes/EvangelicalMagazineTheme/blob/master/screenshots/single-review.png)
+### Author pages
+![Author archive](https://github.com/markbarnes/EvangelicalMagazineTheme/blob/master/screenshots/author-archive.png)
+![Author page](https://github.com/markbarnes/EvangelicalMagazineTheme/blob/master/screenshots/single-author.png)
+### Issue pages
+![Issue archive](https://github.com/markbarnes/EvangelicalMagazineTheme/blob/master/screenshots/issue-archive.png)
+![Issue page](https://github.com/markbarnes/EvangelicalMagazineTheme/blob/master/screenshots/single-issue.png)
+### Section pages
+![Section archive](https://github.com/markbarnes/EvangelicalMagazineTheme/blob/master/screenshots/section-archive.png)
+![Section page](https://github.com/markbarnes/EvangelicalMagazineTheme/blob/master/screenshots/single-section.png)
+### Series page
+![Series page](https://github.com/markbarnes/EvangelicalMagazineTheme/blob/master/screenshots/single-series.png)
+### Admin
+![Admin page](https://github.com/markbarnes/EvangelicalMagazineTheme/blob/master/screenshots/single-series.png)
 
 ## Support
 No support is offered for this theme. It was not created with distribution in mind, has no user-configurable options and is unlikely to work out of the box in another context. It's published here purely as a help to other developers (particularly those working for non-profits) who need something similar and want to minimize development time.
