@@ -52,12 +52,12 @@ class evangelical_mag_theme {
 		remove_action ('genesis_entry_footer', 'genesis_post_meta' );
 		unregister_sidebar( 'header-right' );
 		add_filter ('genesis_attr_entry-header', array (__CLASS__, 'add_attributes_to_entry_header'));
+		add_filter ('option_rg_gforms_disable_css', '__return_true'); // Disables Gravity Forms CSS
 
 		// Front page
 		if (is_front_page()) {
 			add_action ('genesis_meta', array (__CLASS__, 'add_google_structured_data_to_homepage'));
 			add_action ('genesis_meta', array (__CLASS__, 'add_facebook_app_id_to_homepage'));
-			add_filter ('option_rg_gforms_disable_css', '__return_true'); // Disables Gravity Forms CSS
 		}
 		// All singular pages
 		if (is_singular()) {

@@ -198,9 +198,13 @@ input, select, textarea {
 	margin-top: -17.5px;
 }
 
-.after-article #subscription-form .gform_wrapper .ginput_complex .name_first,
-.after-article #subscription-form .gform_wrapper .ginput_complex .name_last {
-	width: 243px;
+.after-article #subscription-form .name_first input,
+.after-article #subscription-form .name_last input {
+	width: 238px;
+}
+
+.after-article #subscription-form input[type=email] {
+	width: 490px;
 }
 
 body.full-size-header-image .entry-header {
@@ -471,8 +475,8 @@ body.search-results .em_author .entry-content > div {
 /* ## Subscription form
 --------------------------------------------- */
 
-#subscription-form input[type=email] {
-	width: 238px;
+#subscription-form input {
+	padding: 5px 10px;
 }
 
 }

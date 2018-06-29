@@ -387,22 +387,22 @@ body.home #sections .article-list-box-title a {
 	margin-top: -17.5px;
 }
 
-.after-article #subscription-form .gform_wrapper .ginput_complex .name_first,
-.after-article #subscription-form .gform_wrapper .ginput_complex .name_last {
-	width: 213px;
-}
-
-.after-article #subscription-form .gform_wrapper .ginput_container span:not(.ginput_price) {
+.after-article #subscription-form .name_first {
+	padding-right: 0;
 	display: inline-block;
-	margin-bottom: 0;
 }
 
-.after-article #subscription-form .gform_wrapper li.field_sublabel_below .ginput_complex {
-	margin-top:0 !important;
+.after-article #subscription-form .name_first input,
+.after-article #subscription-form .name_last input {
+	width: 208px;
 }
 
-.after-article #subscription-form div.ginput_container_name span {
-	padding-right: 16px;
+.after-article #subscription-form input[type=email] {
+	width: 430px;
+}
+
+.after-article #subscription-form span:not(.ginput_price) {
+    margin-bottom: 0;
 }
 
 body.full-size-header-image .entry-header {
@@ -714,6 +714,13 @@ body.search-results .em_article .entry-content > div {
 body.search-results .em_author .entry-content > div {
 	width: 355px;
 	margin-left: 30px;
+}
+
+/* ## Subscription form
+--------------------------------------------- */
+
+#subscription-form input {
+	padding: 5px 10px;
 }
 
 }
