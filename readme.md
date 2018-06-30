@@ -27,8 +27,6 @@ Custom WordPress theme for the [Evangelical Magazine website](https://www.evange
 ![Section page](https://github.com/markbarnes/EvangelicalMagazineTheme/blob/master/screenshots/single-section.png)
 ### Series page
 ![Series page](https://github.com/markbarnes/EvangelicalMagazineTheme/blob/master/screenshots/single-series.png)
-### Admin
-![Admin page](https://github.com/markbarnes/EvangelicalMagazineTheme/blob/master/screenshots/admin.png)
 
 ## Support
 No support is offered for this theme. It was not created with distribution in mind, has no user-configurable options and is unlikely to work out of the box in another context. It's published here purely as a help to other developers (particularly those working for non-profits) who need something similar and want to minimize development time.
