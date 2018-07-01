@@ -18,6 +18,10 @@ body {
 	margin-right: auto;
 }
 
+.site-inner {
+	margin-top: 32px;
+}
+
 .wrap {
 }
 
@@ -59,6 +63,12 @@ h4 {
 
 /* Top menu
    ------------  */
+
+.nav-primary {
+	height: 47px;
+	min-height: 47px;
+	max-height: 47px;
+}
 
 .nav-primary .logo {
 	width: 120px;

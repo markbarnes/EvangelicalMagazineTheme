@@ -561,6 +561,7 @@ th {
 .site-inner {
 	clear: both;
 	padding-top: 40px;
+	margin-top: 70px;
 }
 
 /* ## Column Widths and Positions
@@ -1218,7 +1219,7 @@ img.alignright,
 }
 
 .genesis-nav-menu .menu-item {
-	background-color: #086788;
+	/* background-color: #086788; */
 }
 
 .genesis-nav-menu .menu-item > .sub-menu{
@@ -1367,6 +1368,13 @@ img.alignright,
 
 .nav-primary {
 	background-color: #086788;
+	position: fixed;
+	left: 0;
+	right: 0;
+	z-index: 2;
+	height: 70px;
+	min-height: 70px;
+	max-height: 70px;
 }
 
 .nav-primary .logo {
@@ -2830,11 +2838,12 @@ body.home .content {
 	margin-bottom: 0;
 }
 
-body.home .site-inner {
-	margin: 0 auto;
+body.home #recent-articles {
+	padding: 40px 0;
+	overflow: hidden;
 }
 
-body.home #recent-articles, body.home #sections {
+body.home #sections {
 	padding: 40px 0;
 	overflow: hidden;
 }

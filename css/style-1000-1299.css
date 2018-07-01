@@ -47,8 +47,18 @@ h4 {
 	font-size: 19px;
 }
 
+.site-inner {
+	margin-top: 47px;
+	padding-top: 32px;
+}
+
 /* Top menu
    ------------  */
+.nav-primary {
+	height: 47px;
+	min-height: 47px;
+	max-height: 47px;
+}
 
 .nav-primary .logo {
 	width: 120px;
@@ -406,6 +416,14 @@ body.home #latest-cover {
 
 body.home #latest-articles {
 	width: 100%;
+}
+
+body.home #recent-articles {
+	padding: 32px 0;
+}
+
+body.home #sections {
+	padding: 32px 0;
 }
 
 body.home .article,

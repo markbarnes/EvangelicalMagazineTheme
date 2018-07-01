@@ -58,6 +58,13 @@ h4 {
 /* Top menu
    ------------  */
 
+.nav-primary {
+	position: absolute;
+	height: auto;
+	max-height: none;
+	min-height: auto;
+}
+
 .nav-primary .logo {
 	width: 120px;
 	height: 33px;
@@ -77,7 +84,7 @@ h4 {
 
 .nav-primary .search .dashicons-search {
 	font-size: 27px;
-	height: 44px;
+	height: 33px;
 	width: 27px;
 	padding-top: 4px;
 }
@@ -196,7 +203,7 @@ input, select, textarea {
 }
 
 .genesis-nav-menu input[type="search"] {
-	max-width: 350px;
+	max-width: 300px;
 }
 
 /* Widgets (1 column, below)
