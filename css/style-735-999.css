@@ -507,6 +507,50 @@ body.single-em_author .entry-content {
 	padding-bottom: 5px;
 }
 
+body.single-em_author .entry-content .article-list-box {
+	width: 340px;
+}
+
+body.single-em_author .article-list-box li {
+	line-height: 18px;
+}
+
+body.single-em_author .article-list-box li.large-image {
+	line-height: 22px;
+}
+
+body.single-em_author .article-list-box li.large-image .article-list-box-image {
+	width: 300px;
+	height: 200px;
+}
+
+body.single-em_author .article-list-box .article-list-box-image {
+	width: 120px;
+	height: 80px;
+}
+
+body.single-em_author .article-list-box .large-image .title-author-wrapper {
+	width: 300px;
+}
+
+body.single-em_author .article-list-box .title-author-wrapper {
+	width: 170px;
+}
+
+body.single-em_author .article-list-box .large-image .title-author-wrapper .article-list-box-title {
+	font-size: 18px;
+}
+
+body.single-em_author .article-list-box .title-author-wrapper .article-list-box-title {
+	font-size: 17px;
+	line-height: 18px;
+}
+
+body.single-em_author .article-list-box .title-author-wrapper .article-list-box-likes {
+	margin-top: 5px;
+	display: block;
+}
+
 /* Section archive page
    --------------------  */
 
