@@ -61,14 +61,36 @@ h4 {
 .nav-primary {
 	position: absolute;
 	height: auto;
-	max-height: none;
-	min-height: auto;
+	max-height: 68px;
+	min-height: 68px;
+	box-shadow: none;
 }
 
 .nav-primary .logo {
-	width: 120px;
-	height: 33px;
-	margin: 7px 0 0 7px;
+	background-image: url('../images/logo-sprite-small.png');
+	background-position: top;
+	width: 30px;
+	margin: 10px -3px 0 8px;
+	float: left;
+}
+
+.webp .nav-primary .logo {
+	background-image: url('../images/logo-sprite-small.webp');
+}
+
+.nav-primary .wrap {
+	margin: 0;
+	width: 334px;
+	max-width: 334px;
+}
+
+#menu-primary {
+	text-align: center;
+	padding: 0;
+	clear: none;
+	float:none;
+	display: inline-block;
+	width: 299px;
 }
 
 #menu-primary .menu-item-type-custom a {
@@ -91,6 +113,8 @@ h4 {
 
 .nav-primary input[type="search"] {
 	padding: 5px;
+	margin-right: 10px;
+	max-width: 314px;
 }
 
 .genesis-nav-menu {
@@ -103,15 +127,6 @@ h4 {
 
 .nav-primary .search a {
 	padding: 0;
-}
-
-#menu-primary {
-	text-align: center;
-	padding: 0;
-	clear: none;
-	float:none;
-	display: inline-block;
-	width: 100%;
 }
 
 .genesis-nav-menu .menu-item-type-issue {
@@ -200,10 +215,6 @@ h4 {
 
 input, select, textarea {
 	font-size: 14px;
-}
-
-.genesis-nav-menu input[type="search"] {
-	max-width: 300px;
 }
 
 /* Widgets (1 column, below)

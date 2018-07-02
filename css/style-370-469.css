@@ -9,8 +9,11 @@ body {
 	font-size: 15px;
 }
 
+.wrap {
+	margin: 0;
+}
+
 .site-inner,
-.wrap,
 .content {
 	width: 350px;
 	max-width: 350px;
@@ -61,14 +64,25 @@ h4 {
 .nav-primary {
 	position: absolute;
 	height: auto;
-	max-height: none;
-	min-height: auto;
+	max-height: 68px;
+	min-height: 68px;
+	box-shadow: none;
 }
 
 .nav-primary .logo {
-	width: 120px;
-	height: 33px;
-	margin: 7px 0 0 7px;
+	background-image: url('../images/logo-sprite-small.png');
+	background-position: top;
+	width: 30px;
+	margin: 10px 5px 0 10px;
+	float: left;
+}
+
+.webp .nav-primary .logo {
+	background-image: url('../images/logo-sprite-small.webp');
+}
+
+.nav-primary .wrap {
+	text-align: center;
 }
 
 #menu-primary .menu-item-type-custom a {
@@ -90,6 +104,8 @@ h4 {
 
 .nav-primary input[type="search"] {
 	padding: 5px;
+	width: 340px;
+	margin-right: 10px;
 }
 
 .genesis-nav-menu {
@@ -110,7 +126,7 @@ h4 {
 	clear: none;
 	float:none;
 	display: inline-block;
-	width: 100%;
+	width: 290px;
 }
 
 .genesis-nav-menu .menu-item-type-issue {
@@ -279,8 +295,12 @@ input, select, textarea {
 /* Home page
    ---------  */
 
+body.home .site-inner {
+	margin-top: 65px;
+}
+
 body.home #recent-articles {
-	padding: 20px 0;
+	padding: 15px 0;
 }
 
 body.home #latest-cover {

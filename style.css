@@ -1375,6 +1375,7 @@ img.alignright,
 	height: 70px;
 	min-height: 70px;
 	max-height: 70px;
+	box-shadow: 0 5px 4px rgba(0,0,0,0.4);
 }
 
 .nav-primary .logo {
@@ -1382,7 +1383,7 @@ img.alignright,
 	margin-top: 10px;
 	width: 181px;
 	height: 50px;
-	background-image: url('images/logo-sprite.png');
+	background-image: url('..images/logo-sprite.png');
 	background-size: 100% auto;
 	-webkit-transition: none;
 	-moz-transition: none;
@@ -1397,6 +1398,7 @@ img.alignright,
 
 .nav-primary .logo:hover {
 	background-position: bottom;
+	margin-bottom: 1px;
 }
 
 .nav-primary .genesis-nav-menu a {

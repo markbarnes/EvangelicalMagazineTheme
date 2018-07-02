@@ -740,6 +740,7 @@ body.search-results .em_author .entry-content > div {
 @media only screen and (max-width: 600px) {
 .nav-primary {
 	position: absolute;
+	box-shadow: none;
 }
 
 }

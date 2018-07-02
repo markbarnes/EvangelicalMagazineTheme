@@ -60,6 +60,7 @@ h4 {
 
 .nav-primary {
 	position: absolute;
+	box-shadow: none;
 }
 
 .nav-primary .logo {
@@ -272,6 +273,10 @@ input, select, textarea {
 /* Home page
    ---------  */
 
+body.home #recent-articles {
+	padding: 15px 0 30px 0;
+}
+
 body.home #latest-cover {
 	display: none;
 }
@@ -310,7 +315,6 @@ body.home #latest-articles .article-title {
 
 body.home #subscription-form {
 	margin-bottom: 30px;
-	margin-top: -10px;
 	padding-bottom: 20px;
 }
 
