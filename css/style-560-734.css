@@ -736,7 +736,7 @@ body.search-results .em_author .entry-content div {
 /* Reposition nav-menu at 600px to ensure compatibility with the WPAdmin bar */
 
 @media only screen and (max-width: 600px) {
-.nav-primary {
+body.admin-bar .nav-primary {
 	position: absolute;
 	box-shadow: none;
 }

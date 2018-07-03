@@ -58,11 +58,6 @@ h4 {
 /* Top menu
    ------------  */
 
-.nav-primary {
-	position: absolute;
-	box-shadow: none;
-}
-
 .nav-primary .logo {
 	width: 120px;
 	height: 33px;
@@ -748,6 +743,22 @@ body.search-results .archive-title {
 
 #subscription-form input {
 	padding: 5px 10px;
+}
+
+/* Remove fixed sidebar in landscape mode, or if WP Admin Bar is installed */
+
+body.admin-bar .nav-primary {
+	position: absolute;
+	box-shadow: none;
+}
+
+}
+
+@media only screen and (min-width:470px) and (max-width: 559px) and (orientation:landscape) {
+
+	.nav-primary {
+	position: absolute;
+	box-shadow: none;
 }
 
 }

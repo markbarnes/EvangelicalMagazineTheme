@@ -12,7 +12,7 @@
 
 define( 'CHILD_THEME_NAME', 'Evangelical Magazine Theme' );
 define( 'CHILD_THEME_URL', 'https://www.evangelicalmagazine.com/' );
-define( 'CHILD_THEME_VERSION', '1.06' );
+define( 'CHILD_THEME_VERSION', '1.07' );
 
 //* Start the engine
 include_once (get_template_directory() . '/lib/init.php' );
