@@ -1000,29 +1000,31 @@ class evangelical_mag_theme {
 			WP_Filesystem();
 		}
 		$dir = wp_upload_dir();
-		foreach ($meta['sizes'] as $size => &$details) {
-			$uploaded_file = trailingslashit($dir['basedir']).$meta['file'];
-			$upload_folder = dirname($uploaded_file);
-			$file = trailingslashit($upload_folder).$details['file'];
-			list($orig_w, $orig_h, $orig_type) = @getimagesize($file);
-			@ini_set ('memory_limit', apply_filters('image_memory_limit', WP_MAX_MEMORY_LIMIT));
-			$image = imagecreatefromstring ($wp_filesystem->get_contents($file));
-			//Sharpen
-			$matrix = array(array(-1, -1, -1), array(-1, 35, -1), array(-1, -1, -1));
-			$divisor = array_sum(array_map('array_sum', $matrix));
-			$offset = 0;
-			imageconvolution($image, $matrix, $divisor, $offset);
-			// Save
-			switch ($orig_type) {
-				case IMAGETYPE_GIF:
-					imagegif ($image, $file);
-					break;
-				case IMAGETYPE_PNG:
-					imagepng ($image, $file);
-					break;
-				case IMAGETYPE_JPEG:
-					imagejpeg ($image, $file, apply_filters ('wp_editor_set_quality', 82, 'image/jpeg'));
-					break;
+		if ($meta['sizes']) {
+			foreach ($meta['sizes'] as $size => &$details) {
+				$uploaded_file = trailingslashit($dir['basedir']).$meta['file'];
+				$upload_folder = dirname($uploaded_file);
+				$file = trailingslashit($upload_folder).$details['file'];
+				list($orig_w, $orig_h, $orig_type) = @getimagesize($file);
+				@ini_set ('memory_limit', apply_filters('image_memory_limit', WP_MAX_MEMORY_LIMIT));
+				$image = imagecreatefromstring ($wp_filesystem->get_contents($file));
+				//Sharpen
+				$matrix = array(array(-1, -1, -1), array(-1, 35, -1), array(-1, -1, -1));
+				$divisor = array_sum(array_map('array_sum', $matrix));
+				$offset = 0;
+				imageconvolution($image, $matrix, $divisor, $offset);
+				// Save
+				switch ($orig_type) {
+					case IMAGETYPE_GIF:
+						imagegif ($image, $file);
+						break;
+					case IMAGETYPE_PNG:
+						imagepng ($image, $file);
+						break;
+					case IMAGETYPE_JPEG:
+						imagejpeg ($image, $file, apply_filters ('wp_editor_set_quality', 82, 'image/jpeg'));
+						break;
+				}
 			}
 		}
 		return $meta;
