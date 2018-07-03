@@ -2497,7 +2497,7 @@ body.search-results .entry-content .search-thumbnail {
 
 body.search-results .entry-content div {
 	float: left;
-	width: 470px;
+	width: 530px;
 	margin-left: 40px;
 }
 
@@ -2531,30 +2531,35 @@ body.search-results .entry-content p {
 }
 
 body.search-results .pagination {
-	margin: 40px;
+	margin: 40px 40px 30px 40px;
 }
 
-body.search-results article.em_author .entry-title {
+body.search-results .em_author .entry-title {
 	font-size: 24px;
 	padding-bottom: 4px;
 }
 
-body.search-results article.em_author .entry-content {
+body.search-results .em_author .entry-content {
 	padding: 20px 0;
 	background-color: aliceblue;
 }
 
-body.search-results article.em_author .entry-content a {
-	max-height: 75px;
-}
-
-body.search-results article.em_author .entry-content div {
+body.search-results .em_author .entry-content div {
 	margin-left: 30px;
+	width: 645px;
 }
 
-body.search-results article.em_author .entry-content p {
+body.search-results .em_author .entry-content p {
 	font-size: 15px;
 	width: 100%;
+}
+
+body.search-results .em_issue .entry-content div {
+	margin-left: 100px;
+}
+
+body.search-results .em_review .entry-content div {
+	width: 590px;
 }
 
 body.search-no-results .entry {
@@ -2588,7 +2593,8 @@ body.search-results .archive-description + .archive-pagination {
 }
 
 .archive-pagination li {
-	display: inline;
+	display: inline-block;
+	margin-bottom: 10px;
 }
 
 .archive-pagination li a {

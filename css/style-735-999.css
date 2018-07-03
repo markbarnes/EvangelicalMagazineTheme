@@ -605,14 +605,20 @@ body.single-em_author .article-list-box .title-author-wrapper .article-list-box-
 /* Search page
    -----------  */
 
-body.search-results .em_article .entry-content > div {
+body.search-results .em_article .entry-content div {
 	width: 405px;
 	margin-left: 30px;
 }
 
-body.search-results .em_author .entry-content > div {
-	width: 540px;
+body.search-results .em_author .entry-content div {
+	width: 515px;
 	margin-left: 30px;
+}
+
+body.search-results .em_issue .entry-content div,
+body.search-results .em_review .entry-content div {
+	width: 410px;
+	margin-left: 90px;
 }
 
 /* # Article boxes

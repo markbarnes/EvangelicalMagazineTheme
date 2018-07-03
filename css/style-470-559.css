@@ -721,12 +721,15 @@ body.single-em_series .article-list-box .article-list-box-image {
 /* Search page
    -----------  */
 
-body.search-results .em_article .search-thumbnail img {
+body.search-results .search-thumbnail img {
 	width: 75px;
 	margin-right: 20px;
 }
 
-body.search-results .em_article .entry-content > div {
+body.search-results .em_article .entry-content div,
+body.search-results .em_review .entry-content div,
+body.search-results .em_issue .entry-content div,
+body.search-results .em_author .entry-content div {
 	width: 370px;
 	margin-left: 0;
 	float: none;
@@ -734,15 +737,6 @@ body.search-results .em_article .entry-content > div {
 
 body.search-results .em_author .search-thumbnail img {
 	margin-right: 20px;
-}
-
-body.search-results .em_author .entry-content > div {
-	width: 370px;
-}
-
-body.search-results article.em_author .entry-content div {
-	margin-left: 0px;
-	float: none;
 }
 
 body.search-results .archive-title {

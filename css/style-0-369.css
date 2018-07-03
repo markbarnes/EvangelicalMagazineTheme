@@ -780,7 +780,14 @@ body.search-results .em_article .search-thumbnail img {
 	width: 220px;
 }
 
-body.search-results .em_article .entry-content > div {
+body.search-results .em_review .search-thumbnail img {
+	width: 100px;
+}
+
+body.search-results .em_article .entry-content div,
+body.search-results .em_review .entry-content div,
+body.search-results .em_issue .entry-content div,
+body.search-results .em_author .entry-content div {
 	width: 100%;
 	margin-left: 0;
 }
@@ -789,9 +796,7 @@ body.search-results .em_author .search-thumbnail img {
 	margin-right: 10px;
 }
 
-body.search-results article.em_author .entry-content > div {
-	width: 100%;
-	margin-left: 0;
+body.search-results .em_author .entry-content div {
 	float: none;
 	padding: 0 10px;
 }
