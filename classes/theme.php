@@ -17,6 +17,9 @@ class evangelical_mag_theme {
 	* @return void
 	*/
 	public static function set_everything_up() {
+		// Remove jQuery migrate
+		add_action ('wp_default_scripts', array ('evangelical_mag_theme', 'remove_jquery_migrate'));
+
 		//Editor tweaks
 		add_action ('admin_enqueue_scripts', array (__CLASS__, 'enqueue_fonts'));
 
@@ -227,6 +230,17 @@ class evangelical_mag_theme {
 	}
 
 	/**
+	* Remove jQuery Migrate
+	*
+	* @param WP_Scripts $scripts - passed as a reference by the wp_default_scripts action
+	*/
+	public static function remove_jquery_migrate($scripts) {
+		if (!is_admin() && isset($scripts->registered['jquery']) && $scripts->registered['jquery']->deps) {
+			$scripts->registered['jquery']->deps = array_diff ($scripts->registered['jquery']->deps, array ('jquery-migrate'));
+		}
+	}
+
+	/**
 	* Enqueue fonts
 	*
 	* Called by the wp_enqueue_scripts action
@@ -413,6 +427,9 @@ class evangelical_mag_theme {
 	*/
 	public static function add_after_end_of_article_or_review () {
 		global $post;
+		/**
+		* @var evangelical_magazine_articles_and_reviews
+		*/
 		$object = evangelical_magazine::get_object_from_post($post);
 		if (!is_user_logged_in()) {
 			$object->record_view_count();
