@@ -31,6 +31,9 @@ add_theme_support( 'html5', array('search-form', 'comment-form', 'comment-list',
 add_theme_support( 'genesis-accessibility', array( 'headings', 'search-form', 'skip-links', 'rems' ) ); //* Add Accessibility support
 add_editor_style();
 
+// Remove jQuery migrate
+add_action ('wp_default_scripts', array ('evangelical_mag_theme', 'remove_jquery_migrate'));
+
 // Widgets
 add_action ('widgets_init', array ('evangelical_mag_widgets', 'register_widgets'));
 

@@ -17,9 +17,6 @@ class evangelical_mag_theme {
 	* @return void
 	*/
 	public static function set_everything_up() {
-		// Remove jQuery migrate
-		add_action ('wp_default_scripts', array ('evangelical_mag_theme', 'remove_jquery_migrate'));
-
 		//Editor tweaks
 		add_action ('admin_enqueue_scripts', array (__CLASS__, 'enqueue_fonts'));
 
