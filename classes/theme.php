@@ -434,16 +434,15 @@ class evangelical_mag_theme {
 		echo "<div class=\"after-article\">";
 		self::output_facebook_like_share_buttons ($object);
 		self::output_email_subscription_box();
-		$articles_in_same_series = $object->get_articles_in_same_series();
-		if (count($articles_in_same_series) > 1) {
-			self::output_about_the_author ($object, $articles_to_be_excluded, false);
-			if ($object->is_article()) {
+		$articles_to_be_excluded = array($object->get_id());
+		self::output_about_the_author ($object, $articles_to_be_excluded);
+		if ($object->is_article()) {
+			$articles_in_same_series = $object->get_articles_in_same_series();
+			if (count($articles_in_same_series) > 1) {
 				self::output_also_in_this_series ($object, $articles_in_same_series, $articles_to_be_excluded);
 			}
-		} else {
-			self::output_about_the_author ($object, $articles_to_be_excluded, true);
 		}
-		$articles_to_be_excluded[] = $object->get_id();
+		self::output_also_by_author ($object, $articles_to_be_excluded);
 		$sections = $object->get_sections();
 		self::output_also_in_this_section ($sections, $articles_to_be_excluded);
 		echo "</div>";
@@ -478,10 +477,9 @@ class evangelical_mag_theme {
 	*
 	* @param evangelical_magazine_article $article - the article this applies to
 	* @param array &$articles_to_be_excluded - an array of article_ids to be excluded (will be modified - passed by reference)
-	* @param bool $output_also_by_section - true if the "Also by this author" section is to be included
 	* @return void
 	*/
-	private static function output_about_the_author ($article, &$articles_to_be_excluded, $output_also_by_section = false) {
+	private static function output_about_the_author ($article, &$articles_to_be_excluded) {
 		$authors = $article->get_authors();
 		$articles_to_be_excluded = array();
 		if ($authors) {
@@ -494,19 +492,33 @@ class evangelical_mag_theme {
 			foreach ($authors as $author) {
 				echo $author->get_author_info_html('author_small');
 			}
-			if ($output_also_by_section) {
-				$also_by = $article->get_articles_and_reviews_by_same_authors(3);
-				if ($also_by) {
-					if ($is_single_author) {
-						$author = current ($authors);
-						echo '<h3>Also by '.$author->get_name(true, false).'</h3>';
-					} else {
-						echo '<h3>Also by these authors</h3>';
-					}
-					foreach ($also_by as $also_article) {
-						echo $also_article->get_small_box_html(true);
-						$articles_to_be_excluded[] = $also_article->get_id();
-					}
+			echo '</div>';
+		}
+	}
+
+	/**
+	* Outputs the "Also by author" section
+	*
+	* @param evangelical_magazine_article $article - the article this applies to
+	* @param array &$articles_to_be_excluded - an array of article_ids to be excluded (will be modified - passed by reference)
+	* @return void
+	*/
+	private static function output_also_by_author ($article, &$articles_to_be_excluded) {
+		$authors = $article->get_authors();
+		if ($authors) {
+			echo "<div class =\"author-meta\">";
+			$also_by = $article->get_articles_and_reviews_by_same_authors(3, $articles_to_be_excluded);
+			if ($also_by) {
+				$is_single_author = (count($authors) == 1);
+				if ($is_single_author) {
+					$author = current ($authors);
+					echo '<h3>Also by '.$author->get_name(true, false).'</h3>';
+				} else {
+					echo '<h3>Also by these authors</h3>';
+				}
+				foreach ($also_by as $also_article) {
+					echo $also_article->get_small_box_html(true);
+					$articles_to_be_excluded[] = $also_article->get_id();
 				}
 			}
 			echo '</div>';

@@ -5,6 +5,9 @@
 * This theme is a child theme for the Genesis Framework
 * @see http://my.studiopress.com/themes/genesis/
 *
+* It requires version 1.01 of a helper plugin
+* @see https://github.com/markbarnes/EvangelicalMagazinePlugin
+*
 * @package evangelical-magazine-theme
 * @author Mark Barnes
 * @access public
@@ -12,7 +15,7 @@
 
 define( 'CHILD_THEME_NAME', 'Evangelical Magazine Theme' );
 define( 'CHILD_THEME_URL', 'https://www.evangelicalmagazine.com/' );
-define( 'CHILD_THEME_VERSION', '1.07' );
+define( 'CHILD_THEME_VERSION', '1.0.8' );
 
 //* Start the engine
 include_once (get_template_directory() . '/lib/init.php' );
