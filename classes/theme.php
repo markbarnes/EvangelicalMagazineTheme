@@ -476,12 +476,10 @@ class evangelical_mag_theme {
 	* Outputs the "About the author" section
 	*
 	* @param evangelical_magazine_article $article - the article this applies to
-	* @param array &$articles_to_be_excluded - an array of article_ids to be excluded (will be modified - passed by reference)
 	* @return void
 	*/
-	private static function output_about_the_author ($article, &$articles_to_be_excluded) {
+	private static function output_about_the_author ($article) {
 		$authors = $article->get_authors();
-		$articles_to_be_excluded = array();
 		if ($authors) {
 			$is_single_author = (count($authors) == 1);
 			if ($article->is_article()) {
