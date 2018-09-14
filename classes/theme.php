@@ -1254,7 +1254,7 @@ class evangelical_mag_theme {
 	* @return void
 	*/
 	public static function configure_reftagger() {
-		echo "<script>var refTagger = {settings: {bibleVersion: \"NIV\",libronixBibleVersion: \"DEFAULT\",addLogosLink: false,appendIconToLibLinks: false,libronixLinkIcon: \"dark\",noSearchClassNames: [],useTooltip: true,noSearchTagNames: [\"h1\"],linksOpenNewWindow: true,convertHyperlinks: false,caseInsensitive: false,tagChapters: true}}</script>";
+		echo "<script>var refTagger = {settings: {bibleVersion: \"NIV\",libronixBibleVersion: \"DEFAULT\",addLogosLink: false,appendIconToLibLinks: false,libronixLinkIcon: \"dark\",noSearchClassNames: [\"article-title\"],useTooltip: true,noSearchTagNames: [\"h1\"],linksOpenNewWindow: true,convertHyperlinks: false,caseInsensitive: false,tagChapters: true}}</script>";
 	}
 
 	/**
