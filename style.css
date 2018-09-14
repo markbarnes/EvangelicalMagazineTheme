@@ -923,6 +923,10 @@ img.alignright,
 	margin-bottom: 0;
 }
 
+.sidebar .widget_custom_html {
+	line-height: 1;
+}
+
 /* ## Popular Articles Widget
 --------------------------------------------- */
 
