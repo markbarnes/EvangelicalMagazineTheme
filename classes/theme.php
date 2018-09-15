@@ -1433,7 +1433,7 @@ class evangelical_mag_theme {
 						'370-469' => 'screen and (min-width:370px) and (max-width: 469px)',
 						'0-369' => 'screen and (max-width: 369px)');
 		foreach ($sizes as $name => $media) {
-			self::enqueue_style ("magazine-css-{$name}", "/css/style-{$name}.css", false, $media);
+			self::enqueue_style ("magazine-css-{$name}", "/css/style-{$name}.css", false);
 		}
 		self::enqueue_style ("gravity-forms-custom", "/css/gravityforms-custom.css", false);
 	}
