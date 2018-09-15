@@ -1435,6 +1435,7 @@ class evangelical_mag_theme {
 		foreach ($sizes as $name => $media) {
 			self::enqueue_style ("magazine-css-{$name}", "/css/style-{$name}.css", false, $media);
 		}
+		self::enqueue_style ("gravity-forms-custom", "/css/gravityforms-custom.css", false);
 	}
 
 	/**
