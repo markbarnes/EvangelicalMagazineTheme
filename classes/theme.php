@@ -904,8 +904,9 @@ class evangelical_mag_theme {
 						if ($authors = $article->get_author_names(true, false, 'by ')) {
 							echo "<br/><span class=\"article-authors\">{$authors}</span>";
 						}
-						if ($likes = $article->get_facebook_stats()) {
-							echo "<br/><span class=\"article-facebook-likes\">{$likes} people liked this</span>";
+						if ($likes = $article->get_facebook_stats('reactions')) {
+							echo "<br/><span class=\"article-facebook-likes\">{$likes} ";
+							echo ($likes == 1 ? "person likes" : "people like")." this</span>";
 						}
 						echo "</li>";
 						$exclude_ids[] = $article->get_id();
@@ -1206,8 +1207,8 @@ class evangelical_mag_theme {
 				$output .= "<div class=\"title-author-wrapper\"><span class=\"article-list-box-title\"><span{$style}>{$article->get_title(true)}</span></span><span class=\"article-list-box-author\"><br/>{$article->get_author_names(!$article->is_future(), false, 'by ')}</span>";
 				if ($article->is_future()) {
 					$output .= "<br/><span class=\"article-list-box-coming-soon\">Coming {$article->get_coming_date()}</span>";
-				} elseif ($add_facebook_likes && ($likes = $article->get_facebook_stats())) {
-					$output .= "<br/><span class=\"article-list-box-likes\">{$likes} likes</span>";
+				} elseif ($add_facebook_likes && ($likes = $article->get_facebook_stats('reactions'))) {
+					$output .= "<br/><span class=\"article-list-box-likes\">{$likes} ".($likes == 1 ? 'like' : 'likes').'</span>';
 				}
 				$output .= "</div></li>";
 				$class = '';
