@@ -380,7 +380,7 @@ class evangelical_mag_theme {
 		global $post, $_wp_additional_image_sizes;
 		$article = new evangelical_magazine_article($post);
 		$date = $article->get_issue_datetime();
-		$logo = get_template_directory_uri().'/images/emw-logo.png';
+		$logo = get_stylesheet_directory_uri().'/images/emw-logo.png';
 		$microdata = new evangelical_mag_microdata();
 		if (isset($_wp_additional_image_sizes['article_header'])) {
 			echo $microdata->get_ImageObject($article->get_image_url('article_header'), $_wp_additional_image_sizes['article_header']['width'], $_wp_additional_image_sizes['article_header']['height']);
@@ -407,7 +407,7 @@ class evangelical_mag_theme {
 		global $post;
 		$review = new evangelical_magazine_review($post);
 		$date = $review->get_issue_datetime();
-		$logo = get_template_directory_uri().'/images/emw-logo.png';
+		$logo = get_stylesheet_directory_uri().'/images/emw-logo.png';
 		$microdata = new evangelical_mag_microdata();
 		echo $microdata->get_datePublished($review->get_issue_datetime());
 		echo $microdata->get_dateModified($review->get_post_datetime());
