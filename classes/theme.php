@@ -24,7 +24,7 @@ class evangelical_mag_theme {
 		add_action ('wp_enqueue_scripts', array (__CLASS__, 'enqueue_fonts'));
 		add_action ('wp_enqueue_scripts', array (__CLASS__, 'enqueue_media_stylesheets'));
 		add_action ('wp_enqueue_scripts', array (__CLASS__, 'enqueue_webp_detection'));
-		add_action ('wp_enqueue_scripts', array (__CLASS__, 'disable_emojis'));
+		add_action ('wp_enqueue_scripts', array (__CLASS__, 'disable_emojis_etc'));
 		add_action ('wp_enqueue_scripts', array (__CLASS__, 'enqueue_reftagger'));
 		add_filter ('genesis_superfish_enabled', '__return_false');
 		remove_action ('wp_head', 'feed_links_extra', 3);
@@ -263,13 +263,13 @@ class evangelical_mag_theme {
 	}
 
 	/**
-	* Remove emoji support for older browsers to speed up page loading
+	* Remove emoji support for older browsers, and wp-embed.js to speed up page loading
 	*
 	* @link https://wordpress.org/plugins/disable-emojis/
 	*
 	* @return void
 	*/
-	public static function disable_emojis() {
+	public static function disable_emojis_etc() {
 		remove_action ('wp_head', 'print_emoji_detection_script', 7);
 		remove_action ('admin_print_scripts', 'print_emoji_detection_script');
 		remove_action ('wp_print_styles', 'print_emoji_styles');
@@ -277,6 +277,7 @@ class evangelical_mag_theme {
 		remove_filter ('the_content_feed', 'wp_staticize_emoji');
 		remove_filter ('comment_text_rss', 'wp_staticize_emoji');
 		remove_filter ('wp_mail', 'wp_staticize_emoji_for_email');
+		wp_deregister_script ('wp-embed');
 	}
 
 	/**
