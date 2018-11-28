@@ -2928,10 +2928,12 @@ body.home .article-title {
 	font-family: 'League Gothic', 'Impact', 'Franklin Gothic Medium', sans-serif;
 	font-size: 28px;
 	line-height: 25px;
-	padding: 0 20px 10px 20px;
+	padding: 9px 20px 10px 20px;
 	text-shadow: 1.25px 1.25px 1px rgba(0,0,0,.85);
 	color:#FECA00;
-}
+	background-color: rgba(0,0,0,0.35);
+	box-shadow: 0 -10px 20px rgba(0,0,0,0.35);
+	width: 100%;}
 
 body.home .current.article:hover .article-title {
 	text-decoration: underline;
