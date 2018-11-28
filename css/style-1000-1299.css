@@ -407,6 +407,13 @@ body.single-em_author .large-image .article-list-box-image {
 	width: 245px;
 }
 
+/* ## Article List Box (list of articles in a section or issue)
+--------------------------------------------- */
+
+.article-list-box h3 {
+	font-size: 24px;
+}
+
 /* Home page
    ---------  */
 
