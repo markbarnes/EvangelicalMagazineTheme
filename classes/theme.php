@@ -781,53 +781,61 @@ class evangelical_mag_theme {
 	*/
 	public static function output_author_archive_page () {
 		echo "<h1>Authors</h1>";
-		$output = '';
-		$authors = evangelical_magazine_author::get_all_authors();
-		$output_index = (bool)(count($authors) >= 20);
+		$author_count = evangelical_magazine_author::get_count();
+		$paged_output = (bool)($author_count >= 20);
+		if ($paged_output) {
+			$picker = '';
+			$letters_used = evangelical_magazine_author::get_initial_letters_as_array();
+			$picker .= '<div id="author-index">';
+			$letters_needed = array_unique(array_merge(range('A','Z'),$letters_used));
+			foreach ($letters_needed as $l) {
+				$picker .= '<span class="author-index-cell">';
+				if (in_array ($l, $letters_used) !== FALSE) {
+					$picker .= "<a href=\"#grid-author-{$l}\">{$l}</a>";
+				} else {
+					$picker .= $l;
+				}
+				$picker .= '</span>';
+			}
+			$picker .= '</div>';
+			echo $picker;
+		}
+		echo '<div id="author-results">';
+		$current_letter = 'A';
+		if ($paged_output) {
+			$authors = evangelical_magazine_author::get_authors_by_initial_letter($current_letter);
+		} else {
+			$authors = evangelical_magazine_author::get_all_authors();
+		}
+		echo SELF::return_author_grid_html ($authors);
+		echo '</div>';
+		if ($paged_output) {
+			echo $picker;
+		}
+	}
+
+	/**
+	* Returns the HTML to generate the author grid for an array of author objects
+	*
+	* @param em_author[] $authors
+	* @return string
+	*/
+	public static function return_author_grid_html ($authors) {
 		if ($authors) {
-			$previous_letter = $letters_used = '';
+			$grid = '';
 			foreach ($authors as $author) {
-				if ($output_index) {
-					if (($current_letter = strtoupper(substr($author->get_name(),0,1))) != $previous_letter) {
-						if ($previous_letter != '') {
-							$output .= "</div>";
-						}
-						$output .= "<h2 class=\"grid-author-heading\" id=\"grid-author-{$current_letter}\"><a href=\"#author-index\">{$current_letter}</a></h2><div class= \"grid-author-{$current_letter}\">";
-						$previous_letter = $current_letter;
-						$letters_used .= $current_letter;
-					}
-				}
-				$output .= "<div class=\"grid-author-container\">";
-				$output .= "<a href=\"{$author->get_link()}\" class=\"grid-author-image image-fit\" style=\"background-image:url('{$author->get_image_url('author_small')}')\"></a>";
-				$output .= "<div class=\"author-name-description\">";
-				$output .= "<div class=\"author-name\">{$author->get_name(true)}</div>";
-				$output .= "<div class=\"author-description\">{$author->get_filtered_content()}</div>";
-				$output .= "<div class=\"author-article-count\"><a href=\"{$author->get_link()}\">{$author->get_article_and_review_count(true, true, true)}</a></div>";
-				$output .= "</div></div>";
-			}
-			if ($previous_letter != '') {
-				$output .= "</div>";
-			}
-			if ($output_index) {
-				$index = '<div id="author-index">';
-				$letters_needed = array_unique(array_merge(range('A','Z'),str_split($letters_used)));
-				sort($letters_needed, SORT_STRING);
-				foreach ($letters_needed as $l) {
-					$index .= '<span class="author-index-cell">';
-					if (strpos($letters_used, $l) !== FALSE) {
-						$index .= "<a href=\"#grid-author-{$l}\">{$l}</a>";
-					} else {
-						$index .= $l;
-					}
-					$index .= '</span>';
-				}
-				$index .= '</div>';
-				$output = $index.$output;
+				$grid .= "<div class=\"grid-author-container\">";
+				$grid .= "<a href=\"{$author->get_link()}\" class=\"grid-author-image image-fit\" style=\"background-image:url('{$author->get_image_url('author_small')}')\"></a>";
+				$grid .= "<div class=\"author-name-description\">";
+				$grid .= "<div class=\"author-name\">{$author->get_name(true)}</div>";
+				$grid .= "<div class=\"author-description\">{$author->get_filtered_content()}</div>";
+				$grid .= "<div class=\"author-article-count\"><a href=\"{$author->get_link()}\">{$author->get_article_and_review_count(true, true, true)}</a></div>";
+				$grid .= "</div></div>";
 			}
 		} else {
-			$output .= '<p>No authors found.</p>';
+			$grid = '<p>No authors found.</p>';
 		}
-		echo $output;
+		return $grid;
 	}
 
 	/**
