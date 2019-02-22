@@ -1683,8 +1683,7 @@ class evangelical_mag_theme {
 		$ajax_url = admin_url('admin-ajax.php');
 				$javascript = "jQuery('#author-index a').click(
 	function(e) {
-		jQuery('#author-results').fadeOut({queue: false, duration: 1000});
-		//jQuery('#author-results').animate({height:0},1000);
+		jQuery('#author-results').slideToggle('slow');
 		jQuery.ajax(
 			{
 				url: '{$ajax_url}',
@@ -1694,9 +1693,7 @@ class evangelical_mag_theme {
 					author_letter: this.href.slice(-1)
 				},
 				success: function(data) {
-					jQuery('#author-results').html(data);
-					jQuery('#author-results').fadeIn({queue: false, duration: 1000});
-					//jQuery('#author-results').animate({height:auto},1000);
+					jQuery('#author-results').html(data).slideToggle('slow');
 				}
 			}
 		)
