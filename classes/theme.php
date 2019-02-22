@@ -180,6 +180,7 @@ class evangelical_mag_theme {
 		// Author archive page
 		elseif (is_post_type_archive('em_author')) {
 			add_action ('genesis_entry_content', array(__CLASS__, 'output_author_archive_page'));
+			add_action ('wp_enqueue_scripts', array(__CLASS__, 'enqueue_author_archive_page_javascript'));
 		}
 		// Issues archive page
 		elseif (is_post_type_archive('em_issue')) {
@@ -780,6 +781,7 @@ class evangelical_mag_theme {
 	* @return void
 	*/
 	public static function output_author_archive_page () {
+		global $wp;
 		echo "<h1>Authors</h1>";
 		$author_count = evangelical_magazine_author::get_count();
 		$paged_output = (bool)($author_count >= 20);
@@ -791,7 +793,8 @@ class evangelical_mag_theme {
 			foreach ($letters_needed as $l) {
 				$picker .= '<span class="author-index-cell">';
 				if (in_array ($l, $letters_used) !== FALSE) {
-					$picker .= "<a href=\"#grid-author-{$l}\">{$l}</a>";
+					$url = home_url(add_query_arg('em_author_letter', $l, $wp->request));
+					$picker .= "<a href=\"{$url}\">{$l}</a>";
 				} else {
 					$picker .= $l;
 				}
@@ -801,7 +804,7 @@ class evangelical_mag_theme {
 			echo $picker;
 		}
 		echo '<div id="author-results">';
-		$current_letter = 'A';
+		$current_letter = isset($_GET['em_author_letter']) ? substr ($_GET['em_author_letter'], 0, 1) : 'A';
 		if ($paged_output) {
 			$authors = evangelical_magazine_author::get_authors_by_initial_letter($current_letter);
 		} else {
@@ -1657,5 +1660,60 @@ class evangelical_mag_theme {
 		$timestamp = @filemtime(get_stylesheet_directory().$path);
 		$src = get_stylesheet_directory_uri().$path;
 		wp_enqueue_script($handle, $src, $deps, $timestamp, $in_footer);
+	}
+
+	/**
+	* Enqueues necessary javascript on the author archive page
+	*
+	* @return void
+	*/
+	public static function enqueue_author_archive_page_javascript() {
+		wp_enqueue_script('jquery');
+		add_action ('wp_footer', array (__CLASS__, 'output_author_archive_page_javascript'));
+	}
+
+	/**
+	* Outputs javascript on the author archive page
+	*
+	* Called by the wp_footer action
+	*
+	* @return void
+	*/
+	public static function output_author_archive_page_javascript () {
+		$ajax_url = admin_url('admin-ajax.php');
+				$javascript = "jQuery('#author-index a').click(
+	function(e) {
+		jQuery('#author-results').fadeOut({queue: false, duration: 1000});
+		//jQuery('#author-results').animate({height:0},1000);
+		jQuery.ajax(
+			{
+				url: '{$ajax_url}',
+				type: 'post',
+				data: {
+					action: 'em_get_author_grid',
+					author_letter: this.href.slice(-1)
+				},
+				success: function(data) {
+					jQuery('#author-results').html(data);
+					jQuery('#author-results').fadeIn({queue: false, duration: 1000});
+					//jQuery('#author-results').animate({height:auto},1000);
+				}
+			}
+		)
+		e.preventDefault();
+	}
+);";
+		echo '<script type="text/javascript">'.$javascript.'</script>';
+	}
+
+	public static function return_ajax_author_grid() {
+		if (isset($_POST['author_letter'])) {
+			$author_letter = substr($_POST['author_letter'],0,1);
+			$authors = evangelical_magazine_author::get_authors_by_initial_letter($author_letter);
+			if ($authors) {
+				echo SELF::return_author_grid_html ($authors);
+			}
+		}
+		die();
 	}
 }

@@ -57,6 +57,10 @@ add_image_size ('author_small', 105, 105, true);
 add_image_size ('author_tiny', 75, 75, true);
 add_filter ('image_size_names_choose', array ('evangelical_mag_theme', 'add_image_sizes_to_media_gallery'));
 
+//AJAX calls
+add_action ('wp_ajax_em_get_author_grid', array ('evangelical_mag_theme', 'return_ajax_author_grid'));
+add_action ('wp_ajax_nopriv_em_get_author_grid', array ('evangelical_mag_theme', 'return_ajax_author_grid'));
+
 /**
 * Autoloads classes
 *
