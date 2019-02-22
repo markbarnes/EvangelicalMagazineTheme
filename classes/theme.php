@@ -788,7 +788,7 @@ class evangelical_mag_theme {
 		if ($paged_output) {
 			$picker = '';
 			$letters_used = evangelical_magazine_author::get_initial_letters_as_array();
-			$picker .= '<div id="author-index">';
+			$picker .= '<div id="author-index-1" class="author-index">';
 			$letters_needed = array_unique(array_merge(range('A','Z'),$letters_used));
 			foreach ($letters_needed as $l) {
 				$picker .= '<span class="author-index-cell">';
@@ -813,7 +813,7 @@ class evangelical_mag_theme {
 		echo SELF::return_author_grid_html ($authors);
 		echo '</div>';
 		if ($paged_output) {
-			echo $picker;
+			echo str_replace('author-index-1', 'author-index-2', $picker);
 		}
 	}
 
@@ -1681,9 +1681,12 @@ class evangelical_mag_theme {
 	*/
 	public static function output_author_archive_page_javascript () {
 		$ajax_url = admin_url('admin-ajax.php');
-				$javascript = "jQuery('#author-index a').click(
+		$image_url = get_stylesheet_directory_uri().'/images/loading.gif';
+				$javascript = "jQuery('.author-index a').click(
 	function(e) {
 		jQuery('#author-results').slideToggle('slow');
+		var author_index_html = jQuery('#author-index-2').html();
+		jQuery('#author-index-2').html('Loading… <img src=\"{$image_url}\"/>');
 		jQuery.ajax(
 			{
 				url: '{$ajax_url}',
@@ -1693,7 +1696,9 @@ class evangelical_mag_theme {
 					author_letter: this.href.slice(-1)
 				},
 				success: function(data) {
-					jQuery('#author-results').html(data).slideToggle('slow');
+					jQuery('#author-results').html(data).slideToggle('slow', function() {
+						jQuery('#author-index-2').html(author_index_html);
+					});
 				}
 			}
 		)
@@ -1703,6 +1708,11 @@ class evangelical_mag_theme {
 		echo '<script type="text/javascript">'.$javascript.'</script>';
 	}
 
+	/**
+	* Echoes the HTML of the author grid when called by AJAX
+	*
+	* return void
+	*/
 	public static function return_ajax_author_grid() {
 		if (isset($_POST['author_letter'])) {
 			$author_letter = substr($_POST['author_letter'],0,1);

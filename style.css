@@ -1791,7 +1791,7 @@ p.entry-meta {
 /* ## Author archive page
 --------------------------------------------- */
 
-#author-index {
+.author-index {
 	display: block;
 	width: 100%;
 	background-color: #086788;
@@ -1804,15 +1804,15 @@ p.entry-meta {
 	margin-bottom: 24px;
 }
 
-#author-index .author-index-cell {
+.author-index .author-index-cell {
 	display: inline-block;
 }
 
-#author-index .author-index-cell a {
+.author-index .author-index-cell a {
 	color: #feca00;
 }
 
-#author-index .author-index-cell a:hover, .grid-author-heading a:hover {
+.author-index .author-index-cell a:hover, .grid-author-heading a:hover {
 	text-decoration: none;
 }
 
