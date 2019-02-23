@@ -180,7 +180,7 @@ class evangelical_mag_theme {
 		// Author archive page
 		elseif (is_post_type_archive('em_author')) {
 			add_action ('genesis_entry_content', array(__CLASS__, 'output_author_archive_page'));
-			add_action ('wp_enqueue_scripts', array(__CLASS__, 'enqueue_author_archive_page_javascript'));
+			self::enqueue_archive_page_javascript();
 		}
 		// Issues archive page
 		elseif (is_post_type_archive('em_issue')) {
@@ -788,10 +788,10 @@ class evangelical_mag_theme {
 		if ($paged_output) {
 			$picker = '';
 			$letters_used = evangelical_magazine_author::get_initial_letters_as_array();
-			$picker .= '<div id="author-index-1" class="author-index">';
+			$picker .= '<div id="navigation-index-1" class="navigation-index">';
 			$letters_needed = array_unique(array_merge(range('A','Z'),$letters_used));
 			foreach ($letters_needed as $l) {
-				$picker .= '<span class="author-index-cell">';
+				$picker .= '<span class="navigation-index-cell">';
 				if (in_array ($l, $letters_used) !== FALSE) {
 					$url = home_url(add_query_arg('em_author_letter', $l, $wp->request));
 					$picker .= "<a href=\"{$url}\">{$l}</a>";
@@ -813,7 +813,7 @@ class evangelical_mag_theme {
 		echo SELF::return_author_grid_html ($authors);
 		echo '</div>';
 		if ($paged_output) {
-			echo str_replace('author-index-1', 'author-index-2', $picker);
+			echo str_replace('navigation-index-1', 'navigation-index-2', $picker);
 		}
 	}
 
@@ -860,7 +860,7 @@ class evangelical_mag_theme {
 						$output .= '</ul>';
 					}
 					$years[] = $date['year'];
-					$output .= "<h2 class=\"issue-year-heading\" id=\"issue-year-{$date['year']}\"><a href=\"#issue-index\">{$date['year']}</a></h2>";
+					$output .= "<h2 class=\"issue-year-heading\" id=\"issue-year-{$date['year']}\"><a href=\"#navigation-index\">{$date['year']}</a></h2>";
 					$output .= "<ul class=\"issue-list\">";
 				}
 				$output .= "<li class=\"issue\"><a href=\"{$issue->get_link()}\"><div class=\"magazine-cover image-fit box-shadow-transition\" style=\"background-image:url('{$issue->get_image_url('issue_medium')}')\"></div></a>";
@@ -884,9 +884,9 @@ class evangelical_mag_theme {
 				$output .= "</div></li>";
 			}
 			$output .= "</ul>";
-			echo '<div id="issue-index">';
+			echo '<div class="navigation-index">';
 			foreach ($years as $year) {
-				echo "<span class=\"issue-index-cell\"><a href=\"#issue-year-{$year}\">{$year}</a></span>";
+				echo "<span class=\"navigation-index-cell\"><a href=\"#issue-year-{$year}\">{$year}</a></span>";
 			}
 			echo '</div>';
 			echo $output;
@@ -1663,33 +1663,33 @@ class evangelical_mag_theme {
 	}
 
 	/**
-	* Enqueues necessary javascript on the author archive page
+	* Enqueues necessary javascript on paginated archive pages
 	*
 	* @return void
 	*/
-	public static function enqueue_author_archive_page_javascript() {
+	public static function enqueue_archive_page_javascript() {
 		wp_enqueue_script('jquery');
-		add_action ('wp_footer', array (__CLASS__, 'output_author_archive_page_javascript'));
+		add_action ('wp_footer', array (__CLASS__, 'output_archive_page_javascript'));
 	}
 
 	/**
-	* Outputs javascript on the author archive page
+	* Outputs javascript on paginated archive pages
 	*
 	* Called by the wp_footer action
 	*
 	* @return void
 	*/
-	public static function output_author_archive_page_javascript () {
+	public static function output_archive_page_javascript () {
 		$ajax_url = admin_url('admin-ajax.php');
 		$image_url = get_stylesheet_directory_uri().'/images/loading.gif';
 		$javascript = "
-		jQuery('.author-index').parent().delegate(
-			'.author-index a',
+		jQuery('.navigation-index').parent().delegate(
+			'.navigation-index a',
 			'click',
 			function(e) {
 				jQuery('#author-results').slideToggle('slow');
-				var author_index_html = jQuery('#author-index-2').html();
-				jQuery('#author-index-2').html('Loading… <img src=\"{$image_url}\"/>');
+				var alphabetical_index_html = jQuery('#navigation-index-2').html();
+				jQuery('#navigation-index-2').html('Loading… <img src=\"{$image_url}\"/>');
 				jQuery.ajax(
 					{
 						url: '{$ajax_url}',
@@ -1700,7 +1700,7 @@ class evangelical_mag_theme {
 						},
 						success: function(data) {
 							jQuery('#author-results').html(data).slideToggle('slow', function() {
-								jQuery('#author-index-2').html(author_index_html);
+								jQuery('#navigation-index-2').html(alphabetical_index_html);
 							});
 						}
 					}

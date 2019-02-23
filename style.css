@@ -1788,32 +1788,39 @@ p.entry-meta {
 	height: 140px;
 }
 
-/* ## Author archive page
+/* ## Alphabetical indexes on archive pages
 --------------------------------------------- */
 
-.author-index {
+.navigation-index {
 	display: block;
 	width: 100%;
 	background-color: #086788;
 	color: white;
 	font-family: 'League Gothic', 'Impact', 'Franklin Gothic Medium', sans-serif;
-	display: flex;
-	justify-content: space-between;
 	padding: 5px 10px;
 	font-size: 24px;
 	margin-bottom: 24px;
 }
 
-.author-index .author-index-cell {
+.navigation-index .navigation-index-cell {
 	display: inline-block;
 }
 
-.author-index .author-index-cell a {
+.navigation-index .navigation-index-cell a {
 	color: #feca00;
 }
 
-.author-index .author-index-cell a:hover, .grid-author-heading a:hover {
+.navigation-index .navigation-index-cell a:hover, .grid-author-heading a:hover {
+	color: white;
 	text-decoration: none;
+}
+
+/* ## Author archive page
+--------------------------------------------- */
+
+.post-type-archive-em_author .navigation-index {
+	display: flex;
+	justify-content: space-between;
 }
 
 .grid-author-heading {
@@ -2069,33 +2076,12 @@ body.single-em_issue .article-list-box li:first-child {
 /* ## Issue archive page
 --------------------------------------------- */
 
-#issue-index {
-	display: block;
-	width: 100%;
-	background-color: #086788;
-	color: white;
-	font-family: 'League Gothic', 'Impact', 'Franklin Gothic Medium', sans-serif;
-	padding: 5px 10px;
-	font-size: 24px;
-	margin-bottom: 24px;
-}
-
-#issue-index .issue-index-cell {
-	display: inline-block;
+.post-type-archive-em_issue .navigation-index .navigation-index-cell {
 	margin-right: 15px;
 }
 
-#issue-index .issue-index-cell:last-of-type {
+.post-type-archive-em_issue .navigation-index .navigation-index-cell:last-of-type {
 	margin-right: 0;
-}
-
-#issue-index .issue-index-cell a {
-	color: #feca00;
-}
-
-#issue-index .issue-index-cell a:hover, .issue-year-heading a:hover {
-	color: white;
-	text-decoration: none;
 }
 
 .issue-year-heading {
