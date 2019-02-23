@@ -803,7 +803,7 @@ class evangelical_mag_theme {
 			$picker .= '</div>';
 			echo $picker;
 		}
-		echo '<div id="author-results">';
+		echo '<div id="archive-results">';
 		$current_letter = isset($_GET['em_author_letter']) ? substr ($_GET['em_author_letter'], 0, 1) : 'A';
 		if ($paged_output) {
 			$authors = evangelical_magazine_author::get_authors_by_initial_letter($current_letter);
@@ -1663,6 +1663,24 @@ class evangelical_mag_theme {
 	}
 
 	/**
+	* Returns true if the current page is the author archive
+	*
+	* @return boolean
+	*/
+	public static function is_author_archive_page() {
+		return is_post_type_archive(array ('em_author'));
+	}
+
+	/**
+	* Returns true if the current page is the issue archive
+	*
+	* @return boolean
+	*/
+	public static function is_issue_archive_page() {
+		return is_post_type_archive(array ('em_issue'));
+	}
+
+	/**
 	* Enqueues necessary javascript on paginated archive pages
 	*
 	* @return void
@@ -1682,25 +1700,32 @@ class evangelical_mag_theme {
 	public static function output_archive_page_javascript () {
 		$ajax_url = admin_url('admin-ajax.php');
 		$image_url = get_stylesheet_directory_uri().'/images/loading.gif';
+		if (self::is_author_archive_page()) {
+			$action = 'em_get_author_grid';
+		} elseif (self::is_issue_archive_page()) {
+			$action = 'em_get_issue_list';
+		} else {
+			trigger_error ('Unknown page type when outputting archive page javascript', E_USER_ERROR);
+		}
 		$javascript = "
 		jQuery('.navigation-index').parent().delegate(
 			'.navigation-index a',
 			'click',
 			function(e) {
-				jQuery('#author-results').slideToggle('slow');
-				var alphabetical_index_html = jQuery('#navigation-index-2').html();
+				jQuery('#archive-results').slideToggle('slow');
+				var navigation_index_html = jQuery('#navigation-index-2').html();
 				jQuery('#navigation-index-2').html('Loading… <img src=\"{$image_url}\"/>');
 				jQuery.ajax(
 					{
 						url: '{$ajax_url}',
 						type: 'post',
 						data: {
-							action: 'em_get_author_grid',
-							author_letter: this.href.slice(-1)
+							action: '{$action}',
+							display: this.href.slice(-1)
 						},
 						success: function(data) {
-							jQuery('#author-results').html(data).slideToggle('slow', function() {
-								jQuery('#navigation-index-2').html(alphabetical_index_html);
+							jQuery('#archive-results').html(data).slideToggle('slow', function() {
+								jQuery('#navigation-index-2').html(navigation_index_html);
 							});
 						}
 					}
@@ -1717,8 +1742,8 @@ class evangelical_mag_theme {
 	* return void
 	*/
 	public static function return_ajax_author_grid() {
-		if (isset($_POST['author_letter'])) {
-			$author_letter = substr($_POST['author_letter'],0,1);
+		if (isset($_POST['display'])) {
+			$author_letter = substr($_POST['display'],0,1);
 			$authors = evangelical_magazine_author::get_authors_by_initial_letter($author_letter);
 			if ($authors) {
 				echo SELF::return_author_grid_html ($authors);
