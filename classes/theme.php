@@ -1682,29 +1682,32 @@ class evangelical_mag_theme {
 	public static function output_author_archive_page_javascript () {
 		$ajax_url = admin_url('admin-ajax.php');
 		$image_url = get_stylesheet_directory_uri().'/images/loading.gif';
-				$javascript = "jQuery('.author-index a').click(
-	function(e) {
-		jQuery('#author-results').slideToggle('slow');
-		var author_index_html = jQuery('#author-index-2').html();
-		jQuery('#author-index-2').html('Loading… <img src=\"{$image_url}\"/>');
-		jQuery.ajax(
-			{
-				url: '{$ajax_url}',
-				type: 'post',
-				data: {
-					action: 'em_get_author_grid',
-					author_letter: this.href.slice(-1)
-				},
-				success: function(data) {
-					jQuery('#author-results').html(data).slideToggle('slow', function() {
-						jQuery('#author-index-2').html(author_index_html);
-					});
-				}
+		$javascript = "
+		jQuery('.author-index').parent().delegate(
+			'.author-index a',
+			'click',
+			function(e) {
+				jQuery('#author-results').slideToggle('slow');
+				var author_index_html = jQuery('#author-index-2').html();
+				jQuery('#author-index-2').html('Loading… <img src=\"{$image_url}\"/>');
+				jQuery.ajax(
+					{
+						url: '{$ajax_url}',
+						type: 'post',
+						data: {
+							action: 'em_get_author_grid',
+							author_letter: this.href.slice(-1)
+						},
+						success: function(data) {
+							jQuery('#author-results').html(data).slideToggle('slow', function() {
+								jQuery('#author-index-2').html(author_index_html);
+							});
+						}
+					}
+				)
+				e.preventDefault();
 			}
-		)
-		e.preventDefault();
-	}
-);";
+		);";
 		echo '<script type="text/javascript">'.$javascript.'</script>';
 	}
 
