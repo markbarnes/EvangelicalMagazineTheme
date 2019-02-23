@@ -854,6 +854,43 @@ class evangelical_mag_theme {
 	}
 
 	/**
+	* Returns the HTML to generate the list of issues for an array of issue objects
+	*
+	* @param em_issue[] $issues - an array of issue objects
+	* @param int $max_articles_displayed - the maximum number of articles before displaying 'more…'
+	* @return string
+	*/
+	public static function return_issue_list_html ($issues, $max_articles_displayed = 4) {
+		if ($issues) {
+			$list = '';
+			foreach ($issues as $issue) {
+				$list .= "<ul class=\"issue-list\">";
+				$list .= "<li class=\"issue\"><a href=\"{$issue->get_link()}\"><div class=\"magazine-cover image-fit box-shadow-transition\" style=\"background-image:url('{$issue->get_image_url('issue_medium')}')\"></div></a>";
+				$list .= "<div class=\"issue-contents\"><h4>{$issue->get_name(true)}</h4>";
+				$articles = $issue->get_top_articles_and_reviews($max_articles_displayed);
+				if ($articles) {
+					$list .= "<ul class=\"top-articles\">";
+					foreach ($articles as $article) {
+						$list .= "<li><span class=\"article-title\">{$article->get_title(true)}</span><br/><span class=\"article-authors\">{$article->get_author_names(true, false, 'by ')}</span></li>";
+					}
+					$remaining_articles = $issue->get_article_and_review_count() - $max_articles_displayed;
+					if ($remaining_articles > 0) {
+						$list .= "</ul><p>&hellip;and <a href=\"{$issue->get_link()}\">{$remaining_articles} more</a></p>";
+					} else {
+						$list .= "</ul>";
+					}
+				}
+				else {
+					$list .= "<p>Coming soon&hellip;</p>";
+				}
+				$list .= "</div></li>";
+			}
+			$list .= "</ul>";
+			return $list;
+		}
+	}
+
+	/**
 	* Outputs the issue archive page
 	*
 	* @return void
@@ -861,47 +898,16 @@ class evangelical_mag_theme {
 	public static function output_issue_archive_page () {
 		$max_articles_displayed = 4;
 		echo "<h1>Issues</h1>";
-		$issues = evangelical_magazine_issue::get_all_issues();
-		$output = '';
-		if ($issues) {
-			$years = array();
-			foreach ($issues as $issue) {
-				$date = $issue->get_date();
-				if (isset($date['year']) && !in_array($date['year'], $years)) {
-					if ($years) {
-						$output .= '</ul>';
-					}
-					$years[] = $date['year'];
-					$output .= "<h2 class=\"issue-year-heading\" id=\"issue-year-{$date['year']}\"><a href=\"#navigation-index\">{$date['year']}</a></h2>";
-					$output .= "<ul class=\"issue-list\">";
-				}
-				$output .= "<li class=\"issue\"><a href=\"{$issue->get_link()}\"><div class=\"magazine-cover image-fit box-shadow-transition\" style=\"background-image:url('{$issue->get_image_url('issue_medium')}')\"></div></a>";
-				$output .= "<div class=\"issue-contents\"><h4>{$issue->get_name(true)}</h4>";
-				$articles = $issue->get_top_articles_and_reviews($max_articles_displayed);
-				if ($articles) {
-					$output .= "<ul class=\"top-articles\">";
-					foreach ($articles as $article) {
-						$output .= "<li><span class=\"article-title\">{$article->get_title(true)}</span><br/><span class=\"article-authors\">{$article->get_author_names(true, false, 'by ')}</span></li>";
-					}
-					$remaining_articles = $issue->get_article_and_review_count() - $max_articles_displayed;
-					if ($remaining_articles > 0) {
-						$output .= "</ul><p>&hellip;and <a href=\"{$issue->get_link()}\">{$remaining_articles} more</a></p>";
-					} else {
-						$output .= "</ul>";
-					}
-				}
-				else {
-					$output .= "<p>Coming soon&hellip;</p>";
-				}
-				$output .= "</div></li>";
-			}
-			$output .= "</ul>";
-			echo '<div class="navigation-index">';
-			foreach ($years as $year) {
-				echo "<span class=\"navigation-index-cell\"><a href=\"#issue-year-{$year}\">{$year}</a></span>";
-			}
+		$navigation_items_needed = evangelical_magazine_issue::get_all_published_years();
+		if ($navigation_items_needed) {
+			$navigation_index = self::get_navigation_index($navigation_items_needed, $navigation_items_needed, 'em_issue_year');
+			echo $navigation_index;
+			echo '<div id="archive-results">';
+			$current_year = isset($_GET['em_issue_year']) ? (int)$_GET['em_issue_year'] : $navigation_items_needed[0];
+			$issues = evangelical_magazine_issue::get_issues_by_year($current_year);
+			echo self::return_issue_list_html($issues);
 			echo '</div>';
-			echo $output;
+			echo str_replace('navigation-index-1', 'navigation-index-2', $navigation_index);
 		}
 	}
 

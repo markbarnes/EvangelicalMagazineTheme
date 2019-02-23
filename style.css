@@ -2084,6 +2084,10 @@ body.single-em_issue .article-list-box li:first-child {
 	margin-right: 0;
 }
 
+.post-type-archive-em_issue #navigation-index-2 {
+	margin-top: 24px;
+}
+
 .issue-year-heading {
 	background-color: #086788;
 	padding: 5px 10px;
