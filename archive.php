@@ -1,6 +1,6 @@
 <?php
 /**
-* This file handles the author archive page.
+* This file handles the archive pages.
 *
 * To generate this page, we filter the main query to return only one result.
 * We then filter the contents of that page to output the archive we want.
