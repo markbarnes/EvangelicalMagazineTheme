@@ -1732,6 +1732,9 @@ class evangelical_mag_theme {
 			'click',
 			function(e) {
 				jQuery('#archive-results').slideToggle('slow');
+				jQuery('html,body').animate({
+				   scrollTop: jQuery('#navigation-index-1').offset().top-90
+				});
 				var navigation_index_html = jQuery('#navigation-index-2').html();
 				jQuery('#navigation-index-2').html('Loading… <img src=\"{$image_url}\"/>');
 				jQuery.ajax(
