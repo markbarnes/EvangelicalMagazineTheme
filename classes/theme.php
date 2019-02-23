@@ -435,7 +435,7 @@ class evangelical_mag_theme {
 			$object->record_view_count();
 		}
 		echo "<div class=\"after-article\">";
-		self::output_facebook_like_share_buttons ($object);
+		self::output_like_share_tweet_buttons ($object);
 		self::output_email_subscription_box();
 		$articles_to_be_excluded = array($object->get_id());
 		self::output_about_the_author ($object, $articles_to_be_excluded);
@@ -465,14 +465,17 @@ class evangelical_mag_theme {
 	}
 
 	/**
-	* Outputs Facebook like and share buttons
+	* Outputs like, share and tweet buttons
 	*
-	* @param evangelical_magazine_article $article - the article to 'like' or 'share'
+	* @param evangelical_magazine_article $article - the article to like, share or tweet
 	* @return void
 	*/
-	private static function output_facebook_like_share_buttons ($article) {
-		echo "<div class=\"found-helpful\">Found this helpful? Like or share on Facebook ";
-		echo "<div class=\"fb-like\" data-href=\"{$article->get_link()}\" data-width=\"680\" data-size=\"large\" data-layout=\"button_count\" data-action=\"like\" data-show-faces=\"true\" data-share=\"true\"></div></div>\r\n";
+	private static function output_like_share_tweet_buttons ($article) {
+		echo "<div class=\"found-helpful\">Found this helpful? Like, share or tweet ";
+		echo "<div id=\"like-share-tweet\">";
+		echo "<div class=\"fb-like\" data-href=\"{$article->get_link()}\" data-size=\"large\" data-layout=\"button_count\" data-action=\"like\" data-show-faces=\"true\" data-share=\"true\"></div>";
+		echo "<span style=\"vertical-align: bottom; height: 28px;\"><a href=\"https://twitter.com/share?ref_src=twsrc%5Etfw\" class=\"twitter-share-button\" data-size=\"large\" data-url=\"{$article->get_link()}\" data-related=\"EvangelicalMag\" data-dnt=\"true\" data-show-count=\"true\"></a><script async src=\"https://platform.twitter.com/widgets.js\" charset=\"utf-8\"></script></span>";
+		echo "</div></div>";
 	}
 
 	/**

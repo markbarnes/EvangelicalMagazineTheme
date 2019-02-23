@@ -1898,10 +1898,15 @@ body.single-em_article .entry-title-series a {
 	color: #FECA00;
 }
 
-body.single-em_article .fb-like {
+body.single-em_article #like-share-tweet {
 	margin-bottom: 20px;
 	line-height: 1em;
 	float: right;
+}
+
+body.single-em_article #like-share-tweet .twitter-share-button {
+	vertical-align: bottom;
+	margin-left: 3px;
 }
 
 body.single-em_article #subscription-form {
@@ -2003,10 +2008,15 @@ body.single-em_review .review-image {
 	margin: 0 20px 20px 0;
 }
 
-body.single-em_review .fb-like {
+body.single-em_review #like-share-tweet {
 	margin-bottom: 20px;
 	line-height: 1em;
 	float: right;
+}
+
+body.single-em_review #like-share-tweet .twitter-share-button {
+	vertical-align: bottom;
+	margin-left: 3px;
 }
 
 body.single-em_review #subscription-form {
