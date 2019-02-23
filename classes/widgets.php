@@ -108,7 +108,6 @@ class evangelical_magazine_most_popular extends WP_Widget {
 		$num_articles = (isset ($post->post_type) && $post->post_type == 'em_article') ? 10 : 5;
 		$articles = evangelical_magazine_article::get_top_articles($num_articles, $exclude);
 		if ($articles) {
-			$articles = evangelical_magazine_article::get_top_articles($num_articles, $exclude);
 			echo $args['before_widget'];
 			$title = (isset ($post->post_type) && $post->post_type == 'em_article') ? 'Other popular articles' : 'Popular articles';
 			echo "{$args['before_title']}{$title}{$args['after_title']}";
