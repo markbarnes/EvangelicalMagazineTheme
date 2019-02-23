@@ -60,6 +60,8 @@ add_filter ('image_size_names_choose', array ('evangelical_mag_theme', 'add_imag
 //AJAX calls
 add_action ('wp_ajax_em_get_author_grid', array ('evangelical_mag_theme', 'return_ajax_author_grid'));
 add_action ('wp_ajax_nopriv_em_get_author_grid', array ('evangelical_mag_theme', 'return_ajax_author_grid'));
+add_action ('wp_ajax_em_get_issue_list', array ('evangelical_mag_theme', 'return_ajax_issue_list'));
+add_action ('wp_ajax_nopriv_em_get_issue_list', array ('evangelical_mag_theme', 'return_ajax_issue_list'));
 
 /**
 * Autoloads classes

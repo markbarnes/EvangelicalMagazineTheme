@@ -185,6 +185,7 @@ class evangelical_mag_theme {
 		// Issues archive page
 		elseif (is_post_type_archive('em_issue')) {
 			add_action ('genesis_entry_content', array(__CLASS__, 'output_issue_archive_page'));
+			self::enqueue_archive_page_javascript();
 		}
 		// Sections archive page
 		elseif (is_post_type_archive('em_section')) {
@@ -1739,7 +1740,7 @@ class evangelical_mag_theme {
 						type: 'post',
 						data: {
 							action: '{$action}',
-							display: this.href.slice(-1)
+							display: this.href.split('=')[1]
 						},
 						success: function(data) {
 							jQuery('#archive-results').html(data).slideToggle('slow', function() {
@@ -1757,16 +1758,33 @@ class evangelical_mag_theme {
 	/**
 	* Echoes the HTML of the author grid when called by AJAX
 	*
-	* return void
+	* @return void
 	*/
 	public static function return_ajax_author_grid() {
 		if (isset($_POST['display'])) {
 			$author_letter = substr($_POST['display'],0,1);
 			$authors = evangelical_magazine_author::get_authors_by_initial_letter($author_letter);
 			if ($authors) {
-				echo SELF::return_author_grid_html ($authors);
+				echo self::return_author_grid_html ($authors);
 			}
 		}
 		die();
 	}
+
+	/**
+	* Echoes the HTML of the issue list when called by AJAX
+	*
+	* @return void
+	*/
+	public static function return_ajax_issue_list() {
+		if (isset($_POST['display'])) {
+			$year = (int)($_POST['display']);
+			$issues = evangelical_magazine_issue::get_issues_by_year($year);
+			if ($issues) {
+				echo self::return_issue_list_html ($issues);
+			}
+		}
+		die();
+	}
+
 }
