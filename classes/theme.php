@@ -776,32 +776,44 @@ class evangelical_mag_theme {
 	}
 
 	/**
+	* Generates the HTML of the navigation index bar on archive pages
+	*
+	* @param array $items_needed - the items that should be displayed in the list
+	* @param mixed $items_used - the items that can be clicked on
+	* @param mixed $query_param - the query parameter added to the link (needed if javascript is turned off)
+	*/
+	public static function get_navigation_index($items_needed, $items_used, $query_param) {
+		global $wp;
+		$navigation_index = '<div id="navigation-index-1" class="navigation-index">';
+		foreach ($items_needed as $i) {
+			$navigation_index .= '<span class="navigation-index-cell">';
+			if (in_array ($i, $items_used) !== FALSE) {
+				$url = home_url(add_query_arg($query_param, $i, $wp->request));
+				$navigation_index .= "<a href=\"{$url}\">{$i}</a>";
+			} else {
+				$navigation_index .= $i;
+			}
+			$navigation_index .= '</span>';
+		}
+		$navigation_index .= '</div>';
+		return $navigation_index;
+
+	}
+
+	/**
 	* Outputs the author archive page
 	*
 	* @return void
 	*/
 	public static function output_author_archive_page () {
-		global $wp;
 		echo "<h1>Authors</h1>";
 		$author_count = evangelical_magazine_author::get_count();
 		$paged_output = (bool)($author_count >= 20);
 		if ($paged_output) {
-			$picker = '';
 			$letters_used = evangelical_magazine_author::get_initial_letters_as_array();
-			$picker .= '<div id="navigation-index-1" class="navigation-index">';
 			$letters_needed = array_unique(array_merge(range('A','Z'),$letters_used));
-			foreach ($letters_needed as $l) {
-				$picker .= '<span class="navigation-index-cell">';
-				if (in_array ($l, $letters_used) !== FALSE) {
-					$url = home_url(add_query_arg('em_author_letter', $l, $wp->request));
-					$picker .= "<a href=\"{$url}\">{$l}</a>";
-				} else {
-					$picker .= $l;
-				}
-				$picker .= '</span>';
-			}
-			$picker .= '</div>';
-			echo $picker;
+			$navigation_index = self::get_navigation_index($letters_needed, $letters_used, 'em_author_letter');
+			echo $navigation_index;
 		}
 		echo '<div id="archive-results">';
 		$current_letter = isset($_GET['em_author_letter']) ? substr ($_GET['em_author_letter'], 0, 1) : 'A';
@@ -813,7 +825,7 @@ class evangelical_mag_theme {
 		echo SELF::return_author_grid_html ($authors);
 		echo '</div>';
 		if ($paged_output) {
-			echo str_replace('navigation-index-1', 'navigation-index-2', $picker);
+			echo str_replace('navigation-index-1', 'navigation-index-2', $navigation_index);
 		}
 	}
 
