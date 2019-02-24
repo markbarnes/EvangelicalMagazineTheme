@@ -163,6 +163,7 @@ class evangelical_mag_theme {
 			remove_action ('genesis_entry_header', 'genesis_do_post_title');
 			add_action ('genesis_entry_content', 'genesis_do_post_title', 4);
 			add_action ('genesis_entry_content', array (__CLASS__, 'add_to_end_of_section_page'), 12);
+			self::enqueue_archive_page_javascript();
 		}
 		// Single series pages
 		elseif (is_singular('em_series')) {
@@ -713,7 +714,7 @@ class evangelical_mag_theme {
 	public static function add_to_end_of_author_page() {
 		$author_id = get_the_ID();
 		$author = new evangelical_magazine_author($author_id);
-		$args = evangelical_magazine_article::_future_posts_args();
+		$args = evangelical_magazine_author::_future_posts_args();
 		$args ['order_by'] = array ('date' => 'DESC');
 		$articles = $author->_get_articles_and_reviews($args);
 		if ($articles) {
@@ -993,7 +994,7 @@ class evangelical_mag_theme {
 	public static function add_to_end_of_issue_page() {
 		global $post;
 		$issue = new evangelical_magazine_issue($post);
-		$args = evangelical_magazine_article::_future_posts_args();
+		$args = evangelical_magazine_issue::_future_posts_args();
 		$args['order'] = 'ASC';
 		$content = $issue->_get_articles_and_reviews($args);
 		$html = self::get_article_list_box($content);
@@ -1008,7 +1009,7 @@ class evangelical_mag_theme {
 	public static function add_to_end_of_section_page() {
 		$section_id = get_the_ID();
 		$section = new evangelical_magazine_section($section_id);
-		$args = evangelical_magazine_article::_future_posts_args();
+		$args = evangelical_magazine_section::_future_posts_args();
 		$articles = $section->_get_articles_and_reviews ($args);
 		if ($articles) {
 			echo "<div class=\"section-page\">".self::get_article_list_box($articles, true, '', false, true)."</div>";
@@ -1028,7 +1029,7 @@ class evangelical_mag_theme {
 	public static function add_to_end_of_series_page($content) {
 		$series_id = get_the_ID();
 		$series = new evangelical_magazine_series($series_id);
-		$args = evangelical_magazine_article::_future_posts_args();
+		$args = evangelical_magazine_series::_future_posts_args();
 		$articles = $series->_get_articles ($args);
 		if ($articles) {
 			echo '<div class="series-page">';
@@ -1595,7 +1596,7 @@ class evangelical_mag_theme {
 		$article = evangelical_magazine::get_object_from_post($post);
 		if ($article->is_article() && $article->has_series()) {
 			$series = $article->get_series();
-			$articles_in_series = $series->get_articles(-1, array(), $series->_future_posts_args());
+			$articles_in_series = $series->get_articles(-1, array(), evangelical_magazine_series::_future_posts_args());
 			if ($series && count($articles_in_series) > 1) {
 				echo "<div id=\"series-contents\">";
 				echo "<h3>About this series</h3>";
