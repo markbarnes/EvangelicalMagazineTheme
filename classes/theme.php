@@ -1704,6 +1704,15 @@ class evangelical_mag_theme {
 	}
 
 	/**
+	* Returns true if the current page is a section page
+	*
+	* @return boolean
+	*/
+	public static function is_section_page() {
+		return is_singular('em_section');
+	}
+
+	/**
 	* Enqueues necessary javascript on paginated archive pages
 	*
 	* @return void
@@ -1727,6 +1736,8 @@ class evangelical_mag_theme {
 			$action = 'em_get_author_grid';
 		} elseif (self::is_issue_archive_page()) {
 			$action = 'em_get_issue_list';
+		} elseif (self::is_section_page()) {
+			$action = 'em_get_section';
 		} else {
 			trigger_error ('Unknown page type when outputting archive page javascript', E_USER_ERROR);
 		}
