@@ -62,6 +62,8 @@ add_action ('wp_ajax_em_get_author_grid', array ('evangelical_mag_theme', 'retur
 add_action ('wp_ajax_nopriv_em_get_author_grid', array ('evangelical_mag_theme', 'return_ajax_author_grid'));
 add_action ('wp_ajax_em_get_issue_list', array ('evangelical_mag_theme', 'return_ajax_issue_list'));
 add_action ('wp_ajax_nopriv_em_get_issue_list', array ('evangelical_mag_theme', 'return_ajax_issue_list'));
+add_action ('wp_ajax_em_get_section', array ('evangelical_mag_theme', 'return_ajax_section_page'));
+add_action ('wp_ajax_nopriv_em_get_section', array ('evangelical_mag_theme', 'return_ajax_section_page'));
 
 /**
 * Autoloads classes

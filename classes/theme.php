@@ -786,10 +786,13 @@ class evangelical_mag_theme {
 	* @param array $items_needed - the items that should be displayed in the list
 	* @param mixed $items_used - the items that can be clicked on
 	* @param mixed $query_param - the query parameter added to the link (needed if javascript is turned off)
+	* @param mixed $text_before - text to be added before the list
+	*
+	* @return string
 	*/
-	public static function get_navigation_index($items_needed, $items_used, $query_param) {
+	public static function get_navigation_index($items_needed, $items_used, $query_param, $text_before = '') {
 		global $wp;
-		$navigation_index = '<div id="navigation-index-1" class="navigation-index">';
+		$navigation_index = '<div id="navigation-index-1" class="navigation-index">'.$text_before;
 		foreach ($items_needed as $i) {
 			$navigation_index .= '<span class="navigation-index-cell">';
 			if (in_array ($i, $items_used) !== FALSE) {
@@ -1007,14 +1010,29 @@ class evangelical_mag_theme {
 	* @return void
 	*/
 	public static function add_to_end_of_section_page() {
+		$articles_per_page = get_option('posts_per_page');
 		$section_id = get_the_ID();
 		$section = new evangelical_magazine_section($section_id);
-		$args = evangelical_magazine_section::_future_posts_args();
+		$article_count = $section->get_article_count();
+		$paged_output = (bool)($article_count > $articles_per_page);
+		if ($paged_output) {
+			$pages = range (1, ceil($article_count/$articles_per_page));
+			$navigation_index = self::get_navigation_index($pages, $pages, 'em_section_page', 'Page ');
+			echo $navigation_index;
+		}
+		echo '<div id="archive-results">';
+		$current_page = isset($_GET['em_section_page']) ? int($_GET['em_section_page']) : 1;
+		$args['posts_per_page'] = $articles_per_page;
+		$args['paged'] = $current_page;
 		$articles = $section->_get_articles_and_reviews ($args);
 		if ($articles) {
 			echo "<div class=\"section-page\">".self::get_article_list_box($articles, true, '', false, true)."</div>";
 		} else {
 			echo '<div class="article-list-box"><p>Coming soon.</p></div>';
+		}
+		echo '</div>';
+		if ($paged_output) {
+			echo str_replace('navigation-index-1', 'navigation-index-2', $navigation_index);
 		}
 	}
 
@@ -1732,12 +1750,14 @@ class evangelical_mag_theme {
 	public static function output_archive_page_javascript () {
 		$ajax_url = admin_url('admin-ajax.php');
 		$image_url = get_stylesheet_directory_uri().'/images/loading.gif';
+		$extra_info = '';
 		if (self::is_author_archive_page()) {
 			$action = 'em_get_author_grid';
 		} elseif (self::is_issue_archive_page()) {
 			$action = 'em_get_issue_list';
 		} elseif (self::is_section_page()) {
 			$action = 'em_get_section';
+			$extra_info = ', section_id: '.get_the_ID();
 		} else {
 			trigger_error ('Unknown page type when outputting archive page javascript', E_USER_ERROR);
 		}
@@ -1758,7 +1778,7 @@ class evangelical_mag_theme {
 						type: 'post',
 						data: {
 							action: '{$action}',
-							display: this.href.split('=')[1]
+							display: this.href.split('=')[1]{$extra_info}
 						},
 						success: function(data) {
 							jQuery('#archive-results').html(data).slideToggle('slow', function() {
@@ -1786,7 +1806,7 @@ class evangelical_mag_theme {
 				echo self::return_author_grid_html ($authors);
 			}
 		}
-		die();
+		wp_die();
 	}
 
 	/**
@@ -1802,7 +1822,26 @@ class evangelical_mag_theme {
 				echo self::return_issue_list_html ($issues);
 			}
 		}
-		die();
+		wp_die();
 	}
 
+	/**
+	* Echoes the HTML of the section page when called by AJAX
+	*
+	* @return void
+	*/
+	public static function return_ajax_section_page() {
+		if (isset($_POST['display']) && isset($_POST['section_id'])) {
+			$section = new evangelical_magazine_section($_POST['section_id']);
+			if ($section) {
+				$args['posts_per_page'] = get_option('posts_per_page');
+				$args['paged'] = (int)($_POST['display']);
+				$articles = $section->_get_articles_and_reviews ($args);
+				if ($articles) {
+					echo "<div class=\"section-page\">".self::get_article_list_box($articles, true, '', false, true)."</div>";
+				}
+			}
+		}
+		wp_die();
+	}
 }

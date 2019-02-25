@@ -1788,8 +1788,8 @@ p.entry-meta {
 	height: 140px;
 }
 
-/* ## Alphabetical indexes on archive pages
---------------------------------------------- */
+/* ## Navigation indexes (e.g. on archive and section pages)
+----------------------------------------------------------- */
 
 .navigation-index {
 	display: block;
@@ -2204,6 +2204,26 @@ body.single-em_section .entry-title {
 .single-em_section .large-image .article-list-box-image {
 	width: 325px;
 	height: 216.67px;
+}
+
+.single-em_section .navigation-index .navigation-index-cell {
+	margin-right: 15px;
+}
+
+.single-em_section .navigation-index .navigation-index-cell:first-of-type {
+	margin-left: 15px;
+}
+
+.single-em_section .navigation-index .navigation-index-cell:last-of-type {
+	margin-right: 0;
+}
+
+.single-em_section .article-list-box {
+	margin-bottom: 0;
+}
+
+.single-em_section .entry-content ol {
+	margin-bottom: 0;
 }
 
 /* ## Section archive page
