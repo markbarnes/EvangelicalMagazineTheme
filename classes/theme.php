@@ -442,7 +442,7 @@ class evangelical_mag_theme {
 		self::output_about_the_author ($object, $articles_to_be_excluded);
 		if ($object->is_article()) {
 			$articles_in_same_series = $object->get_articles_in_same_series();
-			if (count($articles_in_same_series) > 1) {
+			if (is_array($articles_in_same_series) && count($articles_in_same_series) > 1) {
 				self::output_also_in_this_series ($object, $articles_in_same_series, $articles_to_be_excluded);
 			}
 		}
