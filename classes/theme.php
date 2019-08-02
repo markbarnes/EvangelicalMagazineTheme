@@ -1594,13 +1594,6 @@ class evangelical_mag_theme {
 			}
 		}
 		elseif ($relation_type == 'preconnect') {
-			//Preconnect to CDN if using BunnyCDN plugin
-			if (method_exists('BunnyCDN', 'getOptions')) {
-				$cdn_options = BunnyCDN::getOptions();
-				if (isset($cdn_options['cdn_domain_name']) && $cdn_options['cdn_domain_name']) {
-					$urls[] = array('href' => $cdn_options['cdn_domain_name'], 'crossorigin');
-				}
-			}
 			//Add Reftagger domains
 			$urls = array_merge($urls, array ('https://api.reftagger.com/', 'https://reftaggercdn.global.ssl.fastly.net/'));
 			//Add Beaconads domains
