@@ -171,7 +171,6 @@ input[type="search"]{
 
 body {
 	background-color: #f0f0f0;
-	background-image: url('images/background.jpg');
 	color: #333;
 	font-family: Aleo, Georgia, serif;
 	font-size: 18px;
@@ -182,6 +181,11 @@ body {
 
 .webp body {
 	background-image: url('images/background.webp');
+}
+
+.no-webp body,
+.no-js body {
+	background-image: url('images/background.jpg');
 }
 
 a,
@@ -986,6 +990,10 @@ img.alignright,
 .widget_evangelical_magazine_subscribe_print .subscription-image {
 	width:318px;
 	height:289px;
+}
+
+.no-webp .widget_evangelical_magazine_subscribe_print .subscription-image,
+.no-js .widget_evangelical_magazine_subscribe_print .subscription-image {
 	background-image: url('images/subscribe-2019.png');
 }
 
@@ -1134,16 +1142,20 @@ img.alignright,
 }
 
 .header-image .site-title > a {
-	background: url(images/logo.png) no-repeat left;
+	background: no-repeat left;
 	float: left;
 	min-height: 60px;
 	width: 100%;
 }
 
+.no-js .header-image .site-title > a,
+.no-webp .header-image .site-title > a {
+	background: url(images/logo.png);
+}
+
 .webp .header-image .site-title > a {
 	background: url(images/logo.webp);
 }
-
 
 .site-description {
 	font-size: 16px;
@@ -1398,13 +1410,17 @@ img.alignright,
 	margin-top: 10px;
 	width: 181px;
 	height: 50px;
-	background-image: url('images/logo-sprite.png');
 	background-size: 100% auto;
 	-webkit-transition: none;
 	-moz-transition: none;
 	-ms-transition: none;
 	-o-transition: none;
 	transition: none;
+}
+
+.no-js .nav-primary .logo,
+.no-webp .nav-primary .logo {
+	background-image: url('images/logo-sprite.png');
 }
 
 .webp .nav-primary .logo {
@@ -2781,7 +2797,6 @@ li.comment {
 	margin: 3px 20px 0 0;
 	width: 181px;
 	height: 50px;
-	background-image: url('images/logo-sprite.png');
 	background-position: center left;
 	background-size: 100% auto;
 	-webkit-transition: none;
@@ -2789,6 +2804,11 @@ li.comment {
 	-ms-transition: none;
 	-o-transition: none;
 	transition: none;
+}
+
+.no-js .site-footer .logo,
+.no-webp .site-footer .logo {
+	background-image: url('images/logo-sprite.png');
 }
 
 .webp .site-footer .logo {

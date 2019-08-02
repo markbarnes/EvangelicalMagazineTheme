@@ -68,11 +68,15 @@ h4 {
 }
 
 .nav-primary .logo {
-	background-image: url('../images/logo-sprite-small.png');
 	background-position: top;
 	width: 30px;
 	margin: 10px 5px 0 10px;
 	float: left;
+}
+
+.no-js .nav-primary .logo,
+.no-webp .nav-primary .logo {
+	background-image: url('../images/logo-sprite-small.png');
 }
 
 .webp .nav-primary .logo {

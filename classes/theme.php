@@ -20,6 +20,7 @@ class evangelical_mag_theme {
 		//Editor tweaks
 		add_action ('admin_enqueue_scripts', array (__CLASS__, 'enqueue_fonts'));
 
+		add_filter ('language_attributes', array (__CLASS__, 'add_no_js_class_to_html_tag'), 10, 2);
 		// HTML HEAD
 		add_action ('wp_enqueue_scripts', array (__CLASS__, 'enqueue_fonts'));
 		add_action ('wp_enqueue_scripts', array (__CLASS__, 'enqueue_media_stylesheets'));
@@ -239,6 +240,22 @@ class evangelical_mag_theme {
 		if (!is_admin() && isset($scripts->registered['jquery']) && $scripts->registered['jquery']->deps) {
 			$scripts->registered['jquery']->deps = array_diff ($scripts->registered['jquery']->deps, array ('jquery-migrate'));
 		}
+	}
+
+	/**
+	* Add the 'no-js' class to the HTML tag  (for Modernizr)
+	*
+	* Filters language_attributes
+	*
+	* @param string $output - A space-separated list of language attributes.
+	* @param string $doctype - The type of html document (xhtml|html).
+	* @return string
+	*/
+	public static function add_no_js_class_to_html_tag ($output, $doctype) {
+		if ($doctype == 'html') {
+			$output .= ' class="no-js"';
+		}
+		return $output;
 	}
 
 	/**
