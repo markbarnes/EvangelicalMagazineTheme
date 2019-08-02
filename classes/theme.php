@@ -252,7 +252,7 @@ class evangelical_mag_theme {
 		self::enqueue_style ('magazine-font-league-gothic', '/fonts/league-gothic.css');
 		self::enqueue_style ('magazine-font-aleo', '/fonts/aleo.css');
 		self::enqueue_style ('magazine-font-lato', '/fonts/lato.css');
-		wp_enqueue_style ('dashicons');
+		self::enqueue_style ('magazine-dashicons', '/fonts/dashicons.css'); // Use our own version to avoid base64 overloading
 	}
 
 	/**
@@ -639,7 +639,7 @@ class evangelical_mag_theme {
 		echo "<span class=\"address\">Waterton Cross Business Park, South Road, Bridgend CF31 3UL{$admin_link}</span><br/>";
 		echo "<span class=\"registration\">Registered charity number 222407. View our <a href=\"/about-us/privacy-policy\">privacy policy</a>{$admin_link}</span></p>";
 		$rss_feed = get_post_type_archive_feed_link('em_article');
-		echo '<p class="social-icons"><a href="https://www.facebook.com/evangelicalmagazine"><span class="dashicons dashicons-facebook"></span></a><a href="https://twitter.com/EvangelicalMag"><span class="dashicons dashicons-twitter"></span></a><a href="mailto:admin@evangelicalmagazine.com"><span class="dashicons dashicons-email"></span></a><a href="'.$rss_feed.'"><span class="dashicons dashicons-rss"></span></a></p>';
+		echo '<p class="social-icons"><a href="https://www.facebook.com/evangelicalmagazine"><span class="magazine-dashicons magazine-dashicons-facebook"></span></a><a href="https://twitter.com/EvangelicalMag"><span class="magazine-dashicons magazine-dashicons-twitter"></span></a><a href="mailto:admin@evangelicalmagazine.com"><span class="magazine-dashicons magazine-dashicons-email"></span></a><a href="'.$rss_feed.'"><span class="magazine-dashicons magazine-dashicons-rss"></span></a></p>';
 	}
 
 	/**
@@ -1191,7 +1191,7 @@ class evangelical_mag_theme {
 	*/
 	public static function add_search_button_to_nav_bar ($items, $args) {
 		if ($args->theme_location === 'primary') {
-			$output = $items."<li class=\"menu-item search\"><a href=\"#\"><span class=\"dashicons dashicons-search\"></span></a>";
+			$output = $items."<li class=\"menu-item search\"><a href=\"#\"><span class=\"magazine-dashicons magazine-dashicons-search\"></span></a>";
 			$output .="<ul class=\"sub-menu sub-menu-search\"><li class=\"wrap\"><ul><li id=\"search-form-container\" class=\"menu-item\">".get_search_form(false)."</li></ul></li></ul></li>";
 			return $output;
 		} else {
@@ -1436,6 +1436,9 @@ class evangelical_mag_theme {
 		foreach ($fonts_to_preload as $f) {
 			echo "<link rel=\"preload\" href=\"{$s}/fonts/{$f}.woff2\" as=\"font\" type=\"font/woff2\" crossorigin>\r\n";
 		}
+		echo "<link rel=\"preload\" href=\"{$s}/images/background.jpg\" as=\"image\" type=\"image/jpeg\">\r\n";
+		$s = includes_url();
+		echo "<link rel=\"preload\" href=\"{$s}fonts/dashicons.woff2\" as=\"font\" type=\"font/woff2\" crossorigin>\r\n";
 	}
 
 	/**

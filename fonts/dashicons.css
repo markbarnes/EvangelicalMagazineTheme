@@ -1,0 +1,33 @@
+@font-face {
+	font-family: magazine-dashicons;
+	font-display: block;
+	src: url('../../../../wp-includes/fonts/dashicons.eot');
+	src: url('../../../../wp-includes/fonts/dashicons.eot?#iefix') format('embedded-opentype'),
+	     url('../../../../wp-includes/fonts/dashicons.woff2') format('woff2'),
+	     url('../../../../wp-includes/fonts/dashicons.woff') format('woff'),
+	     url('../../../../wp-includes/fonts/dashicons.ttf') format('truetype'),
+	     url('../../../../wp-includes/fonts/dashicons.svg#dashicons') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.magazine-dashicons-search:before {
+	content: "\f179";
+}
+
+.magazine-dashicons-facebook:before {
+	content: "\f304";
+}
+
+.magazine-dashicons-twitter:before {
+	content: "\f301";
+}
+
+.magazine-dashicons-email:before {
+	content: "\f465";
+}
+
+.magazine-dashicons-rss:before {
+	content: "\f303";
+}
+

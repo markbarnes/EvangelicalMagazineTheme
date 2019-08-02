@@ -162,6 +162,10 @@ input[type="search"]{
 	transition: box-shadow 0.4s ease-in-out;
 }
 
+.magazine-dashicons {
+	font-family: magazine-dashicons;
+}
+
 /* ## Typographical Elements
 --------------------------------------------- */
 
@@ -1431,16 +1435,15 @@ img.alignright,
 	text-decoration: underline;
 }
 
-.nav-primary .dashicons {
+.nav-primary .magazine-dashicons {
 	display: inline-block;
-	font-family: dashicons;
 }
 
 .nav-primary .search a {
 	padding: 15px 15px 20px 15px;
 }
 
-.nav-primary .search .dashicons-search {
+.nav-primary .search .magazine-dashicons-search {
 	font-size: 35px;
 	height: 35px;
 	width: 35px;
@@ -2794,7 +2797,7 @@ li.comment {
 	color: #999999;
 	text-align: center;
 }
-.site-footer .social-icons .dashicons {
+.site-footer .social-icons .magazine-dashicons {
 	font-size: 36px;
 	width: 36px;
 	height: 36px;
