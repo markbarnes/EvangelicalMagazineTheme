@@ -32,6 +32,7 @@ class evangelical_mag_theme {
 		add_action ('wp_head', array (__CLASS__, 'add_rss_feeds'));
 		add_action ('wp_head', array (__CLASS__, 'configure_reftagger'));
 		add_action ('wp_head', array (__CLASS__, 'add_icons_to_head'));
+		add_action ('wp_head', array (__CLASS__, 'add_preload_to_head'), 9);
 		add_filter ('genesis_pre_load_favicon', array (__CLASS__, 'return_favicon_url'));
 		add_filter ('wp_resource_hints', array(__CLASS__, 'filter_resource_hints'), 10, 2 );
 		// Menu
@@ -1409,24 +1410,32 @@ class evangelical_mag_theme {
 	*/
 	public static function add_icons_to_head() {
 		$u = get_stylesheet_directory_uri().'/images/icons';
-		echo "\t<link rel=\"apple-touch-icon\" sizes=\"57x57\" href=\"{$u}/apple-touch-icon-57x57.png\">\r\n";
-		echo "\t<link rel=\"apple-touch-icon\" sizes=\"60x60\" href=\"{$u}/apple-touch-icon-60x60.png\">\r\n";
-		echo "\t<link rel=\"apple-touch-icon\" sizes=\"72x72\" href=\"{$u}/apple-touch-icon-72x72.png\">\r\n";
-		echo "\t<link rel=\"apple-touch-icon\" sizes=\"76x76\" href=\"{$u}/apple-touch-icon-76x76.png\">\r\n";
-		echo "\t<link rel=\"apple-touch-icon\" sizes=\"114x114\" href=\"{$u}/apple-touch-icon-114x114.png\">\r\n";
-		echo "\t<link rel=\"apple-touch-icon\" sizes=\"120x120\" href=\"{$u}/apple-touch-icon-120x120.png\">\r\n";
-		echo "\t<link rel=\"apple-touch-icon\" sizes=\"144x144\" href=\"{$u}/apple-touch-icon-144x144.png\">\r\n";
-		echo "\t<link rel=\"apple-touch-icon\" sizes=\"152x152\" href=\"{$u}/apple-touch-icon-152x152.png\">\r\n";
-		echo "\t<link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"{$u}/apple-touch-icon-180x180.png\">\r\n";
-		echo "\t<link rel=\"icon\" type=\"image/png\" href=\"{$u}/favicon-32x32.png\" sizes=\"32x32\">\r\n";
-		echo "\t<link rel=\"icon\" type=\"image/png\" href=\"{$u}/android-chrome-192x192.png\" sizes=\"192x192\">\r\n";
-		echo "\t<link rel=\"icon\" type=\"image/png\" href=\"{$u}/favicon-96x96.png\" sizes=\"96x96\">\r\n";
-		echo "\t<link rel=\"icon\" type=\"image/png\" href=\"{$u}/favicon-16x16.png\" sizes=\"16x16\">\r\n";
-		echo "\t<link rel=\"manifest\" href=\"{$u}/manifest.json\">\r\n";
-		echo "\t<link rel=\"mask-icon\" href=\"{$u}/safari-pinned-tab.svg\" color=\"#5bbad5\">\r\n";
-		echo "\t<meta name=\"msapplication-TileColor\" content=\"#2d89ef\">\r\n";
-		echo "\t<meta name=\"msapplication-TileImage\" content=\"{$u}/mstile-144x144.png\">\r\n";
-		echo "\t<meta name=\"theme-color\" content=\"#ffffff\">\r\n";
+		echo "<link rel=\"apple-touch-icon\" sizes=\"57x57\" href=\"{$u}/apple-touch-icon-57x57.png\">\r\n";
+		echo "<link rel=\"apple-touch-icon\" sizes=\"60x60\" href=\"{$u}/apple-touch-icon-60x60.png\">\r\n";
+		echo "<link rel=\"apple-touch-icon\" sizes=\"72x72\" href=\"{$u}/apple-touch-icon-72x72.png\">\r\n";
+		echo "<link rel=\"apple-touch-icon\" sizes=\"76x76\" href=\"{$u}/apple-touch-icon-76x76.png\">\r\n";
+		echo "<link rel=\"apple-touch-icon\" sizes=\"114x114\" href=\"{$u}/apple-touch-icon-114x114.png\">\r\n";
+		echo "<link rel=\"apple-touch-icon\" sizes=\"120x120\" href=\"{$u}/apple-touch-icon-120x120.png\">\r\n";
+		echo "<link rel=\"apple-touch-icon\" sizes=\"144x144\" href=\"{$u}/apple-touch-icon-144x144.png\">\r\n";
+		echo "<link rel=\"apple-touch-icon\" sizes=\"152x152\" href=\"{$u}/apple-touch-icon-152x152.png\">\r\n";
+		echo "<link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"{$u}/apple-touch-icon-180x180.png\">\r\n";
+		echo "<link rel=\"icon\" type=\"image/png\" href=\"{$u}/favicon-32x32.png\" sizes=\"32x32\">\r\n";
+		echo "<link rel=\"icon\" type=\"image/png\" href=\"{$u}/android-chrome-192x192.png\" sizes=\"192x192\">\r\n";
+		echo "<link rel=\"icon\" type=\"image/png\" href=\"{$u}/favicon-96x96.png\" sizes=\"96x96\">\r\n";
+		echo "<link rel=\"icon\" type=\"image/png\" href=\"{$u}/favicon-16x16.png\" sizes=\"16x16\">\r\n";
+		echo "<link rel=\"manifest\" href=\"{$u}/manifest.json\">\r\n";
+		echo "<link rel=\"mask-icon\" href=\"{$u}/safari-pinned-tab.svg\" color=\"#5bbad5\">\r\n";
+		echo "<meta name=\"msapplication-TileColor\" content=\"#2d89ef\">\r\n";
+		echo "<meta name=\"msapplication-TileImage\" content=\"{$u}/mstile-144x144.png\">\r\n";
+		echo "<meta name=\"theme-color\" content=\"#ffffff\">\r\n";
+	}
+
+	public static function add_preload_to_head() {
+		$fonts_to_preload = array ('league-gothic/leaguegothic-regular-webfont', 'aleo/Aleo-Regular-webfont', 'lato/lato-bold', 'lato/lato-light', 'lato/lato-regular');
+		$s = get_stylesheet_directory_uri ();
+		foreach ($fonts_to_preload as $f) {
+			echo "<link rel=\"preload\" href=\"{$s}/fonts/{$f}.woff2\" as=\"font\" type=\"font/woff2\" crossorigin>\r\n";
+		}
 	}
 
 	/**
@@ -1598,7 +1607,9 @@ class evangelical_mag_theme {
 			//Add Google Analytics
 			$urls = array_merge($urls, array ('https://www.googletagmanager.com/', 'https://www.google-analytics.com/'));
 			//Add Facebook domains
-			$urls = array_merge($urls, array ('https://connect.facebook.net/', 'https://static.xx.fbcdn.net/', 'https://staticxx.facebook.com/', 'https://web.facebook.com/', 'https://www.facebook.com/'));
+			$urls = array_merge($urls, array ('https://connect.facebook.net/', 'https://staticxx.facebook.com/', 'https://www.facebook.com/'));
+			//Add Twitter domains
+			$urls = array_merge($urls, array ('https://platform.twitter.com/', 'https://syndication.twitter.com/'));
 		}
 		return $urls;
 	}
