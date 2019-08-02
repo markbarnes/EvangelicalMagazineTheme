@@ -1041,6 +1041,13 @@ img.alignright,
 	background-color: transparent;
 }
 
+/* ## Facebook Widget
+--------------------------------------------- */
+
+.widget_evangelical_magazine_facebook_page_plugin blockquote {
+	font-style: normal;
+}
+
 /* ## Featured Content
 --------------------------------------------- */
 
