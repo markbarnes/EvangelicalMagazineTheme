@@ -1436,7 +1436,8 @@ class evangelical_mag_theme {
 		foreach ($fonts_to_preload as $f) {
 			echo "<link rel=\"preload\" href=\"{$s}/fonts/{$f}.woff2\" as=\"font\" type=\"font/woff2\" crossorigin>\r\n";
 		}
-		echo "<link rel=\"preload\" href=\"{$s}/images/background.jpg\" as=\"image\" type=\"image/jpeg\">\r\n";
+		echo "<link rel=\"preload\" href=\"{$s}/images/background.webp\" as=\"image\" type=\"image/webp\">\r\n";
+		echo "<link rel=\"preload\" href=\"{$s}/images/logo-sprite.webp\" as=\"image\" type=\"image/webp\">\r\n";
 		$s = includes_url();
 		echo "<link rel=\"preload\" href=\"{$s}fonts/dashicons.woff2\" as=\"font\" type=\"font/woff2\" crossorigin>\r\n";
 	}
