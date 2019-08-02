@@ -1447,6 +1447,11 @@ class evangelical_mag_theme {
 		echo "<meta name=\"theme-color\" content=\"#ffffff\">\r\n";
 	}
 
+	/**
+	* Adds preload links to the HTML head
+	*
+	* @return void
+	*/
 	public static function add_preload_to_head() {
 		$fonts_to_preload = array ('league-gothic/leaguegothic-regular-webfont', 'aleo/Aleo-Regular-webfont', 'lato/lato-bold', 'lato/lato-light', 'lato/lato-regular');
 		$s = get_stylesheet_directory_uri ();
