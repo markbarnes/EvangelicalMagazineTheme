@@ -1,5 +1,6 @@
 @font-face {
 	font-family: 'Aleo', Georgia, serif;
+	font-display: fallback;
 	src: url('aleo/Aleo-Bold-webfont.eot');
 	src: url('aleo/Aleo-Bold-webfont.eot?#iefix') format('embedded-opentype'),
 	     url('aleo/Aleo-Bold-webfont.woff2') format('woff2'),
@@ -12,6 +13,7 @@
 
 @font-face {
 	font-family: 'Aleo', Georgia, serif;
+	font-display: fallback;
 	src: url('aleo/Aleo-BoldItalic-webfont.eot');
 	src: url('aleo/Aleo-BoldItalic-webfont.eot?#iefix') format('embedded-opentype'),
 	     url('aleo/Aleo-BoldItalic-webfont.woff2') format('woff2'),
@@ -24,6 +26,7 @@
 
 @font-face {
 	font-family: 'Aleo', Georgia, serif;
+	font-display: fallback;
 	src: url('aleo/Aleo-Light-webfont.eot');
 	src: url('aleo/Aleo-Light-webfont.eot?#iefix') format('embedded-opentype'),
 	     url('aleo/Aleo-Light-webfont.woff2') format('woff2'),
@@ -37,6 +40,7 @@
 
 @font-face {
 	font-family: 'Aleo';
+	font-display: fallback;
 	src: url('aleo/Aleo-LightItalic-webfont.eot');
 	src: url('aleo/Aleo-LightItalic-webfont.eot?#iefix') format('embedded-opentype'),
 	     url('aleo/Aleo-LightItalic-webfont.woff2') format('woff2'),
@@ -49,6 +53,7 @@
 
 @font-face {
 	font-family: 'Aleo';
+	font-display: fallback;
 	src: url('aleo/Aleo-Regular-webfont.eot');
 	src: url('aleo/Aleo-Regular-webfont.eot?#iefix') format('embedded-opentype'),
 	     url('aleo/Aleo-Regular-webfont.woff2') format('woff2'),
@@ -61,6 +66,7 @@
 
 @font-face {
 	font-family: 'Aleo';
+	font-display: fallback;
 	src: url('aleo/Aleo-Italic-webfont.eot');
 	src: url('aleo/Aleo-Italic-webfont.eot?#iefix') format('embedded-opentype'),
 	     url('aleo/Aleo-Italic-webfont.woff2') format('woff2'),
