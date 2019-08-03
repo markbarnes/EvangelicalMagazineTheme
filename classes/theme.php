@@ -1982,9 +1982,8 @@ class evangelical_mag_theme {
 		$alt_text = htmlspecialchars($author->get_name(), ENT_HTML5);
 		$image_output = "<img class=\"author-image\" alt=\"{$alt_text}\" src=\"{$author->get_image_url($image_size)}\"/>";
 		if (self::smaller_webp_file_exists($author->get_image_url($image_size))) {
-			$details = $author->get_image_details('author_tiny');
 			$image_output = "{$image_output}</picture>";
-			$image_output = "<picture><source srcset=\"{$details['url']}.webp\" type=\"image/webp\">".$image_output;
+			$image_output = "<picture><source srcset=\"{$author->get_image_url($image_size)}.webp\" type=\"image/webp\">".$image_output;
 		}
 		return "<div class=\"author-info\">".$author->get_link_html($image_output)."<div class=\"author-description\">{$author->get_description()}</div></div>";
 	}
