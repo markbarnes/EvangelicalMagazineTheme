@@ -1874,4 +1874,21 @@ class evangelical_mag_theme {
 		}
 		wp_die();
 	}
+
+	/**
+	* Returns a style tag that styles the background image of a HTML element in both jpg/png and webp formats
+	*
+	* This function requires the use of a Webp convertor that appends .webp to the original image,
+	* and places the webp image in the same folder as the original.
+	*
+	* It is therefore compatible with the WebP Express plugin if configured correctly.
+	*
+	* @param string $css_id - the ID of the HTML element
+	* @param string $image_url - the URL of the jpg/png image
+	*/
+	public static function return_background_image_style ($css_id, $image_url) {
+		$html = "<style>.no-js #{$css_id}, .no-webp #{$css_id} { background-image: url('{$image_url}') }\r\n";
+		$html .= ".webp #{$css_id} { background-image: url('{$image_url}.webp')}</style>";
+		return $html;
+	}
 }

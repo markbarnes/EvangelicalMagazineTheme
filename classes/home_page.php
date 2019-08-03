@@ -31,7 +31,8 @@ class evangelical_mag_home_page {
 		if ($latest_issues) {
 			//Output the cover of the most recent issue
 			echo '<aside id="recent-articles">';
-			echo "<a href=\"{$latest_issues[0]->get_link()}\"><div id=\"latest-cover\" class=\"box-shadow-transition image-fit\" style=\"background-image: url('{$latest_issues[0]->get_image_url('issue_medium')}')\"></div></a>";
+			echo evangelical_mag_theme::return_background_image_style ('latest-cover', $latest_issues[0]->get_image_url('issue_medium'));
+			echo "<a href=\"{$latest_issues[0]->get_link()}\"><div id=\"latest-cover\" class=\"box-shadow-transition image-fit\"></div></a>";
 			//Get the seven most recently published articles
 			$articles = evangelical_magazine_articles_and_reviews::get_recent_articles_and_reviews(7);
 			$next = evangelical_magazine_articles_and_reviews::get_next_future_article_or_review();
