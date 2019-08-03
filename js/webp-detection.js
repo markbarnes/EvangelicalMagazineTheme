@@ -1,5 +1,5 @@
 /*!
- * modernizr v3.5.0
+ * modernizr v3.6.0
  * Build https://modernizr.com/download?-webp-setclasses-dontmin
  *
  * Copyright (c)
@@ -39,7 +39,7 @@
 
   var ModernizrProto = {
     // The current version, dummy
-    _version: '3.5.0',
+    _version: '3.6.0',
 
     // Any settings that don't work as separate modules
     // can go in here as configuration.
@@ -87,6 +87,65 @@
   Modernizr = new Modernizr();
 
 
+
+  /**
+   * docElement is a convenience wrapper to grab the root element of the document
+   *
+   * @access private
+   * @returns {HTMLElement|SVGElement} The root element of the document
+   */
+
+  var docElement = document.documentElement;
+
+
+  /**
+   * A convenience helper to check if the document we are running in is an SVG document
+   *
+   * @access private
+   * @returns {boolean}
+   */
+
+  var isSVG = docElement.nodeName.toLowerCase() === 'svg';
+
+
+  /**
+   * setClasses takes an array of class names and adds them to the root element
+   *
+   * @access private
+   * @function setClasses
+   * @param {string[]} classes - Array of class names
+   */
+
+  // Pass in an and array of class names, e.g.:
+  //  ['no-webp', 'borderradius', ...]
+  function setClasses(classes) {
+    var className = docElement.className;
+    var classPrefix = Modernizr._config.classPrefix || '';
+
+    if (isSVG) {
+      className = className.baseVal;
+    }
+
+    // Change `no-js` to `js` (independently of the `enableClasses` option)
+    // Handle classPrefix on this too
+    if (Modernizr._config.enableJSClass) {
+      var reJS = new RegExp('(^|\\s)' + classPrefix + 'no-js(\\s|$)');
+      className = className.replace(reJS, '$1' + classPrefix + 'js$2');
+    }
+
+    if (Modernizr._config.enableClasses) {
+      // Add the new classes
+      className += ' ' + classPrefix + classes.join(' ' + classPrefix);
+      if (isSVG) {
+        docElement.className.baseVal = className;
+      } else {
+        docElement.className = className;
+      }
+    }
+
+  }
+
+  ;
 
   /**
    * is returns a boolean if the typeof an obj is exactly type.
@@ -171,65 +230,6 @@
       }
     }
   }
-  ;
-
-  /**
-   * docElement is a convenience wrapper to grab the root element of the document
-   *
-   * @access private
-   * @returns {HTMLElement|SVGElement} The root element of the document
-   */
-
-  var docElement = document.documentElement;
-
-
-  /**
-   * A convenience helper to check if the document we are running in is an SVG document
-   *
-   * @access private
-   * @returns {boolean}
-   */
-
-  var isSVG = docElement.nodeName.toLowerCase() === 'svg';
-
-
-  /**
-   * setClasses takes an array of class names and adds them to the root element
-   *
-   * @access private
-   * @function setClasses
-   * @param {string[]} classes - Array of class names
-   */
-
-  // Pass in an and array of class names, e.g.:
-  //  ['no-webp', 'borderradius', ...]
-  function setClasses(classes) {
-    var className = docElement.className;
-    var classPrefix = Modernizr._config.classPrefix || '';
-
-    if (isSVG) {
-      className = className.baseVal;
-    }
-
-    // Change `no-js` to `js` (independently of the `enableClasses` option)
-    // Handle classPrefix on this too
-    if (Modernizr._config.enableJSClass) {
-      var reJS = new RegExp('(^|\\s)' + classPrefix + 'no-js(\\s|$)');
-      className = className.replace(reJS, '$1' + classPrefix + 'js$2');
-    }
-
-    if (Modernizr._config.enableClasses) {
-      // Add the new classes
-      className += ' ' + classPrefix + classes.join(' ' + classPrefix);
-      if (isSVG) {
-        docElement.className.baseVal = className;
-      } else {
-        docElement.className = className;
-      }
-    }
-
-  }
-
   ;
 
   /**
