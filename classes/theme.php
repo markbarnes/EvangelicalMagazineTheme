@@ -685,7 +685,16 @@ class evangelical_mag_theme {
 						$issue_name = str_replace(' ','&nbsp;',$issue_name);
 					}
 					$issue_menu .= "<li id=\"menu-item-issue-{$issue->get_id()}\" class=\"menu-item menu-item-type-issue menu-item-issue-{$issue->get_id()}\">";
-					$issue_menu .= "<a href=\"{$issue->get_link()}\" itemprop=\"url\">{$issue->get_image_html ('issue_small')}<span itemprop=\"name\">{$issue_name}</span></a></li>";
+					$issue_menu .= "<a href=\"{$issue->get_link()}\" itemprop=\"url\">";
+					if (self::webp_file_exists($issue->get_image_url('issue_small'))) {
+						$details = $issue->get_image_details('issue_small');
+						$issue_menu .= "<picture><source srcset=\"{$details['url']}.webp\" type=\"image/webp\">";
+						$issue_menu .= "<source srcset=\"{$details['url']}\" type=\"{$details['mimetype']}\">";
+						$issue_menu .= "{$issue->get_image_html ('issue_small')}</picture>";
+					} else {
+						$issue_menu .= $issue->get_image_html ('issue_small');
+					}
+					$issue_menu .= "<span itemprop=\"name\">{$issue_name}</span></a></li>";
 				}
 				$issue_menu .= "<li id=\"menu-item-more-issues\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-more-issues\"><a href=\"".get_post_type_archive_link ('em_issue')."\" itemprop=\"url\"><span itemprop=\"name\">More&hellip;</span></a></li>";
 				$issue_menu .= '</ul>'; // The closing div will be added by the str_replace at the end of the function
@@ -701,7 +710,16 @@ class evangelical_mag_theme {
 				$author_menu = '<ul class="sub-menu sub-menu-authors"><li class="wrap"><ul>';
 				foreach ($authors as $author) {
 					$author_menu .= "<li id=\"menu-item-author-{$author->get_id()}\" class=\"menu-item menu-item-type-author menu-item-author-{$author->get_id()}\">";
-					$author_menu .= "<a href=\"{$author->get_link()}\" itemprop=\"url\">{$author->get_image_html ('author_tiny')}<span itemprop=\"name\">{$author->get_name()}</span></a></li>";
+					$author_menu .= "<a href=\"{$author->get_link()}\" itemprop=\"url\">";
+					if (self::webp_file_exists($author->get_image_url('author_tiny'))) {
+						$details = $author->get_image_details('author_tiny');
+						$author_menu .= "<picture><source srcset=\"{$details['url']}.webp\" type=\"image/webp\">";
+						$author_menu .= "<source srcset=\"{$details['url']}\" type=\"{$details['mimetype']}\">";
+						$author_menu .= "{$author->get_image_html ('author_tiny')}</picture>";
+					} else {
+						$author_menu .= $author->get_image_html ('author_tiny');
+					}
+					$author_menu .= "<span itemprop=\"name\">{$author->get_name()}</span></a></li>";
 				}
 				$author_menu .= "<li id=\"menu-item-more-authors\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-more-authors\"><a href=\"".get_post_type_archive_link ('em_author')."\" itemprop=\"url\"><span itemprop=\"name\">More&hellip;</span></a></li>";
 				$author_menu .= '</ul>';  // The closing div will be added by the str_replace at the end of the function

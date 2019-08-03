@@ -1375,6 +1375,10 @@ img.alignright,
 	transition: max-height .25s ease-in-out;
 }
 
+.genesis-nav-menu source {
+	display: block;
+}
+
 /* ## Site Header Navigation
 --------------------------------------------- */
 
