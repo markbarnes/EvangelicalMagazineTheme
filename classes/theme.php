@@ -544,7 +544,7 @@ class evangelical_mag_theme {
 					echo '<h3>Also by these authors</h3>';
 				}
 				foreach ($also_by as $also_article) {
-					echo $also_article->get_small_box_html(true);
+					echo self::get_small_box_html($also_article, true);
 					$articles_to_be_excluded[] = $also_article->get_id();
 				}
 			}
@@ -565,7 +565,7 @@ class evangelical_mag_theme {
 		$also_articles_array = array(); // We're going to split it into rows of three
 		foreach ($articles_in_this_series as $also_article) {
 			$class = $also_article->get_id() == $current_article->get_id() ? 'current' : '';
-			$also_articles_array[] = $also_article->get_small_box_html(!(bool)$class, "Part {$also_article->get_series_order()}", $class);
+			$also_articles_array[] = self::get_small_box_html($also_article, !(bool)$class, "Part {$also_article->get_series_order()}", $class);
 			$articles_to_be_excluded[] = $also_article->get_id();
 		}
 		$chunked_also_articles_array = array_chunk ($also_articles_array, 3);
@@ -589,7 +589,7 @@ class evangelical_mag_theme {
 				if ($articles_in_same_section) {
 					echo "<div class =\"sections-meta\"><h2>Also in the {$section->get_name(true)} section</h2>";
 					foreach ($articles_in_same_section as $also_article) {
-						echo $also_article->get_small_box_html(true);
+						echo self::get_small_box_html($also_article, true);
 						$articles_to_be_excluded[] = $also_article->get_id();
 					}
 					echo '</div>';
@@ -1916,5 +1916,29 @@ class evangelical_mag_theme {
 			$html = "<style>#{$css_id} { background-image: url('{$image_url}') }</style>";
 		}
 		return $html;
+	}
+
+	/**
+	* Returns the HTML which produces the small article box
+	*
+	* @param evangelical_magazine_article $article - the article/review to create the box from
+	* @param bool $add_links - whether links should be added to the article name and image
+	* @param string $sub_title - any subtitle to be added
+	* @param string $class - any CSS classes to be added
+	* @return string
+	*/
+	public function get_small_box_html($article, $add_links = true, $sub_title = '', $class = '') {
+		if (has_post_thumbnail($article->get_id())) {
+			$output = self::return_background_image_style("article-box{$article->get_id()}", $article->get_image_url('article_large'));
+		} else {
+			$output = '';
+		}
+		$class = $article->is_future() ? ' future' : '';
+		$sub_title = $sub_title ? "<span class=\"sub-title\">{$sub_title}</span>" : '';
+		if ($add_links && !$article->is_future()) {
+			return $output."<aside class=\"small-article-box\">{$sub_title}".$article->get_link_html("<div id=\"article-box{$article->get_id()}\" class=\"article-image image-fit\"></div>")."<div class=\"article-title\">{$article->get_title(true)}</div></aside>";
+		} else {
+			return $output."<aside class=\"small-article-box {$class}\"><div id=\"article-box{$article->get_id()}\" class=\"article-image image-fit\">{$sub_title}</div><div class=\"article-title\">{$article->get_title()}</div></aside>";
+		}
 	}
 }
