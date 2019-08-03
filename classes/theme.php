@@ -17,10 +17,18 @@ class evangelical_mag_theme {
 	* @return void
 	*/
 	public static function set_everything_up() {
+		global $evangelical_mag_styles_for_head;
+		$evangelical_mag_styles_for_head = array();
+
 		//Editor tweaks
 		add_action ('admin_enqueue_scripts', array (__CLASS__, 'enqueue_fonts'));
 
 		add_filter ('language_attributes', array (__CLASS__, 'add_no_js_class_to_html_tag'), 10, 2);
+
+		//Output buffering
+		add_action	('wp_head', array (__CLASS__, 'start_output_buffering'), 99); // Start buffering as late as possible
+		add_action	('wp_footer', array (__CLASS__, 'add_styles_to_head_using_buffer'), 0); // Stop buffering as early as possible
+
 		// HTML HEAD
 		add_action ('wp_enqueue_scripts', array (__CLASS__, 'enqueue_fonts'));
 		add_action ('wp_enqueue_scripts', array (__CLASS__, 'enqueue_media_stylesheets'));
@@ -1924,13 +1932,13 @@ class evangelical_mag_theme {
 	* @param string $image_url - the URL of the jpg/png image
 	*/
 	public static function return_background_image_style ($css_id, $image_url) {
+		global $evangelical_mag_styles_for_head;
 		if (self::smaller_webp_file_exists($image_url)) {
-			$html = "<style>.no-js #{$css_id}, .no-webp #{$css_id} { background-image: url('{$image_url}') }\r\n";
-			$html .= ".webp #{$css_id} { background-image: url('{$image_url}.webp')}</style>";
+			$evangelical_mag_styles_for_head[] = ".no-js #{$css_id}, .no-webp #{$css_id} { background-image: url('{$image_url}') }\r\n";
+			$evangelical_mag_styles_for_head[] = ".webp #{$css_id} { background-image: url('{$image_url}.webp')}";
 		} else {
-			$html = "<style>#{$css_id} { background-image: url('{$image_url}') }</style>";
+			$evangelical_mag_styles_for_head[] = "#{$css_id} { background-image: url('{$image_url}') }";
 		}
-		return $html;
 	}
 
 	/**
@@ -1973,5 +1981,32 @@ class evangelical_mag_theme {
 			$image_output = "<picture><source srcset=\"{$details['url']}.webp\" type=\"image/webp\">".$image_output;
 		}
 		return "<div class=\"author-info\">".$author->get_link_html($image_output)."<div class=\"author-description\">{$author->get_description()}</div></div>";
+	}
+
+	/**
+	* Starts output buffering
+	*
+	* @return void
+	*/
+	public static function start_output_buffering() {
+		ob_start();
+	}
+
+	/**
+	* Ends output buffering and outputs the styles
+	*
+	* @return void
+	*/
+	public static function add_styles_to_head_using_buffer() {
+		global $evangelical_mag_styles_for_head;
+		$html = ob_get_clean();
+		if ($evangelical_mag_styles_for_head) {
+			echo '<style type="text/css">';
+			foreach ($evangelical_mag_styles_for_head as $style) {
+				echo "{$style}\r\n";
+			}
+			echo '</style>';
+		}
+		echo $html;
 	}
 }
