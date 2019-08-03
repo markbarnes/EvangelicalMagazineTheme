@@ -328,7 +328,7 @@ class evangelical_mag_theme {
 			$image = wp_get_attachment_image_src($image_id, (is_singular('em_author') || is_singular('em_review')) ? 'author_medium' : (is_singular('em_issue') ? 'issue_very_large' : 'article_header'));
 			if ($image) {
 				if (self::webp_file_exists($image)) {
-					echo "<style type=\"text/css\">.no-js .entry-header, .no-webp .entry-header { background-image: url('{$image[0]}')} webp .entry-header { background-image: url('{$image[0]}.webp')}</style>";
+					echo "<style type=\"text/css\">.no-js .entry-header, .no-webp .entry-header { background-image: url('{$image[0]}')} .webp .entry-header { background-image: url('{$image[0]}.webp')}</style>";
 				} else {
 					echo "<style type=\"text/css\">.entry-header { background-image: url('{$image[0]}')}</style>";
 				}
@@ -1894,7 +1894,7 @@ class evangelical_mag_theme {
 	* @returns boolean
 	*/
 	public static function webp_file_exists ($url) {
-		return file_exists(str_replace (content_url(), WP_CONTENT_DIR, $image_url).'.webp');
+		return file_exists(str_replace (content_url(), WP_CONTENT_DIR, $url).'.webp');
 	}
 
 	/**
