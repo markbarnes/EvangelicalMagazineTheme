@@ -327,7 +327,11 @@ class evangelical_mag_theme {
 		if ($image_id) {
 			$image = wp_get_attachment_image_src($image_id, (is_singular('em_author') || is_singular('em_review')) ? 'author_medium' : (is_singular('em_issue') ? 'issue_very_large' : 'article_header'));
 			if ($image) {
-				echo "<style type=\"text/css\">.entry-header { background-image: url('{$image[0]}')}</style>";
+				if (self::webp_file_exists($image)) {
+					echo "<style type=\"text/css\">.no-js .entry-header, .no-webp .entry-header { background-image: url('{$image[0]}')} webp .entry-header { background-image: url('{$image[0]}.webp')}</style>";
+				} else {
+					echo "<style type=\"text/css\">.entry-header { background-image: url('{$image[0]}')}</style>";
+				}
 			}
 		} else {
 			echo "<style type=\"text/css\">
@@ -866,7 +870,8 @@ class evangelical_mag_theme {
 			$grid = '';
 			foreach ($authors as $author) {
 				$grid .= "<div class=\"grid-author-container\">";
-				$grid .= "<a href=\"{$author->get_link()}\" class=\"grid-author-image image-fit\" style=\"background-image:url('{$author->get_image_url('author_small')}')\"></a>";
+				$grid .= evangelical_mag_theme::return_background_image_style ("author{$author->get_id()}", $author->get_image_url('author_small'));
+				$grid .= "<a id=\"author{$author->get_id()}\" href=\"{$author->get_link()}\" class=\"grid-author-image image-fit\"></a>";
 				$grid .= "<div class=\"author-name-description\">";
 				$grid .= "<div class=\"author-name\">{$author->get_name(true)}</div>";
 				$grid .= "<div class=\"author-description\">{$author->get_filtered_content()}</div>";
@@ -891,7 +896,8 @@ class evangelical_mag_theme {
 			$list = '';
 			foreach ($issues as $issue) {
 				$list .= "<ul class=\"issue-list\">";
-				$list .= "<li class=\"issue\"><a href=\"{$issue->get_link()}\"><div class=\"magazine-cover image-fit box-shadow-transition\" style=\"background-image:url('{$issue->get_image_url('issue_medium')}')\"></div></a>";
+				$list .= evangelical_mag_theme::return_background_image_style ("issue{$issue->get_id()}", $issue->get_image_url('issue_medium'));
+				$list .= "<li class=\"issue\"><a href=\"{$issue->get_link()}\"><div id=\"issue{$issue->get_id()}\"class=\"magazine-cover image-fit box-shadow-transition\"></div></a>";
 				$list .= "<div class=\"issue-contents\"><h4>{$issue->get_name(true)}</h4>";
 				$articles = $issue->get_top_articles_and_reviews($max_articles_displayed);
 				if ($articles) {
@@ -956,7 +962,8 @@ class evangelical_mag_theme {
 				if ($articles) {
 					echo "<ul class=\"top-articles\">";
 					foreach ($articles as $article) {
-						echo "<li><a href=\"{$article->get_link()}\"><div class=\"article-image image-fit\" style=\"background-image:url('{$article->get_image_url('article_small')}')\"></div></a><span class=\"article-title\">{$article->get_title(true)}</span>";
+						echo evangelical_mag_theme::return_background_image_style ("top-article-{$article->get_id()}", $article->get_image_url('article_small'));
+						echo "<li><a href=\"{$article->get_link()}\"><div id=\"top-article-{$article->get_id()}\" class=\"article-image image-fit\"></div></a><span class=\"article-title\">{$article->get_title(true)}</span>";
 						if ($authors = $article->get_author_names(true, false, 'by ')) {
 							echo "<br/><span class=\"article-authors\">{$authors}</span>";
 						}
@@ -1264,8 +1271,8 @@ class evangelical_mag_theme {
 			$output .= "<ol>";
 			$class = $make_first_image_bigger ? 'large-image' : '';
 			foreach ($content as $article) {
-				$url = $article->get_image_url('article_large');
-				$image_html = "<div class=\"box-shadow-transition article-list-box-image image-fit\" style=\"background-image: url('{$url}')\"></div>";
+				$output .= evangelical_mag_theme::return_background_image_style ("list-box-article-{$article->get_id()}", $article->get_image_url('article_large'));
+				$image_html = "<div id=\"list-box-article-{$article->get_id()}\" class=\"box-shadow-transition article-list-box-image image-fit\"></div>";
 				if ($article->is_future()) {
 					$class = trim ($class.' future');
 				} else {
@@ -1876,6 +1883,21 @@ class evangelical_mag_theme {
 	}
 
 	/**
+	* Returns true when a webp version of the image URL exists
+	*
+	* This function requires the use of a Webp convertor that appends .webp to the original image,
+	* and places the webp image in the same folder as the original.
+	*
+	* It is therefore compatible with the WebP Express plugin if configured correctly.
+	*
+	* @param string $url - the URL of the jpg/png image
+	* @returns boolean
+	*/
+	public static function webp_file_exists ($url) {
+		return file_exists(str_replace (content_url(), WP_CONTENT_DIR, $image_url).'.webp');
+	}
+
+	/**
 	* Returns a style tag that styles the background image of a HTML element in both jpg/png and webp formats
 	*
 	* This function requires the use of a Webp convertor that appends .webp to the original image,
@@ -1887,8 +1909,12 @@ class evangelical_mag_theme {
 	* @param string $image_url - the URL of the jpg/png image
 	*/
 	public static function return_background_image_style ($css_id, $image_url) {
-		$html = "<style>.no-js #{$css_id}, .no-webp #{$css_id} { background-image: url('{$image_url}') }\r\n";
-		$html .= ".webp #{$css_id} { background-image: url('{$image_url}.webp')}</style>";
+		if (self::webp_file_exists($image_url)) {
+			$html = "<style>.no-js #{$css_id}, .no-webp #{$css_id} { background-image: url('{$image_url}') }\r\n";
+			$html .= ".webp #{$css_id} { background-image: url('{$image_url}.webp')}</style>";
+		} else {
+			$html = "<style>#{$css_id} { background-image: url('{$image_url}') }</style>";
+		}
 		return $html;
 	}
 }

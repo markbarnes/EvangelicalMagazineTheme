@@ -115,7 +115,8 @@ class evangelical_magazine_most_popular extends WP_Widget {
 			$size = 'article_very_large';
 			foreach ($articles as $article) {
 				echo "<li class=\"popular_article\">";
-				echo "<a href=\"{$article->get_link()}\"><div class=\"popular-article-cover image-fit\" style=\"background-image:url('{$article->get_image_url($size)}')\"></div></a>";
+				echo evangelical_mag_theme::return_background_image_style ("popular-article{$article->get_id()}", $article->get_image_url($size));
+				echo "<a href=\"{$article->get_link()}\"><div id=\"popular-article{$article->get_id()}\" class=\"popular-article-cover image-fit\"></div></a>";
 				echo "<div class=\"article-info\">{$article->get_name(true)}{$article->get_author_names(true, false, ' by ')}</div>";
 				$facebook_stats = $article->get_facebook_stats('reactions');
 				if ($facebook_stats) {
@@ -159,7 +160,8 @@ class evangelical_magazine_current_issue extends WP_Widget {
 				echo $args['before_widget'];
 				echo "{$args['before_title']}Latest issue{$args['after_title']}";
 				foreach ($issues as $issue) {
-					echo $issue->get_link_html("<div class=\"cover-image image-fit\" style=\"background-image:url('{$issue->get_image_url('issue_very_large')}');\"></div>");
+					echo evangelical_mag_theme::return_background_image_style ("current-issue{$issue->get_id()}", $issue->get_image_url('issue_very_large'));
+					echo $issue->get_link_html("<div id=\"current-issue{$issue->get_id()}\" class=\"cover-image image-fit\"></div>");
 				}
 				echo $args['after_widget'];
 			}

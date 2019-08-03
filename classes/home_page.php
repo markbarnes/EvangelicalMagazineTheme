@@ -46,11 +46,12 @@ class evangelical_mag_home_page {
 				echo '<div id="latest-articles">';
 				foreach ($articles as $article) {
 					echo '<div class="article-wrap">';
+					echo evangelical_mag_theme::return_background_image_style ("article{$article->get_id()}", $article->get_image_url('article_large'));
 					if ($article->is_future()) {
-						echo "<div class=\"article future image-fit\" style=\"background-image: url('{$article->get_image_url('article_large')}')\"></div>";
+						echo "<div id=\"article{$article->get_id()}\" class=\"article future image-fit\"></div>";
 						echo "<div class=\"article-coming-soon\"><span class=\"coming-soon\">Coming {$article->get_coming_date()}</span><span class=\"article-title\">{$article->get_title()}</span></div>";
 					} else {
-						echo "<a href=\"{$article->get_link()}\"><span class=\"article current image-fit box-shadow-transition\" style=\"background-image: url('{$article->get_image_url('article_large')}')\"><span class=\"article-title\">{$article->get_title()}</span></span></a>";
+						echo "<a href=\"{$article->get_link()}\"><span id=\"article{$article->get_id()}\" class=\"article current image-fit box-shadow-transition\"><span class=\"article-title\">{$article->get_title()}</span></span></a>";
 					}
 					echo '</div>';
 					$article_ids[] = $article->get_id();
