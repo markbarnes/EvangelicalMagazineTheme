@@ -327,7 +327,7 @@ class evangelical_mag_theme {
 		if ($image_id) {
 			$image = wp_get_attachment_image_src($image_id, (is_singular('em_author') || is_singular('em_review')) ? 'author_medium' : (is_singular('em_issue') ? 'issue_very_large' : 'article_header'));
 			if ($image) {
-				if (self::webp_file_exists($image)) {
+				if (self::webp_file_exists($image[0])) {
 					echo "<style type=\"text/css\">.no-js .entry-header, .no-webp .entry-header { background-image: url('{$image[0]}')} .webp .entry-header { background-image: url('{$image[0]}.webp')}</style>";
 				} else {
 					echo "<style type=\"text/css\">.entry-header { background-image: url('{$image[0]}')}</style>";
