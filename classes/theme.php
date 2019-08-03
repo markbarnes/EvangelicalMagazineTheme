@@ -1963,11 +1963,19 @@ class evangelical_mag_theme {
 	/**
 	* Returns the HTML of a thumbnail and name of the author
 	*
+	* @var evangelical_magazine_author - an author object
 	* @var string $image_size - a registered WordPress image size
 	* @return string
 	*/
 	public static function get_author_info_html($author, $image_size = 'thumbnail') {
 		$alt_text = htmlspecialchars($author->get_name(), ENT_HTML5);
-		return "<div class=\"author-info\">".$author->get_link_html("<img class=\"author-image\" alt=\"{$alt_text}\" src=\"{$author->get_image_url($image_size)}\"/>")."<div class=\"author-description\">{$author->get_description()}</div></div>";
+		$image_output = "<img class=\"author-image\" alt=\"{$alt_text}\" src=\"{$author->get_image_url($image_size)}\"/>";
+		if (self::webp_file_exists($author->get_image_url($image_size))) {
+			$details = $author->get_image_details('author_tiny');
+			$image_output = "{$image_output}</picture>";
+			$image_output = "<source srcset=\"{$details['url']}\" type=\"{$details['mimetype']}\">".$image_output;
+			$image_output = "<picture><source srcset=\"{$details['url']}.webp\" type=\"image/webp\">".$image_output;
+		}
+		return "<div class=\"author-info\">".$author->get_link_html($image_output)."<div class=\"author-description\">{$author->get_description()}</div></div>";
 	}
 }
