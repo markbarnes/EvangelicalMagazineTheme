@@ -776,7 +776,13 @@ class evangelical_mag_theme {
 		$image_id = get_post_thumbnail_id ();
 		if ($image_id) {
 			$review = new evangelical_magazine_review($post);
-			echo wp_get_attachment_image($image_id, 'third-post-width', false, array ('class' => 'review-image', 'alt' => $review->get_name()));
+			$image_html = $review->get_image_html('third-post-width', false, '', $review->get_name(), 'review-image');
+			if (self::smaller_webp_file_exists($review->get_image_url('third-post-width'))) {
+				echo "<picture><source srcset=\"{$review->get_image_url('third-post-width')}.webp\" type=\"image/webp\">";
+				echo "{$image_html}</picture>";
+			} else {
+				echo $image_html;
+			}
 		}
 	}
 
@@ -1934,7 +1940,7 @@ class evangelical_mag_theme {
 	public static function return_background_image_style ($css_id, $image_url) {
 		global $evangelical_mag_styles_for_head;
 		if (self::smaller_webp_file_exists($image_url)) {
-			$evangelical_mag_styles_for_head[] = ".no-js #{$css_id}, .no-webp #{$css_id} { background-image: url('{$image_url}') }\r\n";
+			$evangelical_mag_styles_for_head[] = ".no-js #{$css_id}, .no-webp #{$css_id} { background-image: url('{$image_url}') }";
 			$evangelical_mag_styles_for_head[] = ".webp #{$css_id} { background-image: url('{$image_url}.webp')}";
 		} else {
 			$evangelical_mag_styles_for_head[] = "#{$css_id} { background-image: url('{$image_url}') }";
