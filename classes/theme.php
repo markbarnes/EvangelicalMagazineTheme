@@ -327,7 +327,7 @@ class evangelical_mag_theme {
 		if ($image_id) {
 			$image = wp_get_attachment_image_src($image_id, (is_singular('em_author') || is_singular('em_review')) ? 'author_medium' : (is_singular('em_issue') ? 'issue_very_large' : 'article_header'));
 			if ($image) {
-				if (self::webp_file_exists($image[0])) {
+				if (self::smaller_webp_file_exists($image[0])) {
 					echo "<style type=\"text/css\">.no-js .entry-header, .no-webp .entry-header { background-image: url('{$image[0]}')} .webp .entry-header { background-image: url('{$image[0]}.webp')}</style>";
 				} else {
 					echo "<style type=\"text/css\">.entry-header { background-image: url('{$image[0]}')}</style>";
@@ -686,7 +686,7 @@ class evangelical_mag_theme {
 					}
 					$issue_menu .= "<li id=\"menu-item-issue-{$issue->get_id()}\" class=\"menu-item menu-item-type-issue menu-item-issue-{$issue->get_id()}\">";
 					$issue_menu .= "<a href=\"{$issue->get_link()}\" itemprop=\"url\">";
-					if (self::webp_file_exists($issue->get_image_url('issue_small'))) {
+					if (self::smaller_webp_file_exists($issue->get_image_url('issue_small'))) {
 						$issue_menu .= "<picture><source srcset=\"{$issue->get_image_url('issue_small')}.webp\" type=\"image/webp\">";
 						$issue_menu .= "{$issue->get_image_html ('issue_small')}</picture>";
 					} else {
@@ -709,7 +709,7 @@ class evangelical_mag_theme {
 				foreach ($authors as $author) {
 					$author_menu .= "<li id=\"menu-item-author-{$author->get_id()}\" class=\"menu-item menu-item-type-author menu-item-author-{$author->get_id()}\">";
 					$author_menu .= "<a href=\"{$author->get_link()}\" itemprop=\"url\">";
-					if (self::webp_file_exists($author->get_image_url('author_tiny'))) {
+					if (self::smaller_webp_file_exists($author->get_image_url('author_tiny'))) {
 						$author_menu .= "<picture><source srcset=\"{$author->get_image_url('author_tiny')}.webp\" type=\"image/webp\">";
 						$author_menu .= "{$author->get_image_html ('author_tiny')}</picture>";
 					} else {
@@ -1897,7 +1897,7 @@ class evangelical_mag_theme {
 	}
 
 	/**
-	* Returns true when a webp version of the image URL exists
+	* Returns true when a webp version of the image URL exists and is smaller than the original image
 	*
 	* This function requires the use of a Webp convertor that appends .webp to the original image,
 	* and places the webp image in the same folder as the original.
@@ -1907,8 +1907,9 @@ class evangelical_mag_theme {
 	* @param string $url - the URL of the jpg/png image
 	* @returns boolean
 	*/
-	public static function webp_file_exists ($url) {
-		return file_exists(str_replace (content_url(), WP_CONTENT_DIR, $url).'.webp');
+	public static function smaller_webp_file_exists ($url) {
+		$filename = str_replace (content_url(), WP_CONTENT_DIR, $url);
+		return (file_exists("{$filename}.webp") && (filesize("{$filename}.webp") < filesize($filename)));
 	}
 
 	/**
@@ -1923,7 +1924,7 @@ class evangelical_mag_theme {
 	* @param string $image_url - the URL of the jpg/png image
 	*/
 	public static function return_background_image_style ($css_id, $image_url) {
-		if (self::webp_file_exists($image_url)) {
+		if (self::smaller_webp_file_exists($image_url)) {
 			$html = "<style>.no-js #{$css_id}, .no-webp #{$css_id} { background-image: url('{$image_url}') }\r\n";
 			$html .= ".webp #{$css_id} { background-image: url('{$image_url}.webp')}</style>";
 		} else {
@@ -1966,7 +1967,7 @@ class evangelical_mag_theme {
 	public static function get_author_info_html($author, $image_size = 'thumbnail') {
 		$alt_text = htmlspecialchars($author->get_name(), ENT_HTML5);
 		$image_output = "<img class=\"author-image\" alt=\"{$alt_text}\" src=\"{$author->get_image_url($image_size)}\"/>";
-		if (self::webp_file_exists($author->get_image_url($image_size))) {
+		if (self::smaller_webp_file_exists($author->get_image_url($image_size))) {
 			$details = $author->get_image_details('author_tiny');
 			$image_output = "{$image_output}</picture>";
 			$image_output = "<picture><source srcset=\"{$details['url']}.webp\" type=\"image/webp\">".$image_output;
