@@ -517,7 +517,7 @@ class evangelical_mag_theme {
 				echo "<div class =\"author-meta\"><h2>".($is_single_author ? 'About the reviewer' : 'About the reviewers')."</h2>";
 			}
 			foreach ($authors as $author) {
-				echo $author->get_author_info_html('author_small');
+				echo self::get_author_info_html($author, 'author_small');
 			}
 			echo '</div>';
 		}
@@ -1945,7 +1945,7 @@ class evangelical_mag_theme {
 	* @param string $class - any CSS classes to be added
 	* @return string
 	*/
-	public function get_small_box_html($article, $add_links = true, $sub_title = '', $class = '') {
+	public static function get_small_box_html($article, $add_links = true, $sub_title = '', $class = '') {
 		if (has_post_thumbnail($article->get_id())) {
 			$output = self::return_background_image_style("article-box{$article->get_id()}", $article->get_image_url('article_large'));
 		} else {
@@ -1958,5 +1958,16 @@ class evangelical_mag_theme {
 		} else {
 			return $output."<aside class=\"small-article-box {$class}\"><div id=\"article-box{$article->get_id()}\" class=\"article-image image-fit\">{$sub_title}</div><div class=\"article-title\">{$article->get_title()}</div></aside>";
 		}
+	}
+
+	/**
+	* Returns the HTML of a thumbnail and name of the author
+	*
+	* @var string $image_size - a registered WordPress image size
+	* @return string
+	*/
+	public static function get_author_info_html($author, $image_size = 'thumbnail') {
+		$alt_text = htmlspecialchars($author->get_name(), ENT_HTML5);
+		return "<div class=\"author-info\">".$author->get_link_html("<img class=\"author-image\" alt=\"{$alt_text}\" src=\"{$author->get_image_url($image_size)}\"/>")."<div class=\"author-description\">{$author->get_description()}</div></div>";
 	}
 }
