@@ -687,9 +687,7 @@ class evangelical_mag_theme {
 					$issue_menu .= "<li id=\"menu-item-issue-{$issue->get_id()}\" class=\"menu-item menu-item-type-issue menu-item-issue-{$issue->get_id()}\">";
 					$issue_menu .= "<a href=\"{$issue->get_link()}\" itemprop=\"url\">";
 					if (self::webp_file_exists($issue->get_image_url('issue_small'))) {
-						$details = $issue->get_image_details('issue_small');
-						$issue_menu .= "<picture><source srcset=\"{$details['url']}.webp\" type=\"image/webp\">";
-						$issue_menu .= "<source srcset=\"{$details['url']}\" type=\"{$details['mimetype']}\">";
+						$issue_menu .= "<picture><source srcset=\"{$issue->get_image_url('issue_small')}.webp\" type=\"image/webp\">";
 						$issue_menu .= "{$issue->get_image_html ('issue_small')}</picture>";
 					} else {
 						$issue_menu .= $issue->get_image_html ('issue_small');
@@ -712,9 +710,7 @@ class evangelical_mag_theme {
 					$author_menu .= "<li id=\"menu-item-author-{$author->get_id()}\" class=\"menu-item menu-item-type-author menu-item-author-{$author->get_id()}\">";
 					$author_menu .= "<a href=\"{$author->get_link()}\" itemprop=\"url\">";
 					if (self::webp_file_exists($author->get_image_url('author_tiny'))) {
-						$details = $author->get_image_details('author_tiny');
-						$author_menu .= "<picture><source srcset=\"{$details['url']}.webp\" type=\"image/webp\">";
-						$author_menu .= "<source srcset=\"{$details['url']}\" type=\"{$details['mimetype']}\">";
+						$author_menu .= "<picture><source srcset=\"{$author->get_image_url('author_tiny')}.webp\" type=\"image/webp\">";
 						$author_menu .= "{$author->get_image_html ('author_tiny')}</picture>";
 					} else {
 						$author_menu .= $author->get_image_html ('author_tiny');
@@ -1973,7 +1969,6 @@ class evangelical_mag_theme {
 		if (self::webp_file_exists($author->get_image_url($image_size))) {
 			$details = $author->get_image_details('author_tiny');
 			$image_output = "{$image_output}</picture>";
-			$image_output = "<source srcset=\"{$details['url']}\" type=\"{$details['mimetype']}\">".$image_output;
 			$image_output = "<picture><source srcset=\"{$details['url']}.webp\" type=\"image/webp\">".$image_output;
 		}
 		return "<div class=\"author-info\">".$author->get_link_html($image_output)."<div class=\"author-description\">{$author->get_description()}</div></div>";
