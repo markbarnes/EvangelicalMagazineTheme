@@ -1673,6 +1673,7 @@ p.entry-meta {
 	color: white;
 	font-family: Lato, Tahoma, sans-serif;
 	overflow: hidden;
+	vertical-align: middle;
 }
 
 .entry-meta a {
@@ -1687,7 +1688,12 @@ p.entry-meta {
 	text-decoration: underline;
 }
 
-.entry-header .entry-meta {
+.entry-meta .author-image {
+	float:left;
+	height: 37px;
+	width: 37px;
+	margin-right: 10px;
+	border-radius: 50%;
 }
 
 .entry-footer .entry-meta {

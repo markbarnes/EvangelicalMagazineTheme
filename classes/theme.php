@@ -361,8 +361,15 @@ class evangelical_mag_theme {
 		global $post;
 		if ($post && $post->post_type == 'em_article') {
 			$article = new evangelical_magazine_article($post);
-			$output = $article->get_author_names(true, true, 'By ');
-			$output .= "<span style=\"float:right\">{$article->get_issue_name(true)}";
+			$authors = $article->get_authors();
+			$output = '';
+			if ($authors) {
+				foreach ($authors as $author) {
+				$output .= "<a href=\"{$author->get_link()}\">{$author->get_image_html('author_tiny', false, '', $author->get_name(), 'author-image')}</a>";
+				}
+			}
+			$output .= "<span style=\"height:37px;vertical-align:middle\">{$article->get_author_names(true, true)}</span>";
+			$output .= "<span style=\"float:right;vertical-align:middle\">{$article->get_issue_name(true)}";
 			if ($page_num = $article->get_page_num()) {
 				$output .= ", page <span itemprop=\"pageStart\">{$page_num}</span>";
 			}
@@ -1869,11 +1876,15 @@ class evangelical_mag_theme {
 	* @return void
 	*/
 	public static function return_ajax_author_grid() {
+		global $evangelical_mag_styles_for_head;
 		if (isset($_POST['display'])) {
 			$author_letter = substr($_POST['display'],0,1);
 			$authors = evangelical_magazine_author::get_authors_by_initial_letter($author_letter);
 			if ($authors) {
 				echo self::return_author_grid_html ($authors);
+				if ($evangelical_mag_styles_for_head) {
+					echo '<style type="text/css">'.implode ("\r\n", $evangelical_mag_styles_for_head).'</style>';
+				}
 			}
 		}
 		wp_die();
@@ -1885,11 +1896,15 @@ class evangelical_mag_theme {
 	* @return void
 	*/
 	public static function return_ajax_issue_list() {
+		global $evangelical_mag_styles_for_head;
 		if (isset($_POST['display'])) {
 			$year = (int)($_POST['display']);
 			$issues = evangelical_magazine_issue::get_issues_by_year($year);
 			if ($issues) {
 				echo self::return_issue_list_html ($issues);
+				if ($evangelical_mag_styles_for_head) {
+					echo '<style type="text/css">'.implode ("\r\n", $evangelical_mag_styles_for_head).'</style>';
+				}
 			}
 		}
 		wp_die();
@@ -1901,6 +1916,7 @@ class evangelical_mag_theme {
 	* @return void
 	*/
 	public static function return_ajax_section_page() {
+		global $evangelical_mag_styles_for_head;
 		if (isset($_POST['display']) && isset($_POST['section_id'])) {
 			$section = new evangelical_magazine_section($_POST['section_id']);
 			if ($section) {
@@ -1909,6 +1925,9 @@ class evangelical_mag_theme {
 				$articles = $section->_get_articles_and_reviews ($args);
 				if ($articles) {
 					echo "<div class=\"section-page\">".self::get_article_list_box($articles, true, '', false, true)."</div>";
+					if ($evangelical_mag_styles_for_head) {
+						echo '<style type="text/css">'.implode ("\r\n", $evangelical_mag_styles_for_head).'</style>';
+					}
 				}
 			}
 		}
@@ -2011,11 +2030,7 @@ class evangelical_mag_theme {
 		global $evangelical_mag_styles_for_head;
 		$html = ob_get_clean();
 		if ($evangelical_mag_styles_for_head) {
-			echo '<style type="text/css">';
-			foreach ($evangelical_mag_styles_for_head as $style) {
-				echo "{$style}\r\n";
-			}
-			echo '</style>';
+			echo '<style type="text/css">'.implode ("\r\n", $evangelical_mag_styles_for_head).'</style>';
 		}
 		echo $html;
 	}
