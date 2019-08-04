@@ -1317,6 +1317,10 @@ img.alignright,
 	margin-bottom: 10px;
 }
 
+.genesis-nav-menu .menu-item-type-author img {
+	border-radius: 50%;
+}
+
 .genesis-nav-menu .menu-item-type-issue a, .genesis-nav-menu .menu-item-type-author a {
 	padding: 0;
 }
@@ -1726,6 +1730,7 @@ p.entry-meta {
 	max-width: 105px;
 	height: auto;
 	width: auto;
+	border-radius: 50%;
 }
 
 .series-meta h2, .sections-meta h2 {
@@ -1882,6 +1887,7 @@ p.entry-meta {
 	margin-right: 15px;
 	display: inline-block;
 	vertical-align: top;
+	border-radius: 50%;
 }
 
 .grid-author-container .author-name-description {
