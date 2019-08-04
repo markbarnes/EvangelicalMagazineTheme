@@ -59,6 +59,7 @@ class evangelical_mag_theme {
 		add_action ('genesis_footer', array (__CLASS__, 'do_footer_bottom'));
 		// Other bits and pieces
 		add_action ('genesis_meta', array (__CLASS__, 'add_viewport'));
+		remove_action ('genesis_entry_header', 'genesis_post_info', 12);
 		remove_action ('genesis_entry_footer', 'genesis_post_meta' );
 		unregister_sidebar( 'header-right' );
 		add_filter ('genesis_attr_entry-header', array (__CLASS__, 'add_attributes_to_entry_header'));
@@ -71,7 +72,6 @@ class evangelical_mag_theme {
 		}
 		// All singular pages
 		if (is_singular()) {
-			remove_action ('genesis_entry_header', 'genesis_post_info', 12);
 			add_filter ('genesis_post_meta', '__return_false');
 			// Put the post text inside an extra div inside entry-content
 			remove_filter ('genesis_attr_entry-content', 'genesis_attributes_entry_content');
@@ -1568,7 +1568,7 @@ class evangelical_mag_theme {
 	}
 
 	/**
-	* Enqueues WebP description
+	* Enqueues WebP detection
 	*
 	* Adds the webp or no-webp CSS classes to <html>, as appropriate
 	* @see https://modernizr.com/download?webp-setclasses
