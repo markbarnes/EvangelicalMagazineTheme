@@ -2068,6 +2068,7 @@ body.single-em_author .entry-header {
 	float: left;
 	box-shadow: none;
 	margin-bottom: 20px;
+	border-radius: 50%;
 }
 
 body.single-em_author .entry-title {
