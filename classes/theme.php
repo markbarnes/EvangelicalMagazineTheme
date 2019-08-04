@@ -274,10 +274,10 @@ class evangelical_mag_theme {
 	* @return void
 	*/
 	public static function enqueue_fonts() {
-		self::enqueue_style ('magazine-font-league-gothic', '/fonts/league-gothic.css');
-		self::enqueue_style ('magazine-font-aleo', '/fonts/aleo.css');
-		self::enqueue_style ('magazine-font-lato', '/fonts/lato.css');
-		self::enqueue_style ('magazine-dashicons', '/fonts/dashicons.css'); // Use our own version to avoid base64 overloading
+		wp_enqueue_style ('magazine-font-league-gothic', '/fonts/league-gothic.css');
+		wp_enqueue_style ('magazine-font-aleo', '/fonts/aleo.css');
+		wp_enqueue_style ('magazine-font-lato', '/fonts/lato.css');
+		wp_enqueue_style ('magazine-dashicons', '/fonts/dashicons.css'); // Use our own version to avoid base64 overloading
 	}
 
 	/**
@@ -288,7 +288,7 @@ class evangelical_mag_theme {
 	* @return void
 	*/
 	public static function enqueue_reftagger() {
-		self::enqueue_script ('magazine-reftagger', '/js/reftagger.js', array(), true);
+		wp_enqueue_script ('magazine-reftagger', '/js/reftagger.js', array(), true);
 	}
 
 	/**
@@ -1569,9 +1569,9 @@ class evangelical_mag_theme {
 						'370-469' => 'screen and (min-width:370px) and (max-width: 469px)',
 						'0-369' => 'screen and (max-width: 369px)');
 		foreach ($sizes as $name => $media) {
-			self::enqueue_style ("magazine-css-{$name}", "/css/style-{$name}.css", false);
+			wp_enqueue_style ("magazine-css-{$name}", "/css/style-{$name}.css", false);
 		}
-		self::enqueue_style ("gravity-forms-custom", "/css/gravityforms-custom.css", false);
+		wp_enqueue_style ("gravity-forms-custom", "/css/gravityforms-custom.css", false);
 	}
 
 	/**
@@ -1584,9 +1584,9 @@ class evangelical_mag_theme {
 	*/
 	public static function enqueue_webp_detection() {
 		if (WP_DEBUG === true) {
-			self::enqueue_script ('magazine-webp-detection', "/js/webp-detection.js");
+			wp_enqueue_script ('magazine-webp-detection', "/js/webp-detection.js");
 		} else {
-			self::enqueue_script ('magazine-webp-detection-minified', "/js/webp-detection.min.js");
+			wp_enqueue_script ('magazine-webp-detection-minified', "/js/webp-detection.min.js");
 		}
 	}
 
@@ -1740,44 +1740,6 @@ class evangelical_mag_theme {
 	public static function remove_unused_tinymce_formats($settings) {
 		$settings['block_formats'] = 'Paragraph=p;Heading 2=h2;Heading 3=h3';
 		return $settings;
-	}
-
-	/**
-	* Custom version of wp_enqueue_style
-	*
-	* The file's version number is created automatically from the timestamp of the file being enqueued
-	*
-	* @see wp_enqueue_style()
-	*
-	* @param string $handle - unique name of the stylesheet
-	* @param string $path - the path of the style, this theme's directory
-	* @param array $deps - an array of registered stylesheet handles this stylesheet depends on
-	* @param string $media - the media for which this stylesheet has been defined (e.g. 'all', 'print', 'screen', '(orientation: portrait)' and '(max-width: 640px)'
-	* @return void
-	*/
-	public static function enqueue_style ($handle, $path = '', $deps = array(), $media = 'all') {
-		$timestamp = @filemtime(get_stylesheet_directory().$path);
-		$src = get_stylesheet_directory_uri().$path;
-		wp_enqueue_style($handle, $src, $deps, $timestamp, $media);
-	}
-
-	/**
-	* Custom version of wp_enqueue_script
-	*
-	* The file's version number is created automatically from the timestamp of the file being enqueued
-	*
-	* @see wp_enqueue_script()
-	*
-	* @param string $handle - unique name of the stylesheet
-	* @param string $path - the path of the style, this theme's directory
-	* @param array $deps - an array of registered stylesheet handles this stylesheet depends on
- 	* @param bool $in_footer - whether to enqueue the script before </body> instead of in the <head>.
- 	* @return void
-	*/
-	public static function enqueue_script ($handle, $path = '', $deps = array(), $in_footer = false) {
-		$timestamp = @filemtime(get_stylesheet_directory().$path);
-		$src = get_stylesheet_directory_uri().$path;
-		wp_enqueue_script($handle, $src, $deps, $timestamp, $in_footer);
 	}
 
 	/**
