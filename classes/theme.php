@@ -104,7 +104,7 @@ class evangelical_mag_theme {
 			// Add series info to the post title, if required
 			add_filter ('genesis_post_title_output', array (__CLASS__, 'add_series_to_title'));
 			// Adds Facebook javascript SDK for social media buttons
-			add_action ('genesis_before', array (__CLASS__, 'output_facebook_javascript_sdk'));
+			add_action ('wp_footer', array (__CLASS__, 'output_facebook_javascript_sdk'));
 			// Add some schema.org meta
 			add_action ('genesis_before_entry_content', array (__CLASS__, 'add_schema_org_data_to_articles'));
 			add_filter ('genesis_attr_entry', array (__CLASS__, 'add_schema_org_itemtype_to_articles'), 10, 2);
@@ -135,7 +135,7 @@ class evangelical_mag_theme {
 			//remove_action ('genesis_entry_header', 'genesis_do_post_title');
 			add_action ('genesis_entry_content', array (__CLASS__, 'output_review_image'), 8); //Output the review image just after the header
 			// Adds Facebook javascript SDK for social media buttons
-			add_action ('genesis_before', array (__CLASS__, 'output_facebook_javascript_sdk'));
+			add_action ('wp_footer', array (__CLASS__, 'output_facebook_javascript_sdk'));
 			// Add some schema.org meta
 			add_action ('genesis_before_entry_content', array (__CLASS__, 'add_schema_org_data_to_reviews'));
 			add_filter ('genesis_attr_entry', array (__CLASS__, 'add_schema_org_itemtype_to_reviews'), 10, 2);
@@ -1488,8 +1488,13 @@ class evangelical_mag_theme {
 	* @return void
 	*/
 	public static function add_preload_to_head() {
-		$fonts_to_preload = array ('league-gothic/leaguegothic-regular-webfont', 'aleo/Aleo-Regular-webfont', 'lato/lato-bold', 'lato/lato-light', 'lato/lato-regular');
 		$s = get_stylesheet_directory_uri ();
+		if (WP_DEBUG === true) {
+			echo "<link rel=\"preload\" href=\"{$s}/js/webp-detection.js\" as=\"script\" type=\"application/javascript\">\r\n";
+		} else {
+			echo "<link rel=\"preload\" href=\"{$s}/js/webp-detection.min.js\" as=\"script\" type=\"application/javascript\">\r\n";
+		}
+		$fonts_to_preload = array ('league-gothic/leaguegothic-regular-webfont', 'aleo/Aleo-Regular-webfont', 'lato/lato-bold', 'lato/lato-light', 'lato/lato-regular');
 		foreach ($fonts_to_preload as $f) {
 			echo "<link rel=\"preload\" href=\"{$s}/fonts/{$f}.woff2\" as=\"font\" type=\"font/woff2\" crossorigin>\r\n";
 		}
