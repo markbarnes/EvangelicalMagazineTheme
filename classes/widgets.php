@@ -112,19 +112,20 @@ class evangelical_magazine_most_popular extends WP_Widget {
 			$title = (isset ($post->post_type) && $post->post_type == 'em_article') ? 'Other popular articles' : 'Popular articles';
 			echo "{$args['before_title']}{$title}{$args['after_title']}";
 			echo "<ul>";
-			$size = 'article_very_large';
+			$size = 'article_large';
 			foreach ($articles as $article) {
 				echo "<li class=\"popular_article\">";
 				echo evangelical_mag_theme::return_background_image_style ("popular-article{$article->get_id()}", $article->get_image_url($size));
 				echo "<a href=\"{$article->get_link()}\"><div id=\"popular-article{$article->get_id()}\" class=\"popular-article-cover image-fit\"></div></a>";
-				echo "<div class=\"article-info\">{$article->get_name(true)}{$article->get_author_names(true, false, ' by ')}</div>";
+				echo "<div class=\"article-info-wrap\"><div class=\"article-info\">{$article->get_name(true)}<br/><strong>{$article->get_author_names(true, false)}</strong></div>";
 				$facebook_stats = $article->get_facebook_stats('reactions');
 				if ($facebook_stats) {
-					$person_people = $facebook_stats > 1 ? 'people like' : 'person likes';
+					$likes = $facebook_stats > 1 ? 'likes' : 'like';
 					$stats = number_format($facebook_stats);
-					echo "<div class=\"facebook_stats\">{$stats} {$person_people} this</div></li>";
+					echo "<div class=\"facebook_stats\"><span class=\"magazine-dashicons magazine-dashicons-thumbs-up\"></span> {$stats} {$likes}</div>";
 				}
-				$size = 'thumbnail';
+				echo "</div></li>";
+				$size = 'article_small';
 			}
 			echo "</ul>";
 			echo $args['after_widget'];

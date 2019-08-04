@@ -945,9 +945,9 @@ img.alignright,
 }
 
 .widget_evangelical_magazine_most_popular .popular-article-cover {
-	width: 75px;
+	width: 112px;
 	height: 75px;
-	margin: 0 10px 0 20px;
+	margin: 0 10px 0 10px;
 	float: left;
 }
 
@@ -968,6 +968,16 @@ img.alignright,
 	margin: 0;
 }
 
+.widget_evangelical_magazine_most_popular .popular_article:first-child .article-info-wrap {
+	float: none;
+	width: auto;
+}
+
+.widget_evangelical_magazine_most_popular .article-info-wrap {
+	float: right;
+	width: 168px;
+}
+
 .widget_evangelical_magazine_most_popular .article-info {
 	padding: 0 20px 10px 0;
 	overflow: hidden;
@@ -975,12 +985,15 @@ img.alignright,
 }
 
 .widget_evangelical_magazine_most_popular .popular_article:first-child .article-info {
+	padding-top: 10px;
+}
+
+.widget_evangelical_magazine_most_popular .popular_article:first-child .article-info-wrap {
 	padding: 10px 20px 10px 20px;
 }
 
 .widget_evangelical_magazine_most_popular .popular_article .facebook_stats {
 	margin-top: -10px;
-	padding: 0px 20px 0px 20px;
 	font-size: 13px;
 }
 
