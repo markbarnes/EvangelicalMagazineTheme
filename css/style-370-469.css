@@ -429,6 +429,10 @@ body.home #sections .article-list-box-title a {
 	font-size: 32px;
 }
 
+.entry-meta .reading-time {
+	display: none;
+}
+
 .entry-content {
 	padding: 20px;
 }

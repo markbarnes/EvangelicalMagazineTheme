@@ -362,14 +362,16 @@ class evangelical_mag_theme {
 		if ($post && $post->post_type == 'em_article') {
 			$article = new evangelical_magazine_article($post);
 			$authors = $article->get_authors();
-			$output = '';
+			$output = '<span class="authors">';
 			if ($authors) {
 				foreach ($authors as $author) {
 				$output .= "<a href=\"{$author->get_link()}\">{$author->get_image_html('author_tiny', false, '', $author->get_name(), 'author-image')}</a>";
 				}
+				$output .= $article->get_author_names(true, true);
 			}
-			$output .= "<span style=\"height:37px;vertical-align:middle\">{$article->get_author_names(true, true)}</span>";
-			$output .= "<span style=\"float:right;vertical-align:middle\">{$article->get_issue_name(true)}";
+			$output .= '</span>';
+			$output .= "<span class=\"reading-time\">{$article->get_reading_time()} minute read</span>";
+			$output .= "<span class=\"issue\">{$article->get_issue_name(true)}";
 			if ($page_num = $article->get_page_num()) {
 				$output .= ", page <span itemprop=\"pageStart\">{$page_num}</span>";
 			}
@@ -401,7 +403,8 @@ class evangelical_mag_theme {
 			$a = $review->get_price();
 			$output .= $review->get_price('<span class="metadata-item"><span class="metadata-name">Retail Price:</span> ', $review->get_purchase_url(' (<a href="', '" target="_blank">'.(($review->get_price() == 'free') ? 'get' : 'buy now').'</a>)').'</span>');
 			$output .= "</span>{$image}<br/>";
-			$output .= "<span class=\"review-metadata\">{$review->get_author_names(true, true, 'Review by ')}";
+			$output .= "<span class=\"review-metadata\"><span class=\"reviewer\">{$review->get_author_names(true, true, 'Review by ')}</span>";
+			$output .= "<span class=\"reading-time\">{$review->get_reading_time()} minute read</span>";
 			$output .= "<span style=\"float:right\">{$review->get_issue_name(true)}";
 			if ($page_num = $review->get_page_num()) {
 				$output .= ", page {$page_num}";

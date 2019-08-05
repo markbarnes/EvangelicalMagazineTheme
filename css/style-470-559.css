@@ -392,6 +392,10 @@ body.home #sections .article-list-box-title a {
 	font-size: 40px;
 }
 
+.entry-meta .reading-time {
+	display: none;
+}
+
 .entry-content {
 	padding: 35px;
 }
