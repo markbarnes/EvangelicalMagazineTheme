@@ -1699,7 +1699,7 @@ class evangelical_mag_theme {
 				echo "<ul>";
 				foreach ($articles_in_series as $a) {
 					if ($article->get_id() == $a->get_id()) {
-						echo "<li><strong>{$a->get_name()}</strong>&nbsp;({$a->get_series_order()})</li>";
+						echo "<li class=\"current-article\">{$a->get_name()}&nbsp;({$a->get_series_order()})</li>";
 					} elseif ($a->is_future()) {
 						echo "<li><em>{$a->get_name()}</em> — coming {$a->get_coming_date()}</li>";
 					} else {
