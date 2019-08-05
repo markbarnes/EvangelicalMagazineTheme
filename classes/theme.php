@@ -1697,8 +1697,7 @@ class evangelical_mag_theme {
 			$articles_in_series = $series->get_articles(-1, array(), evangelical_magazine_series::_future_posts_args());
 			if ($series && count($articles_in_series) > 1) {
 				echo "<div id=\"series-contents\">";
-				echo "<h3>About this series</h3>";
-				echo "<h4>{$series->get_name (true)}</h4>";
+				echo "<h3>{$series->get_name (true)}</h3>";
 				echo "<ul>";
 				foreach ($articles_in_series as $a) {
 					if ($article->get_id() == $a->get_id()) {
