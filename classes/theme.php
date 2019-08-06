@@ -1039,7 +1039,7 @@ class evangelical_mag_theme {
 		$args = evangelical_magazine_issue::_future_posts_args();
 		$args['order'] = 'ASC';
 		$content = $issue->_get_articles_and_reviews($args);
-		$html = self::get_article_list_box($content);
+		$html = self::get_article_list_box($content, true, '', false, true);
 		echo ($html) ? $html : '<div class="article-list-box"><p>Coming soon.</p></div>';
 	}
 
@@ -1300,7 +1300,7 @@ class evangelical_mag_theme {
 				if ($article->is_future()) {
 					$output .= "<br/><span class=\"article-list-box-coming-soon\">Coming {$article->get_coming_date()}</span>";
 				} elseif ($add_facebook_likes && ($likes = $article->get_facebook_stats('reactions'))) {
-					$output .= "<br/><span class=\"article-list-box-likes\">{$likes} ".($likes == 1 ? 'like' : 'likes').'</span>';
+					$output .= '<br/><span class="article-list-box-likes">'.self::get_likes_html($likes).'</span>';
 				}
 				$output .= "</div></li>";
 				$class = '';
@@ -1993,7 +1993,7 @@ class evangelical_mag_theme {
 		if ($num_likes) {
 			$likes = $num_likes > 1 ? 'likes' : 'like';
 			$num_likes = number_format($num_likes);
-			echo "<div class=\"facebook_stats\"><span class=\"magazine-dashicons magazine-dashicons-thumbs-up\"></span> {$num_likes} {$likes}</div>";
+			return "<div class=\"facebook_stats\"><span class=\"magazine-dashicons magazine-dashicons-thumbs-up\"></span> {$num_likes} {$likes}</div>";
 		}
 	}
 }
