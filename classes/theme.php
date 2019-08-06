@@ -479,6 +479,7 @@ class evangelical_mag_theme {
 		self::output_like_share_tweet_buttons ($object);
 		self::output_email_subscription_box();
 		$articles_to_be_excluded = array($object->get_id());
+		$articles_to_be_included = array();
 		$num_articles_still_required = 8;
 		self::output_about_the_author ($object);
 		$articles_in_same_series = array();
@@ -496,9 +497,11 @@ class evangelical_mag_theme {
 			$authors = $object->get_authors();
 			if ($authors && is_countable($authors) && count($authors) > 0) {
 				$also_by = $object->get_articles_and_reviews_by_same_authors(min($num_articles_still_required, 4), $articles_to_be_excluded);
-				$num_articles_still_required = $num_articles_still_required - count($also_by);
-				$articles_to_be_excluded = array_merge($articles_to_be_excluded, evangelical_magazine::get_ids_from_objects($also_by));
-				$articles_to_be_included = $also_by;
+				if ($also_by) {
+					$num_articles_still_required = $num_articles_still_required - count($also_by);
+					$articles_to_be_excluded = array_merge($articles_to_be_excluded, evangelical_magazine::get_ids_from_objects($also_by));
+					$articles_to_be_included = $also_by;
+				}
 			}
 		}
 		// Get articles written in the same section
