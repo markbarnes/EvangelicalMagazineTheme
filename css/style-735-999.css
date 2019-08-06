@@ -378,15 +378,6 @@ body.full-size-header-image .entry-header {
 	height: 310px;
 }
 
-.small-article-box {
-	width: 200px;
-}
-
-.small-article-box .article-image {
-	width: 200px;
-	height: 133.333px;
-}
-
 img.size-full-post-width {
 	margin-left: -35px;
 	width: 730px;
@@ -619,17 +610,6 @@ body.search-results .em_issue .entry-content div,
 body.search-results .em_review .entry-content div {
 	width: 410px;
 	margin-left: 90px;
-}
-
-/* # Article boxes
------------------- */
-
-.small-article-box:nth-of-type(3n-2) {
-	margin-right: 30px;
-}
-
-.small-article-box:nth-of-type(3n) {
-	margin-left: 30px;
 }
 
 /* ## Subscription form

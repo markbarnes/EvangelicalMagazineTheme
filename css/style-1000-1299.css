@@ -236,27 +236,6 @@ body.single-em_author .entry-header {
 	height: 210px;
 }
 
-.small-article-box {
-	width: 250px;
-}
-
-.small-article-box .article-image {
-	width: 250px;
-	height: 167px;
-}
-
-.small-article-box:nth-of-type(3n-2) {
-	margin-right: 0;
-}
-
-.small-article-box:nth-of-type(odd) {
-	margin-right: 30px;
-}
-
-.small-article-box:nth-of-type(3n) {
-	margin-left: 0;
-}
-
 img.size-full-post-width {
 	margin-left: -45px;
 	width: 620px;

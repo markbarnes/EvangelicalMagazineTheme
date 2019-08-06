@@ -4,7 +4,7 @@ Theme URI: http://www.evangelicalmagazine.com
 Description: Custom theme for the Evangelical Magazine
 Author: Mark Barnes
 Author URI: http://www.markbarnes.net/
-Version: 1.8.1
+Version: 1.8.2
 Template: genesis
 Template Version: 3.0.0
 Tags: one-column, two-columns, three-columns, left-sidebar, right-sidebar, responsive-layout, custom-menu, full-width-template, rtl-language-support, sticky-post, theme-options, threaded-comments
@@ -945,8 +945,8 @@ img.alignright,
 }
 
 .widget_evangelical_magazine_most_popular .popular-article-cover {
-	width: 112px;
-	height: 75px;
+	width: 105px;
+	height: 70px;
 	margin: 0 10px 0 10px;
 	float: left;
 }
@@ -979,9 +979,9 @@ img.alignright,
 }
 
 .widget_evangelical_magazine_most_popular .article-info {
-	padding: 0 20px 10px 0;
+	padding: 0 10px 10px 0;
 	overflow: hidden;
-	line-height: 20px;
+	line-height: 18px;
 }
 
 .widget_evangelical_magazine_most_popular .popular_article:first-child .article-info {
@@ -1734,10 +1734,10 @@ img.size-half-post-width.alignright {
 	margin: 0 6px 0 2px;
 }
 
-/* ## Author, Series and Sections Meta
+/* ## Author Meta
 --------------------------------------------- */
 
-.author-meta, .series-meta, .sections-meta {
+.author-meta {
 	overflow: hidden;
 }
 
@@ -1762,94 +1762,50 @@ img.size-half-post-width.alignright {
 	border-radius: 50%;
 }
 
-.series-meta h2, .sections-meta h2 {
+/* ## Read Next
+--------------------------------------------- */
+
+h2.read-next {
 	border-bottom: 1px solid;
-	margin-top: 30px;
-	clear:both;
 }
 
-.series-meta div.row-wrap {
+.read-next-article-container {
 	clear: both;
-}
-
-.series-meta div.row-wrap {
-	margin-bottom: 20px;
-	overflow: hidden;
-}
-
-.series-meta div.row-wrap:last-of-type {
-	margin-bottom: 0;
-}
-
-/* # Article boxes
------------------- */
-
-.article-box-row-wrap {
-	margin-top: 20px;
-	margin-bottom: 20px;
-	overflow: hidden;
-}
-
-.small-article-box {
-	width: 210px;
+	margin-bottom: 10px;
+	min-height: 70px;
+	line-height: normal;
+	font-size: 14px;
 	font-family: Lato, Tahoma, sans-serif;
-	margin-bottom: 30px;
-	display: inline-block;
-	vertical-align: top;
 }
 
-.small-article-box:nth-of-type(3n-2) {
-	margin-right: 55px;
+.read-next-article-container.same-series {
+	background-color: #ecf9fe;
+	border: 5px solid #ecf9fe;
+	min-height: 80px;
+	margin-left: -5px;
 }
 
-.small-article-box:nth-of-type(3n) {
-	margin-left: 55px;
+.read-next-article-container .article-image {
+	width: 105px;
+	height: 70px;
+	float: left;
+	margin-right: 10px;
 }
 
-.small-article-box .sub-title {
-	background: #feca00;
-	float:right;
-	padding: 3px 5px;
-	color: #086788;
-	font-size: 15px;
+.read-next-article-container .meta-container {
+	float: left;
 }
 
-.small-article-box .article-title {
-	background-color: #086788;
-	padding: 5px 10px;
-	color: white;
+.read-next-article-container .article-title {
+	font-size: 16px;
+	font-weight: bold;
 }
 
-.small-article-box .article-title a {
-	color: white;
+.read-next-article-container .article-title a {
+	color: #002636;
 }
 
-.small-article-box.current .article-title {
-	background-color: white;
-	border: 2px solid #086788;
-	border-top: none;
-	color: #086788;
-}
-
-.small-article-box.current .article-title a {
-	color: #086788;
-}
-
-.small-article-box.future {
-	-webkit-filter: grayscale(100%) blur(1px);
-	-moz-filter: grayscale(100%) blur(1px);
-	-ms-filter: grayscale(100%) blur(1px);
-	-o-filter: grayscale(100%) blur(1px);
-	filter: grayscale(100%) blur(1px);
-}
-
-.small-article-box.future .article-title {
-	background-color: #5f5f5f;
-}
-
-.small-article-box .article-image {
-	width: 210px;
-	height: 140px;
+.read-next-article-container .article-title {
 }
 
 /* ## Navigation indexes (e.g. on archive and section pages)

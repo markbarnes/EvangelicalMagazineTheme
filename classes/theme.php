@@ -469,7 +469,7 @@ class evangelical_mag_theme {
 	public static function add_after_end_of_article_or_review () {
 		global $post;
 		/**
-		* @var evangelical_magazine_articles_and_reviews
+		* @var evangelical_magazine_article
 		*/
 		$object = evangelical_magazine::get_object_from_post($post);
 		if (!is_user_logged_in()) {
@@ -479,17 +479,66 @@ class evangelical_mag_theme {
 		self::output_like_share_tweet_buttons ($object);
 		self::output_email_subscription_box();
 		$articles_to_be_excluded = array($object->get_id());
-		self::output_about_the_author ($object, $articles_to_be_excluded);
+		$num_articles_still_required = 8;
+		self::output_about_the_author ($object);
+		// Get articles written in the same series
 		if ($object->is_article()) {
-			$articles_in_same_series = $object->get_articles_in_same_series();
-			if (is_array($articles_in_same_series) && count($articles_in_same_series) > 1) {
-				self::output_also_in_this_series ($object, $articles_in_same_series, $articles_to_be_excluded);
+			$articles_in_same_series = $object->get_articles_in_same_series($num_articles_still_required, true);
+			if ($articles_in_same_series) {
+				$num_articles_still_required = $num_articles_still_required - count($articles_in_same_series);
+				$articles_to_be_excluded = array_merge($articles_to_be_excluded, $articles_in_same_series);
+			} else {
+				$articles_in_same_series = array();
 			}
 		}
-		self::output_also_by_author ($object, $articles_to_be_excluded);
-		$sections = $object->get_sections();
-		self::output_also_in_this_section ($sections, $articles_to_be_excluded);
-		echo "</div>";
+		$articles_to_be_included = array();
+		// Get articles written by the same author
+		if ($num_articles_still_required) {
+			$authors = $object->get_authors();
+			if ($authors && is_countable($authors) && count($authors) > 0) {
+				$also_by = $object->get_articles_and_reviews_by_same_authors(min($num_articles_still_required, 4), $articles_to_be_excluded);
+				$num_articles_still_required = $num_articles_still_required - count($also_by);
+				$articles_to_be_excluded = array_merge($articles_to_be_excluded, $also_by);
+				$articles_to_be_included = $also_by;
+			}
+		}
+		// Get articles written in the same section
+		if ($num_articles_still_required) {
+			$sections = $object->get_sections();
+			if ($sections) {
+				foreach ($sections as $section) {
+					$articles_in_same_section = $section->get_articles_and_reviews($num_articles_still_required, $articles_to_be_excluded);
+					if ($articles_in_same_section) {
+						$articles_to_be_included = array_merge ($articles_to_be_included, $articles_in_same_section);
+					}
+				}
+			}
+		}
+		shuffle ($articles_to_be_included);
+		if ($articles_in_same_series) {
+			$articles_to_be_included = array_merge ($articles_in_same_series, $articles_to_be_included);
+		}
+		if ($articles_to_be_included) {
+			echo "<h2 class=\"read-next\">Read next</h2>";
+			foreach ($articles_to_be_included as $article) {
+				$class = ($article->has_series() && ($article->get_series_id() == $object->get_series_id())) ? ' same-series' : '';
+				echo "<div class=\"read-next-article-container{$class}\">";
+				if (has_post_thumbnail($article->get_id())) {
+					echo self::return_background_image_style("read-next-{$article->get_id()}", $article->get_image_url('article_small'));
+					echo '<aside>';
+					echo $article->get_link_html("<div id=\"read-next-{$article->get_id()}\" class=\"article-image image-fit\"></div>");
+					echo "<div class=\"article-title\">{$article->get_title(true)}</div>";
+					echo $article->get_author_names(true, false, 'by ');
+					if ($article->has_series()) {
+						echo " (part {$article->get_series_order()} of {$article->get_series_name(true)})";
+					}
+					echo self::get_likes_html ($article->get_facebook_stats('reactions'));
+					echo '</aside>';
+				}
+				echo '</div>';
+			}
+		}
+		echo '</div>';
 	}
 
 	/**
@@ -538,81 +587,6 @@ class evangelical_mag_theme {
 				echo self::get_author_info_html($author, 'author_small');
 			}
 			echo '</div>';
-		}
-	}
-
-	/**
-	* Outputs the "Also by author" section
-	*
-	* @param evangelical_magazine_article $article - the article this applies to
-	* @param array &$articles_to_be_excluded - an array of article_ids to be excluded (will be modified - passed by reference)
-	* @return void
-	*/
-	private static function output_also_by_author ($article, &$articles_to_be_excluded) {
-		$authors = $article->get_authors();
-		if ($authors) {
-			echo "<div class =\"author-meta\">";
-			$also_by = $article->get_articles_and_reviews_by_same_authors(3, $articles_to_be_excluded);
-			if ($also_by) {
-				$is_single_author = (count($authors) == 1);
-				if ($is_single_author) {
-					$author = current ($authors);
-					echo '<h3>Also by '.$author->get_name(true, false).'</h3>';
-				} else {
-					echo '<h3>Also by these authors</h3>';
-				}
-				foreach ($also_by as $also_article) {
-					echo self::get_small_box_html($also_article, true);
-					$articles_to_be_excluded[] = $also_article->get_id();
-				}
-			}
-			echo '</div>';
-		}
-	}
-
-	/**
-	* Outputs the "Also in this series" section
-	*
-	* @param evangelical_magazine_article $current_article - the current article in the series
-	* @param evangelical_magazine_article[] $articles_in_this_series - an array of articles in this series
-	* @param array &$articles_to_be_excluded - an array of article_ids to be excluded (will be modified - passed by reference)
-	* @return void
-	*/
-	private static function output_also_in_this_series ($current_article, $articles_in_this_series, &$articles_to_be_excluded) {
-		echo "<div class =\"series-meta\"><h2>Also in the {$current_article->get_series_name(true)} series</h2>";
-		$also_articles_array = array(); // We're going to split it into rows of three
-		foreach ($articles_in_this_series as $also_article) {
-			$class = $also_article->get_id() == $current_article->get_id() ? 'current' : '';
-			$also_articles_array[] = self::get_small_box_html($also_article, !(bool)$class, "Part {$also_article->get_series_order()}", $class);
-			$articles_to_be_excluded[] = $also_article->get_id();
-		}
-		$chunked_also_articles_array = array_chunk ($also_articles_array, 3);
-		foreach ($chunked_also_articles_array as $chunk) {
-			echo '<div class="row-wrap">'.implode('', $chunk).'</div>';
-		}
-		echo '</div>';
-	}
-
-	/**
-	* Outputs the "Also in this section" section
-	*
-	* @param evangelical_magazine_section[] $sections - an array of sections the article is in
-	* @param array &$articles_to_be_excluded - an array of article_ids to be excluded (will be modified - passed by reference)
-	* @return void
-	*/
-	private static function output_also_in_this_section ($sections, &$articles_to_be_excluded) {
-		if ($sections) {
-			foreach ($sections as $section) {
-				$articles_in_same_section = $section->get_articles_and_reviews(3, $articles_to_be_excluded);
-				if ($articles_in_same_section) {
-					echo "<div class =\"sections-meta\"><h2>Also in the {$section->get_name(true)} section</h2>";
-					foreach ($articles_in_same_section as $also_article) {
-						echo self::get_small_box_html($also_article, true);
-						$articles_to_be_excluded[] = $also_article->get_id();
-					}
-					echo '</div>';
-				}
-			}
 		}
 	}
 
@@ -1968,30 +1942,6 @@ class evangelical_mag_theme {
 	}
 
 	/**
-	* Returns the HTML which produces the small article box
-	*
-	* @param evangelical_magazine_article $article - the article/review to create the box from
-	* @param bool $add_links - whether links should be added to the article name and image
-	* @param string $sub_title - any subtitle to be added
-	* @param string $class - any CSS classes to be added
-	* @return string
-	*/
-	public static function get_small_box_html($article, $add_links = true, $sub_title = '', $class = '') {
-		if (has_post_thumbnail($article->get_id())) {
-			$output = self::return_background_image_style("article-box{$article->get_id()}", $article->get_image_url('article_large'));
-		} else {
-			$output = '';
-		}
-		$class = $article->is_future() ? ' future' : '';
-		$sub_title = $sub_title ? "<span class=\"sub-title\">{$sub_title}</span>" : '';
-		if ($add_links && !$article->is_future()) {
-			return $output."<aside class=\"small-article-box\">{$sub_title}".$article->get_link_html("<div id=\"article-box{$article->get_id()}\" class=\"article-image image-fit\"></div>")."<div class=\"article-title\">{$article->get_title(true)}</div></aside>";
-		} else {
-			return $output."<aside class=\"small-article-box {$class}\"><div id=\"article-box{$article->get_id()}\" class=\"article-image image-fit\">{$sub_title}</div><div class=\"article-title\">{$article->get_title()}</div></aside>";
-		}
-	}
-
-	/**
 	* Returns the HTML of a thumbnail and name of the author
 	*
 	* @var evangelical_magazine_author - an author object
@@ -2029,5 +1979,19 @@ class evangelical_mag_theme {
 			echo '<style type="text/css">'.implode ("\r\n", $evangelical_mag_styles_for_head).'</style>';
 		}
 		echo $html;
+	}
+
+	/**
+	* Returns the HTML of a thumbs-up icon followed by a number of likes
+	*
+	* @param int $num_likes - the number of likes
+	* @return string
+	*/
+	public static function get_likes_html($num_likes) {
+		if ($num_likes) {
+			$likes = $num_likes > 1 ? 'likes' : 'like';
+			$num_likes = number_format($num_likes);
+			echo "<div class=\"facebook_stats\"><span class=\"magazine-dashicons magazine-dashicons-thumbs-up\"></span> {$num_likes} {$likes}</div>";
+		}
 	}
 }

@@ -118,12 +118,7 @@ class evangelical_magazine_most_popular extends WP_Widget {
 				echo evangelical_mag_theme::return_background_image_style ("popular-article{$article->get_id()}", $article->get_image_url($size));
 				echo "<a href=\"{$article->get_link()}\"><div id=\"popular-article{$article->get_id()}\" class=\"popular-article-cover image-fit\"></div></a>";
 				echo "<div class=\"article-info-wrap\"><div class=\"article-info\">{$article->get_name(true)}{$article->get_author_names(true, false, ' by ')}</div>";
-				$facebook_stats = $article->get_facebook_stats('reactions');
-				if ($facebook_stats) {
-					$likes = $facebook_stats > 1 ? 'likes' : 'like';
-					$stats = number_format($facebook_stats);
-					echo "<div class=\"facebook_stats\"><span class=\"magazine-dashicons magazine-dashicons-thumbs-up\"></span> {$stats} {$likes}</div>";
-				}
+				echo evangelical_mag_theme::get_likes_html($article->get_facebook_stats('reactions'));
 				echo "</div></li>";
 				$size = 'article_small';
 			}

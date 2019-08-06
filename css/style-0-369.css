@@ -463,27 +463,6 @@ body.full-size-header-image .entry-title {
 	padding: 0 20px 10px 20px;
 }
 
-.small-article-box {
-	width: 260px;
-}
-
-.small-article-box .article-image {
-	width: 260px;
-	height: 130px;
-}
-
-.small-article-box:nth-of-type(3n) {
-	margin-left:auto;
-}
-
-.small-article-box:nth-of-type(3n-2) {
-	margin-right: auto;
-}
-
-.small-article-box:last-child {
-	margin-bottom: 0;
-}
-
 img.size-full-post-width {
 	margin-left: -20px;
 	width: 300px;
