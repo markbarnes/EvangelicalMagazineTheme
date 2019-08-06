@@ -748,7 +748,7 @@ class evangelical_mag_theme {
 		$args ['order_by'] = array ('date' => 'DESC');
 		$articles = $author->_get_articles_and_reviews($args);
 		if ($articles) {
-			echo self::get_article_list_box($articles, true, '', false, true);
+			echo self::get_article_list_box($articles, true, '', true);
 		}
 	}
 
@@ -1039,7 +1039,7 @@ class evangelical_mag_theme {
 		$args = evangelical_magazine_issue::_future_posts_args();
 		$args['order'] = 'ASC';
 		$content = $issue->_get_articles_and_reviews($args);
-		$html = self::get_article_list_box($content, true, '', false, true);
+		$html = self::get_article_list_box($content, true, '', true);
 		echo ($html) ? $html : '<div class="article-list-box"><p>Coming soon.</p></div>';
 	}
 
@@ -1065,7 +1065,7 @@ class evangelical_mag_theme {
 		$args['paged'] = $current_page;
 		$articles = $section->_get_articles_and_reviews ($args);
 		if ($articles) {
-			echo "<div class=\"section-page\">".self::get_article_list_box($articles, true, '', false, true)."</div>";
+			echo "<div class=\"section-page\">".self::get_article_list_box($articles, true, '', true)."</div>";
 		} else {
 			echo '<div class="article-list-box"><p>Coming soon.</p></div>';
 		}
@@ -1094,7 +1094,7 @@ class evangelical_mag_theme {
 			foreach ($articles as $article) {
 				$article_array[0] = $article;
 				$heading = ($article->is_future()) ? array('text' => "Part {$article->get_series_order()}", 'class' => 'future') : "Part {$article->get_series_order()}";
-				echo self::get_article_list_box($article_array, false, $heading, false, true);
+				echo self::get_article_list_box($article_array, false, $heading, true);
 			}
 			echo "</div>";
 		} else {
@@ -1268,11 +1268,10 @@ class evangelical_mag_theme {
 	* @param evangelical_magazine_article[]|evangelical_magazine_review[] $content - an array of articles and/or reviews
 	* @param bool $make_first_image_bigger - true if the first image will be larger
 	* @param string $heading - a text string to add as a heading
-	* @param bool $shrink_text_if_long - true if long text is to be shortened
 	* @param bool $add_facebook_likes - true if Facebook stats are to be added in the boxes
 	* @return string - the HTML
 	*/
-	public static function get_article_list_box($content, $make_first_image_bigger = true, $heading = '', $shrink_text_if_long = false, $add_facebook_likes = false) {
+	public static function get_article_list_box($content, $make_first_image_bigger = true, $heading = '', $add_facebook_likes = false) {
 		if ($content) {
 			$output = "<div class=\"article-list-box\">";
 			if ($heading) {
@@ -1295,8 +1294,7 @@ class evangelical_mag_theme {
 				$class = $class ? " class=\"{$class}\"" : '';
 				$output .= "<li{$class}>{$image_html}";
 				$title = $article->get_title();
-				$style = ($shrink_text_if_long && strlen($title) > 35) ? ' style="font-size:'.round(35/strlen($title)*1,2).'em"' : '';
-				$output .= "<div class=\"title-author-wrapper\"><span class=\"article-list-box-title\"><span{$style}>{$article->get_title(true)}</span></span><span class=\"article-list-box-author\"><br/>{$article->get_author_names(!$article->is_future(), false, 'by ')}</span>";
+				$output .= "<div class=\"title-author-wrapper\"><span class=\"article-list-box-title\"><span>{$article->get_title(true)}</span></span><span class=\"article-list-box-author\"><br/>{$article->get_author_names(!$article->is_future(), false, 'by ')}</span>";
 				if ($article->is_future()) {
 					$output .= "<br/><span class=\"article-list-box-coming-soon\">Coming {$article->get_coming_date()}</span>";
 				} elseif ($add_facebook_likes && ($likes = $article->get_facebook_stats('reactions'))) {
@@ -1896,7 +1894,7 @@ class evangelical_mag_theme {
 				$args['paged'] = (int)($_POST['display']);
 				$articles = $section->_get_articles_and_reviews ($args);
 				if ($articles) {
-					echo "<div class=\"section-page\">".self::get_article_list_box($articles, true, '', false, true)."</div>";
+					echo "<div class=\"section-page\">".self::get_article_list_box($articles, true, '', true)."</div>";
 					if ($evangelical_mag_styles_for_head) {
 						echo '<style type="text/css">'.implode ("\r\n", $evangelical_mag_styles_for_head).'</style>';
 					}
