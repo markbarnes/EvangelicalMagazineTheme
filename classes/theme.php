@@ -481,14 +481,13 @@ class evangelical_mag_theme {
 		$articles_to_be_excluded = array($object->get_id());
 		$num_articles_still_required = 8;
 		self::output_about_the_author ($object);
+		$articles_in_same_series = array();
 		// Get articles written in the same series
 		if ($object->is_article()) {
 			$articles_in_same_series = $object->get_articles_in_same_series($num_articles_still_required, true);
 			if ($articles_in_same_series) {
 				$num_articles_still_required = $num_articles_still_required - count($articles_in_same_series);
-				$articles_to_be_excluded = array_merge($articles_to_be_excluded, $articles_in_same_series);
-			} else {
-				$articles_in_same_series = array();
+				$articles_to_be_excluded = array_merge($articles_to_be_excluded, evangelical_magazine::get_ids_from_objects($articles_in_same_series));
 			}
 		}
 		$articles_to_be_included = array();
@@ -498,7 +497,7 @@ class evangelical_mag_theme {
 			if ($authors && is_countable($authors) && count($authors) > 0) {
 				$also_by = $object->get_articles_and_reviews_by_same_authors(min($num_articles_still_required, 4), $articles_to_be_excluded);
 				$num_articles_still_required = $num_articles_still_required - count($also_by);
-				$articles_to_be_excluded = array_merge($articles_to_be_excluded, $also_by);
+				$articles_to_be_excluded = array_merge($articles_to_be_excluded, evangelical_magazine::get_ids_from_objects($also_by));
 				$articles_to_be_included = $also_by;
 			}
 		}
