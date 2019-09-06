@@ -1780,9 +1780,10 @@ h2.read-next {
 
 .read-next-article-container.same-series {
 	background-color: #ecf9fe;
-	border: 5px solid #ecf9fe;
+	border: 10px solid #ecf9fe;
 	min-height: 80px;
-	margin-left: -5px;
+	margin-left: -10px;
+	margin-top: -10px;
 }
 
 .read-next-article-container .article-image {

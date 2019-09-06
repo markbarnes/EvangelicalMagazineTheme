@@ -523,7 +523,7 @@ class evangelical_mag_theme {
 		if ($articles_to_be_included) {
 			echo "<h2 class=\"read-next\">Read next</h2>";
 			foreach ($articles_to_be_included as $article) {
-				$class = ($article->has_series() && $object->has_series && ($article->get_series_id() == $object->get_series_id())) ? ' same-series' : '';
+				$class = ($article->has_series() && $object->has_series() && ($article->get_series_id() == $object->get_series_id())) ? ' same-series' : '';
 				echo "<div class=\"read-next-article-container{$class}\">";
 				if (has_post_thumbnail($article->get_id())) {
 					echo self::return_background_image_style("read-next-{$article->get_id()}", $article->get_image_url('article_small'));
