@@ -1060,7 +1060,7 @@ class evangelical_mag_theme {
 			echo $navigation_index;
 		}
 		echo '<div id="archive-results">';
-		$current_page = isset($_GET['em_section_page']) ? int($_GET['em_section_page']) : 1;
+		$current_page = isset($_GET['em_section_page']) ? (int)$_GET['em_section_page'] : 1;
 		$args['posts_per_page'] = $articles_per_page;
 		$args['paged'] = $current_page;
 		$articles = $section->_get_articles_and_reviews ($args);
