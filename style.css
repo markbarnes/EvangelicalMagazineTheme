@@ -1670,7 +1670,7 @@ img.size-half-post-width.alignright {
 	color: #086788;
 	font-family: 'League Gothic', 'Impact', 'Franklin Gothic Medium', sans-serif;
 	font-weight: 400;
-	line-height: 1.2;
+	line-height: 1em;
 	margin: 0 0 10px 0;
 
 }
@@ -1922,13 +1922,15 @@ body.single-em_article .entry-title-series a {
 
 body.single-em_article #like-share-tweet {
 	margin-bottom: 20px;
-	line-height: 1em;
 	float: right;
 }
 
 body.single-em_article #like-share-tweet .twitter-share-button {
-	vertical-align: bottom;
 	margin-left: 3px;
+}
+
+body.single-em_article #like-share-tweet .fb-like > span {
+	vertical-align: baseline !important;
 }
 
 body.single-em_article #subscription-form {

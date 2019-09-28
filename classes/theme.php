@@ -566,7 +566,7 @@ class evangelical_mag_theme {
 		echo "<div class=\"found-helpful\">Found this helpful? Like, share or tweet ";
 		echo "<div id=\"like-share-tweet\">";
 		echo "<div class=\"fb-like\" data-href=\"{$article->get_link()}\" data-size=\"large\" data-layout=\"button_count\" data-action=\"like\" data-show-faces=\"true\" data-share=\"true\"></div>";
-		echo "<span style=\"vertical-align: bottom; height: 28px;\"><a href=\"https://twitter.com/share?ref_src=twsrc%5Etfw\" class=\"twitter-share-button\" data-size=\"large\" data-url=\"{$article->get_link()}\" data-related=\"EvangelicalMag\" data-dnt=\"true\" data-show-count=\"true\"></a><script async src=\"https://platform.twitter.com/widgets.js\" charset=\"utf-8\"></script></span>";
+		echo "<a href=\"https://twitter.com/share?ref_src=twsrc%5Etfw\" class=\"twitter-share-button\" data-size=\"large\" data-url=\"{$article->get_link()}\" data-related=\"EvangelicalMag\" data-dnt=\"true\" data-show-count=\"true\"></a><script async src=\"https://platform.twitter.com/widgets.js\" charset=\"utf-8\"></script>";
 		echo "</div></div>";
 	}
 
