@@ -359,15 +359,22 @@ class evangelical_mag_theme {
 	*/
 	public static function add_author_issue_banner ($post_info) {
 		global $post;
+		$image_size = 'author_tiny';
 		if ($post && $post->post_type == 'em_article') {
 			$article = new evangelical_magazine_article($post);
 			$authors = $article->get_authors();
 			$output = '<span class="authors">';
 			if ($authors) {
 				foreach ($authors as $author) {
-				$output .= "<a href=\"{$author->get_link()}\">{$author->get_image_html('author_tiny', false, '', $author->get_name(), 'author-image')}</a>";
+					$image_output = $author->get_image_html($image_size, false, '', $author->get_name(), 'author-image');
+					if (self::smaller_webp_file_exists($author->get_image_url($image_size))) {
+						$image_output = "<picture><source srcset=\"{$author->get_image_url($image_size)}.webp\" type=\"image/webp\">{$image_output}</picture>";
+					}
+					$output .= "<a href=\"{$author->get_link()}\">{$image_output}</a>";
 				}
-				$output .= $article->get_author_names(true, true);
+				if (count($authors) == 1) {
+					$output .= $article->get_author_names(true, true);
+				}
 			}
 			$output .= '</span>';
 			$output .= "<span class=\"reading-time\">{$article->get_reading_time()} minute read</span>";
@@ -1952,8 +1959,7 @@ class evangelical_mag_theme {
 		$alt_text = htmlspecialchars($author->get_name(), ENT_HTML5);
 		$image_output = "<img class=\"author-image\" alt=\"{$alt_text}\" src=\"{$author->get_image_url($image_size)}\"/>";
 		if (self::smaller_webp_file_exists($author->get_image_url($image_size))) {
-			$image_output = "{$image_output}</picture>";
-			$image_output = "<picture><source srcset=\"{$author->get_image_url($image_size)}.webp\" type=\"image/webp\">".$image_output;
+			$image_output = "<picture><source srcset=\"{$author->get_image_url($image_size)}.webp\" type=\"image/webp\">{$image_output}</picture>";
 		}
 		return "<div class=\"author-info\">".$author->get_link_html($image_output)."<div class=\"author-description\">{$author->get_description()}</div></div>";
 	}
