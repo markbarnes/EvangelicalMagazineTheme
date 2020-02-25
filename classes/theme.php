@@ -1676,7 +1676,7 @@ class evangelical_mag_theme {
 		if ($article->is_article() && $article->has_series()) {
 			$series = $article->get_series();
 			$articles_in_series = $series->get_articles(-1, array(), evangelical_magazine_series::_future_posts_args());
-			if ($series && count($articles_in_series) > 1) {
+			if ($series && is_countable ($articles_in_series) && count($articles_in_series) > 1) {
 				echo "<div id=\"series-contents\">";
 				echo "<h3>{$series->get_name (true)}</h3>";
 				echo "<ul>";
